@@ -38,6 +38,9 @@ const { entry, label, go } = useAuthEntry(props.segment)
         <router-link to="/privathalter">
           Für Privathalter
         </router-link>
+        <router-link to="/ratgeber">
+          Ratgeber
+        </router-link>
         <router-link
           v-if="entry !== 'app'"
           to="/login"
