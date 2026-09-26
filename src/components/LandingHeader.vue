@@ -38,9 +38,10 @@ const { entry, label, go } = useAuthEntry(props.segment)
         <router-link to="/privathalter">
           Für Privathalter
         </router-link>
-        <router-link to="/ratgeber">
+        <!-- Ratgeber ist fertiges HTML ausserhalb der App (src/lib/ratgeber.ts): voller Seitenwechsel, kein Router -->
+        <a href="/ratgeber">
           Ratgeber
-        </router-link>
+        </a>
         <router-link
           v-if="entry !== 'app'"
           to="/login"

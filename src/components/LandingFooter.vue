@@ -21,9 +21,10 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
         <router-link to="/hilfe">
           Hilfe
         </router-link>
-        <router-link to="/ratgeber">
+        <!-- Ratgeber ist fertiges HTML ausserhalb der App (src/lib/ratgeber.ts): voller Seitenwechsel, kein Router -->
+        <a href="/ratgeber">
           Ratgeber
-        </router-link>
+        </a>
         <router-link to="/impressum">
           Impressum
         </router-link>

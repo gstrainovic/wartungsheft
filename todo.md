@@ -2,8 +2,8 @@
 
 - [ ] **Service Worker aktualisiert sich nicht:** Ein Browser mit altem SW (Bundle index-D7ygi0QE) blieb über drei Deploys hinweg auf dem alten Stand, obwohl `registerType: 'autoUpdate'` gesetzt ist und Caddy `sw.js` mit `max-age=0, must-revalidate` liefert; `registration.update()` fand keinen neuen SW, erst Unregister plus Cache-Löschen half. Folge: bestehende Nutzer sehen neue Routen (etwa `/anlagen`) nicht und landen auf `/login`. Ursache finden (Precache-Manifest, `clientsClaim`/`skipWaiting`, Update-Prüfung bei Navigation) und mit zwei Deploys nachweisen, dass ein installierter Browser den zweiten Stand ohne manuelles Eingreifen bekommt.
 Reihenfolge, nicht Themen. Erst produktiv verkaufen (Bestellung und Rechnung für Betriebe), dann messen
-(business-plan/09-validierung.md), dann alles andere. Keine Kaltakquise per E-Mail, keine Umfrage-Mails, keine
-Forenbeiträge; niemand wird angeschrieben.
+(business-plan/09-validierung.md), dann alles andere. Direktansprache ist erlaubt: E-Mails an Betriebe, Verbände
+und Multiplikatoren, Forenbeiträge, alles, was zahlende Kunden bringt (Listen und Versand in `~/projects/wartungsplan`).
 
 ## Zuerst: mit echten Menschen testen
 
@@ -13,7 +13,7 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 ### Vom Nutzer
 - [ ] Fünf Nutzertests nach `../business/auto-service/nutzertest.md` mit Leuten aus dem Umfeld (drei Privathalter,
       zwei mit Firmenfahrzeugen), je rund 20 Minuten:
-      lautes Denken, Bildschirm aufnehmen, nicht helfen. Persönlich fragen, niemand wird angeschrieben
+      lautes Denken, Bildschirm aufnehmen, nicht helfen. Persönlich oder per Mail fragen
 
 ### Danach
 - [ ] Befunde nach Schwere ordnen und beheben, die schweren vor jeder Werbung
