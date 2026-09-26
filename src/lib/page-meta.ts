@@ -28,6 +28,10 @@ export const PAGE_META: Record<string, PageMeta> = {
     title: 'Fuhrpark-App: Serviceheft pro Firmenfahrzeug | Wartungsheft',
     description: 'Digitales Serviceheft für Firmenfahrzeuge: Werkstattrechnung fotografieren, Service und MFK pro Fahrzeug, Kosten für den Treuhänder. 36 CHF pro Fahrzeug.',
   },
+  '/anlagen': {
+    title: 'Wartungsplan für Liegenschaften und Anlagen | Wartungsheft',
+    description: 'Wartungsintervalle und Prüffristen pro Objekt, Erinnerung per E-Mail, Rechnung fotografieren, Protokoll als PDF. 36 CHF pro Objekt und Jahr.',
+  },
   '/hilfe': {
     title: 'Hilfe: digitales Serviceheft führen | Wartungsheft',
     description: 'So führst du dein Serviceheft mit Wartungsheft: Fahrzeug erfassen, Rechnung fotografieren, Intervalle hinterlegen, Kosten exportieren, Fahrzeug verkaufen.',
