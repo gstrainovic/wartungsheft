@@ -1,5 +1,6 @@
 # todo.md
 
+- [ ] **Service Worker aktualisiert sich nicht:** Ein Browser mit altem SW (Bundle index-D7ygi0QE) blieb über drei Deploys hinweg auf dem alten Stand, obwohl `registerType: 'autoUpdate'` gesetzt ist und Caddy `sw.js` mit `max-age=0, must-revalidate` liefert; `registration.update()` fand keinen neuen SW, erst Unregister plus Cache-Löschen half. Folge: bestehende Nutzer sehen neue Routen (etwa `/anlagen`) nicht und landen auf `/login`. Ursache finden (Precache-Manifest, `clientsClaim`/`skipWaiting`, Update-Prüfung bei Navigation) und mit zwei Deploys nachweisen, dass ein installierter Browser den zweiten Stand ohne manuelles Eingreifen bekommt.
 Reihenfolge, nicht Themen. Erst produktiv verkaufen (Bestellung und Rechnung für Betriebe), dann messen
 (business-plan/09-validierung.md), dann alles andere. Keine Kaltakquise per E-Mail, keine Umfrage-Mails, keine
 Forenbeiträge; niemand wird angeschrieben.
