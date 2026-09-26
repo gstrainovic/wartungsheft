@@ -53,9 +53,8 @@ function vorbestellen() {
         <strong>36 CHF pro Objekt und Jahr</strong>
         <span>Ab 20 Objekten günstiger, keine Benutzergebühren, Jahresrechnung mit QR-Zahlteil auf die Firma. 30 Tage gratis, wie beim Serviceheft für Fahrzeuge.</span>
         <p class="anlagen-vorbestellung">
-          Gebaut wird, sobald 10 Betriebe vorbestellt haben. Du zahlst erst bei Lieferung; Liefertermin ist vier
-          Wochen nach der zehnten Vorbestellung. Schreib uns, wie viele Objekte du betreust und womit du heute
-          arbeitest.
+          Wir bauen ab der ersten Bestellung. Lieferung vier Wochen nach deiner Bestellung, du zahlst erst bei
+          Lieferung. Schreib uns, wie viele Objekte du betreust und womit du heute arbeitest.
         </p>
         <div class="anlagen-actions">
           <Button label="Vorbestellen per E-Mail" size="large" icon="pi pi-envelope" icon-pos="right" @click="vorbestellen" />
