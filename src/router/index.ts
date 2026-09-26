@@ -13,6 +13,7 @@ const routes = [
   { path: '/hilfe', component: () => import('../pages/HilfePage.vue'), meta: { public: true } },
   { path: '/betrieb', component: () => import('../pages/BetriebPage.vue'), meta: { public: true } },
   { path: '/privathalter', component: () => import('../pages/PrivathalterPage.vue'), meta: { public: true } },
+  { path: '/anlagen', component: () => import('../pages/AnlagenPage.vue'), meta: { public: true } },
   // Inserat-Adressen: Besuch zählen, dann auf die passende Landing Page
   ...Object.entries(CAMPAIGNS).map(([name, target]) => ({
     path: `/${name}`,

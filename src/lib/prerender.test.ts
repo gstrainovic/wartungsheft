@@ -3,7 +3,7 @@ import { hidePrerendered, markPrerendered, PRERENDER_PATHS, prerenderFile } from
 
 describe('seiten zum Vorrendern', () => {
   it('sind die öffentlichen Einstiegsseiten', () => {
-    expect(PRERENDER_PATHS).toEqual(['/', '/privathalter', '/betrieb', '/hilfe'])
+    expect(PRERENDER_PATHS).toEqual(['/', '/privathalter', '/betrieb', '/anlagen', '/hilfe'])
   })
 })
 
