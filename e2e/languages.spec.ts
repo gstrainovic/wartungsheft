@@ -6,9 +6,9 @@ import { expect, test } from './fixtures/test-fixtures'
 // Deutsch bleibt ohne Präfix, damit bestehende Links weiter gelten.
 const SEITEN = ['/', '/privathalter', '/betrieb', '/anlagen', '/hilfe', '/impressum', '/datenschutz', '/agb', '/login']
 
-/** Interne Links einer Seite, ohne Sprachwahl, Mail und Verweis auf die massgebende deutsche Fassung */
+/** Interne Links einer Seite, ohne die Sprachwahl im Kopf (sie führt absichtlich in die anderen Sprachen) */
 async function interneLinks(page: import('@playwright/test').Page): Promise<string[]> {
-  return page.locator('a[href^="/"]').evaluateAll(links => links.map(a => a.getAttribute('href')!))
+  return page.locator('a[href^="/"]:not([data-testid="language-switch"] a)').evaluateAll(links => links.map(a => a.getAttribute('href')!))
 }
 
 test.describe('Sprachfassungen', () => {
@@ -39,11 +39,14 @@ test.describe('Sprachfassungen', () => {
 
   test('LANG-002: Sprachwahl im Kopf wechselt auf dieselbe Seite in der anderen Sprache und zurück', async ({ page }) => {
     await page.goto('/betrieb')
-    await page.getByTestId('language-switch').selectOption('it')
+    // Links wie auf strainovic-it.ch statt Auswahlliste (deren Liste war im dunklen Design unlesbar)
+    const sprachwahl = page.getByRole('navigation', { name: 'Sprache' })
+    await expect(sprachwahl.getByRole('link', { name: 'DE' })).toHaveAttribute('aria-current', 'true')
+    await sprachwahl.getByRole('link', { name: 'IT' }).click()
     await expect(page).toHaveURL(/\/it\/betrieb$/)
     await expect(page.getByRole('heading', { level: 1 })).toContainText('veicoli aziendali')
     await expect(page.getByRole('table', { name: 'Listino prezzi' }).getByRole('row').filter({ hasText: '10 veicoli' })).toContainText('CHF 360.00')
-    await page.getByTestId('language-switch').selectOption('de')
+    await page.getByRole('navigation', { name: 'Lingua' }).getByRole('link', { name: 'DE' }).click()
     await expect(page).toHaveURL(/\/betrieb$/)
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Firmenfahrzeuge')
   })
@@ -56,6 +59,32 @@ test.describe('Sprachfassungen', () => {
     expect(links).toContain('/impressum')
     expect(links).toContain('/ratgeber')
     expect(links.filter(l => /^\/(?:fr|it|en)(?:\/|$|#)/.test(l))).toEqual([])
+  })
+
+  test('LANG-006: Ratgeber steht nur im Fuss, nicht im Kopf', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.getByRole('banner').getByRole('link', { name: 'Ratgeber' })).toHaveCount(0)
+    await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Ratgeber' })).toBeVisible()
+  })
+
+  test('LANG-007: Hell-Dunkel-Schalter im Kopf wechselt das Design und merkt es sich', async ({ page }) => {
+    await page.addInitScript(() => {
+      if (!sessionStorage.getItem('theme-set')) {
+        localStorage.setItem('theme', 'light')
+        sessionStorage.setItem('theme-set', '1')
+      }
+    })
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/fr')
+    const schalter = page.getByRole('banner').getByRole('switch', { name: 'Thème sombre' })
+    await expect(schalter).toHaveAttribute('aria-checked', 'false')
+    await expect(page.locator('html')).not.toHaveClass(/dark-mode/)
+    await schalter.click()
+    await expect(page.locator('html')).toHaveClass(/dark-mode/)
+    await expect(schalter).toHaveAttribute('aria-checked', 'true')
+    await page.reload()
+    await expect(page.locator('html')).toHaveClass(/dark-mode/)
+    await expect(page.getByRole('banner').getByRole('switch', { name: 'Thème sombre' })).toHaveAttribute('aria-checked', 'true')
   })
 
   for (const sprache of PRAEFIXE) {

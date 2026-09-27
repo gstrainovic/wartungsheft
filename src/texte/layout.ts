@@ -12,9 +12,9 @@ const de = {
     preise: 'Preise',
     betrieb: 'Für Betriebe',
     privat: 'Für Privathalter',
-    ratgeber: 'Ratgeber',
   },
   sprachwahl: 'Sprache',
+  dunkel: 'Dunkles Design',
   fuss: {
     hinweis: 'Schweizer Server, KI in der EU. Deine Daten gehören dir: jederzeit exportieren, auf Wunsch löschen wir das Konto.',
     fragen: 'Fragen?',
@@ -41,9 +41,9 @@ export default {
       preise: 'Prix',
       betrieb: 'Pour les entreprises',
       privat: 'Pour les particuliers',
-      ratgeber: 'Guide',
     },
     sprachwahl: 'Langue',
+    dunkel: 'Thème sombre',
     fuss: {
       hinweis: 'Serveurs en Suisse, IA dans l\'UE. Vos données vous appartiennent : exportables à tout moment, nous supprimons le compte sur demande.',
       fragen: 'Des questions ?',
@@ -66,9 +66,9 @@ export default {
       preise: 'Prezzi',
       betrieb: 'Per le aziende',
       privat: 'Per i privati',
-      ratgeber: 'Guida',
     },
     sprachwahl: 'Lingua',
+    dunkel: 'Tema scuro',
     fuss: {
       hinweis: 'Server in Svizzera, IA nell\'UE. I tuoi dati sono tuoi: esportabili in ogni momento, su richiesta cancelliamo l\'account.',
       fragen: 'Domande?',
@@ -91,9 +91,9 @@ export default {
       preise: 'Pricing',
       betrieb: 'For businesses',
       privat: 'For private owners',
-      ratgeber: 'Guide',
     },
     sprachwahl: 'Language',
+    dunkel: 'Dark theme',
     fuss: {
       hinweis: 'Servers in Switzerland, AI in the EU. Your data belongs to you: export it any time, and we delete the account on request.',
       fragen: 'Questions?',
