@@ -18,8 +18,6 @@ Führe Playwright E2E-Tests aus.
 1. InstantDB Server muss laufen (nutze `/instantdb-start`)
 2. Dev-Server startet automatisch via Playwright
 
-Aus der früheren CLAUDE.md hierher verschoben (21.09.2026), Wortlaut unverändert.
-
 ## E2E Testing
 
 ### Architektur

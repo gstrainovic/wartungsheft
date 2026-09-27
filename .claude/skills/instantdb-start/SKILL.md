@@ -1,7 +1,7 @@
 ---
 name: instantdb-start
 description: >
-  InstantDB starten/stoppen/Status lokal — plus Betrieb, Produktion und Auth der self-hosted InstantDB. Use when der lokale Server verwaltet wird oder Infomaniak/Produktion, PostgreSQL-Debug, Google-Login, Magic-Code-Auth (Resend), Anmelde-Einstieg oder der Unterschied zu RxDB gebraucht wird.
+  InstantDB starten/stoppen/Status lokal, Konfiguration, Integrationstests, Entwickeln ohne Docker (Dev-Instanz per SSH-Tunnel) — plus Betrieb, Produktion und Auth der self-hosted InstantDB. Use when der lokale Server verwaltet wird, auf einem PC ohne Podman entwickelt wird oder Infomaniak/Produktion, PostgreSQL-Debug, Google-Login, Magic-Code-Auth (Resend), Anmelde-Einstieg oder InstantDB-Eigenheiten (UUIDs, Offline) gebraucht werden.
 ---
 
 Verwalte den lokalen InstantDB Server.
@@ -30,11 +30,56 @@ podman exec server_postgres_1 psql -U instant -d instant -c "SELECT * FROM apps;
 - HTTP API: `localhost:8888` (via Vite-Proxy: `/instant-api`)
 - WebSocket: `ws://localhost:8888/runtime/session`
 
+## Konfiguration (lokal)
+- App-ID: `cd7e6912-773b-4ee1-be18-4d95c3b20e9f` (`LOCAL_APP_ID`)
+- HTTP API: via Vite-Proxy `/instant-api → localhost:8888`
+- WebSocket: `ws://localhost:8888/runtime/session`
+- Server-Config: `~/instant/server/resources/config/override.edn`
+- DevTools deaktiviert (`devtool: false`), der Toggle-Button blockiert UI-Klicks auch in Tests
+
 ## Troubleshooting
 - Container nicht gefunden: `podman-compose` statt `docker-compose` auf Fedora
-- App-ID: `cd7e6912-773b-4ee1-be18-4d95c3b20e9f`
 
-Aus der früheren CLAUDE.md hierher verschoben (21.09.2026), Wortlaut unverändert.
+## Integrationstests (Repo ai-proxy)
+- `src/stores/instant.test.ts` und `src/auth/instant.test.ts` laufen gegen den lokalen InstantDB-Server und werden
+  übersprungen, wenn er nicht läuft. Test-Token: `db.auth.createToken(email)` (Admin-SDK 0.22).
+
+## Entwickeln ohne Docker: Dev-InstantDB auf Infomaniak per SSH-Tunnel
+
+Alles im Repo spricht InstantDB nur über `localhost:8888` an (`instant-config.ts`, Vite-Proxy `/instant-api`, `scripts/dev.sh`,
+Playwright, die Offline-Fixture). Darum reicht auf einem PC ohne Docker oder Podman ein SSH-Tunnel zu einer Dev-Instanz;
+am Code ändert sich nichts.
+
+- **Instanz** `wartungsheft-dev` im selben OpenStack-Projekt wie die Produktion (PCP-CTPZLR8, dc3-a, Flavor
+  `a2-ram4-disk50-perf1`, Debian 13, Docker CE), Zugriff `ssh debian@195.15.207.253` mit dem Key `claude-laptop`.
+  Security Group `default`: nur 22, 80 und 443 offen; der Stack bindet 8888 ausschliesslich auf `127.0.0.1`.
+- **Stack** in `/opt/instant`: `docker-compose.dev.yml` (Postgres 17, MinIO, `ghcr.io/instantdb/server:latest` mit 2-GB-Heap,
+  gleiche Images wie Produktion, ohne Caddy und Dashboard), Passwörter in `/opt/instant/.env`, AEAD-Schlüssel des
+  Servers im Volume `instant_server_config` (`override.edn`, derselbe wie im lokalen Dev-Checkout, damit der Dump lesbar bleibt).
+- **Daten**: Dump der lokalen Dev-Datenbank, also dieselbe App `cd7e6912-773b-4ee1-be18-4d95c3b20e9f`
+  (`LOCAL_APP_ID`) mit demselben Admin-Token wie in `.env`. Die E2E-Tests leeren die App vor jedem Test, Daten dort sind Wegwerfdaten.
+- **Ablauf auf dem anderen PC** (braucht Node, Git, Playwright-Browser, den SSH-Key und `.env` aus der Mail an sich selbst):
+
+  ```bash
+  ssh -N -L 8888:localhost:8888 debian@195.15.207.253 &   # Tunnel, läuft im Hintergrund
+  npm run dev          # dev.sh sieht «InstantDB already running», startet nur Vite und AI-Proxy
+  npm run test:e2e     # Playwright übernimmt den laufenden Port 8888 (reuseExistingServer)
+  ```
+
+  Kein Podman, kein `~/instant`-Checkout nötig. Offline-Tests funktionieren, sie blockieren `localhost:8888` im Browser.
+- **Stack bedienen** (auf der Instanz, in `/opt/instant`): `docker compose -f docker-compose.dev.yml --env-file .env ps|logs|restart server`.
+  Nach `up -d` dauert es rund eine Minute, bis 8888 antwortet; `curl localhost:8888/health/system` muss `{"wal":"ok"}` liefern.
+- **Kosten**: läuft sie, kostet sie wie die Produktion (rund 13 CHF im Monat mit IPv4). Wird sie länger nicht gebraucht:
+  `openstack --os-cloud PCP-CTPZLR8-dc3-a server shelve wartungsheft-dev` (kein CPU/RAM/Disk mehr, nur Snapshot und IPv4,
+  IP bleibt), zurück mit `server unshelve`, danach `up -d` läuft dank `restart: unless-stopped` von selbst.
+  Der Kostenwächter `~/.local/bin/wartungsheft-cost-watch` rechnet geshelvte Instanzen ohne Compute, Limit 30 CHF.
+- **Neu aufsetzen**: Dump der lokalen Dev-DB (`podman exec server_postgres_1 pg_dump -U instant -Fc instant > dev.dump`)
+  nach `/opt/instant`, dann `pg_restore -U instant -d instant --no-owner < dev.dump` in den laufenden Postgres,
+  `truncate attr_sketches, wal_aggregator_status, wal_logs` (abgeleitete Daten, sonst stirbt der Serverstart an
+  Duplikaten, siehe README «Backup») und `delete from config where k = 'wal-errors'` (der Dump trägt sonst den
+  WAL-Fehler eines längst toten Prozesses mit, `/health/system` bleibt dann auf `{"wal":"error"}`), dann `up -d`.
+- **Nicht**: die Produktionsinstanz für Entwicklung mitnutzen. 4 GB RAM sind mit dem 2-GB-Heap der Produktion belegt,
+  und ein zweiter Stack auf derselben Maschine gefährdet die Kundendaten.
 
 ### Produktion (Infomaniak Public Cloud, wartungsheft.ch)
 - Anleitung: `README.md` → "Produktion". Instanz `wartungsheft` (OpenStack-Projekt PCP-CTPZLR8, Region dc3-a,
@@ -99,8 +144,9 @@ Aus der früheren CLAUDE.md hierher verschoben (21.09.2026), Wortlaut unverände
 - Frontend-SDK: `db.auth.sendMagicCode()`, `db.auth.signInWithMagicCode()`, `db.useAuth()`
 - Erweiterbar: Google/Apple/GitHub OAuth eingebaut, Passkeys via Custom Auth
 
-### InstantDB vs RxDB Unterschiede
-- **Entity-IDs müssen UUIDs sein** — keine beliebigen Strings (z.B. SHA-256 Hashes)
+### InstantDB-Eigenheiten
+- **Entity-IDs müssen UUIDs sein** — keine beliebigen Strings (z.B. SHA-256 Hashes); `id()` verwenden, Hashes als
+  eigenes Feld speichern. OCR-Cache: `tx.ocrcache[id()].update({ hash, markdown, ... })` statt `tx.ocrcache[hash].update(...)`
 - **Schemaless** — keine Schema-Definition nötig, Felder werden dynamisch erstellt
 - **Echtzeit-Sync** — Änderungen werden sofort an alle Clients gepusht
 - **Offline-First** — Daten in IndexedDB, Lesen+Schreiben funktionieren offline, Sync via CRDT bei Reconnect

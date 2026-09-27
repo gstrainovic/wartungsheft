@@ -1,10 +1,20 @@
 ---
 name: mistral-limits
 description: >
-  Mistral-Grenzen, Rate-Limits und Datenschutz für Vision, OCR und die API-Tiers. Use when Bildzahl/Dateigrösse/DPI/Seitenlimits, Rate-Limits (RPS, Tokens/Min), Tier-Wahl (Experiment/Scale) oder Mistral-Datenschutz (Training-Opt-out) zu klären sind.
+  Mistral als AI-Provider: Modelle, OCR-Pipeline, Grenzen, Rate-Limits und Datenschutz für Vision, OCR und die API-Tiers. Use when ein Modell gewählt oder ai.ts geändert wird, oder wenn Bildzahl/Dateigrösse/DPI/Seitenlimits, Rate-Limits (RPS, Tokens/Min), Tier-Wahl (Experiment/Scale) oder Mistral-Datenschutz (Training-Opt-out) zu klären sind.
 ---
 
-Aus der früheren CLAUDE.md hierher verschoben (21.09.2026), Wortlaut unverändert.
+## Modelle und Aufrufe
+- Mistral ist der einzige Provider (Vercel AI SDK v6, `@ai-sdk/mistral`); nur Mistral hat die OCR-Pipeline, und bei
+  ~0.5 Cent pro Rechnungsscan lohnt sich eigenes GPU-Hosting nicht.
+- Welches Modell an welchen Endpunkt gehört, sagt `GET /v1/models`: das Feld `capabilities` unterscheidet
+  `completion_chat`, `audio_transcription`, `audio_transcription_realtime` und `audio_speech`. Produktnamen aus der
+  Dokumentation sind keine Modell-IDs.
+- Chat/Vision-Modell: `mistral-small-latest` (`DEFAULT_MODEL` in `ai.ts`). OCR: `mistral-ocr-latest` per direktem
+  Fetch auf `/v1/ocr`.
+- Alle Dokument-Parser laufen über die Zwei-Stufen-Pipeline OCR → Chat (`parseWithOcrPipeline`).
+- Der Client kennt keinen Mistral-Key: alles läuft über den AI-Proxy (`getModel({ access, model? })`,
+  `sendChatMessage(messages, opts)`), der Key steht als `MISTRAL_API_KEY` in `.env` des Proxys.
 
 ## Mistral Vision Limits (Chat-Modell: mistral-small-latest)
 Quelle: docs.mistral.ai/capabilities/vision
