@@ -4,8 +4,6 @@ description: >
   Bedien- und Kommunikationsfunktionen der App: Diktieren, Rückmeldungen, Hilfeseite/Auffindbarkeit, Werbefilme und die Ablaufprüfung. Use when an Diktat (useDictation, transcribe), FeedbackDialog, /hilfe, SEO/llms.txt, Werbefilmen oder der Kernablauf-Prüfung vor einer Fertigmeldung gearbeitet wird.
 ---
 
-Aus der früheren CLAUDE.md hierher verschoben (21.09.2026), Wortlaut unverändert.
-
 ## Diktieren statt tippen
 
 Ein Baustein für alle Stellen: `useDictation.ts` (Aufnahme) und `DictateButton.vue` (Mikrofon-Knopf, verschwindet
