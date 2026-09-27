@@ -80,12 +80,13 @@ Bei bestätigter Kleinbetriebs-Hypothese (H1):
 Bei bestätigter Privathalter-Hypothese (H2):
 - [ ] Jahresabo 25 CHF per QR-Rechnung an die angemeldeten Nutzer nach der Testzeit, Kanäle aus Kapitel 5
 
-Zahlungsanbieter Payrexx (Entscheid und Preise in business-plan/04), erst wenn ein Kunde monatlich per Karte statt Rechnung zahlen will:
-- [ ] Payrexx-Konto anlegen (Standard, Startup-Rabatt), verifizieren, Payrexx Pay aktivieren, Testmodus, API-Key und Webhook-Signing-Key notieren
-- [ ] ai-proxy: austauschbare Billing-Schnittstelle, Stripe behalten, Payrexx ergänzen (Gateway mit subscriptionState, Webhook X-Webhook-Signature HMAC-SHA256 hex, Status active/overdue/failed/cancelled/in_notice, Kundenportal POST /AuthToken, Kündigen DELETE /Subscription/{id}); Tests gegen dokumentierte Payloads
-- [ ] App auf Payrexx umstellen (PAYREXX_INSTANCE, PAYREXX_API_SECRET, PAYREXX_WEBHOOK_SECRET), Checkout und Kündigung im Testmodus durchspielen
-- [ ] Preise je Plan bei Payrexx hinterlegen (`privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr mit Menge)
-- [ ] Datenschutzerklärung: Payrexx (CH) ergänzen
+Kartenzahlung, erst wenn die QR-Rechnung nicht mehr reicht (z. B. ein Kunde will monatlich per Karte zahlen; Abwägung und Preise in business-plan/04):
+- [ ] Kartenanbieter wählen (Payrexx oder Stripe)
+- [ ] Konto beim gewählten Anbieter anlegen, verifizieren, Testmodus, API-Key und Webhook-Secret notieren
+- [ ] ai-proxy: austauschbare Billing-Schnittstelle, gewählten Anbieter anbinden (bei Payrexx: Gateway mit subscriptionState, Webhook X-Webhook-Signature HMAC-SHA256 hex, Status active/overdue/failed/cancelled/in_notice, Kundenportal POST /AuthToken, Kündigen DELETE /Subscription/{id}); Tests gegen dokumentierte Payloads
+- [ ] App anbinden, Checkout und Kündigung im Testmodus durchspielen
+- [ ] Preise je Plan beim Anbieter hinterlegen (`privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr mit Menge)
+- [ ] Datenschutzerklärung: gewählten Anbieter ergänzen
 - [ ] Settings: "Abo verwalten"-Button (`POST /billing/portal`), nach Rückkehr vom Checkout Nutzung neu laden und Toast zeigen
 - [ ] Limit-Meldung im Chat mit Link zu den Einstellungen statt nur Text
 
