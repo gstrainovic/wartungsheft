@@ -3,6 +3,7 @@ import Button from 'primevue/button'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
 import { useSprache } from '../composables/useSprache'
+import { useEventsStore } from '../stores/events'
 import anlagenTexte from '../texte/anlagen'
 
 // Hypothese H3: Wartungsplan für Liegenschaften und Anlagen (Validierung in ~/projects/wartungsplan).
@@ -12,6 +13,7 @@ const { t } = useSprache(anlagenTexte)
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
 
 function vorbestellen() {
+  useEventsStore().trackCta('anlagen')
   window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.value.mailBetreff)}&body=${encodeURIComponent(t.value.mailText)}`
 }
 </script>

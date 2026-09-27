@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { db, id, tx } from '../lib/instantdb'
 
-export type LandingSegment = 'betrieb' | 'privathalter'
+export type LandingSegment = 'betrieb' | 'privathalter' | 'anlagen'
 
 /** Eigene Adressen aus Inseraten und Anzeigen: Kampagne und die Seite, auf die sie führt. */
 export const CAMPAIGNS = {
@@ -12,6 +12,8 @@ export const CAMPAIGNS = {
   'bing-privat': '/privathalter',
   // Knopf unter jedem Ratgeber-Artikel (src/lib/ratgeber.ts)
   'ratgeber-test': '/privathalter',
+  // Direktmails an Liegenschaftsverwaltungen (Validierung in ~/projects/wartungsplan)
+  'anlagen-mail': '/anlagen',
 } as const satisfies Record<string, string>
 
 export type Campaign = keyof typeof CAMPAIGNS

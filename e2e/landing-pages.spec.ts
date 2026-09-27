@@ -134,6 +134,18 @@ test.describe('Landing Pages', () => {
     })
   }
 
+  test('LP-011: /anlagen-mail aus der Direktmail zählt den Besuch, zeigt die Anlagen-Seite und markiert den Vorbestell-Klick', async ({ page }) => {
+    const visits = await countEvents({ name: 'visit', campaign: 'anlagen-mail' })
+    const clicks = await countEvents({ name: 'cta_click', segment: 'anlagen', campaign: 'anlagen-mail' })
+
+    await page.goto('/anlagen-mail')
+    await expect(page).toHaveURL(/\/anlagen$/)
+    await expect.poll(() => countEvents({ name: 'visit', campaign: 'anlagen-mail' })).toBe(visits + 1)
+
+    await page.getByRole('main').getByRole('button', { name: 'Vorbestellen per E-Mail' }).click()
+    await expect.poll(() => countEvents({ name: 'cta_click', segment: 'anlagen', campaign: 'anlagen-mail' })).toBe(clicks + 1)
+  })
+
   test('LP-004: der Film steht auf Startseite und Angebotsseiten, stumm und erst auf Klick', async ({ page }) => {
     // Breiter Bildschirm: die im Desktop-Layout aufgenommene Fassung
     await page.setViewportSize({ width: 1280, height: 900 })
