@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
+import { useSprache } from '../composables/useSprache'
+import DatenschutzEn from '../texte/datenschutz/en.vue'
+import DatenschutzFr from '../texte/datenschutz/fr.vue'
+import DatenschutzIt from '../texte/datenschutz/it.vue'
+
+// Übersetzungen gehen im selben Commit mit, die deutsche Fassung ist massgebend
+const { sprache } = useSprache()
+const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
 </script>
 
 <template>
   <div class="legal-page">
     <LandingHeader />
 
-    <main class="legal-container legal-content">
+    <main v-if="sprache !== 'de'" class="legal-container legal-content">
+      <component :is="UEBERSETZUNG[sprache]" />
+    </main>
+
+    <main v-else class="legal-container legal-content">
       <h1>Datenschutzerklärung</h1>
       <p class="legal-updated">
         Stand: September 2026
@@ -269,10 +281,13 @@ import LandingHeader from '../components/LandingHeader.vue'
   background: var(--p-surface-ground);
 }
 
+/* Volle Breite statt Inhaltsbreite: sonst bestimmt die breiteste Tabelle die Breite der Seite */
 .legal-container {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .legal-content {
@@ -281,19 +296,23 @@ import LandingHeader from '../components/LandingHeader.vue'
   padding-bottom: 3rem;
 }
 
-.legal-content h1 {
-  font-size: 2rem;
+/* :deep, damit die Regeln auch in den Übersetzungen (src/texte/datenschutz/*.vue) greifen; Titel mit
+   Silbentrennung, «Protezione dei dati» und Co. sind auf 390px sonst breiter als die Seite */
+.legal-content :deep(h1) {
+  font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 700;
   margin: 0 0 0.5rem;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
-.legal-updated {
+.legal-content :deep(.legal-updated) {
   color: var(--p-text-muted-color);
   font-size: 0.85rem;
   margin: 0 0 2rem;
 }
 
-.legal-content h2 {
+.legal-content :deep(h2) {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 2rem 0 1rem;
@@ -301,50 +320,53 @@ import LandingHeader from '../components/LandingHeader.vue'
   border-top: 1px solid var(--p-surface-border);
 }
 
-.legal-content h3 {
+.legal-content :deep(h3) {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 1.5rem 0 0.5rem;
 }
 
-.legal-content p {
+.legal-content :deep(p) {
   color: var(--p-text-muted-color);
   line-height: 1.7;
   margin: 0 0 1rem;
 }
 
-.legal-content a {
+.legal-content :deep(a) {
   color: var(--p-primary-color);
 }
 
-.legal-content ul {
+.legal-content :deep(ul) {
   color: var(--p-text-muted-color);
   line-height: 1.7;
   padding-left: 1.5rem;
   margin: 0 0 1rem;
 }
 
-.legal-content table {
+/* Auf dem Handy sind die dreispaltigen Tabellen breiter als die Seite: sie scrollen für sich statt die Seite */
+.legal-content :deep(table) {
+  display: block;
+  overflow-x: auto;
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 0.9rem;
 }
 
-.legal-content th,
-.legal-content td {
+.legal-content :deep(th),
+.legal-content :deep(td) {
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--p-surface-border);
   text-align: left;
 }
 
-.legal-content th {
+.legal-content :deep(th) {
   background: var(--p-surface-card);
   font-weight: 600;
   color: var(--p-text-color);
 }
 
-.legal-content td {
+.legal-content :deep(td) {
   color: var(--p-text-muted-color);
 }
 </style>

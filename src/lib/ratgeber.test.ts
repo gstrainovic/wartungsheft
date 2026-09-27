@@ -14,6 +14,15 @@ Einleitung mit **fett**.
 Text & mehr.
 `
 
+const SOURCE_FR = `---
+title: Carnet d'entretien perdu : reconstituer l'historique
+description: Que faire quand le carnet d'entretien a disparu.
+date: 2026-09-23
+---
+
+Introduction, voir [l'autre article](/fr/ratgeber/mfk-aufgebot).
+`
+
 describe('parseArticle', () => {
   it('liest Kopf und Text, der Dateiname ist die Adresse', () => {
     const article = parseArticle('serviceheft-verloren', SOURCE)
@@ -33,7 +42,7 @@ describe('renderArticlePage', () => {
   const html = renderArticlePage(parseArticle('serviceheft-verloren', SOURCE))
 
   it('liefert fertiges HTML mit Kopf für Suchmaschinen', () => {
-    expect(html).toContain('<html lang="de">')
+    expect(html).toContain('<html lang="de-CH">')
     expect(html).toContain('<title>Serviceheft verloren: So baust du die Historie wieder auf | Wartungsheft</title>')
     expect(html).toContain('<meta name="description" content="Was du tun kannst, wenn das Serviceheft weg ist." />')
     expect(html).toContain('<link rel="canonical" href="https://wartungsheft.ch/ratgeber/serviceheft-verloren" />')
@@ -72,5 +81,51 @@ describe('sitemapWithArticles', () => {
     expect(out).toContain('<loc>https://wartungsheft.ch/ratgeber/serviceheft-verloren</loc>')
     expect(out).toContain('<lastmod>2026-09-23</lastmod>')
     expect(out.trim().endsWith('</urlset>')).toBe(true)
+  })
+
+  it('führt Übersetzungen mit Präfix und je eine Übersicht pro Sprache', () => {
+    const sitemap = '<urlset>\n</urlset>\n'
+    const out = sitemapWithArticles(sitemap, [parseArticle('serviceheft-verloren', SOURCE), parseArticle('serviceheft-verloren', SOURCE_FR, 'fr')])
+    expect(out).toContain('<loc>https://wartungsheft.ch/fr/ratgeber</loc>')
+    expect(out).toContain('<loc>https://wartungsheft.ch/fr/ratgeber/serviceheft-verloren</loc>')
+    expect(out).not.toContain('<loc>https://wartungsheft.ch/it/ratgeber</loc>')
+  })
+})
+
+describe('übersetzte Artikel', () => {
+  const de = parseArticle('serviceheft-verloren', SOURCE)
+  const fr = parseArticle('serviceheft-verloren', SOURCE_FR, 'fr')
+  const html = renderArticlePage(fr, ['de', 'fr'])
+
+  it('tragen Sprache, eigene Adresse und Verweise auf die vorhandenen Fassungen', () => {
+    expect(fr.sprache).toBe('fr')
+    expect(de.sprache).toBe('de')
+    expect(html).toContain('<html lang="fr-CH">')
+    expect(html).toContain('<link rel="canonical" href="https://wartungsheft.ch/fr/ratgeber/serviceheft-verloren" />')
+    expect(html).toContain('<link rel="alternate" hreflang="de-CH" href="https://wartungsheft.ch/ratgeber/serviceheft-verloren" />')
+    expect(html).toContain('<link rel="alternate" hreflang="fr-CH" href="https://wartungsheft.ch/fr/ratgeber/serviceheft-verloren" />')
+    expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://wartungsheft.ch/ratgeber/serviceheft-verloren" />')
+    expect(html).not.toContain('hreflang="it-CH"')
+    expect(html).toContain('"inLanguage": "fr-CH"')
+  })
+
+  it('verlinken Kopf, Fuss und Testzeit in ihrer Sprache', () => {
+    expect(html).toContain('href="/fr"')
+    expect(html).toContain('href="/fr/ratgeber"')
+    expect(html).toContain('href="/fr/hilfe"')
+    expect(html).toContain('href="/fr/ratgeber-test"')
+    expect(html).toContain('Essayer 30 jours gratuitement')
+    // Nur die Sprachwahl führt in andere Sprachen
+    const ohneSprachwahl = html.replace(/<a class="lang"[^>]*>[^<]*<\/a>/g, '')
+    expect(ohneSprachwahl).not.toMatch(/href="\/(ratgeber|hilfe|impressum)/)
+    expect(html).toContain('<a class="lang" href="/ratgeber/serviceheft-verloren" hreflang="de-CH" lang="de-CH">DE</a>')
+  })
+
+  it('haben eine eigene Übersicht', () => {
+    const index = renderIndexPage([fr], 'fr')
+    expect(index).toContain('<html lang="fr-CH">')
+    expect(index).toContain('<link rel="canonical" href="https://wartungsheft.ch/fr/ratgeber" />')
+    expect(index).toContain('href="/fr/ratgeber/serviceheft-verloren"')
+    expect(index).toContain('<link rel="alternate" hreflang="en" href="https://wartungsheft.ch/en/ratgeber" />')
   })
 })

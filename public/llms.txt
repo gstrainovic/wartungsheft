@@ -39,6 +39,15 @@ Server in der Schweiz. Das Auslesen der Rechnungen läuft über Mistral in Frank
 - [Hilfe: die neun Abläufe und häufige Fragen](https://wartungsheft.ch/hilfe)
 - [Ratgeber: Serviceheft führen, Occasion verkaufen, Historie wieder aufbauen](https://wartungsheft.ch/ratgeber)
 
+## Andere Sprachen
+
+Dieselben Seiten gibt es auf Französisch, Italienisch und Englisch unter demselben Pfad mit Präfix. Die App
+selbst ist deutsch.
+
+- [Français](https://wartungsheft.ch/fr)
+- [Italiano](https://wartungsheft.ch/it)
+- [English](https://wartungsheft.ch/en)
+
 ## Kontakt
 
 info@wartungsheft.ch

@@ -6,7 +6,10 @@ import { ref } from 'vue'
 import AppLogo from '../components/AppLogo.vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import { useAuth } from '../composables/useAuth'
+import { useSprache } from '../composables/useSprache'
+import loginTexte from '../texte/login'
 
+const { t, pfad } = useSprache(loginTexte)
 const { sendMagicCode, signInWithMagicCode, googleAuthUrl, knownEmail, forgetKnownAccount } = useAuth()
 const googleUrl = googleAuthUrl()
 
@@ -25,7 +28,7 @@ async function handleSendCode() {
     sentEmail.value = email.value
   }
   catch (err: any) {
-    error.value = err.body?.message || 'Code konnte nicht gesendet werden.'
+    error.value = err.body?.message || t.value.fehlerSenden
   }
   finally {
     loading.value = false
@@ -40,7 +43,7 @@ async function handleVerifyCode() {
   }
   catch (err: any) {
     code.value = ''
-    error.value = err.body?.message || 'Ungültiger Code.'
+    error.value = err.body?.message || t.value.fehlerCode
   }
   finally {
     loading.value = false
@@ -63,19 +66,19 @@ function handleBack() {
 <template>
   <div class="login-container">
     <div class="login-card">
-      <router-link to="/" class="login-header">
+      <router-link :to="pfad('/')" class="login-header">
         <AppLogo size="3.5rem" class="login-logo" />
         <h1>Wartungsheft</h1>
       </router-link>
       <p v-if="knownEmail" class="login-tagline">
-        Willkommen zurück.
+        {{ t.willkommen }}
       </p>
       <template v-else>
         <p class="login-tagline">
-          Neu hier? 30 Tage alles gratis. Kein Passwort — wir schicken dir einen Code.
+          {{ t.neu }}
         </p>
         <p class="login-tagline">
-          Schon Kunde? Gleiche E-Mail, gleiches Konto.
+          {{ t.kunde }}
         </p>
       </template>
 
@@ -86,16 +89,15 @@ function handleBack() {
       <!-- Step 1: E-Mail eingeben -->
       <form v-if="!sentEmail" @submit.prevent="handleSendCode">
         <p class="login-description">
-          E-Mail-Adresse eingeben, der Anmelde-Code kommt per Mail.
-          Wie wir mit deiner Adresse umgehen, steht in der <router-link to="/datenschutz">
-            Datenschutzerklärung
+          {{ t.beschreibung }} <router-link :to="pfad('/datenschutz')">
+            {{ t.datenschutz }}
           </router-link>.
         </p>
         <div class="login-field">
           <InputText
             v-model="email"
             type="email"
-            placeholder="E-Mail-Adresse"
+            :placeholder="t.email"
             required
             autofocus
             fluid
@@ -103,7 +105,7 @@ function handleBack() {
         </div>
         <Button
           type="submit"
-          label="Code senden"
+          :label="t.senden"
           icon="pi pi-send"
           :loading="loading"
           fluid
@@ -111,19 +113,19 @@ function handleBack() {
         <Button
           v-if="knownEmail"
           type="button"
-          label="Andere E-Mail"
+          :label="t.andere"
           text
           fluid
           class="login-back"
           @click="handleForget"
         />
         <div class="login-divider">
-          <span>oder</span>
+          <span>{{ t.oder }}</span>
         </div>
         <Button
           as="a"
           :href="googleUrl"
-          label="Mit Google anmelden"
+          :label="t.google"
           icon="pi pi-google"
           severity="secondary"
           outlined
@@ -134,13 +136,13 @@ function handleBack() {
       <!-- Step 2: Code eingeben -->
       <form v-else @submit.prevent="handleVerifyCode">
         <p class="login-description">
-          Code wurde an <strong>{{ sentEmail }}</strong> gesendet.
+          {{ t.gesendet }} <strong>{{ sentEmail }}</strong>{{ t.gesendetNach }}
         </p>
         <div class="login-field">
           <InputText
             v-model="code"
             type="text"
-            placeholder="6-stelliger Code"
+            :placeholder="t.code"
             required
             autofocus
             fluid
@@ -150,14 +152,14 @@ function handleBack() {
         </div>
         <Button
           type="submit"
-          label="Anmelden"
+          :label="t.anmelden"
           icon="pi pi-sign-in"
           :loading="loading"
           fluid
         />
         <Button
           type="button"
-          label="Andere E-Mail"
+          :label="t.andere"
           text
           fluid
           class="login-back"

@@ -5,17 +5,21 @@
  * (Drehbücher in `video-scripts/`); fehlt die Datei, zeigt die Seite den Abschnitt gar nicht.
  */
 import { computed, onMounted, ref } from 'vue'
+import { useSprache } from '../composables/useSprache'
+import angebotTexte from '../texte/angebot'
 
+// Die Filme sind deutsch; auf den Übersetzungen sagt der Hinweis darunter das
 const props = withDefaults(defineProps<{
   /** Datei unter public/, ohne Pfad */
   file?: string
+  /** ohne Angabe Überschrift und Satz der Startseite (src/texte/angebot.ts) */
   title?: string
   subtitle?: string
 }>(), {
   file: 'film-privat.webm',
-  title: 'In 40 Sekunden gesehen',
-  subtitle: 'Vom Foto der Werkstattrechnung bis zum Serviceheft für den Verkauf.',
 })
+
+const { t } = useSprache(angebotTexte)
 
 // Auf dem Desktop die eigene Aufnahme im Desktop-Layout, am Handy die hochkant aufgenommene
 const quer = ref(false)
@@ -59,9 +63,9 @@ function abspielen(): void {
 <template>
   <section v-if="vorhanden" class="video-section" data-testid="landing-video">
     <div class="video-inner">
-      <h2>{{ title }}</h2>
+      <h2>{{ title ?? t.film.titel }}</h2>
       <p class="video-subtitle">
-        {{ subtitle }}
+        {{ subtitle ?? t.film.text }}
       </p>
       <div class="video-frame">
         <video
@@ -77,12 +81,12 @@ function abspielen(): void {
           @play="laeuft = true"
           @pause="laeuft = false"
         />
-        <button v-if="!laeuft" class="video-play" type="button" aria-label="Film abspielen" @click="abspielen">
+        <button v-if="!laeuft" class="video-play" type="button" :aria-label="t.film.abspielen" @click="abspielen">
           <i class="pi pi-play" />
         </button>
       </div>
       <p class="video-note">
-        Gut eine halbe Minute, mit Ton und Untertiteln. Gezeigt wird die App mit erfundenen Beispieldaten.
+        {{ t.film.hinweis }}
       </p>
     </div>
   </section>

@@ -5,9 +5,10 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { KNOWN_ACCOUNT_KEY } from './src/lib/known-account.ts'
-import { applyMetaToHtml, PAGE_META } from './src/lib/page-meta.ts'
+import { applyMetaToHtml, OEFFENTLICHE_SEITEN } from './src/lib/page-meta.ts'
 import { hidePrerendered } from './src/lib/prerender.ts'
 import { parseArticle, renderArticlePage, renderIndexPage, sitemapWithArticles } from './src/lib/ratgeber.ts'
+import { mitSprache, PRAEFIXE, SPRACHEN } from './src/lib/sprache.ts'
 
 // Vorgerenderter Inhalt (scripts/prerender.ts) bleibt bis zum Mount versteckt, wenn er nicht zur Adresse passt;
 // main.ts nimmt die Klasse nach dem Mount weg. Die Regel steht einmal in src/lib/prerender.ts.
@@ -30,7 +31,7 @@ function pageMetaPlugin(): Plugin {
     transformIndexHtml: html => applyMetaToHtml(html, '/').replace('</head>', `${PRERENDER_BOOT}\n  </head>`),
     closeBundle() {
       const index = readFileSync(join(outDir, 'index.html'), 'utf8')
-      for (const path of Object.keys(PAGE_META).filter(p => p !== '/')) {
+      for (const path of OEFFENTLICHE_SEITEN.filter(p => p !== '/')) {
         mkdirSync(join(outDir, path), { recursive: true })
         writeFileSync(join(outDir, path, 'index.html'), applyMetaToHtml(index, path))
       }
@@ -38,7 +39,8 @@ function pageMetaPlugin(): Plugin {
   }
 }
 
-// Ratgeber: content/ratgeber/*.md als fertiges HTML nach dist/ratgeber/, dazu Einträge in der Sitemap (src/lib/ratgeber.ts)
+// Ratgeber: content/ratgeber/*.md (Deutsch) und content/ratgeber/<fr|it|en>/*.md als fertiges HTML nach
+// dist/ratgeber/ bzw. dist/<fr|it|en>/ratgeber/, dazu Einträge in der Sitemap (src/lib/ratgeber.ts)
 function ratgeberPlugin(): Plugin {
   let outDir = 'dist'
   return {
@@ -48,12 +50,20 @@ function ratgeberPlugin(): Plugin {
     },
     closeBundle() {
       const dir = 'content/ratgeber'
-      const articles = readdirSync(dir).filter(f => f.endsWith('.md')).map(f => parseArticle(f.replace(/\.md$/, ''), readFileSync(join(dir, f), 'utf8')))
+      const articles = SPRACHEN.flatMap(({ code }) => {
+        const src = code === 'de' ? dir : join(dir, code)
+        return readdirSync(src).filter(f => f.endsWith('.md')).map(f => parseArticle(f.replace(/\.md$/, ''), readFileSync(join(src, f), 'utf8'), code))
+      })
       for (const article of articles) {
-        mkdirSync(join(outDir, 'ratgeber', article.slug), { recursive: true })
-        writeFileSync(join(outDir, 'ratgeber', article.slug, 'index.html'), renderArticlePage(article))
+        const target = join(outDir, mitSprache(article.sprache, `/ratgeber/${article.slug}`))
+        const fassungen = articles.filter(a => a.slug === article.slug).map(a => a.sprache)
+        mkdirSync(target, { recursive: true })
+        writeFileSync(join(target, 'index.html'), renderArticlePage(article, fassungen))
       }
-      writeFileSync(join(outDir, 'ratgeber', 'index.html'), renderIndexPage(articles))
+      for (const { code } of SPRACHEN) {
+        mkdirSync(join(outDir, mitSprache(code, '/ratgeber')), { recursive: true })
+        writeFileSync(join(outDir, mitSprache(code, '/ratgeber'), 'index.html'), renderIndexPage(articles, code))
+      }
       const sitemap = join(outDir, 'sitemap.xml')
       writeFileSync(sitemap, sitemapWithArticles(readFileSync(sitemap, 'utf8'), articles))
     },
@@ -83,7 +93,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         // Ratgeber sind eigene HTML-Seiten, nicht die App: der Service Worker darf sie nicht durch index.html ersetzen
-        navigateFallbackDenylist: [/^\/ratgeber(\/|$)/],
+        navigateFallbackDenylist: [new RegExp(`^(/(${PRAEFIXE.join('|')}))?/ratgeber(/|$)`)],
       },
     }),
   ],

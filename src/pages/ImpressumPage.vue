@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
+import { useSprache } from '../composables/useSprache'
+import ImpressumEn from '../texte/impressum/en.vue'
+import ImpressumFr from '../texte/impressum/fr.vue'
+import ImpressumIt from '../texte/impressum/it.vue'
+
+// Übersetzungen gehen im selben Commit mit, die deutsche Fassung ist massgebend
+const { sprache } = useSprache()
+const UEBERSETZUNG = { fr: ImpressumFr, it: ImpressumIt, en: ImpressumEn }
 </script>
 
 <template>
   <div class="legal-page">
     <LandingHeader />
 
-    <main class="legal-container legal-content">
+    <main v-if="sprache !== 'de'" class="legal-container legal-content">
+      <component :is="UEBERSETZUNG[sprache]" />
+    </main>
+
+    <main v-else class="legal-container legal-content">
       <h1>Impressum</h1>
 
       <h2>Angaben gemäss Art. 3 Abs. 1 lit. s UWG</h2>
@@ -84,13 +96,16 @@ import LandingHeader from '../components/LandingHeader.vue'
   padding-bottom: 3rem;
 }
 
-.legal-content h1 {
-  font-size: 2rem;
+/* :deep, damit die Regeln auch in den Übersetzungen (src/texte/impressum/*.vue) greifen */
+.legal-content :deep(h1) {
+  font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 700;
   margin: 0 0 2rem;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
-.legal-content h2 {
+.legal-content :deep(h2) {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 2rem 0 1rem;
@@ -98,24 +113,24 @@ import LandingHeader from '../components/LandingHeader.vue'
   border-top: 1px solid var(--p-surface-border);
 }
 
-.legal-content h2:first-of-type {
+.legal-content :deep(h2:first-of-type) {
   border-top: none;
   padding-top: 0;
 }
 
-.legal-content h3 {
+.legal-content :deep(h3) {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 1.5rem 0 0.5rem;
 }
 
-.legal-content p {
+.legal-content :deep(p) {
   color: var(--p-text-muted-color);
   line-height: 1.7;
   margin: 0 0 1rem;
 }
 
-.legal-content a {
+.legal-content :deep(a) {
   color: var(--p-primary-color);
 }
 </style>

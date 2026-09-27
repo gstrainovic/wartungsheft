@@ -4,9 +4,9 @@
  * darüber wie gewohnt und ersetzt den Inhalt beim Mount. Bewusst ohne Browser- und Vite-Abhängigkeit, `vite.config.ts`
  * importiert die Datei.
  */
-import { PAGE_META } from './page-meta.ts'
+import { OEFFENTLICHE_SEITEN } from './page-meta.ts'
 
-export const PRERENDER_PATHS = Object.keys(PAGE_META)
+export const PRERENDER_PATHS = OEFFENTLICHE_SEITEN
 
 export function prerenderFile(path: string): string {
   return path === '/' ? 'index.html' : `${path.slice(1)}/index.html`
@@ -29,6 +29,6 @@ export function hidePrerendered(prerendered: string | null, pathname: string, kn
   if (!prerendered)
     return false
   const current = pathname.replace(/\/+$/, '') || '/'
-  // Nur die Startseite leitet angemeldete Konten ins Dashboard weiter (src/router/index.ts)
-  return current !== prerendered || (knownAccount && current === '/')
+  // Nur die Startseite (auch /fr, /it, /en) leitet angemeldete Konten ins Dashboard weiter (src/router/index.ts)
+  return current !== prerendered || (knownAccount && /^\/(?:fr|it|en)?$/.test(current))
 }
