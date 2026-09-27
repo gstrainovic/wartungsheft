@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import type { Sprache } from '../lib/sprache'
 import type { LandingSegment } from '../stores/events'
 import Button from 'primevue/button'
-import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAuthEntry } from '../composables/useAuthEntry'
 import { useSprache } from '../composables/useSprache'
 import { mitSprache, ohneSprache, SPRACHEN } from '../lib/sprache'
 import layoutTexte from '../texte/layout'
 import AppLogo from './AppLogo.vue'
+import ThemeSwitch from './ThemeSwitch.vue'
 
 // Ein Kopf für alle öffentlichen Seiten (/, /betrieb, /privathalter, /impressum, /datenschutz):
-// Logo, Menü mit Ankern auf die Startseite, Sprachwahl, «Anmelden» und der Knopf in die Testzeit. Auf Handy bleiben
-// Logo-Symbol, Sprachwahl, «Anmelden» und Knopf. Kennt der Browser das Konto schon, entfällt der Test-Knopf.
+// Logo, Menü mit Ankern auf die Startseite, Sprachwahl, Hell-Dunkel-Schalter, «Anmelden» und der Knopf in die
+// Testzeit. Auf Handy bleiben Logo-Symbol, Sprachwahl, Schalter, «Anmelden» und Knopf. Kennt der Browser das Konto
+// schon, entfällt der Test-Knopf. Der Ratgeber steht nur im Fuss.
 const props = defineProps<{
   /** Klick auf den Knopf zählt in `events`, wenn die Seite zu einer Hypothese gehört */
   segment?: LandingSegment
@@ -20,13 +22,9 @@ const props = defineProps<{
 const { entry, label, go } = useAuthEntry(props.segment)
 const { sprache, pfad, t } = useSprache(layoutTexte)
 const route = useRoute()
-const router = useRouter()
 
-// Dieselbe Seite in der gewählten Sprache
-function spracheWechseln(event: Event) {
-  const ziel = (event.target as HTMLSelectElement).value as Sprache
-  router.push(mitSprache(ziel, ohneSprache(route.path)))
-}
+// Dieselbe Seite in jeder Sprache
+const fassungen = computed(() => SPRACHEN.map(s => ({ ...s, pfad: mitSprache(s.code, ohneSprache(route.path)) })))
 </script>
 
 <template>
@@ -36,14 +34,33 @@ function spracheWechseln(event: Event) {
         <AppLogo size="1.75rem" />
         <span class="landing-logo-text">Wartungsheft</span>
       </router-link>
+      <!-- Auf dem Handy eine eigene schmale Zeile unter Logo und Knöpfen -->
+      <div class="landing-tools">
+        <!-- Sprachwahl als Links wie auf strainovic-it.ch; eine Auswahlliste war im dunklen Design unlesbar -->
+        <nav class="landing-lang" :aria-label="t.sprachwahl" data-testid="language-switch">
+          <router-link
+            v-for="f in fassungen"
+            :key="f.code"
+            :to="f.pfad"
+            :hreflang="f.tag"
+            :lang="f.tag"
+            :title="f.name"
+            :aria-current="f.code === sprache ? 'true' : undefined"
+            :class="{ 'landing-lang-aktiv': f.code === sprache }"
+          >
+            {{ f.code.toUpperCase() }}
+          </router-link>
+        </nav>
+        <ThemeSwitch :label="t.dunkel" />
+      </div>
       <nav class="landing-nav">
-        <router-link :to="pfad('/#features')">
+        <router-link :to="pfad('/#features')" class="landing-anker">
           {{ t.menue.features }}
         </router-link>
-        <router-link :to="pfad('/#how-it-works')">
+        <router-link :to="pfad('/#how-it-works')" class="landing-anker">
           {{ t.menue.ablauf }}
         </router-link>
-        <router-link :to="pfad('/#preise')">
+        <router-link :to="pfad('/#preise')" class="landing-anker">
           {{ t.menue.preise }}
         </router-link>
         <router-link :to="pfad('/betrieb')">
@@ -52,21 +69,6 @@ function spracheWechseln(event: Event) {
         <router-link :to="pfad('/privathalter')">
           {{ t.menue.privat }}
         </router-link>
-        <!-- Ratgeber ist fertiges HTML ausserhalb der App (src/lib/ratgeber.ts): voller Seitenwechsel, kein Router -->
-        <a :href="pfad('/ratgeber')">
-          {{ t.menue.ratgeber }}
-        </a>
-        <select
-          class="landing-lang"
-          :value="sprache"
-          :aria-label="t.sprachwahl"
-          data-testid="language-switch"
-          @change="spracheWechseln"
-        >
-          <option v-for="s in SPRACHEN" :key="s.code" :value="s.code" :lang="s.tag">
-            {{ s.code.toUpperCase() }}
-          </option>
-        </select>
         <router-link
           v-if="entry !== 'app'"
           :to="pfad('/login')"
@@ -101,9 +103,18 @@ function spracheWechseln(event: Event) {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
   padding: 0.75rem 1.5rem;
+}
+
+/* Sprachwahl und Schalter rechts aussen, nach Menü und Knöpfen */
+.landing-tools {
+  order: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .landing-logo {
@@ -138,16 +149,26 @@ function spracheWechseln(event: Event) {
   white-space: nowrap;
 }
 
-/* Sprachwahl: klein, auch auf dem Handy sichtbar */
+/* Sprachwahl: vier kurze Links, die aktuelle Sprache in der Markenfarbe, auch auf dem Handy sichtbar */
 .landing-lang {
-  font: inherit;
-  font-size: 0.85rem;
-  padding: 0.25rem 0.35rem;
-  border: 1px solid var(--p-surface-border);
-  border-radius: var(--p-border-radius-md, 6px);
-  background: var(--p-surface-card);
+  display: flex;
+  gap: 0.6rem;
+}
+
+.landing-lang a {
+  color: var(--p-text-muted-color);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.landing-lang a:hover {
   color: var(--p-text-color);
-  cursor: pointer;
+}
+
+.landing-lang a.landing-lang-aktiv {
+  color: var(--p-primary-color);
+  font-weight: 600;
 }
 
 .landing-nav a.landing-login {
@@ -163,8 +184,31 @@ function spracheWechseln(event: Event) {
   color: var(--p-primary-contrast-color);
 }
 
-@media (max-width: 768px) {
-  .landing-nav a:not(.landing-login) {
+/* Ab Tabletbreite eine Zeile. Damit Sprachwahl und Schalter auch mit den längeren französischen Texten passen,
+   fallen zuerst die Anker auf die Startseite weg, dann die Links auf die Angebotsseiten */
+@media (min-width: 768px) {
+  .landing-header-inner {
+    flex-wrap: nowrap;
+  }
+}
+
+/* Schmaler: Sprachwahl und Schalter in einer zweiten, schmalen Zeile unter Logo, «Anmelden» und Testknopf */
+@media (max-width: 767px) {
+  .landing-tools {
+    order: 3;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1400px) {
+  .landing-nav > a.landing-anker {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .landing-nav > a:not(.landing-login) {
     display: none;
   }
 }
