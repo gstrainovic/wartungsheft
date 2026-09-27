@@ -192,16 +192,23 @@ Der Proxy (Repo `ai-proxy`, Hono auf Node 24) hält den Mistral-Key, prüft das 
 Nutzers per Admin-SDK, reicht `/v1/chat/completions` und `/v1/ocr` durch, zählt Tokens und OCR-Seiten
 pro Nutzer und Monat in InstantDB (`usage`) und setzt die Plan-Limits aus `@strainovic/ai-proxy/plans` durch.
 
-### 4. Stripe (Abo-Zahlung, optional)
+### 4. Stripe (Kartenzahlung, optional, nicht eingerichtet)
 
-1. Produkte in CHF anlegen: `privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr (Menge = Fahrzeuge) → Price-IDs in `STRIPE_PRICE_PRIVAT` / `STRIPE_PRICE_BETRIEB`.
-2. Webhook auf `https://ai.example.ch/stripe/webhook` mit Events `checkout.session.completed`,
+Bezahlt wird zuerst per QR-Rechnung für Schweizer Kunden (Abschnitt 8). Ob später Payrexx oder Stripe für
+Kartenzahlung dazukommt, ist offen. Der Proxy enthält eine Stripe-Anbindung, die erst mit diesen Schritten aktiv wird:
+
+1. `STRIPE_SECRET_KEY` setzen.
+2. Produkte in CHF anlegen: `privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr (Menge = Fahrzeuge) → Price-IDs in `STRIPE_PRICE_PRIVAT` / `STRIPE_PRICE_BETRIEB`.
+3. Webhook auf `https://ai.example.ch/stripe/webhook` mit Events `checkout.session.completed`,
    `customer.subscription.updated`, `customer.subscription.deleted` → Secret in `STRIPE_WEBHOOK_SECRET`.
-3. Customer Portal im Stripe-Dashboard aktivieren (Kündigung, Zahlungsmittel).
+4. Customer Portal im Stripe-Dashboard aktivieren (Kündigung, Zahlungsmittel).
 
-Ohne Stripe-Konfiguration antworten `/billing/*` mit 501, alle Nutzer bleiben im Free-Plan. Die Upgrade-Buttons in den
-Einstellungen erscheinen erst mit `VITE_BILLING_ENABLED=true` in `.env.production`; bis dahin steht dort die
-Kontaktadresse für die Jahresrechnung (Businessplan Kapitel 4: erste Kunden zahlen per QR-Rechnung).
+Ohne Stripe-Konfiguration antworten `/billing/checkout`, `/billing/portal` und `/stripe/webhook` mit 501. Ein Konto
+ohne Abo hat dann eine Testzeit von 30 Tagen mit allen Funktionen (ai-proxy `trial.ts`). Danach antworten Scan und Chat mit
+402 `trial_expired`, während Lesen, Erfassen von Hand und Exporte frei bleiben. Das Jahresabo läuft über
+`/billing/order` (Abschnitt 8). Die Stripe-Upgrade-Buttons in den Einstellungen und die Fahrzeuggrenze des Privatplans
+gelten erst mit `VITE_BILLING_ENABLED=true` in `.env.production`. Die Bestellung auf Rechnung erscheint dort, sobald
+`/me/usage` den Wert `ordering` meldet (Abschnitt 8), und hat Vorrang vor den Stripe-Buttons.
 
 ### 5. Backup
 

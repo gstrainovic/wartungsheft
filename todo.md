@@ -50,7 +50,7 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 
 ### Auffindbar, wenn jemand eine KI fragt
 
-Text, Metadaten, `robots.txt`, `sitemap.xml` und `llms.txt` stehen (CLAUDE.md «Hilfe und Auffindbarkeit»).
+Text, Metadaten, `robots.txt`, `sitemap.xml` und `llms.txt` stehen (Skill `app-hilfe`, Abschnitt «Hilfe und Auffindbarkeit»).
 Google über die Search Console, Bing über die Bing Webmaster Tools (Import aus der Search Console, Sitemap
 eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegsseiten und Ratgeber sind fertiges HTML.
 
