@@ -7,58 +7,34 @@
  * Wer einen Ablauf ändert, ändert hier mit. Steht ein Schritt nur hier und nicht in der App, ist das ein
  * Hinweis auf eine Lücke in der Oberfläche, nicht auf eine fehlende Anleitung.
  */
-import { BUSINESS_VEHICLE_YEARLY_CHF, PRIVATE_MAX_VEHICLES, PRIVATE_YEARLY_CHF } from '@strainovic/ai-proxy/plans'
-import { onBeforeUnmount, onMounted } from 'vue'
+import type { Frage } from '../texte/hilfe'
+import { computed, onBeforeUnmount, onMounted } from 'vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
-import { formatCurrency } from '../lib/locale'
+import { useSprache } from '../composables/useSprache'
+import hilfeFragen from '../texte/hilfe'
+import HilfeEn from '../texte/hilfe/en.vue'
+import HilfeFr from '../texte/hilfe/fr.vue'
+import HilfeIt from '../texte/hilfe/it.vue'
 
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
 
-/** Die Antworten stehen doppelt: sichtbar auf der Seite und als FAQPage für Suchmaschinen und KI-Antworten */
-const FRAGEN: { frage: string, antwort: string }[] = [
-  {
-    frage: 'Was ist Wartungsheft?',
-    antwort: `Wartungsheft ist ein digitales Serviceheft für Autos, Motorräder, Wohnwagen und Firmenfahrzeuge. `
-      + `Du fotografierst die Werkstattrechnung, die App liest Werkstatt, Datum, Betrag und Arbeiten heraus und `
-      + `führt daraus den Wartungsplan. Sie läuft im Browser, auch offline, und wird in der Schweiz betrieben.`,
-  },
-  {
-    frage: 'Was kostet Wartungsheft?',
-    antwort: `Privat ${formatCurrency(PRIVATE_YEARLY_CHF)} im Jahr für bis zu ${PRIVATE_MAX_VEHICLES} Fahrzeuge. `
-      + `Betriebe zahlen ${formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF)} pro Fahrzeug und Jahr und bekommen eine `
-      + `Rechnung auf die Firma. Beide Listen haben denselben Funktionsumfang. Die ersten 30 Tage sind gratis.`,
-  },
-  {
-    frage: 'Was passiert nach den 30 Tagen?',
-    antwort: `Lesen, Erfassen von Hand und alle Exporte bleiben frei. Nur der Scan von Rechnungen und der `
-      + `Chat-Assistent brauchen danach ein Abo. Deine Daten bleiben vollständig erhalten.`,
-  },
-  {
-    frage: 'Brauche ich eine App aus dem Store?',
-    antwort: `Nein. Wartungsheft läuft im Browser und lässt sich auf dem Handy zum Startbildschirm hinzufügen. `
-      + `Danach verhält es sich wie eine App und funktioniert auch ohne Verbindung.`,
-  },
-  {
-    frage: 'Wo liegen meine Daten?',
-    antwort: `Auf Servern in der Schweiz. Für das Auslesen von Rechnungen geht das Bild an Mistral in Frankreich `
-      + `(EU); Einzelheiten stehen in der Datenschutzerklärung.`,
-  },
-  {
-    frage: 'Kann ich meine Daten wieder herausbekommen?',
-    antwort: `Ja. Kosten und Wartungen gehen als CSV nach Excel, pro Fahrzeug gibt es ein PDF-Dossier und für `
-      + `den Verkauf ein Serviceheft als PDF. Ein Jahresabschluss packt Tabelle und Belegbilder in ein ZIP.`,
-  },
-]
+/** Die Antworten stehen doppelt: sichtbar auf der Seite und als FAQPage für Suchmaschinen und KI-Antworten (src/texte/hilfe.ts) */
+const { sprache, t: fragen } = useSprache(hilfeFragen)
+const FRAGEN = computed(() => fragen.value)
+// Deutsch steht unten im Template, die Übersetzungen als eigene Komponenten
+const UEBERSETZUNG = { fr: HilfeFr, it: HilfeIt, en: HilfeEn }
 
-const FAQ_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  'mainEntity': FRAGEN.map(f => ({
-    '@type': 'Question',
-    'name': f.frage,
-    'acceptedAnswer': { '@type': 'Answer', 'text': f.antwort },
-  })),
+function faqSchema(liste: Frage[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': liste.map(f => ({
+      '@type': 'Question',
+      'name': f.frage,
+      'acceptedAnswer': { '@type': 'Answer', 'text': f.antwort },
+    })),
+  }
 }
 
 // Das Schema gehört in den Kopf des Dokuments; eine einzelne Seite trägt es nur, solange sie offen ist
@@ -66,7 +42,7 @@ let script: HTMLScriptElement | null = null
 onMounted(() => {
   script = document.createElement('script')
   script.type = 'application/ld+json'
-  script.textContent = JSON.stringify(FAQ_SCHEMA)
+  script.textContent = JSON.stringify(faqSchema(FRAGEN.value))
   document.head.appendChild(script)
 })
 onBeforeUnmount(() => {
@@ -79,7 +55,11 @@ onBeforeUnmount(() => {
   <div class="legal-page">
     <LandingHeader />
 
-    <main class="legal-container legal-content">
+    <main v-if="sprache !== 'de'" class="legal-container legal-content">
+      <component :is="UEBERSETZUNG[sprache]" :fragen="FRAGEN" />
+    </main>
+
+    <main v-else class="legal-container legal-content">
       <h1>Hilfe: so führst du dein Serviceheft</h1>
       <p class="legal-meta">
         Neun Abläufe, jeder in ein paar Sätzen. Kommst du irgendwo nicht weiter, schreib an
@@ -204,7 +184,8 @@ onBeforeUnmount(() => {
   padding-bottom: 3rem;
 }
 
-.legal-content h1 {
+/* :deep, damit die Regeln auch in den Übersetzungen (src/texte/hilfe/*.vue) greifen */
+.legal-content :deep(h1) {
   font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 700;
   margin: 0 0 0.5rem;
@@ -212,11 +193,11 @@ onBeforeUnmount(() => {
   overflow-wrap: break-word;
 }
 
-.legal-meta {
+.legal-content :deep(.legal-meta) {
   margin-bottom: 2rem !important;
 }
 
-.legal-content h2 {
+.legal-content :deep(h2) {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 2rem 0 1rem;
@@ -224,19 +205,19 @@ onBeforeUnmount(() => {
   border-top: 1px solid var(--p-surface-border);
 }
 
-.legal-content h3 {
+.legal-content :deep(h3) {
   font-size: 1.05rem;
   font-weight: 600;
   margin: 1.5rem 0 0.5rem;
 }
 
-.legal-content p {
+.legal-content :deep(p) {
   color: var(--p-text-muted-color);
   line-height: 1.7;
   margin: 0 0 1rem;
 }
 
-.legal-content a {
+.legal-content :deep(a) {
   color: var(--p-primary-color);
 }
 </style>

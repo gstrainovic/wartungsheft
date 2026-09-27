@@ -4,6 +4,7 @@ import { pageMeta } from './page-meta'
 export function applyMetaToDocument(doc: Document, path: string): void {
   const meta = pageMeta(path)
   doc.title = meta.title
+  doc.documentElement.lang = meta.lang
   const set = (selector: string, attr: string, value: string, create: () => HTMLElement) => {
     let el = doc.head.querySelector(selector)
     if (!el) {
@@ -26,4 +27,12 @@ export function applyMetaToDocument(doc: Document, path: string): void {
     el.setAttribute('rel', 'canonical')
     return el
   })
+  doc.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove())
+  for (const alternate of meta.alternates) {
+    const el = doc.createElement('link')
+    el.setAttribute('rel', 'alternate')
+    el.setAttribute('hreflang', alternate.hreflang)
+    el.setAttribute('href', alternate.href)
+    doc.head.appendChild(el)
+  }
 }

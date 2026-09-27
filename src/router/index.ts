@@ -1,10 +1,13 @@
+import type { RouteRecordRaw } from 'vue-router'
 import type { Campaign } from '../stores/events'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '../composables/useAuth'
 import { applyMetaToDocument } from '../lib/page-meta-document'
+import { mitSprache, ohneSprache, PRAEFIXE } from '../lib/sprache'
 import { CAMPAIGNS, useEventsStore } from '../stores/events'
 
-const routes = [
+// Öffentliche Seiten gibt es auch unter /fr, /it und /en (src/lib/sprache.ts); Deutsch bleibt ohne Präfix
+const publicRoutes: RouteRecordRaw[] = [
   { path: '/', component: () => import('../pages/LandingPage.vue'), meta: { public: true } },
   { path: '/login', component: () => import('../pages/LoginPage.vue'), meta: { public: true } },
   { path: '/impressum', component: () => import('../pages/ImpressumPage.vue'), meta: { public: true } },
@@ -22,6 +25,20 @@ const routes = [
       return target
     },
   })),
+]
+
+const translatedRoutes: RouteRecordRaw[] = PRAEFIXE.flatMap(sprache => publicRoutes.map((route) => {
+  const path = mitSprache(sprache, route.path)
+  if (!route.redirect)
+    return { ...route, path } as RouteRecordRaw
+  // Kampagnen-Weiterleitung in der Sprache der Adresse: /fr/ratgeber-test → /fr/privathalter
+  const redirect = route.redirect as (...args: never[]) => string
+  return { path, redirect: () => mitSprache(sprache, redirect()) }
+}))
+
+const routes: RouteRecordRaw[] = [
+  ...publicRoutes,
+  ...translatedRoutes,
   { path: '/dashboard', component: () => import('../pages/DashboardPage.vue') },
   { path: '/vehicles', component: () => import('../pages/VehiclesPage.vue') },
   { path: '/vehicles/:id', component: () => import('../pages/VehicleDetailPage.vue') },
@@ -43,8 +60,8 @@ router.beforeEach(async (to) => {
   const { user, authReady } = useAuth()
   await authReady
 
-  // Eingeloggt + Landing Page → Dashboard
-  if (user.value && to.path === '/')
+  // Eingeloggt + Landing Page (jede Sprache) → Dashboard
+  if (user.value && ohneSprache(to.path) === '/')
     return '/dashboard'
 
   if (to.meta.public)

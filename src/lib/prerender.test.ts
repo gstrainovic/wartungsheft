@@ -2,8 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { hidePrerendered, markPrerendered, PRERENDER_PATHS, prerenderFile } from './prerender'
 
 describe('seiten zum Vorrendern', () => {
-  it('sind die öffentlichen Einstiegsseiten', () => {
-    expect(PRERENDER_PATHS).toEqual(['/', '/privathalter', '/betrieb', '/anlagen', '/hilfe'])
+  it('sind die öffentlichen Einstiegsseiten in allen Sprachen', () => {
+    expect(PRERENDER_PATHS.slice(0, 5)).toEqual(['/', '/privathalter', '/betrieb', '/anlagen', '/hilfe'])
+    expect(PRERENDER_PATHS).toContain('/fr')
+    expect(PRERENDER_PATHS).toContain('/it/betrieb')
+    expect(PRERENDER_PATHS).toHaveLength(20)
   })
 })
 
@@ -11,6 +14,8 @@ describe('prerenderFile', () => {
   it('legt die Startseite nach index.html, die anderen in ihren Ordner', () => {
     expect(prerenderFile('/')).toBe('index.html')
     expect(prerenderFile('/privathalter')).toBe('privathalter/index.html')
+    expect(prerenderFile('/fr')).toBe('fr/index.html')
+    expect(prerenderFile('/fr/betrieb')).toBe('fr/betrieb/index.html')
   })
 })
 
@@ -46,6 +51,13 @@ describe('hidePrerendered', () => {
 
   it('versteckt sie auch für bekannte Konten, die gleich ins Dashboard springen', () => {
     expect(hidePrerendered('/', '/', true)).toBe(true)
+  })
+
+  it('behandelt die Startseiten der Übersetzungen wie die deutsche', () => {
+    expect(hidePrerendered('/fr', '/fr', false)).toBe(false)
+    expect(hidePrerendered('/fr', '/fr/', false)).toBe(false)
+    expect(hidePrerendered('/fr', '/fr', true)).toBe(true)
+    expect(hidePrerendered('/it/betrieb', '/it/betrieb', true)).toBe(false)
   })
 
   it('zeigt Angebotsseiten auch bekannten Konten sofort, dort leitet niemand weiter', () => {

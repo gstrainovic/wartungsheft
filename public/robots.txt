@@ -8,6 +8,9 @@ Disallow: /dashboard
 Disallow: /vehicles
 Disallow: /settings
 Disallow: /login
+Disallow: /fr/login
+Disallow: /it/login
+Disallow: /en/login
 Disallow: /nutzertest
 
 # Antwortmaschinen ausdrücklich erlaubt: ohne diese Zeilen fehlt die Seite in ihren Antworten

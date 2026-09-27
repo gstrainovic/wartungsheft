@@ -7,9 +7,12 @@ import LandingHeader from '../components/LandingHeader.vue'
 import LandingVideo from '../components/LandingVideo.vue'
 import PriceTable from '../components/PriceTable.vue'
 import { useAuthEntry } from '../composables/useAuthEntry'
+import { useSprache } from '../composables/useSprache'
+import startTexte from '../texte/start'
 
 const router = useRouter()
 const { label, go } = useAuthEntry()
+const { t, pfad } = useSprache(startTexte)
 </script>
 
 <template>
@@ -22,10 +25,9 @@ const { label, go } = useAuthEntry()
       <div class="landing-container hero-inner">
         <div class="hero-grid">
           <div class="hero-copy">
-            <h1>Das digitale Serviceheft fürs Auto</h1>
+            <h1>{{ t.hero.titel }}</h1>
             <p class="hero-subtitle">
-              Werkstattrechnung fotografieren, den Rest erledigt Wartungsheft: Service, MFK und Kosten pro
-              Fahrzeug, ohne Abtippen. Für ein Auto oder die ganze Flotte.
+              {{ t.hero.text }}
             </p>
             <div class="hero-actions">
               <Button
@@ -40,17 +42,9 @@ const { label, go } = useAuthEntry()
           <DemoDueList class="hero-demo" />
         </div>
         <div class="hero-stats">
-          <div class="hero-stat">
-            <strong>Ein Foto</strong>
-            <span>statt Abtippen</span>
-          </div>
-          <div class="hero-stat">
-            <strong>Offline nutzbar</strong>
-            <span>Scan läuft später nach</span>
-          </div>
-          <div class="hero-stat">
-            <strong>Aus der Schweiz</strong>
-            <span>Server hier, KI in der EU</span>
+          <div v-for="stat in t.hero.stats" :key="stat.titel" class="hero-stat">
+            <strong>{{ stat.titel }}</strong>
+            <span>{{ stat.text }}</span>
           </div>
         </div>
       </div>
@@ -61,22 +55,12 @@ const { label, go } = useAuthEntry()
     <!-- Problem -->
     <section class="section section-alt">
       <div class="landing-container">
-        <h2>Das Problem kennt jeder</h2>
+        <h2>{{ t.problem.titel }}</h2>
         <div class="problem-grid">
-          <div class="problem-card">
-            <i class="pi pi-folder-open" />
-            <h3>Rechnungen überall</h3>
-            <p>Schublade, Handschuhfach, E-Mail. Beim Autoverkauf fehlt die Hälfte.</p>
-          </div>
-          <div class="problem-card">
-            <i class="pi pi-calendar-times" />
-            <h3>Wartung vergessen</h3>
-            <p>Zahnriemen übersehen = Motorschaden = CHF 3'000 bis 8'000. Vermeidbar.</p>
-          </div>
-          <div class="problem-card">
-            <i class="pi pi-calculator" />
-            <h3>Kosten im Dunkeln</h3>
-            <p>Was hat das Auto dieses Jahr gekostet? Keine Ahnung.</p>
+          <div v-for="karte in t.problem.karten" :key="karte.icon" class="problem-card">
+            <i :class="`pi ${karte.icon}`" />
+            <h3>{{ karte.titel }}</h3>
+            <p>{{ karte.text }}</p>
           </div>
         </div>
       </div>
@@ -85,50 +69,15 @@ const { label, go } = useAuthEntry()
     <!-- Features -->
     <section id="features" class="section">
       <div class="landing-container">
-        <h2>Was Wartungsheft dir abnimmt</h2>
+        <h2>{{ t.features.titel }}</h2>
         <div class="features-grid">
-          <div class="feature-card">
+          <div v-for="karte in t.features.karten" :key="karte.icon" class="feature-card">
             <div class="feature-icon">
-              <i class="pi pi-camera" />
+              <i :class="`pi ${karte.icon}`" />
             </div>
-            <h3>KI-Rechnungsscanner</h3>
-            <p>Rechnung abfotografieren. Werkstatt, Datum, Betrag, Einzelpositionen — alles automatisch extrahiert. Scannen ohne Limit im Alltag.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="pi pi-bell" />
-            </div>
-            <h3>Wartungs-Tracker</h3>
-            <p>Auf einen Blick, was ansteht: Öl, Bremsen, MFK, Zahnriemen und was dein Serviceheft sonst vorsieht.</p>
-            <DemoDueList compact />
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="pi pi-sync" />
-            </div>
-            <h3>Offline-First</h3>
-            <p>Fahrzeuge, Rechnungen und Wartungsplan funktionieren ohne Internet. Eine offline fotografierte Rechnung wird gespeichert, der KI-Scan läuft automatisch nach, sobald du wieder online bist.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="pi pi-shield" />
-            </div>
-            <h3>Schweizer Anbieter, Schweizer Server</h3>
-            <p>Entwickelt, betrieben und gespeichert in der Schweiz. Die KI läuft bei Mistral in Frankreich, ohne Training mit deinen Daten. Alles inklusive, nichts extra buchen.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="pi pi-file-pdf" />
-            </div>
-            <h3>Digitales Serviceheft und Servicebuch</h3>
-            <p>Lückenlose Wartungshistorie statt Servicebuch im Handschuhfach. Beim Autoverkauf den Wert steigern — alles digital belegt.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="pi pi-file-excel" />
-            </div>
-            <h3>Export für Treuhänder und Käufer</h3>
-            <p>Tabelle für Excel, PDF-Dossier pro Fahrzeug und der Jahresabschluss mit allen Rechnungsbildern für den Treuhänder.</p>
+            <h3>{{ karte.titel }}</h3>
+            <p>{{ karte.text }}</p>
+            <DemoDueList v-if="karte.demo" compact />
           </div>
         </div>
       </div>
@@ -137,35 +86,20 @@ const { label, go } = useAuthEntry()
     <!-- How it works -->
     <section id="how-it-works" class="section section-alt">
       <div class="landing-container">
-        <h2>So funktioniert's</h2>
+        <h2>{{ t.ablauf.titel }}</h2>
         <div class="steps">
-          <div class="step">
-            <div class="step-number">
-              1
+          <template v-for="(schritt, i) in t.ablauf.schritte" :key="schritt.titel">
+            <div v-if="i > 0" class="step-arrow">
+              <i class="pi pi-arrow-right" />
             </div>
-            <h3>Foto machen</h3>
-            <p>Werkstattrechnung mit dem Handy abfotografieren oder PDF hochladen.</p>
-          </div>
-          <div class="step-arrow">
-            <i class="pi pi-arrow-right" />
-          </div>
-          <div class="step">
-            <div class="step-number">
-              2
+            <div class="step">
+              <div class="step-number">
+                {{ i + 1 }}
+              </div>
+              <h3>{{ schritt.titel }}</h3>
+              <p>{{ schritt.text }}</p>
             </div>
-            <h3>KI liest vor</h3>
-            <p>Die KI extrahiert automatisch: Werkstatt, Datum, Betrag, Einzelpositionen, KM-Stand.</p>
-          </div>
-          <div class="step-arrow">
-            <i class="pi pi-arrow-right" />
-          </div>
-          <div class="step">
-            <div class="step-number">
-              3
-            </div>
-            <h3>Bestätigen</h3>
-            <p>Prüfen, speichern. Fälligkeiten, Serviceheft und Kosten sind sofort aktuell.</p>
-          </div>
+          </template>
         </div>
       </div>
     </section>
@@ -173,48 +107,46 @@ const { label, go } = useAuthEntry()
     <!-- Für wen: die Preise stehen auf den zwei Angebotsseiten (Betrieb, Privathalter), hier nur der Weg dorthin -->
     <section id="fuer-wen" class="section">
       <div class="landing-container">
-        <h2>Für wen ist Wartungsheft?</h2>
+        <h2>{{ t.fuerWen.titel }}</h2>
         <p class="section-subtitle">
-          Ein Werkzeug, gleiche Funktionen. Privat 25 CHF im Jahr, Betriebe 36 CHF pro Fahrzeug mit Rechnung auf die Firma.
+          {{ t.fuerWen.text }}
         </p>
         <div class="pricing-grid pricing-grid-two">
           <div class="pricing-card">
-            <h3>Betriebe mit Fahrzeugen</h3>
+            <h3>{{ t.fuerWen.betrieb.titel }}</h3>
             <p class="audience-text">
-              Lieferwagen, Servicefahrzeuge, Firmenwagen: alle Rechnungen und Wartungen an einem Ort,
-              Kosten pro Fahrzeug und Jahr, Export für die Buchhaltung.
+              {{ t.fuerWen.betrieb.text }}
             </p>
             <ul class="pricing-features">
-              <li><i class="pi pi-check" /> Fahrer fotografiert die Rechnung, fertig</li>
-              <li><i class="pi pi-check" /> Kosten pro Fahrzeug und Jahr, für Excel und als PDF</li>
-              <li><i class="pi pi-check" /> E-Mail-Erinnerungen an fällige Arbeiten</li>
+              <li v-for="punkt in t.fuerWen.betrieb.punkte" :key="punkt">
+                <i class="pi pi-check" /> {{ punkt }}
+              </li>
             </ul>
             <Button
-              label="Angebot für Betriebe"
+              :label="t.fuerWen.betrieb.knopf"
               icon="pi pi-arrow-right"
               icon-pos="right"
               fluid
-              @click="router.push('/betrieb')"
+              @click="router.push(pfad('/betrieb'))"
             />
           </div>
           <div class="pricing-card">
-            <h3>Privathalter</h3>
+            <h3>{{ t.fuerWen.privat.titel }}</h3>
             <p class="audience-text">
-              Ein Auto, alle Rechnungen: digitales Serviceheft, Wartungsplan mit Erinnerung und ein PDF-Dossier
-              für den Verkauf.
+              {{ t.fuerWen.privat.text }}
             </p>
             <ul class="pricing-features">
-              <li><i class="pi pi-check" /> Rechnung fotografieren statt abtippen</li>
-              <li><i class="pi pi-check" /> Erinnerung, bevor es teuer wird</li>
-              <li><i class="pi pi-check" /> Lückenlose Historie für den Wiederverkauf</li>
+              <li v-for="punkt in t.fuerWen.privat.punkte" :key="punkt">
+                <i class="pi pi-check" /> {{ punkt }}
+              </li>
             </ul>
             <Button
-              label="Angebot für Privathalter"
+              :label="t.fuerWen.privat.knopf"
               icon="pi pi-arrow-right"
               icon-pos="right"
               outlined
               fluid
-              @click="router.push('/privathalter')"
+              @click="router.push(pfad('/privathalter'))"
             />
           </div>
         </div>
@@ -223,7 +155,7 @@ const { label, go } = useAuthEntry()
 
     <section id="preise" class="section section-alt">
       <div class="landing-container">
-        <h2>Preise</h2>
+        <h2>{{ t.preise }}</h2>
         <PriceTable />
       </div>
     </section>
@@ -231,8 +163,8 @@ const { label, go } = useAuthEntry()
     <!-- CTA -->
     <section class="section section-cta">
       <div class="landing-container cta-inner">
-        <h2>Bereit? 30 Tage gratis, keine Kreditkarte.</h2>
-        <p>Anmelden mit E-Mail, kein Passwort. Nach 30 Tagen entscheidest du.</p>
+        <h2>{{ t.cta.titel }}</h2>
+        <p>{{ t.cta.text }}</p>
         <Button
           :label="label"
           icon="pi pi-arrow-right"

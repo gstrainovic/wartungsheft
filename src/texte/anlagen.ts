@@ -1,0 +1,83 @@
+import type { Sprache } from '../lib/sprache'
+
+// Vorbestell-Seite /anlagen (AnlagenPage.vue), Hypothese H3
+const de = {
+  titel: 'Wartungsplan für Liegenschaften und Anlagen',
+  problem: 'Wer Gebäude oder Anlagen unterhält, verliert Fristen in Excel-Listen und Belege in Ordnern. Wartungsheft erinnert an jede Wartung und Prüfung, das Foto der Rechnung wird zum Eintrag, das Protokoll zum PDF.',
+  benefits: [
+    { icon: 'pi-calendar', title: 'Jede Frist im Blick', text: 'Heizung, Lift, Lüftung, Brandmelder, Maschinen: Wartungsintervalle und gesetzliche Prüffristen pro Objekt, eine E-Mail erinnert rechtzeitig.' },
+    { icon: 'pi-camera', title: 'Rechnung oder Prüfbericht fotografieren', text: 'Firma, Datum und Betrag werden ausgelesen und dem Objekt zugeordnet. Die Historie füllt sich von selbst.' },
+    { icon: 'pi-file-pdf', title: 'Protokoll auf Knopfdruck', text: 'Wartungshistorie und Prüfprotokoll als PDF für Eigentümer, Verwaltung und Versicherung.' },
+  ],
+  fuerWenTitel: 'Für wen',
+  fuerWen: 'Hauswartungen und Facility-Betriebe, Liegenschaftsverwaltungen mit wenigen Mitarbeitenden, Werkstätten, Gärtnereien, Gemeinden, Vereine und Kirchgemeinden mit eigenen Gebäuden. Nicht für Industrieanlagen mit Ticketsystem, dafür gibt es andere.',
+  preis: '36 CHF pro Objekt und Jahr',
+  preisHinweis: 'Ab 20 Objekten günstiger, keine Benutzergebühren, Jahresrechnung mit QR-Zahlteil auf die Firma. 30 Tage gratis, wie beim Serviceheft für Fahrzeuge.',
+  vorbestellung: 'Wir bauen ab der ersten Bestellung. Lieferung vier Wochen nach deiner Bestellung, du zahlst erst bei Lieferung. Schreib uns, wie viele Objekte du betreust und womit du heute arbeitest.',
+  knopf: 'Vorbestellen per E-Mail',
+  kontaktVor: 'Fragen vorab? Schreib an',
+  kontaktNach: ', wir antworten am gleichen Tag.',
+  mailBetreff: 'Vorbestellung Wartungsplan für Anlagen',
+  mailText: 'Betrieb: \nAnzahl Objekte: \nHeutiges Werkzeug (Excel, Papier, Software): \n',
+}
+
+export default {
+  de,
+  fr: {
+    titel: 'Plan d\'entretien pour immeubles et installations',
+    problem: 'Qui entretient des bâtiments ou des installations perd des délais dans des listes Excel et des justificatifs dans des classeurs. Wartungsheft rappelle chaque entretien et chaque contrôle, la photo de la facture devient une entrée, le procès-verbal un PDF.',
+    benefits: [
+      { icon: 'pi-calendar', title: 'Chaque délai sous contrôle', text: 'Chauffage, ascenseur, ventilation, détecteurs incendie, machines : intervalles d\'entretien et délais de contrôle légaux par objet, un e-mail rappelle à temps.' },
+      { icon: 'pi-camera', title: 'Photographier la facture ou le rapport de contrôle', text: 'Entreprise, date et montant sont lus et attribués à l\'objet. L\'historique se remplit tout seul.' },
+      { icon: 'pi-file-pdf', title: 'Procès-verbal en un clic', text: 'Historique d\'entretien et procès-verbal de contrôle en PDF pour propriétaires, gérance et assurance.' },
+    ],
+    fuerWenTitel: 'Pour qui',
+    fuerWen: 'Conciergeries et entreprises de facility management, gérances immobilières avec peu de collaborateurs, ateliers, entreprises horticoles, communes, associations et paroisses avec leurs propres bâtiments. Pas pour les installations industrielles avec système de tickets, d\'autres outils existent pour cela.',
+    preis: '36 CHF par objet et par an',
+    preisHinweis: 'Moins cher dès 20 objets, sans frais par utilisateur, facture annuelle avec section de paiement QR au nom de l\'entreprise. 30 jours gratuits, comme pour le carnet d\'entretien des véhicules.',
+    vorbestellung: 'Nous développons dès la première commande. Livraison quatre semaines après votre commande, vous ne payez qu\'à la livraison. Écrivez-nous combien d\'objets vous gérez et avec quel outil vous travaillez aujourd\'hui.',
+    knopf: 'Précommander par e-mail',
+    kontaktVor: 'Des questions ? Écrivez à',
+    kontaktNach: ', nous répondons le jour même.',
+    mailBetreff: 'Précommande plan d\'entretien pour installations',
+    mailText: 'Entreprise : \nNombre d\'objets : \nOutil actuel (Excel, papier, logiciel) : \n',
+  },
+  it: {
+    titel: 'Piano di manutenzione per immobili e impianti',
+    problem: 'Chi gestisce edifici o impianti perde scadenze nelle liste Excel e documenti nei classificatori. Wartungsheft ricorda ogni manutenzione e ogni controllo, la foto della fattura diventa una registrazione, il verbale un PDF.',
+    benefits: [
+      { icon: 'pi-calendar', title: 'Ogni scadenza sotto controllo', text: 'Riscaldamento, ascensore, ventilazione, rilevatori d\'incendio, macchine: intervalli di manutenzione e scadenze di controllo legali per oggetto, un\'e-mail ricorda in tempo.' },
+      { icon: 'pi-camera', title: 'Fotografa la fattura o il rapporto di controllo', text: 'Ditta, data e importo vengono letti e assegnati all\'oggetto. Lo storico si riempie da solo.' },
+      { icon: 'pi-file-pdf', title: 'Verbale con un clic', text: 'Storico di manutenzione e verbale di controllo in PDF per proprietari, amministrazione e assicurazione.' },
+    ],
+    fuerWenTitel: 'Per chi',
+    fuerWen: 'Custodi e aziende di facility management, amministrazioni immobiliari con pochi collaboratori, officine, aziende di giardinaggio, comuni, associazioni e parrocchie con edifici propri. Non per impianti industriali con sistema di ticket, per quelli esistono altri strumenti.',
+    preis: '36 CHF per oggetto e anno',
+    preisHinweis: 'Più conveniente da 20 oggetti, nessun costo per utente, fattura annuale con sezione di pagamento QR intestata alla ditta. 30 giorni gratis, come per il libretto di manutenzione dei veicoli.',
+    vorbestellung: 'Sviluppiamo dalla prima ordinazione. Consegna quattro settimane dopo la tua ordinazione, paghi solo alla consegna. Scrivici quanti oggetti gestisci e con cosa lavori oggi.',
+    knopf: 'Preordina via e-mail',
+    kontaktVor: 'Domande? Scrivi a',
+    kontaktNach: ', rispondiamo il giorno stesso.',
+    mailBetreff: 'Preordine piano di manutenzione per impianti',
+    mailText: 'Azienda: \nNumero di oggetti: \nStrumento attuale (Excel, carta, software): \n',
+  },
+  en: {
+    titel: 'Maintenance plan for buildings and equipment',
+    problem: 'Anyone who looks after buildings or equipment loses deadlines in Excel lists and receipts in binders. Wartungsheft reminds you of every service and inspection, the photo of the invoice becomes an entry, the report a PDF.',
+    benefits: [
+      { icon: 'pi-calendar', title: 'Every deadline in view', text: 'Heating, lift, ventilation, fire detectors, machines: maintenance intervals and statutory inspection deadlines per property, with an email reminder in good time.' },
+      { icon: 'pi-camera', title: 'Photograph the invoice or inspection report', text: 'Company, date and amount are read out and assigned to the property. The history fills itself.' },
+      { icon: 'pi-file-pdf', title: 'Report at the push of a button', text: 'Maintenance history and inspection report as PDF for owners, property management and insurance.' },
+    ],
+    fuerWenTitel: 'Who it is for',
+    fuerWen: 'Caretaking and facility management firms, property managers with a small team, workshops, garden centres, municipalities, clubs and parishes with their own buildings. Not for industrial plants with a ticketing system, others cover that.',
+    preis: 'CHF 36 per property and year',
+    preisHinweis: 'Cheaper from 20 properties, no per-user fees, annual invoice with QR payment slip to the company. 30 days free, as with the service book for vehicles.',
+    vorbestellung: 'We build from the first order. Delivery four weeks after your order, you only pay on delivery. Tell us how many properties you look after and what you use today.',
+    knopf: 'Pre-order by email',
+    kontaktVor: 'Questions first? Write to',
+    kontaktNach: ', we reply the same day.',
+    mailBetreff: 'Pre-order maintenance plan for equipment',
+    mailText: 'Company: \nNumber of properties: \nCurrent tool (Excel, paper, software): \n',
+  },
+} satisfies Record<Sprache, typeof de>

@@ -9,6 +9,7 @@ import ChatDrawer from './components/ChatDrawer.vue'
 import FeedbackDialog from './components/FeedbackDialog.vue'
 import { useAuth } from './composables/useAuth'
 import { useOfflineScanQueue } from './composables/useOfflineScanQueue'
+import { ohneSprache } from './lib/sprache'
 
 const router = useRouter()
 const route = useRoute()
@@ -28,7 +29,7 @@ const showAppLayout = computed(() => user.value && !isPublicRoute.value)
 
 // Nach Login → Dashboard, nach Logout → Login
 watch(user, (u) => {
-  if (u && route.path === '/login')
+  if (u && ohneSprache(route.path) === '/login')
     router.replace('/dashboard')
   else if (!u && !isLoading.value && !isPublicRoute.value)
     router.replace('/login')

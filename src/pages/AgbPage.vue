@@ -2,21 +2,32 @@
 /**
  * Allgemeine Geschäftsbedingungen. Die Regeln zu Testzeit, Abo, Verlängerung und Kündigung spiegeln den Code:
  * ai-proxy `trial.ts` und `invoice-subscription.ts`, Preise aus `plans.ts`. Wer dort etwas ändert, passt hier an.
- * Du-Form wie überall in der App, auch für Betriebe.
+ * Du-Form wie überall in der App, auch für Betriebe. Die Übersetzungen (src/texte/agb/*.vue) gehen im selben
+ * Commit mit, die deutsche Fassung ist massgebend.
  */
 import { BUSINESS_VEHICLE_YEARLY_CHF, PRIVATE_MAX_VEHICLES, PRIVATE_YEARLY_CHF } from '@strainovic/ai-proxy/plans'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
+import { useSprache } from '../composables/useSprache'
 import { formatCurrency } from '../lib/locale'
+import AgbEn from '../texte/agb/en.vue'
+import AgbFr from '../texte/agb/fr.vue'
+import AgbIt from '../texte/agb/it.vue'
 
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
+const { sprache } = useSprache()
+const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
 </script>
 
 <template>
   <div class="legal-page">
     <LandingHeader />
 
-    <main class="legal-container legal-content">
+    <main v-if="sprache !== 'de'" class="legal-container legal-content">
+      <component :is="UEBERSETZUNG[sprache]" />
+    </main>
+
+    <main v-else class="legal-container legal-content">
       <h1>Allgemeine Geschäftsbedingungen</h1>
       <p class="legal-meta">
         Stand: 22. September 2026
@@ -199,8 +210,9 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   padding-bottom: 3rem;
 }
 
-/* «Geschäftsbedingungen» ist auf 390px breiter als die Seite: kleiner und mit Silbentrennung */
-.legal-content h1 {
+/* «Geschäftsbedingungen» ist auf 390px breiter als die Seite: kleiner und mit Silbentrennung.
+   :deep, damit die Regeln auch in den Übersetzungen (src/texte/agb/*.vue) greifen */
+.legal-content :deep(h1) {
   font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 700;
   margin: 0 0 0.5rem;
@@ -208,11 +220,11 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   overflow-wrap: break-word;
 }
 
-.legal-meta {
+.legal-content :deep(.legal-meta) {
   margin-bottom: 2rem !important;
 }
 
-.legal-content h2 {
+.legal-content :deep(h2) {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 2rem 0 1rem;
@@ -220,22 +232,22 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   border-top: 1px solid var(--p-surface-border);
 }
 
-.legal-content p,
-.legal-content li {
+.legal-content :deep(p),
+.legal-content :deep(li) {
   color: var(--p-text-muted-color);
   line-height: 1.7;
 }
 
-.legal-content p {
+.legal-content :deep(p) {
   margin: 0 0 1rem;
 }
 
-.legal-content ul {
+.legal-content :deep(ul) {
   margin: 0 0 1rem;
   padding-left: 1.25rem;
 }
 
-.legal-content a {
+.legal-content :deep(a) {
   color: var(--p-primary-color);
 }
 </style>

@@ -2,20 +2,17 @@
 import Button from 'primevue/button'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
+import { useSprache } from '../composables/useSprache'
+import anlagenTexte from '../texte/anlagen'
 
 // Hypothese H3: Wartungsplan für Liegenschaften und Anlagen (Validierung in ~/projects/wartungsplan).
-// Noch kein Produkt: die Seite sammelt Vorbestellungen per Mail, Zahlung erst bei Lieferung.
-const benefits = [
-  { icon: 'pi-calendar', title: 'Jede Frist im Blick', text: 'Heizung, Lift, Lüftung, Brandmelder, Maschinen: Wartungsintervalle und gesetzliche Prüffristen pro Objekt, eine E-Mail erinnert rechtzeitig.' },
-  { icon: 'pi-camera', title: 'Rechnung oder Prüfbericht fotografieren', text: 'Firma, Datum und Betrag werden ausgelesen und dem Objekt zugeordnet. Die Historie füllt sich von selbst.' },
-  { icon: 'pi-file-pdf', title: 'Protokoll auf Knopfdruck', text: 'Wartungshistorie und Prüfprotokoll als PDF für Eigentümer, Verwaltung und Versicherung.' },
-]
+// Noch kein Produkt: die Seite sammelt Vorbestellungen per Mail, Zahlung erst bei Lieferung. Texte in src/texte/anlagen.ts.
+const { t } = useSprache(anlagenTexte)
 
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
-const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Vorbestellung Wartungsplan für Anlagen')}&body=${encodeURIComponent('Betrieb: \nAnzahl Objekte: \nHeutiges Werkzeug (Excel, Papier, Software): \n')}`
 
 function vorbestellen() {
-  window.location.href = mailto
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.value.mailBetreff)}&body=${encodeURIComponent(t.value.mailText)}`
 }
 </script>
 
@@ -25,15 +22,14 @@ function vorbestellen() {
 
     <main class="anlagen-container anlagen-main">
       <section class="anlagen-hero">
-        <h1>Wartungsplan für Liegenschaften und Anlagen</h1>
+        <h1>{{ t.titel }}</h1>
         <p class="anlagen-problem">
-          Wer Gebäude oder Anlagen unterhält, verliert Fristen in Excel-Listen und Belege in Ordnern. Wartungsheft
-          erinnert an jede Wartung und Prüfung, das Foto der Rechnung wird zum Eintrag, das Protokoll zum PDF.
+          {{ t.problem }}
         </p>
       </section>
 
       <section class="anlagen-benefits">
-        <div v-for="b in benefits" :key="b.title" class="anlagen-benefit">
+        <div v-for="b in t.benefits" :key="b.title" class="anlagen-benefit">
           <i :class="`pi ${b.icon}`" />
           <h2>{{ b.title }}</h2>
           <p>{{ b.text }}</p>
@@ -41,26 +37,23 @@ function vorbestellen() {
       </section>
 
       <section class="anlagen-fuer">
-        <h2>Für wen</h2>
+        <h2>{{ t.fuerWenTitel }}</h2>
         <p>
-          Hauswartungen und Facility-Betriebe, Liegenschaftsverwaltungen mit wenigen Mitarbeitenden, Werkstätten,
-          Gärtnereien, Gemeinden, Vereine und Kirchgemeinden mit eigenen Gebäuden. Nicht für Industrieanlagen mit
-          Ticketsystem, dafür gibt es andere.
+          {{ t.fuerWen }}
         </p>
       </section>
 
       <section class="anlagen-price">
-        <strong>36 CHF pro Objekt und Jahr</strong>
-        <span>Ab 20 Objekten günstiger, keine Benutzergebühren, Jahresrechnung mit QR-Zahlteil auf die Firma. 30 Tage gratis, wie beim Serviceheft für Fahrzeuge.</span>
+        <strong>{{ t.preis }}</strong>
+        <span>{{ t.preisHinweis }}</span>
         <p class="anlagen-vorbestellung">
-          Wir bauen ab der ersten Bestellung. Lieferung vier Wochen nach deiner Bestellung, du zahlst erst bei
-          Lieferung. Schreib uns, wie viele Objekte du betreust und womit du heute arbeitest.
+          {{ t.vorbestellung }}
         </p>
         <div class="anlagen-actions">
-          <Button label="Vorbestellen per E-Mail" size="large" icon="pi pi-envelope" icon-pos="right" @click="vorbestellen" />
+          <Button :label="t.knopf" size="large" icon="pi pi-envelope" icon-pos="right" @click="vorbestellen" />
         </div>
         <p class="anlagen-contact">
-          Fragen vorab? Schreib an <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>, wir antworten am gleichen Tag.
+          {{ t.kontaktVor }} <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>{{ t.kontaktNach }}
         </p>
       </section>
     </main>

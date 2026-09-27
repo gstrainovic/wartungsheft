@@ -15,7 +15,7 @@
 	@assets path /assets/*
 	header @assets Cache-Control "public, max-age=31536000, immutable"
 	# Rechtsseiten nicht in Suchmaschinen: niemand sucht sie, und indexiert ziehen sie Abmahnanwälte an
-	@legal path /agb /datenschutz /impressum
+	@legal path /agb /datenschutz /impressum /fr/agb /fr/datenschutz /fr/impressum /it/agb /it/datenschutz /it/impressum /en/agb /en/datenschutz /en/impressum
 	header @legal X-Robots-Tag "noindex, nofollow"
 	# Testdateien und Anleitung für Nutzertests (business/auto-service/nutzertest.md): Passwort gegen Crawler,
 	# Hash in NUTZERTEST_HASH aus /opt/instant/docker-compose.override.yml (Caddy-Umgebung)

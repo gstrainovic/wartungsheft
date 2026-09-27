@@ -1,26 +1,33 @@
 <script setup lang="ts">
 import Badge from 'primevue/badge'
+import { computed } from 'vue'
+import { useSprache } from '../composables/useSprache'
+import preisTexte from '../texte/preise'
 
 // Gerenderte Beispiel-Ansicht der Fälligkeitsliste für Landing Pages: gleiche Farben, Icons und Badges wie im Dashboard,
-// aber feste Daten ohne Store. «compact» zeigt nur Bezeichnung und Badge.
+// aber feste Daten ohne Store. «compact» zeigt nur Bezeichnung und Badge. Texte je Sprache in src/texte/preise.ts.
 withDefaults(defineProps<{ compact?: boolean, vehicle?: string }>(), {
   compact: false,
   vehicle: 'VW Caddy · SG 48 213',
 })
 
-const rows = [
-  { label: 'Ölwechsel', caption: 'nächste am 14.03.2027 oder bei 92\'000 km', status: 'OK', severity: 'success', icon: 'pi pi-check-circle', color: 'var(--p-green-500)' },
-  { label: 'Bremsen', caption: 'fällig am 05.10.2026', status: 'Bald fällig', severity: 'warn', icon: 'pi pi-clock', color: 'var(--p-yellow-500)' },
-  { label: 'MFK', caption: 'fällig seit 01.08.2026', status: 'Überfällig', severity: 'danger', icon: 'pi pi-exclamation-triangle', color: 'var(--p-red-500)' },
+const { t } = useSprache(preisTexte)
+
+const STIL = [
+  { severity: 'success', icon: 'pi pi-check-circle', color: 'var(--p-green-500)' },
+  { severity: 'warn', icon: 'pi pi-clock', color: 'var(--p-yellow-500)' },
+  { severity: 'danger', icon: 'pi pi-exclamation-triangle', color: 'var(--p-red-500)' },
 ] as const
+
+const rows = computed(() => t.value.demo.zeilen.map((zeile, i) => ({ ...zeile, ...STIL[i]! })))
 </script>
 
 <template>
-  <div class="demo-due" :class="{ 'demo-due-compact': compact }" aria-label="Beispiel: Fälligkeiten eines Fahrzeugs">
+  <div class="demo-due" :class="{ 'demo-due-compact': compact }" :aria-label="t.demo.beschreibung">
     <div v-if="!compact" class="demo-due-head">
       <i class="pi pi-car" />
       <span>{{ vehicle }}</span>
-      <Badge value="1 überfällig" severity="danger" />
+      <Badge :value="t.demo.ueberfaellig" severity="danger" />
     </div>
     <div v-for="row in rows" :key="row.label" class="demo-due-row">
       <i :class="row.icon" :style="{ color: row.color }" />
@@ -35,7 +42,7 @@ const rows = [
       <Badge :value="row.status" :severity="row.severity" />
     </div>
     <div v-if="!compact" class="demo-due-foot">
-      Beispiel-Ansicht aus der Übersicht
+      {{ t.demo.fuss }}
     </div>
   </div>
 </template>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { LandingSegment } from '../stores/events'
 import Button from 'primevue/button'
+import { computed } from 'vue'
 import { useAuthEntry } from '../composables/useAuthEntry'
+import { useSprache } from '../composables/useSprache'
+import angebotTexte from '../texte/angebot'
 import LandingFooter from './LandingFooter.vue'
 import LandingHeader from './LandingHeader.vue'
 import LandingVideo from './LandingVideo.vue'
@@ -9,21 +12,18 @@ import PriceTable from './PriceTable.vue'
 
 // Landing Page pro Hypothese (business-plan/09-validierung.md, M2): Problem in einem Satz,
 // drei Nutzen, Preis sichtbar, ein Button in die Testzeit. Fragen gehen per Mail ans Postfach.
+// Texte je Segment und Sprache in src/texte/angebot.ts.
 const props = defineProps<{
   segment: LandingSegment
-  title: string
-  problem: string
-  benefits: { icon: string, title: string, text: string }[]
-  price: string
-  priceNote: string
-  cta: string
   /** Startwert des Preisreglers (Betrieb) */
   vehicles?: number
-  /** Betreff der Kontakt-Mail; ohne Angabe keine Kontaktzeile unter dem Knopf */
-  contactSubject?: string
 }>()
 
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
+
+const { t } = useSprache(angebotTexte)
+// Ohne contactSubject keine Kontaktzeile unter dem Knopf
+const text = computed(() => (props.segment === 'betrieb' ? t.value.betrieb : t.value.privat))
 
 // Hauptweg ist die Testzeit: der Klick zählt als Interesse und führt zur Anmeldung.
 // Eingeloggt oder mit bekanntem Konto führt derselbe Knopf in die App oder zum Anmelden, ohne zu zählen.
@@ -36,14 +36,14 @@ const { entry, label, go } = useAuthEntry(props.segment)
 
     <main class="hypo-container hypo-main">
       <section class="hypo-hero">
-        <h1>{{ title }}</h1>
+        <h1>{{ text.title }}</h1>
         <p class="hypo-problem">
-          {{ problem }}
+          {{ text.problem }}
         </p>
       </section>
 
       <section class="hypo-benefits">
-        <div v-for="b in benefits" :key="b.title" class="hypo-benefit">
+        <div v-for="b in text.benefits" :key="b.title" class="hypo-benefit">
           <i :class="`pi ${b.icon}`" />
           <h2>{{ b.title }}</h2>
           <p>{{ b.text }}</p>
@@ -52,21 +52,20 @@ const { entry, label, go } = useAuthEntry(props.segment)
 
       <LandingVideo
         :file="segment === 'betrieb' ? 'film-betrieb.webm' : 'film-privat.webm'"
-        :title="segment === 'betrieb' ? 'Der Fuhrpark in einer halben Minute' : 'In einer halben Minute gesehen'"
-        :subtitle="segment === 'betrieb' ? 'Vom Foto der Werkstattrechnung bis zu den Kosten pro Fahrzeug.' : 'Vom Foto der Werkstattrechnung bis zum Serviceheft für den Verkauf.'"
+        :title="text.film.titel"
+        :subtitle="text.film.text"
       />
 
       <section class="hypo-price">
-        <strong>{{ price }}</strong>
-        <span>{{ priceNote }}</span>
+        <strong>{{ text.price }}</strong>
+        <span>{{ text.priceNote }}</span>
         <PriceTable :audience="segment === 'betrieb' ? 'betrieb' : 'privat'" fixed :vehicles="vehicles ?? 5" compact class="hypo-price-table" />
         <div class="hypo-actions">
-          <Button :label="entry === 'trial' ? cta : label" size="large" icon="pi pi-arrow-right" icon-pos="right" @click="go" />
+          <Button :label="entry === 'trial' ? text.cta : label" size="large" icon="pi pi-arrow-right" icon-pos="right" @click="go" />
         </div>
-        <p v-if="contactSubject" class="hypo-contact">
-          Fragen vorab? Schreib an
-          <a :href="`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(contactSubject)}`">{{ CONTACT_EMAIL }}</a>,
-          wir antworten am gleichen Tag.
+        <p v-if="text.contactSubject" class="hypo-contact">
+          {{ t.kontakt.vor }}
+          <a :href="`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(text.contactSubject)}`">{{ CONTACT_EMAIL }}</a>{{ t.kontakt.nach }}
         </p>
       </section>
     </main>

@@ -1,38 +1,46 @@
 <script setup lang="ts">
+import { useSprache } from '../composables/useSprache'
+import layoutTexte from '../texte/layout'
+
 // Ein Fuss für alle öffentlichen Seiten (/, /betrieb, /privathalter, /impressum, /datenschutz, /agb, /login):
 // Herkunft und Kontakt, Links auf Zielgruppen und Rechtliches. Kein Logo, das steht im Kopf (sticky).
+// Auf den Übersetzungen steht dazu, dass die App selbst deutsch ist.
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
+const { pfad, t } = useSprache(layoutTexte)
 </script>
 
 <template>
   <footer class="landing-footer">
     <div class="landing-footer-inner">
       <p class="footer-note">
-        Schweizer Server, KI in der EU. Deine Daten gehören dir: jederzeit exportieren, auf Wunsch löschen wir das Konto.
-        Fragen? <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>
+        {{ t.fuss.hinweis }}
+        <template v-if="t.appSprache">
+          {{ t.appSprache }}
+        </template>
+        {{ t.fuss.fragen }} <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>
       </p>
       <nav class="footer-links">
-        <router-link to="/betrieb">
-          Betriebe
+        <router-link :to="pfad('/betrieb')">
+          {{ t.fuss.betrieb }}
         </router-link>
-        <router-link to="/privathalter">
-          Privathalter
+        <router-link :to="pfad('/privathalter')">
+          {{ t.fuss.privat }}
         </router-link>
-        <router-link to="/hilfe">
-          Hilfe
+        <router-link :to="pfad('/hilfe')">
+          {{ t.fuss.hilfe }}
         </router-link>
         <!-- Ratgeber ist fertiges HTML ausserhalb der App (src/lib/ratgeber.ts): voller Seitenwechsel, kein Router -->
-        <a href="/ratgeber">
-          Ratgeber
+        <a :href="pfad('/ratgeber')">
+          {{ t.fuss.ratgeber }}
         </a>
-        <router-link to="/impressum">
-          Impressum
+        <router-link :to="pfad('/impressum')">
+          {{ t.fuss.impressum }}
         </router-link>
-        <router-link to="/datenschutz">
-          Datenschutz
+        <router-link :to="pfad('/datenschutz')">
+          {{ t.fuss.datenschutz }}
         </router-link>
-        <router-link to="/agb">
-          AGB
+        <router-link :to="pfad('/agb')">
+          {{ t.fuss.agb }}
         </router-link>
       </nav>
     </div>
