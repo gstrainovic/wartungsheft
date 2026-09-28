@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildReminders, reminderKey, shouldSend } from './reminders'
+import { buildReminders, reminderKey, resendPayload, shouldSend } from './reminders'
 
 const iso = (d: Date) => d.toISOString().slice(0, 10)
 const daysAgo = (n: number) => iso(new Date(Date.now() - n * 86_400_000))
@@ -95,5 +95,14 @@ describe('shouldSend', () => {
     const old = new Date(now.getTime() - 31 * 86_400_000).toISOString()
     expect(shouldSend({ creatorId: 'u1', lastReminderKey: key, lastReminderAt: recent }, key, now)).toBe(false)
     expect(shouldSend({ creatorId: 'u1', lastReminderKey: key, lastReminderAt: old }, key, now)).toBe(true)
+  })
+})
+
+describe('resendPayload', () => {
+  it('schickt Text und HTML-Fassung, jede Zeile mit eigenem Umbruch', () => {
+    const payload = resendPayload({ from: 'Wartungsheft <erinnerung@wartungsheft.ch>', replyTo: 'info@wartungsheft.ch', to: 'anna@example.ch', subject: 'Test', text: 'Hallo\n\nÖlwechsel <fällig>\nDetails: https://wartungsheft.ch/dashboard' })
+    expect(payload).toMatchObject({ from: 'Wartungsheft <erinnerung@wartungsheft.ch>', to: ['anna@example.ch'], reply_to: 'info@wartungsheft.ch', subject: 'Test' })
+    expect(payload.text).toBe('Hallo\n\nÖlwechsel <fällig>\nDetails: https://wartungsheft.ch/dashboard')
+    expect(payload.html).toContain('Ölwechsel &lt;fällig&gt;<br>\nDetails: <a href="https://wartungsheft.ch/dashboard">')
   })
 })

@@ -3,6 +3,7 @@
  * (scripts/reminders.ts) und die Tests dieselbe Logik nutzen. Fälligkeit kommt aus maintenance-schedule.ts.
  */
 import type { DueResult } from './maintenance-schedule'
+import { textToHtml } from '@strainovic/ai-proxy/mail-html'
 import { formatDate, formatNumber } from '../lib/locale'
 import { checkDueMaintenances, getMaintenanceSchedule } from './maintenance-schedule'
 import { activeVehicles } from './vehicle-status'
@@ -163,4 +164,9 @@ export function buildReminders(input: {
     reminders.push({ userId: user.id, email: user.email, subject, text, key: reminderKey(entries), entries })
   }
   return reminders
+}
+
+/** Resend-Nutzlast: Text plus HTML-Fassung, sonst zieht Outlook die Zeilen zusammen */
+export function resendPayload(mail: { from: string, replyTo: string, to: string, subject: string, text: string }) {
+  return { from: mail.from, to: [mail.to], reply_to: mail.replyTo, subject: mail.subject, text: mail.text, html: textToHtml(mail.text) }
 }

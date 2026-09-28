@@ -12,7 +12,7 @@
 import { randomUUID } from 'node:crypto'
 import process from 'node:process'
 import { TRIAL_DAYS } from '@strainovic/ai-proxy/trial'
-import { buildReminders, shouldSend } from '../src/services/reminders'
+import { buildReminders, resendPayload, shouldSend } from '../src/services/reminders'
 import { buildSignupNotice } from '../src/services/signup-notice'
 import { buildTrialReminders } from '../src/services/trial-reminder'
 
@@ -48,7 +48,7 @@ async function sendMail(to: string, subject: string, text: string): Promise<void
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${RESEND_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: FROM, to: [to], reply_to: REPLY_TO, subject, text }),
+    body: JSON.stringify(resendPayload({ from: FROM, replyTo: REPLY_TO, to, subject, text })),
   })
   if (!res.ok)
     throw new Error(`Resend: ${res.status} ${await res.text()}`)
