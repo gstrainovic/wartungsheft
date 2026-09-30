@@ -27,6 +27,19 @@ const src = computed(() => (quer.value ? `/${props.file.replace(/\.webm$/, '-des
 // MP4 zuerst: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM (VP9/Opus)
 const mp4 = computed(() => src.value.replace(/\.webm$/, '.mp4'))
 const poster = computed(() => src.value.replace(/\.webm$/, '-poster.jpg'))
+
+// Dieselben Filme auf YouTube (Kanal strainovic-it): nur verlinkt, nicht eingebettet, damit die Seite ohne
+// Google-Anfragen auskommt. Handyfassung als Short, Desktopfassung als normales Video.
+const YOUTUBE: Record<string, { quer: string, hoch: string }> = {
+  'film-privat.webm': { quer: 'gVyuTsk_LrI', hoch: 'mk1MgiPa7dw' },
+  'film-betrieb.webm': { quer: 'CypEsJgVRC8', hoch: 'Pv4ugkC5yWU' },
+}
+const youtube = computed(() => {
+  const ids = YOUTUBE[props.file]
+  if (!ids)
+    return undefined
+  return quer.value ? `https://www.youtube.com/watch?v=${ids.quer}` : `https://www.youtube.com/shorts/${ids.hoch}`
+})
 const vorhanden = ref(false)
 const laeuft = ref(false)
 const video = ref<HTMLVideoElement | null>(null)
@@ -91,6 +104,10 @@ function abspielen(): void {
       </div>
       <p class="video-note">
         {{ t.film.hinweis }}
+        <template v-if="youtube">
+          <br>
+          <a :href="youtube" target="_blank" rel="noopener" data-testid="video-youtube">{{ t.film.youtube }}</a>
+        </template>
       </p>
     </div>
   </section>
@@ -172,5 +189,9 @@ h2 {
   margin: 0.9rem 0 0;
   font-size: 0.85rem;
   color: var(--p-text-muted-color);
+}
+
+.video-note a {
+  color: var(--p-primary-color);
 }
 </style>

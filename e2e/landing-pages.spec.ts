@@ -159,10 +159,15 @@ test.describe('Landing Pages', () => {
     await expect(video).toHaveAttribute('poster', '/film-privat-desktop-poster.jpg')
     // Die Datei wird tatsächlich ausgeliefert, nicht nur verlinkt
     expect((await page.request.head('/film-privat-desktop.mp4')).headers()['content-type']).toMatch(/^video\/mp4/)
+    // YouTube nur als Link, kein eingebetteter Player
+    const youtube = film.getByTestId('video-youtube')
+    await expect(youtube).toHaveAttribute('href', 'https://www.youtube.com/watch?v=gVyuTsk_LrI')
+    await expect(page.locator('iframe[src*="youtube"]')).toHaveCount(0)
 
     // Handy: hochkant
     await page.setViewportSize({ width: 390, height: 844 })
     await expect.poll(() => quellen(video)).toEqual(['/film-privat.mp4 video/mp4', '/film-privat.webm video/webm'])
+    await expect(youtube).toHaveAttribute('href', 'https://www.youtube.com/shorts/mk1MgiPa7dw')
     expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(true)
     // Kein Autoplay: erst der Knopf startet
     await expect(film.getByRole('button', { name: 'Film abspielen' })).toBeVisible()
@@ -173,5 +178,6 @@ test.describe('Landing Pages', () => {
     await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb.mp4 video/mp4', '/film-betrieb.webm video/webm'])
     await page.setViewportSize({ width: 1280, height: 900 })
     await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb-desktop.mp4 video/mp4', '/film-betrieb-desktop.webm video/webm'])
+    await expect(page.getByTestId('video-youtube')).toHaveAttribute('href', 'https://www.youtube.com/watch?v=CypEsJgVRC8')
   })
 })
