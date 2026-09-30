@@ -153,20 +153,25 @@ test.describe('Landing Pages', () => {
     const film = page.getByTestId('landing-video')
     await expect(film).toBeVisible()
     const video = film.locator('video')
-    await expect(video).toHaveAttribute('src', '/film-privat-desktop.webm')
+    // MP4 zuerst (spielt überall), WebM als zweite Quelle
+    const quellen = (v: typeof video) => v.locator('source').evaluateAll(s => s.map(e => `${e.getAttribute('src')} ${e.getAttribute('type')}`))
+    await expect.poll(() => quellen(video)).toEqual(['/film-privat-desktop.mp4 video/mp4', '/film-privat-desktop.webm video/webm'])
     await expect(video).toHaveAttribute('poster', '/film-privat-desktop-poster.jpg')
+    // Die Datei wird tatsächlich ausgeliefert, nicht nur verlinkt
+    expect((await page.request.head('/film-privat-desktop.mp4')).headers()['content-type']).toMatch(/^video\/mp4/)
 
     // Handy: hochkant
     await page.setViewportSize({ width: 390, height: 844 })
-    await expect(video).toHaveAttribute('src', '/film-privat.webm')
+    await expect.poll(() => quellen(video)).toEqual(['/film-privat.mp4 video/mp4', '/film-privat.webm video/webm'])
     expect(await video.evaluate((v: HTMLVideoElement) => v.muted)).toBe(true)
     // Kein Autoplay: erst der Knopf startet
     await expect(film.getByRole('button', { name: 'Film abspielen' })).toBeVisible()
     expect(await video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true)
 
     await page.goto('/betrieb')
-    await expect(page.getByTestId('landing-video').locator('video')).toHaveAttribute('src', '/film-betrieb.webm')
+    const betrieb = page.getByTestId('landing-video').locator('video')
+    await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb.mp4 video/mp4', '/film-betrieb.webm video/webm'])
     await page.setViewportSize({ width: 1280, height: 900 })
-    await expect(page.getByTestId('landing-video').locator('video')).toHaveAttribute('src', '/film-betrieb-desktop.webm')
+    await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb-desktop.mp4 video/mp4', '/film-betrieb-desktop.webm video/webm'])
   })
 })
