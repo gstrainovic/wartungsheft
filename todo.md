@@ -45,6 +45,20 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
+- [ ] **Filme je Sprache (DE, FR, IT, EN), YouTube mit eigener Untertitelspur.** Heute gibt es nur die deutschen Filme
+      mit eingebrannten Untertiteln; auf YouTube (Kanal strainovic-it) sind bei allen vier Filmen die automatischen
+      Untertitel abgeschaltet, damit sie nicht doppelt erscheinen. Ziel:
+      - Voraussetzung: die im Film gezeigten App-Seiten (Dashboard, Fahrzeug, Rechnung, Chat) sprechen FR, IT und EN;
+        heute ist nur die Landing-Seite übersetzt (`useSprache`), siehe «Sobald über die Schweiz hinaus verkauft wird»
+      - je Sprache eigene Aufnahme (`npm run video`, Oberfläche in dieser Sprache), eigene Sprecherstimme und eigener
+        Sprechertext in `video-scripts/`
+      - Querformate ohne eingebrannte Untertitel bauen, `video-build.sh` schreibt dazu je Film eine SRT-Datei, die als
+        Untertitelspur hochgeladen wird; Shorts behalten eingebrannte Untertitel
+      - hochladen mit Titel und Beschreibung je Sprache, die bisherigen deutschen Querformate
+        (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen
+      - `LandingVideo.vue` zeigt Film und YouTube-Link in der Sprache der Seite; der Hinweis «auf Deutsch» fällt weg.
+        Der YouTube-Link liegt schon im Branch `youtube-link` (Tabelle `YOUTUBE`, Test in `landing-pages.spec.ts`),
+        dort die IDs je Sprache nachtragen, dann nach `master`
 - [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-privat.webm` und `social-betrieb.webm` (je gut
       10 Sekunden) beim ersten Beitrag oder der ersten Anzeige einsetzen
 
