@@ -51,10 +51,16 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       lässt (nur herunterladen oder bearbeiten). Ziel:
       - Voraussetzung: die im Film gezeigten App-Seiten (Dashboard, Fahrzeug, Rechnung, Chat) sprechen FR, IT und EN;
         heute ist nur die Landing-Seite übersetzt (`useSprache`), siehe «Sobald über die Schweiz hinaus verkauft wird»
-      - je Sprache eigene Aufnahme (`npm run video`, Oberfläche in dieser Sprache), eigene Sprecherstimme und eigener
-        Sprechertext in `video-scripts/`
-      - Querformate ohne eingebrannte Untertitel bauen, `video-build.sh` schreibt dazu je Film eine SRT-Datei, die als
-        Untertitelspur hochgeladen wird; Shorts behalten eingebrannte Untertitel
+      - neu im Stil der Plugin-Filme (`~/projects/zefix-uid-check/video`): HyperFrames-Komposition mit denselben Zooms
+        (`blick`/`kamera`), Untertitel im Plugin-Stil (IBM Plex Sans, weisser Kasten, Farbrand), scharfe Aufnahme per
+        Chrome-Screencast statt `recordVideo`; Quer- und Hochformat
+      - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und eigener Sprechertext in `video-scripts/`;
+        Stimmen (von Goran nach Hörprobe gewählt, alle lokal und gratis): DE Piper `de_DE-thorsten-high`, FR Kokoro
+        `ff_siwis`, EN Piper `en_US-lessac-high`, IT Kokoro `im_nicola` (Kokoro über `hyperframes tts`, braucht
+        `kokoro-onnx` in einer venv, `HYPERFRAMES_PYTHON` darauf zeigen; Piper-Stimmen in `~/.local/share/piper-voices/`)
+      - zuerst DE neu, FR/IT/EN nach der Übersetzung der App-Seiten
+      - zwei Fassungen je Film und Sprache: Webseite mit eingebrannten Untertiteln, YouTube ohne eingebrannte
+        Untertitel plus SRT-Datei als Untertitelspur; Shorts behalten eingebrannte Untertitel
       - hochladen mit Titel und Beschreibung je Sprache, die bisherigen deutschen Querformate
         (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen
       - `LandingVideo.vue` zeigt Film und YouTube-Link in der Sprache der Seite; der Hinweis «auf Deutsch» fällt weg.
