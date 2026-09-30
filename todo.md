@@ -46,8 +46,9 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 
 ### Marketing-Video
 - [ ] **Filme je Sprache (DE, FR, IT, EN), YouTube mit eigener Untertitelspur.** Heute gibt es nur die deutschen Filme
-      mit eingebrannten Untertiteln; auf YouTube (Kanal strainovic-it) sind bei allen vier Filmen die automatischen
-      Untertitel abgeschaltet, damit sie nicht doppelt erscheinen. Ziel:
+      mit eingebrannten Untertiteln; auf YouTube (Kanal strainovic-it) erscheinen sie doppelt, sobald ein Zuschauer
+      Untertitel einschaltet, weil YouTube automatische Untertitel erzeugt und YouTube Studio diese nicht abschalten
+      lässt (nur herunterladen oder bearbeiten). Ziel:
       - Voraussetzung: die im Film gezeigten App-Seiten (Dashboard, Fahrzeug, Rechnung, Chat) sprechen FR, IT und EN;
         heute ist nur die Landing-Seite übersetzt (`useSprache`), siehe «Sobald über die Schweiz hinaus verkauft wird»
       - je Sprache eigene Aufnahme (`npm run video`, Oberfläche in dieser Sprache), eigene Sprecherstimme und eigener
