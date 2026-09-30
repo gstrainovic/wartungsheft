@@ -209,6 +209,17 @@ HOEHE_DESKTOP=720
 
 kurzfassungen
 
+# MP4 neben dem WebM: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM ab.
+# Fedora-ffmpeg hat libopenh264, Windows-ffmpeg (scoop) libx264.
+als_mp4() {
+  local enc=libopenh264
+  ffmpeg -hide_banner -encoders 2>/dev/null | grep -q ' libx264 ' && enc=libx264
+  # H.264 verlangt gerade Masse, die Handyfassung ist 585 px breit
+  ffmpeg -loglevel error -y -i "$1" -vf 'pad=ceil(iw/2)*2:ceil(ih/2)*2' -c:v "$enc" -pix_fmt yuv420p -b:v 350k \
+    -c:a aac -b:a 64k \
+    -movflags +faststart "${1%.webm}.mp4"
+}
+
 # Standbild als Poster, sonst zeigt der Player vor dem Start eine schwarze Fläche
 poster() {
   ffmpeg -loglevel error -y -ss "${2:-12}" -i "$1" -frames:v 1 -q:v 4 "${1%.webm}-poster.jpg"
@@ -225,4 +236,5 @@ bauen "$OUT/film-betrieb-desktop.webm" "${BETRIEB_DESKTOP[@]}"
 
 for film in "$OUT/film-privat.webm" "$OUT/film-betrieb.webm" "$OUT/film-privat-desktop.webm" "$OUT/film-betrieb-desktop.webm"; do
   poster "$film" 12
+  als_mp4 "$film"
 done

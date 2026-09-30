@@ -24,6 +24,8 @@ const { t } = useSprache(angebotTexte)
 // Auf dem Desktop die eigene Aufnahme im Desktop-Layout, am Handy die hochkant aufgenommene
 const quer = ref(false)
 const src = computed(() => (quer.value ? `/${props.file.replace(/\.webm$/, '-desktop.webm')}` : `/${props.file}`))
+// MP4 zuerst: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM (VP9/Opus)
+const mp4 = computed(() => src.value.replace(/\.webm$/, '.mp4'))
 const poster = computed(() => src.value.replace(/\.webm$/, '-poster.jpg'))
 const vorhanden = ref(false)
 const laeuft = ref(false)
@@ -71,7 +73,6 @@ function abspielen(): void {
         <video
           ref="video"
           :key="src"
-          :src="src"
           :poster="poster"
           muted
           playsinline
@@ -80,7 +81,10 @@ function abspielen(): void {
           controls
           @play="laeuft = true"
           @pause="laeuft = false"
-        />
+        >
+          <source :src="mp4" type="video/mp4">
+          <source :src="src" type="video/webm">
+        </video>
         <button v-if="!laeuft" class="video-play" type="button" :aria-label="t.film.abspielen" @click="abspielen">
           <i class="pi pi-play" />
         </button>
