@@ -52,6 +52,16 @@ onMounted(async () => {
 })
 
 /**
+ * Untertitel zu Beginn an: Safari und WebKit übergehen `default` und folgen ihrer eigenen Untertitel-Vorgabe.
+ * Nur beim Laden, danach entscheidet der Untertitel-Knopf des Players.
+ */
+function untertitelAn(): void {
+  const spur = video.value?.textTracks[0]
+  if (spur && spur.mode === 'disabled')
+    spur.mode = 'showing'
+}
+
+/**
  * Start über den eigenen Knopf: weil der Klick vom Menschen kommt, erlauben die Browser den Ton. Stumm ist nur
  * der Zustand davor, damit die Seite beim Laden nicht von selbst spricht.
  */
@@ -82,6 +92,7 @@ function abspielen(): void {
           loop
           preload="metadata"
           controls
+          @loadedmetadata="untertitelAn"
           @play="laeuft = true"
           @pause="laeuft = false"
         >
