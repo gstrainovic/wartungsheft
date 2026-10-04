@@ -33,7 +33,9 @@ Danach liegen bereit (`<name>` ist `privat`, `betrieb`, in anderen Sprachen `pri
 
 `LandingVideo.vue` wählt den Film in der Sprache der Seite (`/fr/privathalter` → `film-privat-fr`) und hängt die
 VTT als `<track kind="subtitles" default>` an: Untertitel an, über den Untertitel-Knopf des Players abschaltbar
-(z. B. für Zuschauer ohne Ton). Die Kästen tragen nur Sprechertext; Szenentitel und Botschaften sind Teil der
+(z. B. für Zuschauer ohne Ton). Safari/WebKit übergeht `default`, darum schaltet `untertitelAn` die Spur beim
+Laden der Metadaten ein. WebKit prüfen: im Docker-Image `mcr.microsoft.com/playwright:v<Version>-noble`, auf Fedora
+fehlen WebKit die Bibliotheken. Die Kästen tragen nur Sprechertext; Szenentitel und Botschaften sind Teil der
 gezeichneten Szenen und Titelkarten und bleiben im Bild. Caddy liefert `.vtt` als `text/vtt` (mime.types im
 Container), E2E prüft Spur und Datei (`untertitelPruefen` in `e2e/landing-pages.spec.ts`).
 
