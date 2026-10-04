@@ -1,7 +1,7 @@
 /**
  * Montiert die Werbefilme aus den Aufnahmen in video-out/roh/ (`npm run video`), mit Sprecher (ElevenLabs, eine
- * Stimme je Sprache, Rückfall Piper), Untertitel-Kästen im Stil der Plugin-Filme, Musik mit Absenkung unter der
- * Stimme und Lautheit −16 LUFS. Skill `werbefilm`.
+ * Stimme je Sprache, Rückfall Piper), Untertiteln (Website als WebVTT-Spur, Kurzfassungen als eingebrannte Kästen
+ * im Stil der Plugin-Filme), Musik mit Absenkung unter der Stimme und Lautheit −16 LUFS. Skill `werbefilm`.
  *
  *   node scripts/werbefilm.ts                    # alles: Privat, Betrieb, Kurzfassungen in DE, FR, IT, EN
  *   node scripts/werbefilm.ts privat betrieb     # nur diese Filme
@@ -10,8 +10,9 @@
  *   node scripts/werbefilm.ts sprecher           # nur Sprecher erzeugen und den besseren Durchlauf wählen
  *
  * Ergebnis (<name> ist privat oder betrieb, ausser Deutsch mit Sprachkürzel: privat-fr, src/lib/film-datei.ts):
- *   public/film-<name>.{mp4,webm}, -poster.jpg            Website, Handy 1080×1920, Untertitel eingebrannt
- *   public/film-<name>-desktop.{mp4,webm}, -poster.jpg    Website, Desktop 1920×1080, Untertitel eingebrannt
+ *   public/film-<name>.{mp4,webm}, -poster.jpg            Website, Handy 1080×1920, ohne eingebrannte Untertitel
+ *   public/film-<name>-desktop.{mp4,webm}, -poster.jpg    Website, Desktop 1920×1080, ohne eingebrannte Untertitel
+ *   public/film-<name>.vtt                                Untertitel beider Website-Fassungen (WebVTT)
  *   video-out/youtube-<name>.mp4, .srt                    YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur
  *   video-out/social-<name>.{mp4,webm}                    Kurzfassung 1080×1920 für Social und Anzeigen
  *
@@ -39,6 +40,7 @@ import {
   srt,
   startInAufnahme,
   untertitelSpur,
+  vtt,
   wortfehler,
   zeitplan,
 } from '../src/lib/werbefilm.ts'
@@ -513,9 +515,12 @@ function kaestenFilter(kaesten: Kasten[], ersterIndex: number): { eingaben: stri
 
 // ---------- Ausgabe ----------
 
-/** Website- oder Social-Fassung: Kästen einbrennen, MP4 (H.264 High, faststart, für Safari/iPhone) und WebM (VP9 Profil 0) */
+/**
+ * Website- oder Social-Fassung: MP4 (H.264 High, faststart, für Safari/iPhone) und WebM (VP9 Profil 0). Social
+ * brennt die Kästen ein; die Website bekommt keine (`kaesten` leer), dort laufen die Untertitel als WebVTT-Spur.
+ */
 function webFassung(bild: string, ton: string, kaesten: Kasten[], ziel: string): void {
-  const { eingaben, filter } = kaestenFilter(kaesten, 2)
+  const { eingaben, filter } = kaesten.length ? kaestenFilter(kaesten, 2) : { eingaben: [], filter: '[0:v]format=yuv420p[v]' }
   const gemeinsam = ['-i', bild, '-i', ton, ...eingaben, '-filter_complex', filter, '-map', '[v]', '-map', '1:a']
   ffmpegX264([...gemeinsam, '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-movflags', '+faststart', `${ziel}.mp4`])
   ffmpegMessen(['-v', 'error', '-y', ...gemeinsam, '-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '4', '-pix_fmt', 'yuv420p', '-c:a', 'libopus', '-b:a', '96k', `${ziel}.webm`])
@@ -544,12 +549,13 @@ async function filmBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<
   tonMischen(p, ton)
   // Poster aus dem dritten Abschnitt: die App mitten in der Arbeit
   const posterZeit = p.starts[2]! + 3
+  // Untertitel als abschaltbare Spur statt eingebrannt (LandingVideo.vue), eine Datei für beide Formate
+  writeFileSync(join(PUBLIC, `film-${name}.vtt`), vtt(p.cues))
   for (const format of ['quer', 'hoch'] as const) {
     const bild = join(tmp, `bild-${format}.mkv`)
     bildBauen(p, format, bild)
-    const kaesten = await kaestenRendern(p.cues, format, tmp)
     const ziel = join(PUBLIC, `film-${name}${FORMATE[format].suffix}`)
-    webFassung(bild, ton, kaesten, ziel)
+    webFassung(bild, ton, [], ziel)
     poster(ziel, posterZeit)
     bericht(`${ziel}.mp4`)
     bericht(`${ziel}.webm`)

@@ -10,6 +10,7 @@ import {
   srt,
   startInAufnahme,
   untertitelSpur,
+  vtt,
   wortfehler,
   zeilenUmbruch,
   zeitplan,
@@ -114,6 +115,19 @@ describe('srt', () => {
     expect(srt([{ von: 0.4, bis: 2.15, text: 'Eins.' }, { von: 61.25, bis: 63, text: 'Zwei.' }])).toBe(
       '1\n00:00:00,400 --> 00:00:02,150\nEins.\n\n2\n00:01:01,250 --> 00:01:03,000\nZwei.\n',
     )
+  })
+})
+
+describe('vtt', () => {
+  it('beginnt mit WEBVTT, Punkt vor den Millisekunden, Zeilen bricht der Browser selbst um', () => {
+    const lang = 'Ab heute nicht mehr: Rechnung fotografieren genügt, und alles steht drin!'
+    expect(vtt([{ von: 0.4, bis: 2.15, text: 'Eins.' }, { von: 61.25, bis: 63, text: lang }])).toBe(
+      `WEBVTT\n\n00:00:00.400 --> 00:00:02.150\nEins.\n\n00:01:01.250 --> 00:01:03.000\n${lang}\n`,
+    )
+  })
+
+  it('maskiert Zeichen, die WebVTT als Auszeichnung liest', () => {
+    expect(vtt([{ von: 0, bis: 1, text: 'A & B <C>' }])).toContain('\nA &amp; B &lt;C&gt;\n')
   })
 })
 

@@ -1,3 +1,4 @@
+import type { Locator, Page } from '@playwright/test'
 import { PAGE_META, SITE_URL } from '../src/lib/page-meta'
 import { expect, test } from './fixtures/test-fixtures'
 
@@ -14,6 +15,25 @@ async function countEvents(match: Record<string, string>) {
   })
   const { events } = await res.json() as { events: Record<string, string>[] }
   return events.filter(e => Object.entries(match).every(([k, v]) => e[k] === v)).length
+}
+
+/**
+ * Der Film trägt seine Untertitel als WebVTT-Spur in der Sprache der Seite, standardmässig an (Spur `showing`),
+ * und die Datei kommt als text/vtt mit WEBVTT-Kopf an
+ */
+async function untertitelPruefen(page: Page, video: Locator, src: string, sprache: string, name: string) {
+  const spur = video.locator('track')
+  await expect(spur).toHaveCount(1)
+  await expect(spur).toHaveAttribute('src', src)
+  await expect(spur).toHaveAttribute('kind', 'subtitles')
+  await expect(spur).toHaveAttribute('srclang', sprache)
+  await expect(spur).toHaveAttribute('label', name)
+  await expect(spur).toHaveAttribute('default', '')
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.textTracks[0]?.mode)).toBe('showing')
+  const res = await page.request.get(src)
+  expect(res.status()).toBe(200)
+  expect(res.headers()['content-type']).toMatch(/^text\/vtt/)
+  expect(await res.text()).toMatch(/^WEBVTT\n\n\d\d:\d\d:\d\d\.\d{3} --> /)
 }
 
 // Landing Pages für die Validierung (business-plan/09-validierung.md, M2):
@@ -159,6 +179,8 @@ test.describe('Landing Pages', () => {
     await expect(video).toHaveAttribute('poster', '/film-privat-desktop-poster.jpg')
     // Die Datei wird tatsächlich ausgeliefert, nicht nur verlinkt
     expect((await page.request.head('/film-privat-desktop.mp4')).headers()['content-type']).toMatch(/^video\/mp4/)
+    // Untertitel nicht eingebrannt, sondern als Spur: an, aber über den Untertitel-Knopf abschaltbar
+    await untertitelPruefen(page, video, '/film-privat.vtt', 'de', 'Deutsch')
 
     // Handy: hochkant
     await page.setViewportSize({ width: 390, height: 844 })
@@ -173,11 +195,12 @@ test.describe('Landing Pages', () => {
     await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb.mp4 video/mp4', '/film-betrieb.webm video/webm'])
     await page.setViewportSize({ width: 1280, height: 900 })
     await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb-desktop.mp4 video/mp4', '/film-betrieb-desktop.webm video/webm'])
+    await untertitelPruefen(page, betrieb, '/film-betrieb.vtt', 'de', 'Deutsch')
   })
 
   test('LP-005: jede Sprache zeigt ihren eigenen Film, ohne Hinweis auf Deutsch', async ({ page }) => {
     const quellen = (v: ReturnType<typeof page.locator>) => v.locator('source').evaluateAll(s => s.map(e => `${e.getAttribute('src')} ${e.getAttribute('type')}`))
-    for (const [sprache, deutsch] of [['fr', /allemand/i], ['it', /tedesco/i], ['en', /german/i]] as const) {
+    for (const [sprache, deutsch, name] of [['fr', /allemand/i, 'Français'], ['it', /tedesco/i, 'Italiano'], ['en', /german/i, 'English']] as const) {
       await page.setViewportSize({ width: 1280, height: 900 })
       await page.goto(`/${sprache}/privathalter`)
       const film = page.getByTestId('landing-video')
@@ -186,12 +209,14 @@ test.describe('Landing Pages', () => {
       await expect(video).toHaveAttribute('poster', `/film-privat-${sprache}-desktop-poster.jpg`)
       await expect(film).not.toContainText(deutsch)
       expect((await page.request.head(`/film-privat-${sprache}-desktop.mp4`)).headers()['content-type']).toMatch(/^video\/mp4/)
+      await untertitelPruefen(page, video, `/film-privat-${sprache}.vtt`, sprache, name)
 
       await page.goto(`/${sprache}/betrieb`)
       await page.setViewportSize({ width: 390, height: 844 })
       const betrieb = page.getByTestId('landing-video').locator('video')
       await expect.poll(() => quellen(betrieb)).toEqual([`/film-betrieb-${sprache}.mp4 video/mp4`, `/film-betrieb-${sprache}.webm video/webm`])
       expect((await page.request.head(`/film-betrieb-${sprache}.mp4`)).headers()['content-type']).toMatch(/^video\/mp4/)
+      await untertitelPruefen(page, betrieb, `/film-betrieb-${sprache}.vtt`, sprache, name)
     }
   })
 })
