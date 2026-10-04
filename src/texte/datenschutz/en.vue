@@ -65,7 +65,7 @@
 
   <h3>3.5 Feedback from the app</h3>
   <p>
-    If you write via «Fehler melden oder Wunsch» (report a bug or request) or record a voice message, the text
+    If you write via «Report a problem or a wish» or record a voice message, the text
     or recording is sent to our mailbox together with your email address, the page you were on and the time.
     We have voice messages transcribed automatically by Mistral (France, EU) so that we can read rather than
     listen to them; the recording itself then remains only in our mailbox and is not processed further. You

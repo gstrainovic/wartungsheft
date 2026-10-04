@@ -52,7 +52,7 @@ src/
   services/       # ai.ts (Mistral: OCR-Pipeline + Modell-Factory), chat.ts (tool-calling), maintenance-schedule.ts
   stores/         # Pinia: vehicles, invoices, maintenances, settings
   lib/            # instantdb.ts (DB-Client), instant-config.ts (Modus cloud/local/selfhosted, reine Funktion), locale.ts, errors.ts
-  texte/          # Texte der öffentlichen Seiten je Sprache (Skill `texte-und-sprachen`)
+  texte/          # Texte je Sprache: öffentliche Seiten, app/ für die App (Skill `texte-und-sprachen`)
 ../ai-proxy/      # AI-Proxy (eigenes Repo): app.ts (Hono, DI), auth/instant.ts, billing.ts (Stripe), limits.ts,
                   # plans.ts (Frontend importiert '@strainovic/ai-proxy/plans'), stores/ (memory, instant), Dockerfile
 deploy/           # docker-compose.yml (ai-proxy + caddy für PWA), Caddyfile, .env.example
@@ -80,8 +80,8 @@ Nur Mistral, alles über den AI-Proxy; der Client kennt keinen Mistral-Key und k
 Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skill `scan-und-chat`.
 
 ## Key Patterns
-- Währung, Zahlen und Datum nur über `src/lib/locale.ts` (CHF, `1'234.50`, `formatDate` → `14.09.2026`, `formatMonth`;
-  bewusst ohne Intl, weil Browser und Node für de-CH verschiedene Apostrophe liefern). ISO-Daten bleiben in Formularfeldern,
+- Währung, Zahlen und Datum nur über `src/lib/locale.ts` in der App-Sprache (CHF, `1'234.50`, `formatDate` →
+  `14.09.2026`, en `14/09/2026`, `formatMonth`; bewusst ohne Intl, weil Browser und Node verschiedene Apostrophe liefern). ISO-Daten bleiben in Formularfeldern,
   CSV und Dateinamen. Kategorie-Schlüssel (`oelwechsel`, `fahrwerk`) nie roh anzeigen, immer `categoryLabel` aus
   `src/services/report.ts`, die einzige Label-Tabelle. Kilometerstand 0 heisst unbekannt und wird weggelassen.
 - Speicherwege: Rechnungen immer über `saveInvoice` (`src/services/invoice-save.ts`: Rechnung, eine Wartung pro Kategorie
@@ -95,8 +95,8 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
   ihre Wartungen über `invoiceId`; Wartungen aus `add_invoice` tragen die `invoiceId`.
 - Die Stores `invoices` und `maintenances` halten alle Einträge des Kontos; Seiten für ein Fahrzeug filtern mit
   `getByVehicleId`, nie direkt `store.invoices` verwenden.
-- Fehler an Nutzer nur über `userMessage` in `src/lib/errors.ts` (402/429/Netz/Auth in deutsche Sätze; die Limit-Meldung
-  des ai-proxy geht unverändert durch, sie nennt Kontingent und Plan). Technische Details nur in der Konsole.
+- Fehler an Nutzer nur über `userMessage` in `src/lib/errors.ts` (402/429/Netz/Auth in Sätze der App-Sprache; die deutsche
+  Limit-Meldung des ai-proxy geht auf Deutsch unverändert durch, sie nennt Kontingent und Plan). Technische Details nur in der Konsole.
 - Offline: ohne Verbindung wird der Beleg mit `scanPending` gespeichert (kein Tesseract, es lädt vom CDN),
   `useOfflineScanQueue` holt den Scan beim `online`-Ereignis nach und füllt nur leere Felder. Speicherwege dürfen
   keine Serverabfrage voraussetzen; `db.queryOnce` scheitert offline.
@@ -105,7 +105,8 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
   unbekannt, der Ausweis-Scan füllt leere Felder. Löschen eines Fahrzeugs nur auf der Fahrzeugseite, nicht auf der Karte.
 
 ## Code Style
-- German UI text and AI schema descriptions
+- UI text in DE, FR, IT, EN only via `src/texte/` (no hard-coded strings, test `app-deutsch.test.ts`); AI prompts and
+  schema descriptions stay German (`src/services/prompts.ts`)
 - antfu ESLint (no semicolons, single quotes, if-newline rule)
 - All source TypeScript; eslint.config.js stays .js (ESLint compat)
 

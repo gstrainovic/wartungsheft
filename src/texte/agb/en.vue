@@ -101,7 +101,7 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   </p>
   <p>
     You can cancel at any time up to the last day of the term, without notice period: in the app under
-    «Einstellungen» (settings), «Abo kündigen» (cancel subscription), or by email to
+    «Settings», «Cancel subscription», or by email to
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. The subscription then continues until the end of
     the paid year. An invoice for a year that has not yet begun is cancelled with the termination. There is no
     pro rata refund for a year that has already started.

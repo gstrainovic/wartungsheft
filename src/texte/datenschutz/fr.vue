@@ -66,7 +66,7 @@
 
   <h3>3.5 Retours depuis l'application</h3>
   <p>
-    Lorsque vous écrivez via « Fehler melden oder Wunsch » (signaler une erreur ou un souhait) ou enregistrez un
+    Lorsque vous écrivez via « Signaler un problème ou un souhait » ou enregistrez un
     message vocal, le texte ou l'enregistrement est transmis à notre boîte de réception avec votre adresse e-mail,
     la page sur laquelle vous vous trouviez et l'heure. Nous faisons transcrire automatiquement les messages vocaux
     par Mistral (France, UE), afin de les lire plutôt que de les écouter ; l'enregistrement lui-même reste ensuite
