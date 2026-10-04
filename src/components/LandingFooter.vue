@@ -4,7 +4,7 @@ import layoutTexte from '../texte/layout'
 
 // Ein Fuss für alle öffentlichen Seiten (/, /betrieb, /privathalter, /impressum, /datenschutz, /agb, /login):
 // Herkunft und Kontakt, Links auf Zielgruppen und Rechtliches. Kein Logo, das steht im Kopf (sticky).
-// Auf den Übersetzungen steht dazu, dass die App selbst deutsch ist.
+// Auf den Übersetzungen steht dazu, dass auch die App selbst diese Sprache spricht.
 const CONTACT_EMAIL = 'info@wartungsheft.ch'
 const { pfad, t } = useSprache(layoutTexte)
 </script>

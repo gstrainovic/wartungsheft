@@ -103,7 +103,7 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   </p>
   <p>
     Vous pouvez résilier à tout moment, sans délai, jusqu'au dernier jour de la durée : dans l'application sous
-    « Einstellungen » (paramètres), « Abo kündigen » (résilier l'abonnement), ou par e-mail à
+    « Réglages », « Résilier l'abonnement », ou par e-mail à
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. L'abonnement continue alors jusqu'à la fin de
     l'année payée. Une facture pour une année qui n'a pas encore commencé est annulée avec la résiliation. Aucun
     remboursement au prorata n'est accordé pour une année entamée.

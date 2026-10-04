@@ -66,7 +66,7 @@
 
   <h3>3.5 Segnalazioni dall'app</h3>
   <p>
-    Se scrivi tramite «Fehler melden oder Wunsch» (segnala un errore o un desiderio) o registri un messaggio
+    Se scrivi tramite «Segnala un errore o un desiderio» o registri un messaggio
     vocale, il testo o la registrazione giunge nella nostra casella di posta insieme al tuo indirizzo e-mail,
     alla pagina in cui ti trovavi e al momento. Facciamo trascrivere automaticamente i messaggi vocali da Mistral
     (Francia, UE), per leggerli anziché ascoltarli; la registrazione stessa resta in seguito solo nella nostra

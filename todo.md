@@ -14,6 +14,8 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] Fünf Nutzertests nach `../business/auto-service/nutzertest.md` mit Leuten aus dem Umfeld (drei Privathalter,
       zwei mit Firmenfahrzeugen), je rund 20 Minuten:
       lautes Denken, Bildschirm aufnehmen, nicht helfen. Persönlich oder per Mail fragen
+- [ ] App-Texte in FR und IT (`src/texte/app/`) von je einer welschen und Tessiner Person gegenlesen lassen,
+      besonders Fachbegriffe (expertise/collaudo, bouclement, train roulant) und Bestell- und Rechnungstexte
 
 ### Danach
 - [ ] Befunde nach Schwere ordnen und beheben, die schweren vor jeder Werbung
@@ -54,8 +56,8 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       Querformate (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen; als Shorts `video-out/social-*.mp4`.
       Bauen: Skill `werbefilm`
 - [ ] **Filme in FR, IT und EN** wie die deutschen (`npm run video:film`, Skill `werbefilm`):
-      - Voraussetzung: die im Film gezeigten App-Seiten (Dashboard, Fahrzeug, Rechnung, Chat) sprechen FR, IT und EN;
-        heute ist nur die Landing-Seite übersetzt (`useSprache`), siehe «Sobald über die Schweiz hinaus verkauft wird»
+      - die App spricht FR, IT und EN (Sprachwahl in den Einstellungen oder über `/fr/login` usw., Skill
+        `texte-und-sprachen`); die Aufnahme stellt die Sprache vorher ein
       - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und Sprechertext; Stimmen gewählt (FR Nathan,
         IT Valentino, EN Adam Stone), Vorlagen im Skill. Das ElevenLabs-Abo läuft bis 04.11.2026, alle Sprecher
         vorher erzeugen (sie bleiben in `video-out/sprecher/`)
@@ -83,10 +85,11 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 
 ## Sobald über die Schweiz hinaus verkauft wird (DACH oder global)
 
-Heute sind Währung (CHF), Zahlenformat (de-CH, `src/lib/locale.ts`) und Sprache (Deutsch) fest im Code. Vor dem ersten Kunden ausserhalb der Schweiz:
-- [ ] Deploy-Standards pro Installation: Währung, Sprache, Zahlen- und Datumsformat, Kilometer/Meilen als Konfiguration (`VITE_*` oder Server-Einstellung), nicht als Konstante
-- [ ] Nutzer-Einstellungen im Profil: eigene Währung, Sprache und Formate überschreiben die Deploy-Standards; Rechnungen behalten ihre Original-Währung
-- [ ] Texte über i18n (vue-i18n oder gleichwertig), DE zuerst, EN als zweite Sprache; Landing Pages und Datenschutz je Sprache
+Sprache (DE, FR, IT, EN) und Format je Sprache sind wählbar (Skill `texte-und-sprachen`); Währung (CHF als Standard)
+und Kilometer sind fest im Code. Vor dem ersten Kunden ausserhalb der Schweiz:
+- [ ] Deploy-Standards pro Installation: Währung, Zahlen- und Datumsformat, Kilometer/Meilen als Konfiguration (`VITE_*` oder Server-Einstellung), nicht als Konstante
+- [ ] Nutzer-Einstellungen im Profil: Formate (heute an die Sprache gebunden, de-CH-Format auch für fr/it) überschreiben die Deploy-Standards; Rechnungen behalten ihre Original-Währung
+- [ ] Mail mit dem Anmelde-Code kommt deutsch (Vorlage des InstantDB-Servers): je Sprache, falls der Server das kann
 - [ ] Preise und Pläne pro Land (`plans.ts`): Währung, MWST-Hinweis, Zahlungsanbieter je Region (Kapitel 4 und 6 im Businessplan: EU-Privatkunden nur mit OSS-Registrierung oder Merchant of Record)
 
 ## Nach dem Entscheid

@@ -26,7 +26,7 @@ const de = {
     datenschutz: 'Datenschutz',
     agb: 'AGB',
   },
-  /** Auf den Übersetzungen: die App hinter der Anmeldung ist deutsch */
+  /** Auf den Übersetzungen: auch die App hinter der Anmeldung spricht diese Sprache */
   appSprache: '',
 }
 
@@ -55,7 +55,7 @@ export default {
       datenschutz: 'Confidentialité',
       agb: 'CG',
     },
-    appSprache: 'L\'application elle-même est pour l\'instant disponible uniquement en allemand.',
+    appSprache: 'L\'application elle-même est aussi en français.',
   },
   it: {
     einstieg: { app: 'Alla panoramica', login: 'Accedi', trial: 'Prova gratis per 30 giorni' },
@@ -80,7 +80,7 @@ export default {
       datenschutz: 'Privacy',
       agb: 'CG',
     },
-    appSprache: 'L\'app stessa per ora è disponibile solo in tedesco.',
+    appSprache: 'Anche l\'app stessa è in italiano.',
   },
   en: {
     einstieg: { app: 'To the overview', login: 'Sign in', trial: 'Try free for 30 days' },
@@ -105,6 +105,6 @@ export default {
       datenschutz: 'Privacy',
       agb: 'Terms',
     },
-    appSprache: 'The app itself is currently available in German only.',
+    appSprache: 'The app itself is in English too.',
   },
 } satisfies Record<Sprache, typeof de>

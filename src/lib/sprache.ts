@@ -1,7 +1,7 @@
 /**
  * Sprachen der öffentlichen Seiten. Deutsch ist die Hauptfassung und steht ohne Präfix, damit bestehende Links
  * gültig bleiben; Französisch, Italienisch und Englisch liegen unter /fr, /it und /en mit denselben Pfaden.
- * Die App hinter der Anmeldung bleibt deutsch. Bewusst ohne Browser- und Vite-Abhängigkeit, `vite.config.ts`
+ * Die App hinter der Anmeldung hat ihre eigene Wahl (app-sprache.ts). Bewusst ohne Browser- und Vite-Abhängigkeit, `vite.config.ts`
  * importiert die Datei.
  */
 

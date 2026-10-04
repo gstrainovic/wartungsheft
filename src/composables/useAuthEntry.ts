@@ -10,7 +10,7 @@ import { useSprache } from './useSprache'
 /**
  * Einstieg auf den öffentlichen Seiten: eingeloggt in die App, bekanntes Konto zum Anmelden, sonst die Testzeit.
  * Nur der Klick in die Testzeit zählt in `events`, Kunden beim Anmelden verfälschen die Auswertung sonst.
- * Die Anmeldung öffnet in der Sprache der Seite, die App dahinter ist deutsch.
+ * Die Anmeldung öffnet in der Sprache der Seite, die App dahinter übernimmt sie (src/lib/app-sprache.ts).
  */
 export function useAuthEntry(segment?: LandingSegment) {
   const router = useRouter()

@@ -100,7 +100,7 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   </p>
   <p>
     Puoi disdire in qualsiasi momento, fino all'ultimo giorno della durata senza termine di preavviso: nell'app sotto
-    «Einstellungen» (impostazioni), «Abo kündigen» (disdire l'abbonamento), oppure via e-mail a
+    «Impostazioni», «Disdici l'abbonamento», oppure via e-mail a
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. L'abbonamento prosegue poi fino alla fine dell'anno
     pagato. Una fattura per un anno non ancora iniziato viene stornata con la disdetta. Per un anno iniziato non è
     previsto alcun rimborso pro rata.

@@ -28,8 +28,8 @@ test.describe('Sprachfassungen', () => {
     await expect(page.locator('link[rel="alternate"][hreflang="de-CH"]')).toHaveAttribute('href', `${SITE_URL}/`)
     await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute('href', `${SITE_URL}/`)
     await expect(page.getByTestId('price-table')).toContainText('par an')
-    // Die App hinter der Anmeldung ist deutsch, das steht im Fuss
-    await expect(page.getByRole('contentinfo')).toContainText('uniquement en allemand')
+    // Auch die App hinter der Anmeldung spricht Französisch, das steht im Fuss
+    await expect(page.getByRole('contentinfo')).toContainText('aussi en français')
 
     await expect(page.getByRole('button', { name: 'Essayer 30 jours gratuitement' }).first()).toBeVisible()
     await page.getByRole('banner').getByRole('button', { name: 'Essai gratuit' }).click()
