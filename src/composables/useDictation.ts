@@ -6,7 +6,9 @@
  * Kennzeichen und Beträge nur im Satzzusammenhang. Darum gibt es kein Diktat für Zahlenfelder.
  */
 import { onBeforeUnmount, readonly, ref } from 'vue'
+import { waehle } from '../lib/app-sprache'
 import { transcribeAudio } from '../services/ai-access'
+import texte from '../texte/app/rueckmeldung'
 
 /** Länger als drei Minuten nimmt der Proxy nicht an */
 const MAX_SEKUNDEN = 180
@@ -54,7 +56,7 @@ export function useDictation() {
       }, 1000)
     }
     catch {
-      fehler.value = 'Kein Zugriff aufs Mikrofon. Bitte tippen.'
+      fehler.value = waehle(texte).diktat.keinMikrofon
       aufraeumen()
     }
   }

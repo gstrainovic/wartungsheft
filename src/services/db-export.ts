@@ -1,4 +1,6 @@
+import { waehle } from '../lib/app-sprache'
 import { db, tx } from '../lib/instantdb'
+import texte from '../texte/app/export'
 
 interface ExportData {
   version: number
@@ -36,7 +38,7 @@ export async function importDatabase(json: string): Promise<{ imported: Record<s
   const data: ExportData = JSON.parse(json)
 
   if (!data.version || !data.exportedAt)
-    throw new Error('Ungültiges Export-Format')
+    throw new Error(waehle(texte).formatUngueltig)
 
   const imported: Record<string, number> = {}
 

@@ -5,15 +5,20 @@
  * Ohne Mikrofon oder ohne Erlaubnis verschwindet der Knopf lautlos — getippt werden kann immer.
  */
 import Button from 'primevue/button'
+import { computed } from 'vue'
 import { useDictation } from '../composables/useDictation'
+import { useSprache } from '../composables/useSprache'
+import texte from '../texte/app/rueckmeldung'
 
 const props = withDefaults(defineProps<{
-  /** Beschriftung für Hilfstechnik; sagt, welches Feld gefüllt wird */
+  /** Beschriftung für Hilfstechnik; sagt, welches Feld gefüllt wird. Ohne: «Diktieren» in der App-Sprache */
   label?: string
   size?: 'small' | 'large'
-}>(), { label: 'Diktieren', size: 'small' })
+}>(), { size: 'small' })
 
 const emit = defineEmits<{ text: [text: string], fehler: [meldung: string] }>()
+const { t } = useSprache(texte)
+const beschriftung = computed(() => props.label ?? t.value.diktat.diktieren)
 
 const { verfuegbar, laeuft, verarbeitet, sekunden, fehler, starten, stoppen } = useDictation()
 
@@ -40,8 +45,8 @@ async function umschalten(): Promise<void> {
     :icon="laeuft ? 'pi pi-stop-circle' : 'pi pi-microphone'"
     :severity="laeuft ? 'danger' : 'secondary'"
     :loading="verarbeitet"
-    :aria-label="laeuft ? `Aufnahme stoppen (${sekunden} Sekunden)` : props.label"
-    :title="laeuft ? 'Aufnahme stoppen' : props.label"
+    :aria-label="laeuft ? t.diktat.stoppenSekunden(sekunden) : beschriftung"
+    :title="laeuft ? t.diktat.stoppen : beschriftung"
     text
     rounded
     :size="props.size"

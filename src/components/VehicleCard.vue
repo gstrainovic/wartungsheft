@@ -4,15 +4,18 @@ import Badge from 'primevue/badge'
 import Card from 'primevue/card'
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useSprache } from '../composables/useSprache'
 import { formatCurrency, formatNumber } from '../lib/locale'
-import { checkDueMaintenances, getMaintenanceSchedule, vehicleDueStatus } from '../services/maintenance-schedule'
+import { checkDueMaintenances, getMaintenanceSchedule, planLabel, vehicleDueStatus } from '../services/maintenance-schedule'
 import { fleetCostsByVehicleYear } from '../services/report'
 import { soldLabel } from '../services/vehicle-status'
 import { useInvoicesStore } from '../stores/invoices'
 import { useMaintenancesStore } from '../stores/maintenances'
 import { useSettingsStore } from '../stores/settings'
+import texte from '../texte/app/fahrzeuge'
 
 const props = defineProps<{ vehicle: Vehicle }>()
+const { t } = useSprache(texte)
 const router = useRouter()
 
 // Fälligkeit live aus dem Store (nach «Erledigt eintragen» oder einer Rechnung sofort aktuell)
@@ -35,7 +38,7 @@ const dueItems = computed(() => checkDueMaintenances({
 const sold = computed(() => soldLabel(props.vehicle))
 const maintenanceStatus = computed(() => vehicleDueStatus(dueItems.value))
 // Arbeit, die den Status auslöst (z. B. «Ölwechsel»), für den Badge-Text
-const statusItemLabel = computed(() => dueItems.value.find(i => i.status === maintenanceStatus.value)?.label ?? '')
+const statusItemLabel = computed(() => planLabel(dueItems.value.find(i => i.status === maintenanceStatus.value)?.label))
 
 const statusSeverity = computed(() => {
   if (maintenanceStatus.value === 'overdue')
@@ -48,14 +51,14 @@ const statusSeverity = computed(() => {
 })
 
 const statusLabel = computed(() => {
-  const item = statusItemLabel.value ? `${statusItemLabel.value} ` : ''
+  const k = t.value.karte
   if (maintenanceStatus.value === 'overdue')
-    return `${item}überfällig`
+    return k.ueberfaellig(statusItemLabel.value)
   if (maintenanceStatus.value === 'due')
-    return `${item}bald fällig`
+    return k.baldFaellig(statusItemLabel.value)
   if (maintenanceStatus.value === 'unknown')
-    return 'Noch keine Wartung erfasst'
-  return 'OK'
+    return k.keineWartung
+  return k.ok
 })
 
 // Kosten des laufenden Jahres, damit die Karte etwas sagt statt leer zu bleiben
@@ -103,7 +106,7 @@ function navigateToDetail(): void {
         </span>
         <span v-if="yearCost" class="year-cost">
           <i class="pi pi-wallet" />
-          {{ yearCost }} in {{ currentYear }}
+          {{ t.karte.imJahr(yearCost, currentYear) }}
         </span>
         <span class="card-spacer" />
         <i class="pi pi-chevron-right chevron" />

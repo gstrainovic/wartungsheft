@@ -12,8 +12,11 @@ import Textarea from 'primevue/textarea'
 import { useToast } from 'primevue/usetoast'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useSprache } from '../composables/useSprache'
 import { userMessage } from '../lib/errors'
 import { sendFeedback } from '../services/ai-access'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/rueckmeldung'
 
 const props = defineProps<{ visible: boolean }>()
 const emit = defineEmits<{ close: [] }>()
@@ -24,6 +27,8 @@ const MAX_SEKUNDEN = 180
 
 const route = useRoute()
 const toast = useToast()
+const { t } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
 
 const text = ref('')
 const fehler = ref('')
@@ -92,17 +97,17 @@ async function starten(): Promise<void> {
   }
   catch {
     // Verweigertes Mikrofon ist kein Fehler, sondern ein Grund, zu schreiben
-    mikrofonFehler.value = 'Kein Zugriff aufs Mikrofon. Schreib die Rückmeldung einfach ins Feld unten.'
+    mikrofonFehler.value = t.value.keinMikrofon
   }
 }
 
 async function adresseKopieren(): Promise<void> {
   try {
     await navigator.clipboard.writeText(CONTACT_EMAIL)
-    toast.add({ severity: 'success', summary: 'Adresse kopiert', life: 2500 })
+    toast.add({ severity: 'success', summary: t.value.kopiert, life: 2500 })
   }
   catch {
-    toast.add({ severity: 'info', summary: CONTACT_EMAIL, detail: 'Bitte von Hand kopieren.', life: 6000 })
+    toast.add({ severity: 'info', summary: CONTACT_EMAIL, detail: t.value.vonHand, life: 6000 })
   }
 }
 
@@ -111,7 +116,7 @@ async function senden(): Promise<void> {
   sendet.value = true
   try {
     await sendFeedback({ text: text.value.trim(), audio: aufnahme.value, page: route.fullPath })
-    toast.add({ severity: 'success', summary: 'Danke, ist angekommen', detail: 'Wir melden uns, wenn es etwas zu sagen gibt.', life: 5000 })
+    toast.add({ severity: 'success', summary: t.value.danke, detail: t.value.dankeDetail, life: 5000 })
     emit('close')
   }
   catch (e) {
@@ -132,13 +137,13 @@ onBeforeUnmount(() => {
   <Dialog
     :visible="visible"
     modal
-    header="Fehler melden oder Wunsch"
+    :header="t.titel"
     data-testid="feedback-dialog"
     :style="{ width: 'min(520px, 96vw)' }"
     @update:visible="emit('close')"
   >
     <p class="intro">
-      Was stört, was fehlt? Sprich es auf oder schreib es — beides landet direkt bei uns.
+      {{ t.intro }}
     </p>
 
     <Message v-if="fehler" severity="error" :closable="false" class="hinweis">
@@ -148,7 +153,7 @@ onBeforeUnmount(() => {
     <div v-if="kannAufnehmen" class="aufnahme">
       <Button
         v-if="!aufnahmeLaeuft"
-        :label="aufnahme ? 'Neu aufnehmen' : 'Sprachnachricht aufnehmen'"
+        :label="aufnahme ? t.neuAufnehmen : t.aufnehmen"
         icon="pi pi-microphone"
         severity="secondary"
         outlined
@@ -157,14 +162,14 @@ onBeforeUnmount(() => {
       />
       <Button
         v-else
-        :label="`Aufnahme stoppen (${dauer})`"
+        :label="t.stoppenDauer(dauer)"
         icon="pi pi-stop-circle"
         severity="danger"
         data-testid="feedback-stop"
         @click="stoppen"
       />
       <audio v-if="aufnahmeUrl" :src="aufnahmeUrl" controls class="abspielen" />
-      <Button v-if="aufnahme && !aufnahmeLaeuft" label="Verwerfen" text size="small" @click="verwerfen" />
+      <Button v-if="aufnahme && !aufnahmeLaeuft" :label="t.verwerfen" text size="small" @click="verwerfen" />
     </div>
     <small v-if="mikrofonFehler" class="hinweis-text">{{ mikrofonFehler }}</small>
 
@@ -173,20 +178,20 @@ onBeforeUnmount(() => {
       rows="4"
       auto-resize
       class="feld"
-      placeholder="Oder schreib es hier hin."
+      :placeholder="t.platzhalter"
       data-testid="feedback-text"
     />
 
     <p class="adresse">
-      Lieber selbst schreiben?
+      {{ t.selbstSchreiben }}
       <button type="button" class="kopieren" data-testid="feedback-copy" @click="adresseKopieren">
         {{ CONTACT_EMAIL }} <i class="pi pi-copy" />
       </button>
     </p>
 
     <template #footer>
-      <Button label="Abbrechen" text severity="secondary" @click="emit('close')" />
-      <Button label="Senden" icon="pi pi-send" :disabled="!kannSenden" :loading="sendet" data-testid="feedback-send" @click="senden" />
+      <Button :label="a.abbrechen" text severity="secondary" @click="emit('close')" />
+      <Button :label="t.senden" icon="pi pi-send" :disabled="!kannSenden" :loading="sendet" data-testid="feedback-send" @click="senden" />
     </template>
   </Dialog>
 </template>

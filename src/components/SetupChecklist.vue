@@ -6,20 +6,25 @@
 import type { SetupStep, SetupStepKey } from '../services/vehicle-setup'
 import Button from 'primevue/button'
 import { computed } from 'vue'
+import { useSprache } from '../composables/useSprache'
 import { nextSetupStep } from '../services/vehicle-setup'
+import texte from '../texte/app/einrichtung'
 
 const props = defineProps<{ steps: SetupStep[] }>()
+
 const emit = defineEmits<{ action: [key: SetupStepKey], hide: [] }>()
+
+const { t } = useSprache(texte)
 
 const next = computed(() => nextSetupStep(props.steps))
 const doneCount = computed(() => props.steps.filter(s => s.done).length)
 </script>
 
 <template>
-  <section class="setup" aria-label="Einrichtung" data-testid="setup-checklist">
+  <section class="setup" :aria-label="t.bereich" data-testid="setup-checklist">
     <div class="setup-header">
-      <h3>Einrichten <span class="setup-count">{{ doneCount }} von {{ steps.length }}</span></h3>
-      <Button label="Ausblenden" text size="small" severity="secondary" @click="emit('hide')" />
+      <h3>{{ t.titel }} <span class="setup-count">{{ t.zaehler(doneCount, steps.length) }}</span></h3>
+      <Button :label="t.ausblenden" text size="small" severity="secondary" @click="emit('hide')" />
     </div>
     <ol class="setup-steps">
       <!-- Nur der nächste Schritt erklärt sich und hat den Hauptknopf; die übrigen bleiben eine Zeile, damit die

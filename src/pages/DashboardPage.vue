@@ -19,6 +19,7 @@ import MaintenanceFormDialog from '../components/MaintenanceFormDialog.vue'
 import MileageDialog from '../components/MileageDialog.vue'
 import ServiceBookDialog from '../components/ServiceBookDialog.vue'
 import StatCard from '../components/StatCard.vue'
+import { useSprache } from '../composables/useSprache'
 import { db } from '../lib/instantdb'
 import { formatCurrency, formatDate, formatNumber, normalizeCurrency } from '../lib/locale'
 import { fetchUsage } from '../services/ai-access'
@@ -26,7 +27,7 @@ import { resolveRates } from '../services/fx'
 import { formToInvoiceInput } from '../services/invoice-form'
 import { saveInvoice } from '../services/invoice-save'
 import { saveMaintenances } from '../services/maintenance-save'
-import { doneFormInitial, DUE_STATUS_VIEW, dueDescription, dueForVehicle, fleetDueList, vehicleDueStatus } from '../services/maintenance-schedule'
+import { doneFormInitial, DUE_STATUS_VIEW, dueDescription, dueForVehicle, fleetDueList, planLabel, vehicleDueStatus } from '../services/maintenance-schedule'
 import { buildFleetReport, fleetReportFilename } from '../services/pdf-report'
 import { fleetCostsByVehicleYear, invoicesToCsvRows } from '../services/report'
 import { trialNotice } from '../services/trial-reminder'
@@ -37,7 +38,11 @@ import { useInvoicesStore } from '../stores/invoices'
 import { useMaintenancesStore } from '../stores/maintenances'
 import { useSettingsStore } from '../stores/settings'
 import { useVehiclesStore } from '../stores/vehicles'
+import uebersichtTexte from '../texte/app/uebersicht'
+import planTexte from '../texte/app/wartungsplan'
 
+const { t } = useSprache(uebersichtTexte)
+const { t: tPlan } = useSprache(planTexte)
 const router = useRouter()
 const route = useRoute()
 const vehiclesStore = useVehiclesStore()
@@ -108,7 +113,7 @@ function openDone(vehicleId: string, item: DueResult): void {
   const vehicle = vehiclesStore.vehicles.find(v => v.id === vehicleId)
   doneFor.value = {
     vehicleId,
-    title: `${item.label} erledigt${vehicle ? ` · ${vehicle.make} ${vehicle.model}` : ''}`,
+    title: `${t.value.erledigtTitel(planLabel(item.label))}${vehicle ? ` · ${vehicle.make} ${vehicle.model}` : ''}`,
     initial: doneFormInitial(item, vehicle?.mileage ?? 0, new Date().toISOString().slice(0, 10)),
   }
 }
@@ -220,20 +225,20 @@ watch(years, (list) => {
 function exportYearZip(): void {
   const files = yearExportFiles({ year: exportYear.value, vehicles: vehiclesStore.vehicles, invoices: invoicesStore.invoices, currency: currencyOpts.value })
   if (!files.length) {
-    exportNote.value = `Keine Rechnungen aus ${exportYear.value}.`
+    exportNote.value = t.value.keineRechnungenJahr(exportYear.value)
     return
   }
   const images = files.length - 1
   saveFile(new Blob([createZip(files)], { type: 'application/zip' }), yearExportFilename(exportYear.value))
-  exportNote.value = `CSV und ${images} ${images === 1 ? 'Rechnungsbild' : 'Rechnungsbilder'} geladen.`
+  exportNote.value = t.value.zipGeladen(images)
 }
 
 // Exportmenü: CSV und PDF über alle Fahrzeuge, Jahresabschluss als ZIP fürs gewählte Jahr
 const exportMenu = ref<InstanceType<typeof Menu> | null>(null)
 const exportItems = computed(() => [
-  { label: 'CSV für Excel, alle Fahrzeuge', icon: 'pi pi-file-excel', command: exportFleetCsv },
-  { label: 'PDF-Übersicht, alle Fahrzeuge', icon: 'pi pi-file-pdf', command: exportFleetPdf },
-  ...(years.value.length ? [{ label: `Jahresabschluss ${exportYear.value}: ZIP mit CSV und Rechnungsbildern`, icon: 'pi pi-download', command: exportYearZip }] : []),
+  { label: t.value.exportCsv, icon: 'pi pi-file-excel', command: exportFleetCsv },
+  { label: t.value.exportPdf, icon: 'pi pi-file-pdf', command: exportFleetPdf },
+  ...(years.value.length ? [{ label: t.value.exportZip(exportYear.value), icon: 'pi pi-download', command: exportYearZip }] : []),
 ])
 
 async function exportFleetPdf(): Promise<void> {
@@ -286,6 +291,14 @@ const formattedTotalCost = computed(() => {
   return [...(home ? [home] : []), ...others].map(([currency, amount]) => formatCurrency(amount, currency)).join(' + ')
 })
 
+// Hinweis auf allgemeine Intervalle: ein Fahrzeug, alle oder eine Anzahl
+const scheduleHint = computed(() => {
+  const n = vehiclesWithoutSchedule.value.length
+  if (n === ownVehicles.value.length)
+    return ownVehicles.value.length === 1 ? t.value.planHinweisEins : t.value.planHinweisAlle
+  return t.value.planHinweisAnzahl(n)
+})
+
 const totalInvoiceCount = computed(() =>
   vehiclesStore.vehicles.reduce((sum, v) => sum + getVehicleInvoiceCount(v.id), 0),
 )
@@ -295,12 +308,12 @@ const totalInvoiceCount = computed(() =>
   <main class="page-container">
     <div class="page-header">
       <h2 class="page-title">
-        Übersicht
+        {{ t.titel }}
       </h2>
       <Button
         v-if="ownVehicles.length > 0"
         icon="pi pi-camera"
-        label="Rechnung fotografieren"
+        :label="t.rechnungFotografieren"
         @click="startReceipt"
       />
     </div>
@@ -308,46 +321,46 @@ const totalInvoiceCount = computed(() =>
     <Message v-if="trialHint" severity="warn" :closable="false" class="trial-hint" data-testid="trial-hint">
       <div class="trial-hint-body">
         <span>{{ trialHint }}</span>
-        <Button label="Jahresabo bestellen" size="small" @click="router.push('/settings')" />
+        <Button :label="t.aboBestellen" size="small" @click="router.push('/settings')" />
       </div>
     </Message>
 
     <div v-if="vehiclesStore.vehicles.length === 0" class="empty-state">
       <i class="pi pi-car empty-icon" />
       <div class="empty-text">
-        Leg dein erstes Fahrzeug an. Mit dem Fahrzeugausweis geht es am schnellsten.
+        {{ t.leer }}
       </div>
       <div class="empty-actions">
         <Button
-          label="Fahrzeug hinzufügen"
+          :label="t.fahrzeugHinzufuegen"
           icon="pi pi-plus"
           @click="router.push('/vehicles?action=add')"
         />
       </div>
       <p class="empty-hint">
-        Danach fotografierst du die erste Werkstattrechnung, den Rest liest Wartungsheft heraus.
+        {{ t.leerHinweis }}
       </p>
     </div>
 
     <div v-if="vehiclesStore.vehicles.length > 0" class="stats-grid">
       <StatCard
         icon="pi-wallet"
-        label="Gesamtkosten"
+        :label="t.gesamtkosten"
         :value="formattedTotalCost"
       />
       <StatCard
         icon="pi-file"
-        label="Rechnungen"
+        :label="t.rechnungen"
         :value="String(totalInvoiceCount)"
         color="var(--status-info)"
       />
     </div>
 
     <!-- Flottenblick: was über alle Fahrzeuge bald fällig oder überfällig ist, dringendstes zuerst -->
-    <section v-if="ownVehicles.length > 0" class="fleet-due" aria-label="Fällige Arbeiten">
-      <h3>Fällig</h3>
+    <section v-if="ownVehicles.length > 0" class="fleet-due" :aria-label="t.faelligeArbeiten">
+      <h3>{{ t.faellig }}</h3>
       <p v-if="!fleetDue.length" class="fleet-due-empty">
-        <i class="pi pi-check-circle" /> Nichts überfällig und nichts in den nächsten 30 Tagen oder 1'000 km fällig.
+        <i class="pi pi-check-circle" /> {{ t.nichtsFaellig(formatNumber(1000)) }}
       </p>
       <div v-else class="maintenance-list">
         <div v-for="entry in fleetDue" :key="`${entry.vehicleId}-${entry.item.type}`" class="maintenance-item fleet-due-item">
@@ -356,7 +369,7 @@ const totalInvoiceCount = computed(() =>
           </div>
           <div class="maintenance-content">
             <div class="maintenance-label">
-              {{ entry.item.label }}
+              {{ planLabel(entry.item.label) }}
               <router-link :to="`/dashboard#fahrzeug-${entry.vehicleId}`" class="fleet-due-vehicle" @click.prevent="scrollToVehicle(entry.vehicleId)">
                 {{ entry.vehicleName }}
               </router-link>
@@ -367,7 +380,7 @@ const totalInvoiceCount = computed(() =>
           </div>
           <div class="maintenance-actions">
             <Badge :value="getStatusLabel(entry.item.status)" :severity="getStatusSeverity(entry.item.status)" />
-            <Button label="Erledigt eintragen" icon="pi pi-check" size="small" outlined @click="openDone(entry.vehicleId, entry.item)" />
+            <Button :label="t.erledigtEintragen" icon="pi pi-check" size="small" outlined @click="openDone(entry.vehicleId, entry.item)" />
           </div>
         </div>
       </div>
@@ -376,17 +389,14 @@ const totalInvoiceCount = computed(() =>
           <i class="pi pi-info-circle" />
         </template>
         <div class="schedule-hint-body">
-          <span>
-            {{ vehiclesWithoutSchedule.length === ownVehicles.length ? (ownVehicles.length === 1 ? 'Dein Fahrzeug nutzt' : 'Alle Fahrzeuge nutzen') : `${vehiclesWithoutSchedule.length} ${vehiclesWithoutSchedule.length === 1 ? 'Fahrzeug nutzt' : 'Fahrzeuge nutzen'}` }}
-            allgemeine Wartungsintervalle. Mit dem Serviceheft werden sie genau:
-          </span>
+          <span>{{ scheduleHint }}</span>
           <span class="schedule-hint-actions">
             <!-- Ein Fahrzeug: der Knopf sagt, was passiert; mehrere: der Knopf sagt, für welches -->
             <Button
               v-for="v in vehiclesWithoutSchedule"
               :key="v.id"
-              :label="ownVehicles.length === 1 ? 'Serviceheft fotografieren' : `${v.make} ${v.model}`"
-              :aria-label="`Serviceheft ${v.make} ${v.model}`"
+              :label="ownVehicles.length === 1 ? t.serviceheftFotografieren : `${v.make} ${v.model}`"
+              :aria-label="t.serviceheftAria(`${v.make} ${v.model}`)"
               icon="pi pi-book"
               size="small"
               outlined
@@ -399,23 +409,23 @@ const totalInvoiceCount = computed(() =>
 
     <section v-if="fleetRows.length" class="fleet-costs">
       <div class="fleet-costs-header">
-        <h3>Kosten pro Fahrzeug und Jahr</h3>
+        <h3>{{ t.kostenTitel }}</h3>
         <!-- Alle Exporte hinter einem Knopf, damit die Zeile am Handy nicht zerfällt -->
         <div class="fleet-costs-actions">
-          <Select v-if="years.length" id="export-year" v-model="exportYear" :options="years" size="small" aria-label="Jahr für den Jahresabschluss" />
-          <Button icon="pi pi-download" label="Export" size="small" aria-haspopup="true" aria-controls="export-menu" @click="exportMenu?.toggle($event)" />
+          <Select v-if="years.length" id="export-year" v-model="exportYear" :options="years" size="small" :aria-label="t.exportJahr" />
+          <Button icon="pi pi-download" :label="t.export" size="small" aria-haspopup="true" aria-controls="export-menu" @click="exportMenu?.toggle($event)" />
           <Menu id="export-menu" ref="exportMenu" :model="exportItems" popup />
         </div>
       </div>
       <small v-if="exportNote" role="status" class="fleet-hint">{{ exportNote }}</small>
       <div class="fleet-table-wrap">
-        <table class="fleet-table" aria-label="Kosten pro Fahrzeug und Jahr">
+        <table class="fleet-table" :aria-label="t.kostenTitel">
           <thead>
             <tr>
-              <th>Jahr</th>
-              <th>Fahrzeug</th>
+              <th>{{ t.jahr }}</th>
+              <th>{{ t.fahrzeug }}</th>
               <th class="num">
-                Total
+                {{ t.total }}
               </th>
             </tr>
           </thead>
@@ -436,10 +446,10 @@ const totalInvoiceCount = computed(() =>
       </div>
       <p v-if="fleetConverted > 0 || fleetUnconverted > 0" class="fleet-hint">
         <template v-if="fleetConverted > 0">
-          {{ fleetConverted }} {{ fleetConverted === 1 ? 'Rechnung' : 'Rechnungen' }} in {{ foreignCurrencies }} zum EZB-Kurs am Rechnungsdatum umgerechnet.
+          {{ t.umgerechnet(fleetConverted, foreignCurrencies) }}
         </template>
         <template v-if="fleetUnconverted > 0">
-          {{ fleetUnconverted }} ohne Kurs (offline?), in eigener Währung ausgewiesen.
+          {{ t.ohneKurs(fleetUnconverted) }}
         </template>
       </p>
     </section>
@@ -454,40 +464,40 @@ const totalInvoiceCount = computed(() =>
         <Badge
           v-if="vehicleDueStatus(dueMap[vehicle.id] ?? []) === 'unknown'"
           class="vehicle-progress"
-          value="Noch keine Wartung erfasst"
+          :value="t.keineWartung"
           severity="secondary"
         />
         <Badge
           v-else-if="getDueCounts(vehicle.id).total > 0"
           class="vehicle-progress"
-          :value="getDueCounts(vehicle.id).due ? `${getDueCounts(vehicle.id).due} fällig` : 'OK'"
+          :value="getDueCounts(vehicle.id).due ? t.anzahlFaellig(getDueCounts(vehicle.id).due) : tPlan.status.done"
           :severity="getDueCounts(vehicle.id).due > 0 ? 'warn' : 'success'"
         />
       </div>
       <p class="vehicle-subtitle">
         {{ formatNumber(vehicle.mileage) }} km
         <Button
-          v-tooltip.top="'Kilometerstand ändern'"
+          v-tooltip.top="t.kmAendern"
           icon="pi pi-pencil"
           text
           rounded
           size="small"
           severity="secondary"
           class="mileage-edit"
-          :aria-label="`Kilometerstand ${vehicle.make} ${vehicle.model} ändern`"
+          :aria-label="t.kmAendernAria(`${vehicle.make} ${vehicle.model}`)"
           @click="mileageFor = vehicle"
         /><template v-if="vehicle.licensePlate">
           · {{ vehicle.licensePlate }}
         </template><template v-if="getVehicleInvoiceCount(vehicle.id) > 0">
-          · <span class="vehicle-cost">{{ getVehicleTotalCost(vehicle.id) }} · {{ getVehicleInvoiceCount(vehicle.id) }} {{ getVehicleInvoiceCount(vehicle.id) === 1 ? 'Rechnung' : 'Rechnungen' }}</span>
+          · <span class="vehicle-cost">{{ getVehicleTotalCost(vehicle.id) }} · {{ t.anzahlRechnungen(getVehicleInvoiceCount(vehicle.id)) }}</span>
         </template>
       </p>
 
       <div v-if="vehicleDueStatus(dueMap[vehicle.id] ?? []) === 'unknown'" class="no-history">
-        <span>Ohne erfasste Wartungen kennt Wartungsheft keine Termine und schickt keine Erinnerung.</span>
+        <span>{{ t.ohneWartungen }}</span>
         <!-- Ein Ort für «wann zuletzt»: der Wartungsplan auf der Fahrzeugseite -->
         <Button
-          label="Letzte Wartungen eintragen"
+          :label="t.letzteWartungen"
           icon="pi pi-history"
           size="small"
           as="router-link"
@@ -502,11 +512,11 @@ const totalInvoiceCount = computed(() =>
           </div>
           <div class="maintenance-content">
             <div class="maintenance-label">
-              {{ item.label }}
+              {{ planLabel(item.label) }}
             </div>
             <div v-if="item.lastDoneAt" class="maintenance-caption">
-              Zuletzt: {{ formatDate(item.lastDoneAt) }}<template v-if="item.lastMileage">
-                bei {{ formatNumber(item.lastMileage) }} km
+              {{ t.zuletzt(formatDate(item.lastDoneAt)) }}<template v-if="item.lastMileage">
+                {{ ` ${tPlan.beiKm(formatNumber(item.lastMileage))}` }}
               </template><template v-if="item.nextDueDate || item.nextDueMileage">
                 · {{ dueDescription(item) }}
               </template>
@@ -519,13 +529,13 @@ const totalInvoiceCount = computed(() =>
             />
             <Button
               v-if="item.status !== 'done' || item.nextDueDate"
-              v-tooltip.left="'Erledigt eintragen'"
+              v-tooltip.left="t.erledigtEintragen"
               icon="pi pi-check"
               text
               rounded
               size="small"
               severity="secondary"
-              :aria-label="`${item.label} erledigt eintragen`"
+              :aria-label="t.erledigtAria(planLabel(item.label))"
               @click="openDone(vehicle.id, item)"
             />
           </div>
@@ -533,7 +543,7 @@ const totalInvoiceCount = computed(() =>
       </div>
       <Button
         v-if="unknownCount(vehicle.id) && vehicleDueStatus(dueMap[vehicle.id] ?? []) !== 'unknown'"
-        :label="expandedUnknown.has(vehicle.id) ? 'Arbeiten ohne Eintrag ausblenden' : `${unknownCount(vehicle.id)} ${unknownCount(vehicle.id) === 1 ? 'Arbeit' : 'Arbeiten'} ohne Eintrag anzeigen`"
+        :label="expandedUnknown.has(vehicle.id) ? t.ohneEintragAusblenden : t.ohneEintragAnzeigen(unknownCount(vehicle.id))"
         :icon="expandedUnknown.has(vehicle.id) ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
         text
         size="small"
@@ -557,7 +567,7 @@ const totalInvoiceCount = computed(() =>
     <Dialog
       :visible="chooseVehicle"
       modal
-      header="Für welches Fahrzeug?"
+      :header="t.welchesFahrzeug"
       data-testid="choose-vehicle-dialog"
       :style="{ width: 'min(420px, 94vw)' }"
       @update:visible="chooseVehicle = false"
@@ -577,7 +587,7 @@ const totalInvoiceCount = computed(() =>
 
     <InvoiceFormDialog
       :visible="!!receiptFor"
-      title="Neue Rechnung"
+      :title="t.neueRechnung"
       :existing-invoices="invoicesStore.invoices"
       :vehicles="vehiclesStore.vehicles"
       :vehicle-id="receiptFor?.id"

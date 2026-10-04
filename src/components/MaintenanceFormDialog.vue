@@ -2,22 +2,24 @@
 import type { MaintenanceFormData } from '../types/forms'
 import Dialog from 'primevue/dialog'
 import { computed } from 'vue'
+import { useSprache } from '../composables/useSprache'
+import texte from '../texte/app/wartungsformular'
 import MaintenanceForm from './MaintenanceForm.vue'
 
 interface Props {
   visible: boolean
   initialData?: Partial<MaintenanceFormData>
+  /** ohne Angabe «Neue Wartung» in der App-Sprache */
   title?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  title: 'Neue Wartung',
-})
-
+const props = defineProps<Props>()
 const emit = defineEmits<{
   'update:visible': [value: boolean]
   'submit': [data: MaintenanceFormData]
 }>()
+const { t } = useSprache(texte)
+const header = computed(() => props.title ?? t.value.neueWartung)
 
 const isVisible = computed({
   get: () => props.visible,
@@ -37,7 +39,7 @@ function handleCancel() {
 <template>
   <Dialog
     v-model:visible="isVisible"
-    :header="title"
+    :header="header"
     :modal="true"
     :closable="true"
     :draggable="false"

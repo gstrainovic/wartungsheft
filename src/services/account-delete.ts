@@ -3,7 +3,9 @@
  * Einträge), dann entfernt der AI-Proxy Verbrauch, Testzeit und das Login (`POST /me/delete`). Reihenfolge
  * bewusst: nach dem Löschen des Logins wäre keine Transaktion mehr möglich.
  */
+import { waehle } from '../lib/app-sprache'
 import { db, tx } from '../lib/instantdb'
+import texte from '../texte/app/export'
 import { deleteAccount } from './ai-access'
 
 /** Entitäten mit `creatorId`; `events` gehört keinem Nutzer, `usage` und `subscriptions` räumt der Proxy */
@@ -26,7 +28,7 @@ export async function deleteAccountData(): Promise<number> {
 /** Alles weg: eigene Daten, dann Verbrauch und Login beim Proxy */
 export async function deleteWholeAccount(): Promise<void> {
   if (typeof navigator !== 'undefined' && !navigator.onLine)
-    throw new Error('Offline: Zum Löschen des Kontos braucht es eine Verbindung.')
+    throw new Error(waehle(texte).offline)
   await deleteAccountData()
   await deleteAccount()
 }

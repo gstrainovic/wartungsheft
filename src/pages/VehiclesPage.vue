@@ -8,11 +8,14 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import VehicleCard from '../components/VehicleCard.vue'
 import VehicleForm from '../components/VehicleForm.vue'
+import { useSprache } from '../composables/useSprache'
 import { fetchUsage } from '../services/ai-access'
 import { vehicleLimit } from '../services/vehicle-limit'
 import { activeVehicles, soldVehicles } from '../services/vehicle-status'
 import { useVehiclesStore } from '../stores/vehicles'
+import texte from '../texte/app/fahrzeuge'
 
+const { t } = useSprache(texte)
 const route = useRoute()
 const router = useRouter()
 const store = useVehiclesStore()
@@ -53,12 +56,12 @@ const showSold = ref(false)
   <main class="page-container">
     <div class="page-header">
       <h2 class="page-title">
-        Fahrzeuge
+        {{ t.titel }}
       </h2>
       <Button
         v-if="store.vehicles.length > 0"
         icon="pi pi-plus"
-        label="Hinzufügen"
+        :label="t.hinzufuegen"
         @click="showForm = true"
       />
     </div>
@@ -73,12 +76,12 @@ const showSold = ref(false)
     <div v-if="store.vehicles.length === 0" class="empty-state">
       <i class="pi pi-car empty-icon" />
       <div class="empty-title">
-        Keine Fahrzeuge
+        {{ t.keine }}
       </div>
       <div class="empty-text">
-        Füge dein erstes Fahrzeug hinzu.
+        {{ t.keineText }}
       </div>
-      <Button label="Fahrzeug hinzufügen" icon="pi pi-plus" @click="showForm = true" />
+      <Button :label="t.fahrzeugHinzufuegen" icon="pi pi-plus" @click="showForm = true" />
     </div>
 
     <VehicleCard
@@ -90,7 +93,7 @@ const showSold = ref(false)
     <!-- Verkaufte Fahrzeuge bleiben für Kosten und Belege erhalten, stehen aber zugeklappt unten -->
     <section v-if="sold.length" class="sold-section">
       <Button
-        :label="`${sold.length} ${sold.length === 1 ? 'verkauftes Fahrzeug' : 'verkaufte Fahrzeuge'}`"
+        :label="t.verkaufte(sold.length)"
         :icon="showSold ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
         text
         severity="secondary"
@@ -107,7 +110,7 @@ const showSold = ref(false)
 
     <Dialog
       v-model:visible="showForm"
-      header="Neues Fahrzeug"
+      :header="t.neu"
       modal
       :style="{ minWidth: '350px' }"
     >

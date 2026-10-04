@@ -7,6 +7,7 @@ import { getCurrentUserId } from '../composables/useAuth'
 import { db, id, tx } from '../lib/instantdb'
 import { MAINTENANCE_CATEGORIES } from './categories'
 import { mergePdfPages } from './invoice-scan'
+import { diktatKopf, INVOICE_PAGE_PROMPT, INVOICE_PROMPT, KATEGORIE_SCAN, OCR_TEXT_KOPF, ocrSeite, SEITENART, SERVICE_BOOK_PROMPT, VEHICLE_DOC_PROMPT, vorherigeSeite } from './prompts'
 
 export { MAINTENANCE_CATEGORIES }
 export type { MaintenanceCategory } from './categories'
@@ -21,9 +22,7 @@ const invoiceSchema = z.object({
   vin: z.string().nullable().optional().describe('Fahrgestellnummer/VIN (17-stellig, beginnt meist mit W, V, oder ähnlich)'),
   items: z.array(z.object({
     description: z.string().describe('Beschreibung der Arbeit oder des Teils'),
-    category: z.enum(MAINTENANCE_CATEGORIES).describe(
-      'Kategorie: oelwechsel, bremsen, reifen, inspektion, luftfilter, zahnriemen, bremsflüssigkeit, klimaanlage, tuev, karosserie, fahrwerk, auspuff, kuehlung, autoglas, elektrik, sonstiges',
-    ),
+    category: z.enum(MAINTENANCE_CATEGORIES).describe(KATEGORIE_SCAN),
     amount: z.number().describe('Einzelbetrag dieser Position (nicht die Zwischensumme oder Gesamtsumme)'),
   })),
 })
@@ -278,58 +277,12 @@ async function parseOcrText<T>(
     schema,
     messages: [{
       role: 'user',
-      content: `${prompt}\n\n--- OCR-TEXT DES DOKUMENTS ---\n${ocrText}`,
+      content: `${prompt}\n\n${OCR_TEXT_KOPF}\n${ocrText}`,
     }],
   }))
 
   return object as T
 }
-
-const INVOICE_PROMPT = `Analysiere diese Werkstattrechnung sorgfältig.
-
-WICHTIG — Kennzeichen vs. Fahrgestellnummer:
-- Kennzeichen (license plate): Kürzel + Zahlen, z.B. "SG 218574", "M-AB 1234", "B-CD 5678". Steht oft neben dem Fahrzeugnamen.
-- Fahrgestellnummer/VIN: 17 Zeichen, beginnt mit W, V, etc. z.B. "WP1ZZZ9PZ8LA14872"
-- "SG 218574" ist ein SCHWEIZER KENNZEICHEN (Kanton St. Gallen), NICHT eine Fahrgestellnummer!
-
-WICHTIG — Datum:
-- Das Wartungsheft braucht den Tag der Arbeit. Steht ein "Reparaturdatum", "Leistungsdatum" oder "Auftrag vom", nimm dieses.
-- Nur wenn es fehlt, das Rechnungs- oder Quittungsdatum ("Nr. 8431 vom 23.08.2024").
-
-WICHTIG — Positionen extrahieren:
-- Lies die Tabellenspalten korrekt: Beschreibung | Menge | Einheit | Preis | Betrag
-- Der "Betrag" pro Position = Menge × Einzelpreis
-- Unterscheide ARBEITSKOSTEN (Stunden × Stundensatz) von MATERIALKOSTEN (Teile)
-- Textzeilen OHNE eigene Menge und OHNE eigenen Betrag sind Beschreibung der NÄCHSTEN Zeile mit Betrag. Beispiel:
-    "Auspuff reparieren" / "Auto auf Oelverlust kontrollieren" / "Arbeit 1.50 Std. 130.00 195.00"
-  → EINE Position: description "Arbeit: Auspuff reparieren, Auto auf Oelverlust kontrollieren", amount 195.00.
-  Den Betrag NIE auf jede Beschreibungszeile wiederholen.
-- "Summe Arbeiten" und "Summe Teile" sind Zwischensummen — KEINE eigenen Positionen
-- Ebenso KEINE Positionen: "Total netto", "Zwischentotal", "MWST"/"MwSt." mit Satz, "Rundung", "Total CHF", "Übertrag"
-- Klein- & Reinigungs-Material und Lieferspesen sind eigene Positionen
-- Kontrolliere: Die Summe aller Positions-Beträge muss ungefähr dem Netto-Gesamtbetrag (vor MwSt.) entsprechen
-
-WICHTIG — Währung:
-- "CHF", "Fr." oder "Totalbetrag CHF" → Währung ist CHF
-- Nur bei ausdrücklichem "€", "EUR" oder "Euro" → Währung ist EUR
-- Ohne Angabe → Währung ist CHF
-
-WICHTIG — Kategorien richtig zuordnen:
-- Federn, Stossdämpfer, Federbeine, Achse, Lenkung, Radlager → fahrwerk
-- Auspuff, Krümmer, Katalysator, Abgasanlage → auspuff
-- Kühlwasser, Kühler, Thermostat, Frostschutz, Unterdruckleitung → kuehlung
-- Windschutzscheibe, Autoglas, Scheibenwischer → autoglas
-- Ölwechsel, Ölfilter, Motoröl → oelwechsel
-- Bremsen, Bremsbeläge, Bremsscheiben → bremsen
-- Reifen montieren, Reifenwechsel, Auswuchten → reifen
-- Karosserie, Blech, Lack, Rost → karosserie
-
-WICHTIG — Beträge als Zahlen:
-- "1 014.80" → 1014.80 (Leerzeichen entfernen)
-- "540,00" → 540.00 (Komma als Dezimaltrenner bei EUR)
-- Felder die nicht auf der Rechnung stehen → weglassen (nicht null setzen)
-
-Extrahiere alle Daten. Antworte auf Deutsch.`
 
 export async function parseInvoice(
   imageBase64: string,
@@ -349,24 +302,14 @@ export async function parseInvoiceFromSpeech(
   access: AiAccess,
   modelId?: string,
 ): Promise<ParsedInvoice> {
-  return parseOcrText(`Diktat einer Werkstattrechnung:\n${gesprochen}`, access, invoiceSchema, INVOICE_PROMPT, modelId)
+  return parseOcrText(diktatKopf(gesprochen), access, invoiceSchema, INVOICE_PROMPT, modelId)
 }
 
 const invoicePageSchema = invoiceSchema.extend({
-  kind: z.enum(['rechnung', 'fortsetzung', 'andere']).describe(
-    'rechnung: Seite mit eigenem Rechnungskopf (Werkstatt mit Adresse, Rechnungsnummer, Datum). fortsetzung: setzt die Rechnung der vorherigen Seite fort (Übertrag, "Seite 2/2", Positionen und Total ohne eigenen Kopf, Abrechnungsdetails derselben Werkstatt) — auch wenn die Rechnungsnummer in einer Kopfzeile wiederholt wird. andere: keine Rechnung (AGB, leere Seite, Werbung).',
-  ),
+  kind: z.enum(['rechnung', 'fortsetzung', 'andere']).describe(SEITENART),
 })
 
 export type ParsedPdfInvoice = ParsedInvoice & { pages: number[] }
-
-const INVOICE_PAGE_PROMPT = `Dies ist EINE Seite aus einem PDF, das EINE oder MEHRERE Werkstattrechnungen enthalten kann.
-Werte NUR diese Seite aus. Werkstatt, Datum und Betrag stammen ausschliesslich von dieser Seite, nie von der vorherigen.
-Die vorherige Seite ist nur als Hilfe angegeben, um zu entscheiden, ob diese Seite eine Fortsetzung ist.
-Fehlt auf einer Fortsetzungsseite ein Wert (Datum, Werkstatt, Gesamtbetrag), leeren Text bzw. 0 angeben.
-Steht auf dieser Seite kein Total (z. B. "Fortsetzung nächste Seite"), Gesamtbetrag 0 angeben — nie die Summe der Positionen einsetzen.
-
-${INVOICE_PROMPT}`
 
 /** Seiten gleichzeitig auswerten, aber nicht alle auf einmal (Rate-Limit des Proxys) */
 const PAGE_CONCURRENCY = 3
@@ -389,7 +332,7 @@ export async function parseInvoicesPdf(
   async function worker() {
     while (next < texts.length) {
       const i = next++
-      const previous = i > 0 ? `\n\n--- VORHERIGE SEITE (nur zur Einordnung, gekürzt) ---\n${texts[i - 1]!.slice(0, 1200)}` : ''
+      const previous = i > 0 ? vorherigeSeite(texts[i - 1]!.slice(0, 1200)) : ''
       const { kind, ...parsed } = await parseOcrText(`${texts[i]}${previous}`, access, invoicePageSchema, INVOICE_PAGE_PROMPT, modelId)
       results[i] = { page: i + 1, kind, parsed }
       onProgress?.(++done, texts.length)
@@ -398,14 +341,6 @@ export async function parseInvoicesPdf(
   await Promise.all(Array.from({ length: Math.min(PAGE_CONCURRENCY, texts.length) }, worker))
   return { invoices: mergePdfPages(results), pages: texts.length }
 }
-
-const VEHICLE_DOC_PROMPT = `Analysiere dieses Fahrzeugdokument (Schweizer Fahrzeugausweis, Kaufvertrag, deutscher Fahrzeugschein oder Zulassungsbescheinigung). Extrahiere die Fahrzeugdaten. Antworte auf Deutsch.
-
-Schweizer Fahrzeugausweis: Die Felder sind nummeriert und viersprachig beschriftet (Deutsch, Französisch, Italienisch, Rätoromanisch).
-- 15 Schild/Plaque: Kontrollschild. 21 Marke und Typ. 23 Fahrgestell-Nr. 36 1. Inverkehrsetzung (Monat.Jahr, zweistelliges Jahr vierstellig ergänzen).
-- 18 Stammnummer und 24 Typengenehmigung sind NICHT die Fahrgestellnummer.
-- Halter (Name, Wohnort) gehört nicht zu den Fahrzeugdaten.
-- Kilometerstand steht nur in Vermerken (13/14), wenn überhaupt; sonst weglassen.`
 
 export async function parseVehicleDocument(
   imageBase64: string,
@@ -422,26 +357,9 @@ export async function parseVehicleDocumentPdf(
   modelId?: string,
 ): Promise<ParsedVehicleDocument> {
   const pages = await withRetry(() => callMistralOcrPdf(pdfBase64, access))
-  const text = pages.map((t, i) => `--- Seite ${i + 1} ---\n${t}`).join('\n\n')
+  const text = pages.map((t, i) => `${ocrSeite(i + 1)}\n${t}`).join('\n\n')
   return parseOcrText(text, access, vehicleDocumentSchema, VEHICLE_DOC_PROMPT, modelId)
 }
-
-const SERVICE_BOOK_PROMPT = `Analysiere diese Serviceheft-Seite(n). Antworte auf Deutsch.
-
-WARTUNGSEINTRÄGE (Stempel, handschriftliche Zeilen):
-- Ein Kasten ist ein Eintrag. Datum, Kilometerstand, Auftragsnummer, Stempel und Kreuze gehören zum selben Kasten; nie Werte aus verschiedenen Kästen mischen.
-- Zweistellige Jahre vierstellig ergänzen. Unleserliche Werte weglassen statt raten, den Kilometerstand lieber leer lassen.
-- Die Kilometerstände steigen mit dem Datum. Passt ein gelesener Wert nicht dazu, nochmals genau hinschauen.
-- Leere oder durchgestrichene Kästen weglassen.
-- Seiten ohne Stempel und ohne handschriftliches Datum (Wartungsplan, Checkliste, Inhaltsverzeichnis) liefern KEINE Einträge. Nie einen Eintrag aus einer Checkliste bauen.
-
-HERSTELLER-INTERVALLE:
-- Nur Arbeiten mit ausdrücklich genanntem eigenem Intervall («alle 30'000 km», «alle 2 Jahre», «Kleine Wartung bei 30.000, 90.000 … km»).
-- Punkte aus der Checkliste einer Wartung (prüfen, Sichtprüfung, nachstellen) sind KEIN eigenes Intervall. Im Zweifel weglassen.
-- Zahlenreihen meinen den Abstand: «bei 30.000, 90.000, 150.000 km» ist ein Abstand von 60.000 km. Wechseln sich kleine und grosse Wartung ab, zählt für inspektion der Abstand von einer Wartung zur nächsten (im Beispiel 30.000 km und 2 Jahre).
-- Nie dasselbe Intervall über viele Arten streuen. Schweizer Apostroph als Tausendertrennzeichen lesen, Jahre in Monate umrechnen.
-
-Typische Zuordnung: Service/Kleine und Große Wartung → inspektion, Motoröl/Ölfilter → oelwechsel, Zündkerzen → elektrik, Keilriemen/Zahnriemen → zahnriemen, Kühlmittel → kuehlung, MFK/HU → tuev, Getriebeöl → sonstiges.`
 
 export async function parseServiceBook(
   imageBase64: string,
@@ -458,6 +376,6 @@ export async function parseServiceBookPdf(
   modelId?: string,
 ): Promise<ParsedServiceBook> {
   const pages = await withRetry(() => callMistralOcrPdf(pdfBase64, access))
-  const text = pages.map((t, i) => `--- Seite ${i + 1} ---\n${t}`).join('\n\n')
+  const text = pages.map((t, i) => `${ocrSeite(i + 1)}\n${t}`).join('\n\n')
   return parseOcrText(text, access, serviceBookSchema, SERVICE_BOOK_PROMPT, modelId)
 }

@@ -4,8 +4,26 @@
  * Lokaler Modus (E2E): kein echtes Token, User-ID per `x-user-id` (Proxy läuft im Auth-Bypass).
  */
 import type { LimitKind, PlanId } from '@strainovic/ai-proxy/plans'
+import type { Sprache } from '../lib/sprache'
 import { getCurrentUserId } from '../composables/useAuth'
+import { appSprache, waehle } from '../lib/app-sprache'
 import { db } from '../lib/instantdb'
+import bestellTexte from '../texte/app/bestellung'
+
+/**
+ * Meldung des Proxys (deutsch) nur auf Deutsch zeigen; in anderen Sprachen die eigene, allgemeinere Meldung
+ */
+function proxyMeldung(meldung: string | undefined, eigene: string): string {
+  return meldung && appSprache.value === 'de' ? meldung : eigene
+}
+
+/** Feldfehler (deutsch aus parseOrder bzw. dem Proxy) in der App-Sprache */
+export function feldfehlerUebersetzen(fehler: Partial<Record<keyof BusinessOrder, string>>): Partial<Record<keyof BusinessOrder, string>> {
+  if (appSprache.value === 'de')
+    return fehler
+  const eigene = waehle(bestellTexte).feldfehler as Record<string, string>
+  return Object.fromEntries(Object.entries(fehler).map(([feld, text]) => [feld, eigene[feld] ?? text]))
+}
 
 export interface AiAccess {
   baseURL: string
@@ -18,7 +36,7 @@ const isLocal = import.meta.env.VITE_INSTANTDB_MODE === 'local'
 
 export async function getAiAccess(): Promise<AiAccess> {
   if (!AI_PROXY_URL)
-    throw new Error('VITE_AI_PROXY_URL fehlt. Die App spricht Mistral nur über den AI-Proxy an.')
+    throw new Error('VITE_AI_PROXY_URL missing: the app talks to Mistral only through the AI proxy.')
 
   const headers: Record<string, string> = {}
   let token = ''
@@ -70,6 +88,8 @@ export interface BusinessOrder {
   reference?: string
   vehicles: number
   acceptTerms: boolean
+  /** Sprache von Rechnung und Rechnungsmail; setzt orderBusinessPlan aus der App-Sprache */
+  language?: Sprache
 }
 
 /** Fehler der Bestellung mit Meldungen pro Feld (400 vom Proxy) */
@@ -96,7 +116,7 @@ async function proxyFetch(path: string, init: RequestInit = {}): Promise<Respons
 export async function fetchUsage(): Promise<UsageInfo> {
   const res = await proxyFetch('/me/usage')
   if (!res.ok)
-    throw new Error(`Nutzung konnte nicht geladen werden (${res.status})`)
+    throw new Error(waehle(bestellTexte).nutzung(res.status))
   return res.json()
 }
 
@@ -109,7 +129,7 @@ export async function startCheckout(plan: string): Promise<string> {
   })
   const body = await res.json().catch(() => ({})) as { url?: string, error?: { message?: string } }
   if (!res.ok || !body.url)
-    throw new Error(body.error?.message || `Checkout nicht möglich (${res.status})`)
+    throw new Error(proxyMeldung(body.error?.message, waehle(bestellTexte).checkout(res.status)))
   return body.url
 }
 
@@ -121,7 +141,7 @@ async function billingPost<T>(path: string, payload: unknown = {}): Promise<T> {
   })
   const body = await res.json().catch(() => ({})) as T & { error?: { message?: string, fields?: Record<string, string> } }
   if (!res.ok)
-    throw new OrderError(body.error?.message || `Abo-Aktion nicht möglich (${res.status})`, body.error?.fields ?? {})
+    throw new OrderError(proxyMeldung(body.error?.message, waehle(bestellTexte).aboAktion(res.status)), feldfehlerUebersetzen(body.error?.fields ?? {}))
   return body
 }
 
@@ -130,7 +150,7 @@ async function billingPost<T>(path: string, payload: unknown = {}): Promise<T> {
  * keine IBAN und schickt den Auftrag an den Betreiber, der die Rechnung von Hand schreibt (`mailed` gilt dann dafür).
  */
 export function orderBusinessPlan(order: BusinessOrder): Promise<{ invoice: { number: string, amount: number, dueAt: string }, mailed: boolean, manual?: boolean }> {
-  return billingPost('/billing/order', order)
+  return billingPost('/billing/order', { ...order, language: order.language ?? appSprache.value })
 }
 
 /** Kündigung auf Ende der Laufzeit; `voided` zählt stornierte Rechnungen (Kündigung vor Beginn des Jahres) */
@@ -162,7 +182,7 @@ export async function sendFeedback(input: { text?: string, audio?: Blob | null, 
   const res = await proxyFetch('/feedback', { method: 'POST', body: form })
   const json = await res.json().catch(() => ({})) as any
   if (!res.ok)
-    throw new Error(json?.error?.message ?? `Rückmeldung nicht gesendet (${res.status})`)
+    throw new Error(proxyMeldung(json?.error?.message, waehle(bestellTexte).rueckmeldung(res.status)))
   return { transcript: json.transcript ?? null }
 }
 
@@ -173,6 +193,6 @@ export async function transcribeAudio(audio: Blob): Promise<{ text: string }> {
   const res = await proxyFetch('/me/transcribe', { method: 'POST', body: form })
   const json = await res.json().catch(() => ({})) as any
   if (!res.ok)
-    throw new Error(json?.error?.message ?? `Diktat nicht erkannt (${res.status})`)
+    throw new Error(proxyMeldung(json?.error?.message, waehle(bestellTexte).diktat(res.status)))
   return { text: String(json.text ?? '') }
 }

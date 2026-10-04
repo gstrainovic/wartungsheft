@@ -4,7 +4,9 @@
  */
 import type { InvoiceFormData, InvoiceFormItem } from '../types/forms'
 import type { ParsedInvoice } from './ai'
+import { waehle } from '../lib/app-sprache'
 import { normalizeCurrency } from '../lib/locale'
+import texte from '../texte/app/rechnungsformular'
 import { correctCategory } from './category-correction'
 import { repairItems } from './invoice-items'
 
@@ -106,19 +108,21 @@ export function mergePdfPages(pages: { page: number, kind: PageKind, parsed: Par
 }
 
 export function pagesLabel(pages: number[]): string {
+  const t = waehle(texte).stapel
   const sorted = [...new Set(pages)].sort((a, b) => a - b)
   if (!sorted.length)
     return 'PDF'
   if (sorted.length === 1)
-    return `Seite ${sorted[0]}`
+    return t.seite(sorted[0]!)
   const contiguous = sorted.every((p, i) => i === 0 || p === sorted[i - 1]! + 1)
-  return contiguous ? `Seite ${sorted[0]}–${sorted[sorted.length - 1]}` : `Seiten ${sorted.join(', ')}`
+  return contiguous ? t.seitenBereich(sorted[0]!, sorted[sorted.length - 1]!) : t.seiten(sorted.join(', '))
 }
 
 export interface BatchEntry {
   /** Herkunft für die Anzeige, z. B. «Seite 1–2» oder Dateiname */
   source: string
   draft: InvoiceDraft | null
+  /** Schlüssel, angezeigt über die Texte in src/texte/app/rechnungsformular.ts (duplikat) */
   duplicate: 'bereits erfasst' | 'doppelt im Beleg' | null
   selected: boolean
   /** ausgerichtetes Foto, nur bei Foto-Stapeln */
@@ -146,11 +150,12 @@ export function plateAssignment(plate: string | null | undefined, vehicles: Batc
     return { vehicleId: currentVehicleId, note: null, unknown: false }
   const match = vehicles.find(v => normalizePlate(v.licensePlate) === key)
   const shown = (plate ?? '').trim().toUpperCase().replace(/\s+/g, ' ')
+  const t = waehle(texte).stapel
   if (!match)
-    return { vehicleId: currentVehicleId, note: `Kontrollschild ${shown} gehört zu keinem Fahrzeug`, unknown: true }
+    return { vehicleId: currentVehicleId, note: t.schildUnbekannt(shown), unknown: true }
   if (match.id === currentVehicleId)
     return { vehicleId: match.id, note: null, unknown: false }
-  return { vehicleId: match.id, note: `Kontrollschild ${match.licensePlate}: ${match.make} ${match.model}`, unknown: false }
+  return { vehicleId: match.id, note: t.schildFahrzeug(match.licensePlate ?? shown, `${match.make} ${match.model}`), unknown: false }
 }
 
 /**

@@ -50,6 +50,19 @@ describe('buildReminders', () => {
     expect(ben.text).toContain('Ölwechsel: bald fällig')
   })
 
+  it('schreibt in der Sprache am Benutzer (settings.sprache), Zahlen und Daten im Format dieser Sprache', () => {
+    const settings = [{ creatorId: 'u1', sprache: 'fr' as const }, { creatorId: 'u2', sprache: 'en' as const }]
+    const [anna, ben] = buildReminders({ users, vehicles, maintenances, settings, now })
+    expect(anna!.subject).toBe('Wartungsheft : 1 travail à faire pour VW Caddy')
+    expect(anna!.text).toContain('Bonjour')
+    expect(anna!.text).toContain('VW Caddy · SG 12345 · 100\'000 km')
+    expect(anna!.text).toContain('Changement de pneus : en retard')
+    expect(anna!.text).not.toContain('Reifenwechsel')
+    expect(ben!.subject).toBe('Wartungsheft: 1 job due for BMW 320d')
+    expect(ben!.text).toContain('Oil change: due soon')
+    expect(ben!.text).toContain('50,000 km')
+  })
+
   it('erinnert nicht an verkaufte Fahrzeuge', () => {
     const sold = vehicles.map(v => (v.id === 'v1' ? { ...v, soldAt: daysAgo(3) } : v))
     const reminders = buildReminders({ users, vehicles: sold, maintenances, settings: [], now })

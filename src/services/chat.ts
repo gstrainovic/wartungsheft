@@ -4,13 +4,34 @@ import { generateText, stepCountIs, tool } from 'ai'
 import { z } from 'zod'
 import { getCurrentUserId } from '../composables/useAuth'
 import { autoRotateForDocument } from '../composables/useImageResize'
+import { appSprache, waehle } from '../lib/app-sprache'
 import { db, id as instantId, tx } from '../lib/instantdb'
 import { formatCurrency, formatDate, formatNumber, normalizeCurrency } from '../lib/locale'
+import chatTexte from '../texte/app/chat'
 import { callMistralOcr, callMistralOcrPdf, getModel, hashImage, MAINTENANCE_CATEGORIES, parseInvoice, parseServiceBook, parseVehicleDocument, withRetry } from './ai'
 import { correctCategory } from './category-correction'
 import { claimsActionWithoutTool } from './chat-guard'
 import { saveInvoice } from './invoice-save'
 import { checkDueMaintenances, getMaintenanceSchedule } from './maintenance-schedule'
+import {
+  AKTION_NACHFASSEN,
+  BILD_ANALYSIEREN,
+  bildOcrKontext,
+  bildPhase1,
+  bildPhase2,
+  chatSystemPrompt,
+  fahrzeugKontext,
+  KATEGORIE_RECHNUNG,
+  KATEGORIE_WARTUNG,
+  LISTE_SERVICEHEFT_FEHLT,
+  LISTE_SERVICEHEFT_HINTERLEGT,
+  ocrSeite,
+  offenesFahrzeug,
+  pdfPhase1,
+  pdfPhase2,
+  SERVICEHEFT_FEHLT,
+  SERVICEHEFT_HINTERLEGT,
+} from './prompts'
 
 export interface ToolResult {
   tool: string
@@ -26,122 +47,23 @@ export interface ChatMessage {
   toolResults?: ToolResult[]
 }
 
-const SYSTEM_PROMPT = `Du bist der Wartungsheft-Assistent. Du hilfst beim Verwalten von Fahrzeugen und Wartungen.
-Deine Fähigkeiten:
-- Fahrzeuge anlegen, bearbeiten, löschen
-- Rechnungen und Wartungen eintragen
-- Fotos von Rechnungen, Kaufverträgen, Fahrzeugausweisen und Service-Heften analysieren
-- Wartungsstatus prüfen und Empfehlungen geben
-- Fragen zu Wartungsintervallen beantworten
-- OCR-Texte gespeicherter Rechnungen abrufen (get_ocr_text) — enthält den maschinengelesenen Volltext
-
-FAHRZEUG-ERKENNUNG:
-- Der Benutzer kennt KEINE IDs. Er sagt z.B. "mein BMW", "der Golf", "das Fahrzeug".
-- Du bekommst die Fahrzeugliste automatisch als Kontext. Nutze sie um das richtige Fahrzeug zu identifizieren.
-- Wenn nur EIN Fahrzeug existiert, verwende es automatisch ohne nachzufragen.
-- Wenn MEHRERE Fahrzeuge passen könnten, frage kurz nach: "Meinst du den BMW 320d oder den BMW X3?"
-- Rufe NIEMALS den Benutzer auf eine ID zu nennen.
-
-WICHTIGE REGELN:
-1. Bevor du ein Fahrzeug anlegst, zeige die Felder dem Benutzer und warte auf Bestätigung:
-   - Marke, Modell, Baujahr, Kilometerstand, Kontrollschild, Fahrgestellnummer
-   - Kontrollschild und Fahrgestellnummer sind OPTIONAL: Wenn nicht genannt, zeige "nicht angegeben" und frage NICHT danach.
-2. Bevor du eine Rechnung einträgst, zeige ALLE Felder dem Benutzer und warte auf Bestätigung:
-   - Werkstatt, Datum, Gesamtbetrag, Währung, Kilometerstand, alle Positionen (Beschreibung, Kategorie, Betrag)
-3. Führe add_vehicle und add_invoice NICHT aus bevor der Benutzer die Daten bestätigt hat.
-4. Wenn du unsicher bist über ein Feld, zeige was du erkannt hast und frage nach.
-5. Bei einfachen Änderungen (z.B. "ändere Baujahr auf 2008") ist keine Bestätigung nötig — führe es direkt aus.
-6. Sobald der Benutzer bestätigt ("Ja", "passt", "eintragen", "ok", "mach das"), rufe SOFORT das Tool auf.
-   Frage NIEMALS ein zweites Mal nach Bestätigung und stelle keine Rückfragen zu optionalen Feldern.
-7. Aktionen passieren AUSSCHLIESSLICH über Tool-Aufrufe. Schreibe NIEMALS "wurde angelegt/eingetragen/gespeichert",
-   wenn du das entsprechende Tool nicht in diesem Schritt aufgerufen hast — das wäre eine Falschaussage.
-
-RECHNUNGSPOSITIONEN:
-- MwSt./MWST/USt. Zeilen sind KEINE eigenen Positionen — nicht eintragen!
-- "Summe Arbeiten", "Summe Teile", "Nettobetrag", "Zwischensumme" sind KEINE Positionen — nicht eintragen!
-- Nur tatsächliche Arbeiten und Teile sind Positionen.
-- Textzeilen ohne eigene Menge und ohne eigenen Betrag gehören zur NÄCHSTEN Zeile mit Betrag: EINE Position,
-  Beschreibung zusammengefasst (z. B. "Arbeit: Auspuff reparieren, Motor reinigen", 195.00). Den Betrag nie auf
-  mehrere Zeilen verteilen oder wiederholen. Kontrolle: alle Positionen zusammen ≤ Gesamtbetrag.
-
-KATEGORIEN bei add_invoice — wähle die passendste:
-- oelwechsel: Ölwechsel, Ölfilter, Motoröl, Ölablassschraube
-- bremsen: Bremsbeläge, Bremsscheiben, Bremssättel
-- reifen: Reifenmontage, Reifenwechsel, Auswuchten, Winterreifen, Sommerreifen
-- fahrwerk: Federn, Stossdämpfer, Federbeine, Achse, Lenkung, Radlager
-- auspuff: Auspuff, Krümmer, Katalysator, Abgasanlage
-- kuehlung: Kühlwasser, Kühler, Thermostat, Frostschutz, Unterdruckleitung, Kühlmittel
-- autoglas: Windschutzscheibe, Autoglas, Scheibenwischer, Frontscheibe, Heckscheibe
-- elektrik: Batterie, Lichtmaschine, Starter, Kabel, Sicherungen
-- karosserie: Blech, Lack, Rost, Delle, Unfallschaden
-- inspektion: Inspektion, Service, Durchsicht, MFK-Vorbereitung
-- tuev: MFK, Motorfahrzeugkontrolle, Strassenverkehrsamt, Abgastest
-- sonstiges: NUR wenn keine andere Kategorie passt (z.B. Lieferspesen, Reinigungsmaterial)
-
-WARTUNG OHNE RECHNUNG:
-- Wenn der Benutzer eine erledigte Wartung melden will OHNE Rechnung/Beleg, verwende add_maintenance (NICHT add_invoice).
-- add_invoice ist NUR für Rechnungen mit Werkstatt, Betrag und Positionen gedacht.
-- add_maintenance ist für einfache Wartungseinträge (z.B. "Ölwechsel gemacht", "Reifen gewechselt").
-- Sind Fahrzeug, Art und Datum klar, rufe add_maintenance DIREKT auf — ohne Bestätigungsrunde und ohne Erfolgsmeldung vorab.
-
-FEEDBACK NACH AKTIONEN (gilt NUR für den Text NACH einem erfolgreichen Tool-Aufruf):
-Die Tool-Ergebnisse werden automatisch als strukturierte Cards angezeigt. Wiederhole die Daten NICHT nochmal als Liste!
-Schreibe stattdessen eine KURZE Bestätigung (1-2 Sätze) mit einem passenden Emoji (🚗 Fahrzeug, 🧾 Rechnung, 🔧 Wartung, ✏️ Änderung, 🗑️ Löschung).
-Bei Änderungen nur die geänderten Werte nennen (alt → neu). Bei erkannten Duplikaten (⚠️) erklären, welcher Eintrag bereits existiert.
-Diese Bestätigung ist NUR erlaubt, wenn in diesem Schritt ein Tool-Ergebnis vorliegt.
-WICHTIG: Keine Listen mit Marke/Modell/Baujahr/etc. — das steht alles in der Card!
-
-WARTUNGSPLAN AUS SERVICE-HEFT:
-- Wenn der Benutzer Fotos aus dem Service-Heft/Wartungsplan schickt:
-  1. Lies die Intervalle sorgfältig ab (km und Zeitintervalle)
-  2. Mappe zu Kategorien: oelwechsel, inspektion, bremsen, reifen, luftfilter, zahnriemen, bremsflüssigkeit, klimaanlage, tuev, kuehlung, fahrwerk, elektrik, sonstiges
-  3. Zeige dem Benutzer eine Tabelle mit allen erkannten Intervallen
-  4. Nach Bestätigung: verwende IMMER set_maintenance_schedule (NICHT add_maintenance!)
-  WICHTIG: set_maintenance_schedule setzt die INTERVALLE (z.B. "Ölwechsel alle 15.000 km").
-  add_maintenance ist NUR für einzelne erledigte Wartungseinträge (z.B. "Ölwechsel am 15.03.2024").
-  Beim Service-Heft-Upload geht es um INTERVALLE → set_maintenance_schedule verwenden!
-- Typische Zuordnung:
-  - Zündkerzen → elektrik
-  - Getriebeöl/Differentialöl/Verteilergetriebeöl → sonstiges (Label beschreibt es genau)
-  - Kleine Wartung/Inspektion → inspektion
-  - Antriebsriemen/Keilriemen → zahnriemen
-  - Kühlmittel/Frostschutz → kuehlung
-  - Reifendichtmittel → reifen
-
-HINWEIS AUF SERVICE-HEFT:
-- Wenn ein Fahrzeug KEINEN fahrzeugspezifischen Wartungsplan hat (customSchedule fehlt), weise den Benutzer darauf hin:
-  - Der aktuelle Wartungsplan basiert auf allgemeinen/markenbasierten Intervallen
-  - Für genauere, fahrzeugspezifische Intervalle sollte er sein Service-Heft fotografieren und hochladen
-  - Dann werden die Hersteller-Intervalle für sein konkretes Modell hinterlegt
-- Zeige diesen Hinweis:
-  - Proaktiv, wenn über ein Fahrzeug ohne customSchedule gesprochen wird (z.B. bei get_vehicle, get_maintenance_status)
-  - Aber NICHT wiederholt — einmal pro Gespräch pro Fahrzeug reicht
-  - NIE bei einem Fahrzeug mit «✅ Service-Heft hinterlegt» oder hasCustomSchedule: true. Dessen Plan stammt schon aus
-    dem Service-Heft; empfiehl dort NICHT, es zu fotografieren oder zu schicken. Halte dich an serviceBookHint im Tool-Ergebnis.
-- Formulierung z.B.: "💡 Tipp: Der Wartungsplan für deinen [Marke Modell] basiert auf allgemeinen Intervallen. Fotografiere dein Service-Heft und schick mir die Bilder — dann hinterlege ich die genauen Hersteller-Intervalle für dein Fahrzeug."
-
-Antworte immer auf Deutsch.
-Wenn der Benutzer ein Bild schickt, analysiere es und gib die Ergebnisse strukturiert aus.
-Halte deine Antworten kurz und hilfreich.`
-
-/** Begrüssung mit Beispielen; nennt die eigenen Fahrzeuge, damit die Beispiele nicht erfunden wirken */
+/** Begrüssung mit Beispielen in der App-Sprache; nennt die eigenen Fahrzeuge, damit die Beispiele nicht erfunden wirken */
 export function welcomeMessage(vehicles: { make: string, model: string }[] = []): ChatMessage {
   const first = vehicles[0] ? `${vehicles[0].make} ${vehicles[0].model}` : 'Caddy'
   const second = vehicles[1] ? `${vehicles[1].make} ${vehicles[1].model}` : vehicles[0] ? first : 'Ducato'
   return {
     id: 'welcome',
     role: 'assistant',
-    content: `Hallo! Schick mir ein Foto der Werkstattrechnung, ich trage sie ein. Oder frag mich, zum Beispiel:
-
-- «Wann muss der ${first} zum Service?»
-- «Was hat der ${second} dieses Jahr gekostet?»
-- «Trag ein: Ölwechsel gestern bei 68'500 km»
-
-Fahrzeugausweis, Kaufvertrag und Serviceheft kann ich ebenfalls lesen.`,
+    content: waehle(chatTexte).begruessung(first, second),
   }
 }
 
 export const WELCOME_MESSAGE: ChatMessage = welcomeMessage()
+
+/** Texte der Werkzeug-Ergebnisse in der App-Sprache: das Modell gibt sie weiter, ohne Modelltext zeigt sie der Chat */
+function w() {
+  return waehle(chatTexte).werkzeug
+}
 
 function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]) {
   return {
@@ -191,7 +113,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         return {
           success: true,
           vehicleId,
-          message: `Fahrzeug angelegt`,
+          message: w().fahrzeugAngelegt,
           data: { make, model, year, mileage: mileage || 0, licensePlate: licensePlate || '', vin: vin || '' },
         }
       },
@@ -213,7 +135,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { success: false, message: 'Fahrzeug nicht gefunden' }
+          return { success: false, message: w().fahrzeugNichtGefunden }
         const before: Record<string, any> = {}
         const after: Record<string, any> = {}
         const patch: Record<string, any> = {}
@@ -228,7 +150,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         await db.transact([tx.vehicles[vehicleId].update(patch)])
         return {
           success: true,
-          message: `${after.make || vehicle.make} ${after.model || vehicle.model} aktualisiert`,
+          message: w().aktualisiert(`${after.make || vehicle.make} ${after.model || vehicle.model}`),
           vehicle: `${vehicle.make} ${vehicle.model} (${vehicle.year})`,
           changes: { before, after },
         }
@@ -245,7 +167,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { success: false, message: 'Fahrzeug nicht gefunden' }
+          return { success: false, message: w().fahrzeugNichtGefunden }
         const name = `${vehicle.make} ${vehicle.model}`
         const invoices = (result.data.invoices || []).filter((i: any) => i.vehicleId === vehicleId)
         const maintenances = (result.data.maintenances || []).filter((m: any) => m.vehicleId === vehicleId)
@@ -257,7 +179,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         await db.transact(transactions)
         return {
           success: true,
-          message: `Fahrzeug gelöscht`,
+          message: w().fahrzeugGeloescht,
           deleted: { vehicle: name, invoices: invoices.length, maintenances: maintenances.length },
         }
       },
@@ -273,7 +195,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { error: 'Fahrzeug nicht gefunden' }
+          return { error: w().fahrzeugNichtGefunden }
         const invoices = (result.data.invoices || []).filter((i: any) => i.vehicleId === vehicleId)
         const maintenances = (result.data.maintenances || []).filter((m: any) => m.vehicleId === vehicleId)
         return {
@@ -306,7 +228,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { error: 'Fahrzeug nicht gefunden' }
+          return { error: w().fahrzeugNichtGefunden }
         const schedule = getMaintenanceSchedule(vehicle.customSchedule)
         // Nur erledigte Arbeiten zählen als Wartung; geplante Einträge sind vereinbarte Termine
         const own = (result.data.maintenances || []).filter((m: any) => m.vehicleId === vehicleId)
@@ -326,9 +248,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
           ...status,
           hasCustomSchedule,
           // Anweisung im Tool-Ergebnis, weil Mistral den Prompt-Hinweis sonst auch bei hinterlegtem Serviceheft bringt
-          serviceBookHint: hasCustomSchedule
-            ? 'Wartungsplan stammt aus dem hinterlegten Serviceheft. KEIN Tipp zum Serviceheft, NICHT empfehlen, es zu fotografieren.'
-            : 'Kein eigener Wartungsplan (allgemeine Intervalle). Einmal kurz empfehlen, das Serviceheft zu fotografieren.',
+          serviceBookHint: hasCustomSchedule ? SERVICEHEFT_HINTERLEGT : SERVICEHEFT_FEHLT,
           vehicle: `${vehicle.make} ${vehicle.model}`,
         }
       },
@@ -350,14 +270,14 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { error: 'Fahrzeug nicht gefunden' }
+          return { error: w().fahrzeugNichtGefunden }
         await db.transact([tx.vehicles[vehicleId].update({ customSchedule: schedule })])
         return {
           success: true,
-          message: `Wartungsplan für ${vehicle.make} ${vehicle.model} gespeichert (${schedule.length} Positionen)`,
+          message: w().planGespeichert(`${vehicle.make} ${vehicle.model}`, schedule.length),
           schedule: schedule.map(s => ({
             label: s.label,
-            interval: `${s.intervalKm > 0 ? `${formatNumber(s.intervalKm)} km` : ''}${s.intervalKm > 0 && s.intervalMonths > 0 ? ' / ' : ''}${s.intervalMonths > 0 ? `${s.intervalMonths} Monate` : ''}`,
+            interval: `${s.intervalKm > 0 ? `${formatNumber(s.intervalKm)} km` : ''}${s.intervalKm > 0 && s.intervalMonths > 0 ? ' / ' : ''}${s.intervalMonths > 0 ? w().monate(s.intervalMonths) : ''}`,
           })),
         }
       },
@@ -375,9 +295,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         imageIndex: z.number().optional().describe('Index des zugehörigen Bildes (0-basiert)'),
         items: z.array(z.object({
           description: z.string().describe('Beschreibung der Arbeit oder des Teils'),
-          category: z.enum(MAINTENANCE_CATEGORIES).describe(
-            'Kategorie — oelwechsel: Öl/Ölfilter | bremsen: Bremsbeläge/Scheiben | reifen: Reifen/Auswuchten | fahrwerk: Federn/Stossdämpfer/Achse | auspuff: Auspuff/Katalysator | kuehlung: Kühlwasser/Kühler/Frostschutz/Thermostat | autoglas: Windschutzscheibe/Scheibenwischer | elektrik: Batterie/Kabel | karosserie: Lack/Blech | inspektion: Service/Durchsicht | sonstiges: nur wenn nichts anderes passt',
-          ),
+          category: z.enum(MAINTENANCE_CATEGORIES).describe(KATEGORIE_RECHNUNG),
           amount: z.number().describe('Einzelbetrag dieser Position'),
         })).describe('Positionen der Rechnung'),
       }),
@@ -389,7 +307,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         if (duplicate) {
           return {
             success: false,
-            message: `Diese Rechnung existiert bereits: ${duplicate.workshopName}, ${formatDate(duplicate.date)}, ${formatCurrency(duplicate.totalAmount, normalizeCurrency(duplicate.currency))}. Keine doppelte Erfassung.`,
+            message: w().rechnungExistiert(duplicate.workshopName, formatDate(duplicate.date), formatCurrency(duplicate.totalAmount, normalizeCurrency(duplicate.currency))),
           }
         }
 
@@ -401,7 +319,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const { plan } = await saveInvoice({ vehicleId, workshopName, date, totalAmount, currency, mileageAtService, items, imageData, ocrCacheId }, 'chat')
         return {
           success: true,
-          message: `Rechnung erfasst`,
+          message: w().rechnungErfasst,
           data: {
             workshopName,
             date,
@@ -424,7 +342,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const invoices = result.data.invoices || []
         const invoice = invoices.find((i: any) => i.id === invoiceId)
         if (!invoice)
-          return { success: false, message: 'Rechnung nicht gefunden' }
+          return { success: false, message: w().rechnungNichtGefunden }
         const maintenances = (result.data.maintenances || []).filter((m: any) => m.invoiceId === invoiceId)
         const transactions = [
           ...maintenances.map((m: any) => tx.maintenances[m.id].delete()),
@@ -433,7 +351,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         await db.transact(transactions)
         return {
           success: true,
-          message: `Rechnung gelöscht`,
+          message: w().rechnungGeloescht,
           deleted: { workshopName: invoice.workshopName, date: invoice.date, totalAmount: invoice.totalAmount, currency: invoice.currency, maintenances: maintenances.length },
         }
       },
@@ -449,13 +367,13 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const invoices = result.data.invoices || []
         const invoice = invoices.find((i: any) => i.id === invoiceId)
         if (!invoice)
-          return { error: 'Rechnung nicht gefunden' }
+          return { error: w().rechnungNichtGefunden }
         if (!invoice.ocrCacheId)
-          return { error: 'Kein OCR-Text für diese Rechnung vorhanden' }
+          return { error: w().keinOcr }
         const ocrEntries = result.data.ocrcache || []
         const ocrEntry = ocrEntries.find((o: any) => o.hash === invoice.ocrCacheId)
         if (!ocrEntry)
-          return { error: 'OCR-Cache-Eintrag nicht gefunden' }
+          return { error: w().ocrFehlt }
         return { invoiceId, ocrText: ocrEntry.markdown }
       },
     }),
@@ -464,9 +382,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
       description: 'Trägt eine Wartung OHNE Rechnung ein. Verwende dies wenn der Benutzer eine erledigte Wartung melden will aber keine Rechnung hat.',
       inputSchema: z.object({
         vehicleId: z.string().describe('Fahrzeug-ID'),
-        type: z.enum(MAINTENANCE_CATEGORIES).describe(
-          'Kategorie — oelwechsel, bremsen, reifen, fahrwerk, auspuff, kuehlung, autoglas, elektrik, karosserie, inspektion, klimaanlage, zahnriemen, bremsflüssigkeit, luftfilter, tuev, sonstiges',
-        ),
+        type: z.enum(MAINTENANCE_CATEGORIES).describe(KATEGORIE_WARTUNG),
         description: z.string().describe('Beschreibung der Wartung'),
         doneAt: z.string().describe('Datum im Format YYYY-MM-DD'),
         mileageAtService: z.number().optional().describe('Kilometerstand bei der Wartung'),
@@ -476,7 +392,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         const vehicles = result.data.vehicles || []
         const vehicle = vehicles.find((v: any) => v.id === vehicleId)
         if (!vehicle)
-          return { success: false, message: 'Fahrzeug nicht gefunden' }
+          return { success: false, message: w().fahrzeugNichtGefunden }
 
         const category = correctCategory(description, type)
         const maintenanceId = instantId()
@@ -503,7 +419,7 @@ function createTools(access: AiAccess, modelId?: string, imagesBase64?: string[]
         await db.transact(transactions)
         return {
           success: true,
-          message: `Wartung eingetragen`,
+          message: w().wartungEingetragen,
           data: {
             type: category,
             description,
@@ -547,15 +463,12 @@ export interface ChatOptions {
   currentVehicle?: { id: string, name: string }
 }
 
-/** Systemtext mit dem offenen Fahrzeug, damit der Chat nicht nach dem Fahrzeug fragen muss */
+/** Systemtext in der App-Sprache, mit dem offenen Fahrzeug, damit der Chat nicht nach dem Fahrzeug fragen muss */
 function systemPrompt(opts: ChatOptions): string {
+  const basis = chatSystemPrompt(appSprache.value)
   if (!opts.currentVehicle)
-    return SYSTEM_PROMPT
-  return `${SYSTEM_PROMPT}
-
-OFFENES FAHRZEUG:
-Der Benutzer ist gerade auf der Seite von «${opts.currentVehicle.name}» (vehicleId: ${opts.currentVehicle.id}).
-Ohne andere Angabe gilt dieses Fahrzeug für Rechnungen, Wartungen und Fragen. Nicht nach dem Fahrzeug fragen.`
+    return basis
+  return `${basis}${offenesFahrzeug(opts.currentVehicle.name, opts.currentVehicle.id)}`
 }
 
 function buildAiMessages(messages: ChatMessage[], imagesBase64?: string[]) {
@@ -566,7 +479,7 @@ function buildAiMessages(messages: ChatMessage[], imagesBase64?: string[]) {
         return {
           role: 'user' as const,
           content: [
-            { type: 'text' as const, text: m.content || 'Analysiere dieses Bild.' },
+            { type: 'text' as const, text: m.content || BILD_ANALYSIEREN },
             ...imagesBase64.map(img => ({ type: 'image' as const, image: img })),
           ],
         }
@@ -575,22 +488,24 @@ function buildAiMessages(messages: ChatMessage[], imagesBase64?: string[]) {
     })
 }
 
+/** Ersatztext aus den Werkzeug-Ergebnissen, wenn das Modell selbst nichts schreibt */
 function formatToolResult(r: any): string | undefined {
   if (!r || typeof r !== 'object')
     return undefined
+  const t = w()
   const parts: string[] = []
   if (r.message)
     parts.push(String(r.message))
   if (r.data) {
     const d = r.data
     if (d.make)
-      parts.push(`Marke: ${d.make}, Modell: ${d.model}, Baujahr: ${d.year}, Kilometerstand: ${formatNumber(d.mileage)} km${d.licensePlate ? `, Kontrollschild: ${d.licensePlate}` : ''}`)
+      parts.push(`${t.marke}: ${d.make}, ${t.modell}: ${d.model}, ${t.baujahr}: ${d.year}, ${t.kilometerstand}: ${formatNumber(d.mileage)} km${d.licensePlate ? `, ${t.kontrollschild}: ${d.licensePlate}` : ''}`)
     if (d.workshopName)
-      parts.push(`Werkstatt: ${d.workshopName}, Datum: ${formatDate(d.date)}, Betrag: ${formatCurrency(d.totalAmount, normalizeCurrency(d.currency))}`)
+      parts.push(`${t.werkstatt}: ${d.workshopName}, ${t.datum}: ${formatDate(d.date)}, ${t.betrag}: ${formatCurrency(d.totalAmount, normalizeCurrency(d.currency))}`)
     if (d.items?.length)
-      parts.push(`Positionen: ${d.items.map((i: any) => `${i.description} (${formatNumber(i.amount, 2)})`).join(', ')}`)
+      parts.push(`${t.positionen}: ${d.items.map((i: any) => `${i.description} (${formatNumber(i.amount, 2)})`).join(', ')}`)
     if (d.type && d.doneAt && !d.workshopName)
-      parts.push(`Typ: ${d.type}, Beschreibung: ${d.description}, Datum: ${formatDate(d.doneAt)}${d.mileageAtService ? `, Kilometerstand: ${formatNumber(d.mileageAtService)} km` : ''}`)
+      parts.push(`${t.typ}: ${d.type}, ${t.beschreibung}: ${d.description}, ${t.datum}: ${formatDate(d.doneAt)}${d.mileageAtService ? `, ${t.kilometerstand}: ${formatNumber(d.mileageAtService)} km` : ''}`)
   }
   if (r.changes) {
     const entries = Object.keys(r.changes.before || {})
@@ -600,9 +515,9 @@ function formatToolResult(r: any): string | undefined {
   if (r.deleted) {
     const d = r.deleted
     if (d.vehicle)
-      parts.push(`Gelöscht: ${d.vehicle}${d.invoices ? ` (${d.invoices} Rechnungen, ${d.maintenances} Wartungen)` : ''}`)
+      parts.push(`${t.geloescht}: ${d.vehicle}${d.invoices ? ` (${t.rechnungenUndWartungen(d.invoices, d.maintenances)})` : ''}`)
     if (d.workshopName)
-      parts.push(`Gelöscht: Rechnung von ${d.workshopName} (${formatDate(d.date)}, ${formatCurrency(d.totalAmount, normalizeCurrency(d.currency))})`)
+      parts.push(`${t.geloescht}: ${t.rechnungVon(d.workshopName)} (${formatDate(d.date)}, ${formatCurrency(d.totalAmount, normalizeCurrency(d.currency))})`)
   }
   return parts.length ? parts.join('\n') : undefined
 }
@@ -651,6 +566,7 @@ export async function sendChatMessage(
     access: opts.access,
     model: opts.model,
   })
+  const t = waehle(chatTexte)
 
   if (pdfBase64s?.length) {
     // Phase 1 für PDF(s): OCR alle Seiten aller PDFs, dann Ergebnisse anzeigen
@@ -666,27 +582,12 @@ export async function sendChatMessage(
     pendingPdfOcrTexts = ocrPages
 
     const ocrContext = ocrPages
-      .map((t, i) => `--- Seite ${i + 1} ---\n${t}`)
+      .map((page, i) => `${ocrSeite(i + 1)}\n${page}`)
       .join('\n\n')
 
     const phase1System = `${systemPrompt(opts)}
 
-Der Benutzer hat ein PDF-Dokument mit ${ocrPages.length} Seite(n) hochgeladen.
-Jede Seite kann eine separate Rechnung, ein Service-Heft, ein Kaufvertrag oder ein anderes Dokument sein.
-Wenn zwei Seiten identisch oder sehr ähnlich sind, weise darauf hin (Duplikat).
-
-Bestimme ZUERST den Dokumenttyp jeder Seite:
-- **Rechnung**: Werkstattname, Beträge, Positionen mit Preisen
-- **Service-Heft/Wartungsplan**: Wartungsintervalle, Inspektionsplan, Wartungsnachweis
-- **Kaufvertrag/Fahrzeugausweis**: Fahrzeugdaten, Halter, Erstzulassung
-
---- OCR-ERGEBNIS (exakter Text vom Dokument) ---
-${ocrContext}
---- ENDE OCR ---
-
-Der OCR-Text oben ist maschinengelesen und daher bei Zahlen, Tabellen und Beträgen GENAUER als deine eigene Bilderkennung. Verwende die Werte aus dem OCR-Text.
-
-Analysiere jede Seite einzeln. Nenne den Dokumenttyp. Zeige die erkannten Daten pro Seite strukturiert an. Frage den Benutzer ob die Daten korrekt sind bevor du fortfährst.`
+${pdfPhase1(ocrPages.length, ocrContext)}`
 
     const phase1 = await withRetry(() => generateText({
       model,
@@ -696,7 +597,7 @@ Analysiere jede Seite einzeln. Nenne den Dokumenttyp. Zeige die erkannten Daten 
       messages: buildAiMessages(messages),
       stopWhen: stepCountIs(1),
     }))
-    return { text: phase1.text || 'Keine Ergebnisse.' }
+    return { text: phase1.text || t.keineErgebnisse }
   }
 
   if (imagesBase64?.length) {
@@ -710,49 +611,11 @@ Analysiere jede Seite einzeln. Nenne den Dokumenttyp. Zeige die erkannten Daten 
     )
     const ocrTexts = ocrResults.map(r => r.markdown)
 
-    const ocrContext = ocrTexts.filter(Boolean).length
-      ? `\n\n--- OCR-ERGEBNIS (exakter Text vom Dokument) ---\n${ocrTexts.map((t, i) => `Bild ${i + 1}:\n${t}`).join('\n\n')}\n--- ENDE OCR ---\n\nDer OCR-Text oben ist maschinengelesen und daher bei Zahlen, Tabellen und Beträgen GENAUER als deine eigene Bilderkennung. Verwende die Werte aus dem OCR-Text.`
-      : ''
+    const ocrContext = ocrTexts.filter(Boolean).length ? bildOcrKontext(ocrTexts) : ''
 
     const phase1System = `${systemPrompt(opts)}
 
-Analysiere das Bild sorgfältig. Das Bild kann gedreht sein (90° oder 180°) — lies den Text in der richtigen Leserichtung.
-
-SCHRITT 1 — DOKUMENTTYP ERKENNEN:
-Bestimme ZUERST den Dokumenttyp anhand des Inhalts:
-- **Rechnung/Quittung**: Werkstattname, Beträge, Positionen mit Preisen, MwSt.
-- **Service-Heft/Wartungsplan**: Wartungsintervalle (km/Monate), Inspektionsplan, Wartungsnachweis, "Kleine/Grosse Wartung", Stempelfelder
-- **Kaufvertrag/Fahrzeugausweis**: Fahrzeugdaten, Halter, Erstzulassung
-Nenne den erkannten Dokumenttyp EXPLIZIT am Anfang deiner Antwort.
-WICHTIG: Ein Service-Heft enthält Wartungsintervalle und Stempel — auch wenn eine Werkstatt-Adresse (z.B. "Porsche Zentrum") darauf steht, ist es KEINE Rechnung!
-
-SCHRITT 2 — DATEN EXTRAHIEREN:
-
-Falls RECHNUNG:
-- KONTROLLSCHILD vs. FAHRGESTELLNUMMER:
-  - Kontrollschild (Kennzeichen, license plate): Kürzel + Zahlen, z.B. "SG 218574" (Schweizer Kanton St. Gallen), "M-AB 1234"
-  - Fahrgestellnummer/VIN: Genau 17 Zeichen, beginnt mit W, V, etc. z.B. "WP1ZZZ9PZ8LA14872"
-  - "SG 218574" ist ein SCHWEIZER KONTROLLSCHILD, NICHT eine Fahrgestellnummer!
-- POSITIONEN KORREKT LESEN:
-  - Lies die Tabellenspalten sorgfältig: Beschreibung | Menge | Einheit | Einzelpreis | Betrag
-  - Betrag pro Position = Menge × Einzelpreis. Wenn es nicht aufgeht, hast du falsch gelesen.
-  - MwSt./MWST/USt. Zeilen sind KEINE eigenen Positionen — NIEMALS als Position auflisten!
-  - "Summe Arbeiten", "Summe Teile", "Nettobetrag", "Zwischensumme" sind KEINE Positionen
-  - Nur tatsächliche Arbeiten und Teile sind Positionen
-  - Kontrolliere: Summe aller Positions-Beträge ≈ Netto-Gesamtbetrag (vor MwSt.)
-- WÄHRUNG: "CHF" → CHF, "€" oder "EUR" → EUR
-
-Falls SERVICE-HEFT/WARTUNGSPLAN:
-- Lies alle Wartungsintervalle ab (km UND Zeitintervalle)
-- Zeige eine Tabelle: Wartungsart | km-Intervall | Zeit-Intervall
-- Zeige auch durchgeführte Wartungen (Stempel/Einträge) falls vorhanden
-- Erwähne das Fahrzeugmodell falls erkennbar (z.B. "Cayenne V6")
-
-Falls KAUFVERTRAG/FAHRZEUGAUSWEIS:
-- Zeige alle Fahrzeugdaten: Marke, Modell, Baujahr, Fahrgestellnummer, Kontrollschild, Erstzulassung
-${ocrContext}
-
-Zeige die erkannten Daten strukturiert an. Frage den Benutzer ob die Daten korrekt sind bevor du fortfährst.`
+${bildPhase1(ocrContext)}`
 
     // Vision-Modell: max 8 Bilder. Bei >8 nur OCR-Text verwenden (kein Bild im Request)
     const visionImages = imagesBase64.length <= 8 ? imagesBase64 : undefined
@@ -765,7 +628,7 @@ Zeige die erkannten Daten strukturiert an. Frage den Benutzer ob die Daten korre
       messages: buildAiMessages(messages, visionImages),
       stopWhen: stepCountIs(1),
     }))
-    return { text: phase1.text || 'Keine Ergebnisse.' }
+    return { text: phase1.text || t.keineErgebnisse }
   }
 
   // Phase 2: Wenn Bilder oder PDF-OCR aus vorheriger Nachricht zwischengespeichert sind
@@ -784,30 +647,28 @@ Zeige die erkannten Daten strukturiert an. Frage den Benutzer ob die Daten korre
   const vehicleResult = await db.queryOnce({ vehicles: {} })
   const vehicles = vehicleResult.data.vehicles || []
   const vehicleList = vehicles.map((v: any) => {
-    const scheduleInfo = v.customSchedule?.length ? '✅ Service-Heft hinterlegt, kein Tipp nötig' : '⚠️ allgemeiner Wartungsplan, Service-Heft fehlt'
+    const scheduleInfo = v.customSchedule?.length ? LISTE_SERVICEHEFT_HINTERLEGT : LISTE_SERVICEHEFT_FEHLT
     return `- ${v.make} ${v.model} (${v.year}), ${v.mileage} km${v.licensePlate ? `, ${v.licensePlate}` : ''} [${scheduleInfo}]: ID=${v.id}`
   }).join('\n')
 
-  const vehicleContext = vehicleList
-    ? `Verfügbare Fahrzeuge:\n${vehicleList}`
-    : '(keine Fahrzeuge vorhanden — lege zuerst eins an mit add_vehicle)'
+  const vehicleContext = fahrzeugKontext(vehicleList)
 
   const aiMessages = buildAiMessages(messages)
 
   // Kontext immer anhängen, damit das Modell Fahrzeuge ohne ID-Nachfrage zuordnen kann
   if (storedPdfOcr?.length) {
     const pdfContext = storedPdfOcr
-      .map((t, i) => `--- Seite ${i + 1} ---\n${t}`)
+      .map((page, i) => `${ocrSeite(i + 1)}\n${page}`)
       .join('\n\n')
     aiMessages.push({
       role: 'user' as any,
-      content: `Kontext: PDF mit ${storedPdfOcr.length} Seite(n) wurde analysiert. Jede Seite kann eine separate Rechnung oder ein anderes Dokument (Service-Heft, Kaufvertrag) sein. Verwende das passende Tool je nach Dokumenttyp.\n\n--- OCR-TEXT ---\n${pdfContext}\n--- ENDE ---\n\n${vehicleContext}\n\nWICHTIG: Verwende NUR die exakten Fahrzeug-IDs aus der Liste oben oder aus dem Ergebnis von add_vehicle. Erfinde KEINE IDs.`,
+      content: pdfPhase2(storedPdfOcr.length, pdfContext, vehicleContext),
     })
   }
   else if (storedImages?.length) {
     aiMessages.push({
       role: 'user' as any,
-      content: `Kontext: Es wurden ${storedImages.length} Bilder gesendet (Index 0–${storedImages.length - 1}). Nutze das passende Tool je nach Dokumenttyp: add_invoice für Rechnungen, set_maintenance_schedule für Service-Hefte, add_vehicle für Kaufverträge/Fahrzeugausweise. Bei Rechnungen: nutze imageIndex um das Bild zu speichern.\n\n${vehicleContext}\n\nWICHTIG: Verwende NUR die exakten Fahrzeug-IDs aus der Liste oben oder aus dem Ergebnis von add_vehicle. Erfinde KEINE IDs.`,
+      content: bildPhase2(storedImages.length, vehicleContext),
     })
   }
   else {
@@ -841,7 +702,7 @@ Zeige die erkannten Daten strukturiert an. Frage den Benutzer ob die Daten korre
       system: systemPrompt(opts),
       messages: [
         ...aiMessages,
-        { role: 'user' as const, content: '[System] Du hast eine Aktion beschrieben, aber kein Tool aufgerufen. Führe die Aktion JETZT mit dem passenden Tool aus.' },
+        { role: 'user' as const, content: AKTION_NACHFASSEN },
       ],
       tools,
       // Tool-Zwang nur im ersten Schritt: gälte er auch nach dem Tool-Ergebnis, antwortete Mistral auf
@@ -853,7 +714,7 @@ Zeige die erkannten Daten strukturiert an. Frage den Benutzer ob die Daten korre
 
   const extracted = extractResult(result)
   return {
-    text: extracted.text || 'Erledigt.',
+    text: extracted.text || t.erledigt,
     toolResults: extracted.toolResults,
   }
 }

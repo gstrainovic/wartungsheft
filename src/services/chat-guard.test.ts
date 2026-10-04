@@ -28,6 +28,35 @@ describe('claimsActionWithoutTool', () => {
     expect(claimsActionWithoutTool({ text: 'Es wurde kein Fahrzeug angelegt, weil die Marke fehlt.', steps: [] })).toBe(false)
   })
 
+  it('erkennt Erfolgsbehauptungen auf Französisch, Italienisch und Englisch', () => {
+    for (const text of [
+      'L\'entretien a été enregistré.',
+      '✅ Vidange ajoutée :',
+      'J\'ai créé le véhicule.',
+      'La manutenzione è stata registrata.',
+      '✅ Cambio dell\'olio aggiunto:',
+      'Ho salvato la fattura.',
+      'The maintenance has been recorded.',
+      '✅ Oil change added:',
+      'I have saved the invoice.',
+      'Vehicle deleted.',
+    ])
+      expect(claimsActionWithoutTool({ text, steps: [] }), text).toBe(true)
+  })
+
+  it('lässt Rückfragen und Verneinungen in FR, IT, EN durch', () => {
+    for (const text of [
+      'Dois-je enregistrer la vidange du 15.06.2025 ?',
+      'Aucun entretien n\'a encore été enregistré pour ce véhicule.',
+      'Devo registrare il cambio dell\'olio?',
+      'Non è stata ancora registrata nessuna manutenzione.',
+      'Shall I record the oil change on 15/06/2025?',
+      'No maintenance has been recorded yet.',
+      'I have recorded the following data:\n- Garage: Garage Muster\n\nIs that correct?',
+    ])
+      expect(claimsActionWithoutTool({ text, steps: [] }), text).toBe(false)
+  })
+
   it('lässt die Vorschau nach einer Bildanalyse durch (sonst würde add_invoice ohne Bestätigung erzwungen)', () => {
     const preview = 'Ich habe folgende Daten erfasst:\n- ✅ Werkstatt: Garage Muster\n- ✅ Betrag: CHF 250.00\n\nPasst das so?'
     expect(claimsActionWithoutTool({ text: preview, steps: [{ toolCalls: [{ toolName: 'scan_document' }] }] })).toBe(false)

@@ -5,6 +5,8 @@
 import type { Invoice } from '../stores/invoices'
 import type { CurrencyOptions, VehicleInfo } from './report'
 import type { ZipFile } from './zip'
+import { waehle } from '../lib/app-sprache'
+import texte from '../texte/app/export'
 import { invoicesToCsvRows } from './report'
 
 export interface YearExportInput {
@@ -33,6 +35,9 @@ function slug(value: string): string {
     .replace(/ö/g, 'oe')
     .replace(/ü/g, 'ue')
     .replace(/ß/g, 'ss')
+    // Akzente der Werkstattnamen (Garage Crémieux) ohne Zeichen: é → e
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
 }
@@ -60,15 +65,16 @@ export function yearExportFiles({ year, vehicles, invoices, currency }: YearExpo
   if (!entries.length)
     return []
 
+  const t = waehle(texte).datei
   const encoder = new TextEncoder()
   const files: ZipFile[] = [
-    { name: `kosten-${year}.csv`, data: encoder.encode(invoicesToCsvRows(entries, currency)) },
+    { name: `${t.kosten}-${year}.csv`, data: encoder.encode(invoicesToCsvRows(entries, currency)) },
   ]
   const used = new Set<string>()
   for (const { inv, vehicle } of entries) {
     if (!inv.imageData)
       continue
-    const base = `belege/${inv.date}-${slug(`${vehicle.make} ${vehicle.model}`)}-${slug(inv.workshopName || 'beleg')}`
+    const base = `${t.belege}/${inv.date}-${slug(`${vehicle.make} ${vehicle.model}`)}-${slug(inv.workshopName || t.beleg)}`
     let name = `${base}.${imageExtension(inv.imageData)}`
     let n = 2
     while (used.has(name))
@@ -80,5 +86,5 @@ export function yearExportFiles({ year, vehicles, invoices, currency }: YearExpo
 }
 
 export function yearExportFilename(year: number, _generatedAt: Date = new Date()): string {
-  return `wartungsheft-jahresabschluss-${year}.zip`
+  return `wartungsheft-${waehle(texte).datei.jahresabschluss}-${year}.zip`
 }

@@ -296,7 +296,7 @@ test.describe('Invoice CRUD', () => {
     // DELETE (cleanup) - close dialog first, then delete vehicle
     await page
       .locator('[data-pc-name="dialog"]')
-      .getByRole('button', { name: 'Close' })
+      .getByRole('button', { name: 'Schliessen' })
       .click()
     await deleteVehicleViaUI(page)
   })

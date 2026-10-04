@@ -4,9 +4,11 @@ import FloatLabel from 'primevue/floatlabel'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import { reactive, watchEffect } from 'vue'
+import { useSprache } from '../composables/useSprache'
 import { useVehicleScan } from '../composables/useVehicleScan'
-import { LOCALE } from '../lib/locale'
+import { zahlenLocale } from '../lib/locale'
 import { fillVehicleFields } from '../services/vehicle-scan'
+import texte from '../texte/app/fahrzeugformular'
 
 const props = defineProps<{
   initialData?: {
@@ -20,6 +22,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{ save: [vehicle: VehicleFormData] }>()
+const { t } = useSprache(texte)
 
 interface VehicleFormData {
   make: string
@@ -84,7 +87,7 @@ function onSubmit(event: Event): void {
     <div class="doc-scan">
       <label class="upload-label" :class="{ disabled: scan.scanning.value }">
         <i class="pi pi-id-card" />
-        Fahrzeugausweis fotografieren
+        {{ t.ausweisFotografieren }}
         <input
           type="file"
           accept="image/*,application/pdf"
@@ -94,13 +97,13 @@ function onSubmit(event: Event): void {
         >
       </label>
       <small v-if="scan.scanning.value" class="scan-status" role="status">
-        <i class="pi pi-spin pi-spinner" /> Dokument wird gelesen …
+        <i class="pi pi-spin pi-spinner" /> {{ t.wirdGelesen }}
       </small>
       <small v-else-if="scan.message.value" class="scan-status" :class="{ error: scan.failed.value }" role="status">
         {{ scan.message.value }}
       </small>
-      <small v-else class="scan-status">Füllt Marke, Modell, Jahr, Kontrollschild und Fahrgestellnummer aus. Kaufvertrag geht auch.</small>
-      <img v-if="scan.preview.value" :src="scan.preview.value" alt="Dokument" class="doc-preview">
+      <small v-else class="scan-status">{{ t.scanHinweis }}</small>
+      <img v-if="scan.preview.value" :src="scan.preview.value" :alt="t.dokument" class="doc-preview">
     </div>
 
     <FloatLabel>
@@ -110,7 +113,7 @@ function onSubmit(event: Event): void {
         required
         class="w-full"
       />
-      <label for="make">Marke</label>
+      <label for="make">{{ t.marke }}</label>
     </FloatLabel>
 
     <FloatLabel>
@@ -120,7 +123,7 @@ function onSubmit(event: Event): void {
         required
         class="w-full"
       />
-      <label for="model">Modell</label>
+      <label for="model">{{ t.modell }}</label>
     </FloatLabel>
 
     <FloatLabel>
@@ -132,7 +135,7 @@ function onSubmit(event: Event): void {
         :max="new Date().getFullYear() + 1"
         class="w-full"
       />
-      <label for="year">Baujahr</label>
+      <label for="year">{{ t.baujahr }}</label>
     </FloatLabel>
 
     <FloatLabel>
@@ -140,11 +143,11 @@ function onSubmit(event: Event): void {
         v-model="form.mileage"
         input-id="mileage"
         :min="0"
-        :locale="LOCALE"
+        :locale="zahlenLocale()"
         suffix=" km"
         class="w-full"
       />
-      <label for="mileage">Kilometerstand</label>
+      <label for="mileage">{{ t.kilometerstand }}</label>
     </FloatLabel>
 
     <!-- Schweizer Begriffe wie auf dem Fahrzeugausweis (Feld 15 und 23) -->
@@ -154,7 +157,7 @@ function onSubmit(event: Event): void {
         v-model="form.licensePlate"
         class="w-full"
       />
-      <label for="licensePlate">Kontrollschild</label>
+      <label for="licensePlate">{{ t.kontrollschild }}</label>
     </FloatLabel>
 
     <FloatLabel>
@@ -163,10 +166,10 @@ function onSubmit(event: Event): void {
         v-model="form.vin"
         class="w-full"
       />
-      <label for="vin">Fahrgestellnummer</label>
+      <label for="vin">{{ t.fahrgestellnummer }}</label>
     </FloatLabel>
 
-    <Button type="submit" label="Speichern" :disabled="scan.scanning.value" />
+    <Button type="submit" :label="t.speichern" :disabled="scan.scanning.value" />
   </form>
 </template>
 

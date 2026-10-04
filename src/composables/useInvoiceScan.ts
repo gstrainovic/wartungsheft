@@ -6,10 +6,13 @@
 import type { ParsedInvoice } from '../services/ai'
 import type { BatchEntry, BatchVehicle, ScannedFields } from '../services/invoice-scan'
 import { ref } from 'vue'
+import { waehle } from '../lib/app-sprache'
 import { userMessage } from '../lib/errors'
 import { parseInvoice, parseInvoicesPdf } from '../services/ai'
 import { getAiAccess } from '../services/ai-access'
 import { buildBatch, pagesLabel, plateAssignment, scannedToFormFields } from '../services/invoice-scan'
+import fehlerTexte from '../texte/app/fehler'
+import rechnungTexte from '../texte/app/rechnungsformular'
 import { autoRotateForDocument, getImageMimeType, readFileAsBase64 as readAsBase64, resizeImage } from './useImageResize'
 
 // Fotos werden ohnehin verkleinert; PDFs gehen unverändert an Mistral OCR (dort max. 50 MB, wie im Chat)
@@ -23,10 +26,18 @@ export type ScanOutcome
 
 interface Scanned { parsed: ParsedInvoice, source: string, imageBase64?: string }
 
-/** Monatslimit und fehlende Verbindung brechen den ganzen Stapel ab; andere Fehler betreffen nur einen Beleg */
+/**
+ * Monatslimit, fehlende Verbindung und abgelaufene Anmeldung brechen den ganzen Stapel ab; andere Fehler betreffen
+ * nur einen Beleg. Vergleicht die Nutzermeldung (lib/errors.ts) in jeder Sprache; die deutsche Limit-Meldung des
+ * Proxys beginnt mit «Monatslimit».
+ */
+export function isFatalMessage(msg: string): boolean {
+  const f = waehle(fehlerTexte)
+  return msg.startsWith('Monatslimit') || [f.limit, f.offline, f.auth].includes(msg)
+}
+
 function isFatal(err: unknown): boolean {
-  const msg = userMessage(err)
-  return msg.startsWith('Monatslimit') || msg.startsWith('Keine Verbindung') || msg.startsWith('Bitte neu anmelden')
+  return isFatalMessage(userMessage(err))
 }
 
 export function useInvoiceScan() {
@@ -54,12 +65,13 @@ export function useInvoiceScan() {
     existing: { vehicleId?: string, date: string, totalAmount?: number }[],
     context: { vehicles?: BatchVehicle[], currentVehicleId?: string } = {},
   ): Promise<ScanOutcome | null> {
+    const t = waehle(rechnungTexte).scan
     // Einzelne Rechnung: nennt der Beleg ein anderes oder unbekanntes Kontrollschild, im Hinweis sagen
     const plateHint = (parsed: ParsedInvoice) => {
       const { note, vehicleId } = plateAssignment(parsed.licensePlate, context.vehicles ?? [], context.currentVehicleId)
       if (!note)
         return ''
-      return vehicleId === context.currentVehicleId ? ` Achtung: ${note}.` : ` Achtung: Rechnung nennt ${note.replace(/^Kontrollschild /, 'Kontrollschild ')}, nicht dieses Fahrzeug.`
+      return vehicleId === context.currentVehicleId ? t.achtung(note) : t.achtungAnderes(note)
     }
     message.value = ''
     imageBase64.value = null
@@ -70,9 +82,9 @@ export function useInvoiceScan() {
     for (const f of files) {
       const isPdf = f.type === 'application/pdf'
       if (!isPdf && !f.type.startsWith('image/'))
-        return fail(`${f.name}: nur Fotos oder PDF möglich.`)
+        return fail(t.nurFotoPdf(f.name))
       if (f.size > (isPdf ? MAX_PDF_SIZE : MAX_IMAGE_SIZE))
-        return fail(`${f.name}: Datei zu gross (max. ${isPdf ? 50 : 25} MB).`)
+        return fail(t.zuGross(f.name, isPdf ? 50 : 25))
     }
 
     // Ohne Verbindung gibt es keinen Scan: Foto trotzdem übernehmen, der Scan wird später nachgeholt.
@@ -82,7 +94,7 @@ export function useInvoiceScan() {
       imageBase64.value = base64
       imagePreview.value = `data:${getImageMimeType()};base64,${base64}`
       status.value = 'done'
-      message.value = 'Offline: Die Rechnung wird gespeichert, der Scan läuft nach, sobald du wieder online bist.'
+      message.value = t.offline
       return { kind: 'single', fields: {}, scanPending: true }
     }
 
@@ -92,7 +104,7 @@ export function useInvoiceScan() {
 
       // Ein einzelnes Foto: wie bisher Vorschau und Vorbefüllung
       if (files.length === 1 && files[0]!.type !== 'application/pdf') {
-        progress.value = 'Rechnung wird ausgerichtet und gelesen …'
+        progress.value = t.ausrichten
         const rotated = await prepareImage(files[0]!)
         imageBase64.value = rotated
         imagePreview.value = `data:${getImageMimeType()};base64,${rotated}`
@@ -103,12 +115,12 @@ export function useInvoiceScan() {
       const scanned: Scanned[] = []
       const failed: string[] = []
       for (const [i, file] of files.entries()) {
-        const counter = files.length > 1 ? ` (${i + 1} von ${files.length})` : ''
+        const counter = files.length > 1 ? t.zaehler(i + 1, files.length) : ''
         try {
           if (file.type === 'application/pdf') {
-            progress.value = `PDF wird gelesen${counter} …`
+            progress.value = t.pdfLesen(counter)
             const { invoices } = await parseInvoicesPdf(await readAsBase64(file), access, undefined, (done, total) => {
-              progress.value = `PDF: Seite ${done} von ${total} ausgewertet${counter} …`
+              progress.value = t.pdfSeite(done, total, counter)
             })
             const prefix = files.length > 1 ? `${file.name}, ` : ''
             for (const inv of invoices)
@@ -117,7 +129,7 @@ export function useInvoiceScan() {
               pdfName.value = file.name
           }
           else {
-            progress.value = `Foto wird gelesen${counter} …`
+            progress.value = t.fotoLesen(counter)
             const rotated = await prepareImage(file)
             scanned.push({ parsed: await parseInvoice(rotated, access), source: file.name, imageBase64: rotated })
           }
@@ -130,22 +142,22 @@ export function useInvoiceScan() {
         }
       }
 
-      const failedNote = failed.length ? ` Nicht lesbar: ${failed.join(', ')}.` : ''
+      const failedNote = failed.length ? t.nichtLesbarListe(failed.join(', ')) : ''
       // Sammel-PDF mit genau einer Rechnung: Formular vorbefüllen
       if (scanned.length === 1 && files.length === 1)
         return single(scannedToFormFields(scanned[0]!.parsed), `${plateHint(scanned[0]!.parsed)}${failedNote}`)
       if (!scanned.length)
-        return fail(`Auf den Fotos war keine Rechnung zu lesen. Bitte Felder selbst ausfüllen.${failedNote}`)
+        return fail(`${t.keineRechnung}${failedNote}`)
 
       const entries = buildBatch(scanned, existing, context)
       status.value = 'done'
       const dupes = entries.filter(e => e.duplicate).length
       const others = entries.filter(e => e.plateNote).length
-      message.value = `${entries.length} Rechnungen erkannt${dupes ? `, davon ${dupes} schon erfasst oder doppelt` : ''}${others ? `, ${others} mit anderem Kontrollschild` : ''}. Bitte prüfen.${failedNote}`
+      message.value = `${t.erkannt(entries.length)}${dupes ? t.davonDoppelt(dupes) : ''}${others ? t.anderesSchild(others) : ''}. ${t.bittePruefen}${failedNote}`
       return { kind: 'batch', entries }
     }
     catch (err) {
-      return fail(`${userMessage(err)} Felder bitte selbst ausfüllen.`)
+      return fail(t.selbstAusfuellen(userMessage(err)))
     }
     finally {
       progress.value = ''
@@ -153,10 +165,9 @@ export function useInvoiceScan() {
   }
 
   function single(fields: ScannedFields, note = ''): ScanOutcome {
+    const t = waehle(rechnungTexte).scan
     status.value = 'done'
-    message.value = (Object.keys(fields).length
-      ? 'Felder aus der Rechnung ausgefüllt. Bitte prüfen.'
-      : 'Auf dem Foto war nichts Verwertbares zu lesen. Bitte Felder selbst ausfüllen.') + note
+    message.value = (Object.keys(fields).length ? t.ausgefuellt : t.nichtsVerwertbar) + note
     return { kind: 'single', fields }
   }
 

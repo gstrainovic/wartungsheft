@@ -116,7 +116,8 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 ### PrimeVue Selektor-Gotchas
 - `getByRole('button', { name: 'X' })` matcht Text-Buttons UND Icon-only-Buttons (beide haben aria-label)
 - Für Header-Buttons mit sichtbarem Text: `button:has-text("Löschen")` statt `getByRole`
-- Dialog Close-Button: `getByRole('button', { name: 'Close' })` (nicht `.pi-times` CSS-Klasse)
+- Dialog Close-Button: `getByRole('button', { name: 'Schliessen' })` (PrimeVue-Texte folgen der App-Sprache,
+  `src/texte/app/primevue.ts`; nicht `.pi-times` CSS-Klasse). Tests laufen deutsch: ohne gespeicherte Wahl ist die App deutsch
 - VehicleDetailPage hat mehrere "Löschen"-Buttons (Header + Item-Buttons) — `.first()` oder spezifischen Container verwenden
 - InputNumber: Label nur mit `input-id` verknüpft, nicht mit `id`
 - `v-tooltip` Direktive muss in `main.ts` registriert werden: `app.directive('tooltip', Tooltip)`
