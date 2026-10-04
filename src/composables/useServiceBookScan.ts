@@ -4,10 +4,13 @@
  */
 import type { ScannedInterval, ServiceBookPage } from '../services/service-book'
 import { ref } from 'vue'
+import { waehle } from '../lib/app-sprache'
 import { userMessage } from '../lib/errors'
 import { parseServiceBook, parseServiceBookPdf } from '../services/ai'
 import { getAiAccess } from '../services/ai-access'
+import texte from '../texte/app/serviceheft'
 import { autoRotateForDocument, readFileAsBase64, resizeImage } from './useImageResize'
+import { isFatalMessage } from './useInvoiceScan'
 
 const MAX_IMAGE_SIZE = 25 * 1024 * 1024
 const MAX_PDF_SIZE = 50 * 1024 * 1024
@@ -26,18 +29,19 @@ export function useServiceBookScan() {
     failed.value = false
     const result: ServiceBookScan = { pages: [], intervals: [] }
     const errors: string[] = []
+    const t = waehle(texte).scan
     scanning.value = true
     try {
       const access = await getAiAccess()
       for (const [i, file] of files.entries()) {
-        progress.value = files.length > 1 ? `Seite ${i + 1} von ${files.length} wird gelesen …` : 'Serviceheft wird gelesen …'
+        progress.value = files.length > 1 ? t.seiteLesen(i + 1, files.length) : t.heftLesen
         const isPdf = file.type === 'application/pdf'
         if (!isPdf && !file.type.startsWith('image/')) {
-          errors.push(`${file.name}: nur Fotos oder PDF möglich.`)
+          errors.push(t.nurFotoPdf(file.name))
           continue
         }
         if (file.size > (isPdf ? MAX_PDF_SIZE : MAX_IMAGE_SIZE)) {
-          errors.push(`${file.name}: zu gross (max. ${isPdf ? 50 : 25} MB).`)
+          errors.push(t.zuGross(file.name, isPdf ? 50 : 25))
           continue
         }
         try {
@@ -50,7 +54,7 @@ export function useServiceBookScan() {
         catch (err) {
           const msg = userMessage(err)
           // Monatslimit und fehlende Verbindung betreffen alle weiteren Seiten
-          if (msg.startsWith('Monatslimit') || msg.startsWith('Keine Verbindung') || msg.startsWith('Bitte neu anmelden')) {
+          if (isFatalMessage(msg)) {
             errors.push(msg)
             break
           }

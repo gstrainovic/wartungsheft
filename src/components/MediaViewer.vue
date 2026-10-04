@@ -6,6 +6,8 @@ import Tab from 'primevue/tab'
 import TabList from 'primevue/tablist'
 import Tabs from 'primevue/tabs'
 import { computed, ref } from 'vue'
+import { useSprache } from '../composables/useSprache'
+import texte from '../texte/app/medien'
 
 const props = defineProps<{
   /** Base64 image data (without data URL prefix) */
@@ -17,7 +19,7 @@ const props = defineProps<{
   /** OCR markdown text */
   ocrMarkdown?: string
 }>()
-
+const { t } = useSprache(texte)
 const open = defineModel<boolean>({ default: false })
 
 const viewTab = ref<'image' | 'ocr'>('image')
@@ -69,11 +71,11 @@ const hasPdf = computed(() => !!pdfDataUrl.value)
           <TabList>
             <Tab value="image">
               <i :class="hasPdf ? 'pi pi-file-pdf' : 'pi pi-image'" class="mr-2" />
-              {{ hasPdf ? 'PDF' : 'Bild' }}
+              {{ hasPdf ? t.pdf : t.bild }}
             </Tab>
             <Tab value="ocr">
               <i class="pi pi-file-edit mr-2" />
-              OCR-Text
+              {{ t.ocr }}
             </Tab>
           </TabList>
         </Tabs>
@@ -114,7 +116,7 @@ const hasPdf = computed(() => !!pdfDataUrl.value)
 
     <template #footer>
       <div v-if="hasImage && viewTab === 'image'" class="media-viewer-footer">
-        Bilder werden automatisch optimiert: auf 1540 px verkleinert, gedreht und als WebP gespeichert.
+        {{ t.optimiert }}
       </div>
     </template>
   </Dialog>

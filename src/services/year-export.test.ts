@@ -51,6 +51,27 @@ describe('yearExportFiles', () => {
   })
 })
 
+describe('jahresabschluss in anderer Sprache', () => {
+  it('benennt CSV, Belegordner und ZIP in der App-Sprache, CSV-Kopf übersetzt', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    setAppSprache('fr')
+    try {
+      const fr = yearExportFiles({ year: 2026, vehicles, invoices, currency })
+      expect(fr[0]!.name).toBe('couts-2026.csv')
+      expect(new TextDecoder().decode(fr[0]!.data)).toContain('Véhicule;Plaque;Date')
+      expect(fr.filter(f => f.name.startsWith('justificatifs/')).map(f => f.name)[0]).toBe('justificatifs/2026-03-10-vw-caddy-garage-muester-ag.jpg')
+      expect(yearExportFilename(2026)).toBe('wartungsheft-bouclement-2026.zip')
+      setAppSprache('it')
+      expect(yearExportFilename(2026)).toBe('wartungsheft-chiusura-annuale-2026.zip')
+      setAppSprache('en')
+      expect(yearExportFiles({ year: 2026, vehicles, invoices: [{ ...invoices[0]!, workshopName: '' }], currency }).map(f => f.name)).toEqual(['costs-2026.csv', 'receipts/2026-03-10-vw-caddy-receipt.jpg'])
+    }
+    finally {
+      setAppSprache('de')
+    }
+  })
+})
+
 describe('yearExportFilename', () => {
   it('nennt Jahr und Datum', () => {
     expect(yearExportFilename(2026, new Date('2026-09-16T08:00:00Z'))).toBe('wartungsheft-jahresabschluss-2026.zip')

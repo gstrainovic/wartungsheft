@@ -1,17 +1,20 @@
 /**
  * PDF-Berichte: Dossier eines Fahrzeugs (Verkauf, Übergabe) und Fuhrpark-Übersicht (Treuhänder, Jahresabschluss).
- * jsPDF mit Standardschrift (Helvetica, WinAnsi, reicht für Umlaute und den Schweizer Apostroph), Tabellen über
- * jspdf-autotable. Fremde Währungen werden mit `currency` (Heimwährung, Kurse) umgerechnet, siehe report.ts.
+ * jsPDF mit Standardschrift (Helvetica, WinAnsi, reicht für Umlaute, französische und italienische Akzente und den
+ * Schweizer Apostroph), Tabellen über jspdf-autotable. Texte in der App-Sprache (src/texte/app/dossier.ts).
+ * Fremde Währungen werden mit `currency` (Heimwährung, Kurse) umgerechnet, siehe report.ts.
  */
 import type { Invoice } from '../stores/invoices'
 import type { Maintenance } from '../stores/maintenances'
 import type { CurrencyOptions, VehicleInfo } from './report'
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import { waehle } from '../lib/app-sprache'
 import { formatCurrency, formatDate, formatNumber, normalizeCurrency } from '../lib/locale'
+import texte from '../texte/app/dossier'
 import { categoryLabel, costsByYear, fleetCostsByVehicleYear, formatKm, maintenanceRows } from './report'
 import { serviceRecordSummary } from './service-record'
-import { soldLabel } from './vehicle-status'
+import { isSold } from './vehicle-status'
 
 export interface DossierInput {
   vehicle: VehicleInfo
@@ -38,7 +41,12 @@ function isoDate(d: Date): string {
 }
 
 function slug(s: string): string {
-  return s.toLowerCase().replace(/[äöü]/g, c => ({ ä: 'ae', ö: 'oe', ü: 'ue' })[c] ?? c).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  return s.toLowerCase()
+    .replace(/[äöü]/g, c => ({ ä: 'ae', ö: 'oe', ü: 'ue' })[c] ?? c)
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
 }
 
 export function dossierFilename(vehicle: VehicleInfo, at: Date = new Date()): string {
@@ -46,7 +54,7 @@ export function dossierFilename(vehicle: VehicleInfo, at: Date = new Date()): st
 }
 
 export function fleetReportFilename(at: Date = new Date()): string {
-  return `wartungsheft-alle-fahrzeuge-${isoDate(at)}.pdf`
+  return `wartungsheft-${waehle(texte).datei.alleFahrzeuge}-${isoDate(at)}.pdf`
 }
 
 function newDoc(): jsPDF {
@@ -75,44 +83,54 @@ function title(doc: jsPDF, y: number, text: string, subtitle: string): number {
   return y + 8
 }
 
+/** Verkaufsvermerk im Dossier: Datum und Kilometer, vor der Übergabe «Übergabe am …» */
+function soldValue(vehicle: VehicleInfo): string {
+  const t = waehle(texte)
+  const when = formatDate(vehicle.soldAt)
+  if (!isSold({ make: vehicle.make, model: vehicle.model, soldAt: vehicle.soldAt }))
+    return t.uebergabeAm(when)
+  return vehicle.soldMileage ? t.verkauftBei(when, formatNumber(vehicle.soldMileage)) : when
+}
+
 /** Stammdaten, Wartungshistorie, Kosten pro Jahr und Rechnungsliste eines Fahrzeugs ab Position y. */
 function renderVehicle(doc: jsPDF, y: number, { vehicle, invoices, maintenances, currency }: DossierInput): number {
+  const t = waehle(texte)
   autoTable(doc, {
     startY: y,
     theme: 'plain',
     styles: { fontSize: 10, cellPadding: 1.2 },
     columnStyles: { 0: { fontStyle: 'bold', cellWidth: 40 } },
     body: [
-      ['Kennzeichen', vehicle.licensePlate],
-      ['Baujahr', vehicle.year ? String(vehicle.year) : ''],
-      ['Fahrgestellnummer', vehicle.vin ?? ''],
-      ['Kilometerstand', formatKm(vehicle.mileage)],
-      ...(vehicle.soldAt ? [['Verkauft', soldLabel(vehicle).replace(/^Verkauft am /, '')]] : []),
+      [t.feld.kontrollschild, vehicle.licensePlate],
+      [t.feld.baujahr, vehicle.year ? String(vehicle.year) : ''],
+      [t.feld.fahrgestellnummer, vehicle.vin ?? ''],
+      [t.feld.kilometerstand, formatKm(vehicle.mileage)],
+      ...(vehicle.soldAt ? [[t.feld.verkauft, soldValue(vehicle)]] : []),
     ],
   })
   y = finalY(doc) + 8
 
-  y = heading(doc, y, 'Wartungshistorie')
+  y = heading(doc, y, t.wartungshistorie)
   const mRows = maintenanceRows(maintenances)
   autoTable(doc, {
     startY: y,
-    head: [['Datum', 'Arbeit', 'Kilometerstand']],
-    body: mRows.length ? mRows : [['', 'Keine Einträge', '']],
+    head: [[t.datum, t.arbeit, t.feld.kilometerstand]],
+    body: mRows.length ? mRows : [['', t.keineEintraege, '']],
     styles: { fontSize: 9 },
     headStyles: HEAD,
   })
   y = finalY(doc) + 8
 
-  y = heading(doc, y, 'Kosten pro Jahr')
+  y = heading(doc, y, t.kostenProJahr)
   const years = costsByYear(invoices, currency)
   const categories = [...new Set(years.flatMap(r => Object.keys(r.byCategory)))]
   const convertedCount = years.reduce((n, r) => n + r.converted, 0)
   autoTable(doc, {
     startY: y,
-    head: [['Jahr', 'Währung', ...categories.map(c => categoryLabel(c)), 'Total']],
+    head: [[t.jahr, t.waehrung, ...categories.map(c => categoryLabel(c)), t.total]],
     body: years.length
       ? years.map(r => [String(r.year), r.currency, ...categories.map(c => r.byCategory[c] === undefined ? '' : formatNumber(r.byCategory[c], 2)), formatNumber(r.total, 2)])
-      : [['', '', ...categories.map(() => ''), 'Keine Rechnungen']],
+      : [['', '', ...categories.map(() => ''), t.keineRechnungen]],
     styles: { fontSize: 9, halign: 'right' },
     columnStyles: { 0: { halign: 'left' }, 1: { halign: 'left' } },
     headStyles: { ...HEAD, halign: 'right' },
@@ -121,12 +139,12 @@ function renderVehicle(doc: jsPDF, y: number, { vehicle, invoices, maintenances,
   if (convertedCount > 0 && currency) {
     doc.setFontSize(8)
     doc.setTextColor(90)
-    doc.text(`${convertedCount} Rechnung(en) in fremder Währung zum EZB-Kurs am Rechnungsdatum in ${currency.homeCurrency} umgerechnet.`, MARGIN, y)
+    doc.text(t.umgerechnet(convertedCount, currency.homeCurrency), MARGIN, y)
     doc.setTextColor(0)
   }
   y += 6
 
-  y = heading(doc, y, 'Rechnungen')
+  y = heading(doc, y, t.rechnungen)
   const invRows = [...invoices]
     .sort((a, b) => b.date.localeCompare(a.date))
     .map(inv => [
@@ -138,8 +156,8 @@ function renderVehicle(doc: jsPDF, y: number, { vehicle, invoices, maintenances,
     ])
   autoTable(doc, {
     startY: y,
-    head: [['Datum', 'Werkstatt', 'Kilometerstand', 'Kategorien', 'Betrag']],
-    body: invRows.length ? invRows : [['', 'Keine Rechnungen', '', '', '']],
+    head: [[t.datum, t.werkstatt, t.feld.kilometerstand, t.kategorien, t.betrag]],
+    body: invRows.length ? invRows : [['', t.keineRechnungen, '', '', '']],
     styles: { fontSize: 9 },
     columnStyles: { 4: { halign: 'right' } },
     headStyles: HEAD,
@@ -148,12 +166,13 @@ function renderVehicle(doc: jsPDF, y: number, { vehicle, invoices, maintenances,
 }
 
 function footer(doc: jsPDF): void {
+  const t = waehle(texte)
   const pages = doc.getNumberOfPages()
   for (let p = 1; p <= pages; p++) {
     doc.setPage(p)
     doc.setFontSize(8)
     doc.setTextColor(120)
-    doc.text(`wartungsheft.ch · Seite ${p} von ${pages}`, MARGIN, doc.internal.pageSize.getHeight() - 8)
+    doc.text(t.fuss(p, pages), MARGIN, doc.internal.pageSize.getHeight() - 8)
     doc.setTextColor(0)
   }
 }
@@ -164,7 +183,7 @@ export interface ServiceRecordInput extends DossierInput {
 }
 
 export function serviceRecordFilename(vehicle: VehicleInfo, at: Date = new Date()): string {
-  return `serviceheft-${slug(`${vehicle.make} ${vehicle.model} ${vehicle.licensePlate}`)}-${isoDate(at)}.pdf`
+  return `${waehle(texte).datei.serviceheft}-${slug(`${vehicle.make} ${vehicle.model} ${vehicle.licensePlate}`)}-${isoDate(at)}.pdf`
 }
 
 /**
@@ -173,9 +192,10 @@ export function serviceRecordFilename(vehicle: VehicleInfo, at: Date = new Date(
  */
 export function buildServiceRecord(input: ServiceRecordInput): jsPDF {
   const { vehicle, invoices, maintenances, generatedAt = new Date(), withPrices = false, currency } = input
+  const t = waehle(texte)
   const doc = newDoc()
   const summary = serviceRecordSummary(maintenances, generatedAt)
-  let y = title(doc, MARGIN, `Serviceheft ${vehicle.make} ${vehicle.model}`, `Stand ${formatDate(generatedAt)}`)
+  let y = title(doc, MARGIN, t.serviceheft(`${vehicle.make} ${vehicle.model}`), t.stand(formatDate(generatedAt)))
 
   autoTable(doc, {
     startY: y,
@@ -183,35 +203,35 @@ export function buildServiceRecord(input: ServiceRecordInput): jsPDF {
     styles: { fontSize: 10, cellPadding: 1.2 },
     columnStyles: { 0: { fontStyle: 'bold', cellWidth: 45 } },
     body: [
-      ['Kennzeichen', vehicle.licensePlate],
-      ['Baujahr', vehicle.year ? String(vehicle.year) : ''],
-      ['Fahrgestellnummer', vehicle.vin ?? ''],
-      ['Kilometerstand', formatKm(vehicle.mileage)],
-      ['Einträge', summary.count ? `${summary.count} von ${formatDate(summary.from)} bis ${formatDate(summary.to)}` : 'keine'],
-      ['Belegte Laufleistung', summary.firstMileage && summary.lastMileage ? `${formatKm(summary.firstMileage)} bis ${formatKm(summary.lastMileage)}` : ''],
-      ['Historie', summary.gapless ? 'lückenlos dokumentiert' : `mit Lücken (${summary.note})`],
-      ['Belege', `${invoices.filter(i => i.imageData).length} von ${invoices.length} Rechnungen mit Foto`],
+      [t.feld.kontrollschild, vehicle.licensePlate],
+      [t.feld.baujahr, vehicle.year ? String(vehicle.year) : ''],
+      [t.feld.fahrgestellnummer, vehicle.vin ?? ''],
+      [t.feld.kilometerstand, formatKm(vehicle.mileage)],
+      [t.eintraege, summary.count ? t.eintraegeWert(summary.count, formatDate(summary.from), formatDate(summary.to)) : t.keine],
+      [t.laufleistung, summary.firstMileage && summary.lastMileage ? t.vonBis(formatKm(summary.firstMileage), formatKm(summary.lastMileage)) : ''],
+      [t.historie, summary.gapless ? t.lueckenlos : t.mitLuecken(summary.note)],
+      [t.belege, t.belegeWert(invoices.filter(i => i.imageData).length, invoices.length)],
     ],
   })
   y = finalY(doc) + 8
 
-  y = heading(doc, y, 'Wartungshistorie')
+  y = heading(doc, y, t.wartungshistorie)
   const rows = maintenanceRows(maintenances)
   autoTable(doc, {
     startY: y,
-    head: [['Datum', 'Arbeit', 'Kilometerstand']],
-    body: rows.length ? rows : [['—', 'Keine Einträge', '']],
+    head: [[t.datum, t.arbeit, t.feld.kilometerstand]],
+    body: rows.length ? rows : [['—', t.keineEintraege, '']],
     styles: { fontSize: 9 },
     headStyles: HEAD,
   })
   y = finalY(doc) + 8
 
   if (withPrices) {
-    y = heading(doc, y, 'Kosten pro Jahr')
+    y = heading(doc, y, t.kostenProJahr)
     const years = costsByYear(invoices, currency)
     autoTable(doc, {
       startY: y,
-      head: [['Jahr', 'Total']],
+      head: [[t.jahr, t.total]],
       body: years.length ? years.map(r => [String(r.year), formatCurrency(r.total, r.currency)]) : [['—', '']],
       styles: { fontSize: 9 },
       headStyles: HEAD,
@@ -235,21 +255,15 @@ export function buildServiceRecord(input: ServiceRecordInput): jsPDF {
     }
     catch {
       doc.setFontSize(9)
-      doc.text('Beleg konnte nicht eingebettet werden.', MARGIN, MARGIN + 12)
+      doc.text(t.belegFehlt, MARGIN, MARGIN + 12)
     }
   }
 
   // Schlussseite: wer das Heft geführt hat
   doc.addPage()
-  let z = title(doc, MARGIN, 'Geführt mit Wartungsheft', 'wartungsheft.ch')
+  let z = title(doc, MARGIN, t.gefuehrt, 'wartungsheft.ch')
   doc.setFontSize(10)
-  for (const line of [
-    'Werkstattrechnung fotografieren, die KI liest Werkstatt, Datum, Betrag und Positionen heraus.',
-    'Fälligkeiten für Service, Bremsen, Reifen und MFK, mit E-Mail-Erinnerung.',
-    'Kosten pro Fahrzeug und Jahr, Export für den Treuhänder.',
-    'Dieses Serviceheft als PDF, jederzeit neu erstellt.',
-    'Daten auf Servern in der Schweiz, KI-Verarbeitung in der EU.',
-  ]) {
+  for (const line of t.vorteile) {
     doc.text(`•  ${line}`, MARGIN, z)
     z += 6
   }
@@ -261,7 +275,7 @@ export function buildServiceRecord(input: ServiceRecordInput): jsPDF {
 export function buildDossier(input: DossierInput): jsPDF {
   const { vehicle, generatedAt = new Date() } = input
   const doc = newDoc()
-  const y = title(doc, MARGIN, `${vehicle.make} ${vehicle.model}`, `Wartungsheft, Stand ${formatDate(generatedAt)}`)
+  const y = title(doc, MARGIN, `${vehicle.make} ${vehicle.model}`, waehle(texte).dossierStand(formatDate(generatedAt)))
   renderVehicle(doc, y, input)
   footer(doc)
   return doc
@@ -269,23 +283,24 @@ export function buildDossier(input: DossierInput): jsPDF {
 
 /** Übersichtsseite mit Kosten pro Fahrzeug und Jahr, danach eine Seite je Fahrzeug wie im Dossier. */
 export function buildFleetReport({ vehicles, invoices, maintenances, generatedAt = new Date(), currency }: FleetReportInput): jsPDF {
+  const t = waehle(texte)
   const doc = newDoc()
-  let y = title(doc, MARGIN, 'Fuhrpark-Übersicht', `Wartungsheft, ${vehicles.length} Fahrzeuge, Stand ${formatDate(generatedAt)}`)
+  let y = title(doc, MARGIN, t.fuhrpark, t.fuhrparkUnter(vehicles.length, formatDate(generatedAt)))
 
-  y = heading(doc, y, 'Kosten pro Fahrzeug und Jahr')
+  y = heading(doc, y, t.kostenProFahrzeug)
   const rows = fleetCostsByVehicleYear(vehicles, invoices, currency)
   const totals = new Map<string, number>()
   for (const r of rows)
     totals.set(r.currency, Math.round(((totals.get(r.currency) ?? 0) + r.total) * 100) / 100)
   autoTable(doc, {
     startY: y,
-    head: [['Jahr', 'Fahrzeug', 'Total']],
+    head: [[t.jahr, t.fahrzeug, t.total]],
     body: rows.length
       ? [
           ...rows.map(r => [String(r.year), r.vehicle, formatCurrency(r.total, r.currency)]),
-          ['', 'Gesamt', [...totals].map(([c, t]) => formatCurrency(t, c)).join(' + ')],
+          ['', t.gesamt, [...totals].map(([c, sum]) => formatCurrency(sum, c)).join(' + ')],
         ]
-      : [['', 'Keine Rechnungen', '']],
+      : [['', t.keineRechnungen, '']],
     styles: { fontSize: 9 },
     columnStyles: { 2: { halign: 'right' } },
     headStyles: HEAD,
@@ -300,7 +315,7 @@ export function buildFleetReport({ vehicles, invoices, maintenances, generatedAt
       y = finalY(doc) + 4
       doc.setFontSize(8)
       doc.setTextColor(90)
-      doc.text(`Rechnungen in fremder Währung zum EZB-Kurs am Rechnungsdatum in ${currency.homeCurrency} umgerechnet; ohne Kurs in eigener Währung ausgewiesen.`, MARGIN, y)
+      doc.text(t.fuhrparkUmgerechnet(currency.homeCurrency), MARGIN, y)
       doc.setTextColor(0)
     }
   }

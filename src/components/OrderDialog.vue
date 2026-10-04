@@ -17,8 +17,12 @@ import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
 import SelectButton from 'primevue/selectbutton'
 import { computed, reactive, ref, watch } from 'vue'
+import { useSprache } from '../composables/useSprache'
 import { formatCurrency, formatDate } from '../lib/locale'
-import { orderBusinessPlan, OrderError } from '../services/ai-access'
+import { mitSprache } from '../lib/sprache'
+import { feldfehlerUebersetzen, orderBusinessPlan, OrderError } from '../services/ai-access'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/bestellung'
 
 const props = defineProps<{
   visible: boolean
@@ -29,10 +33,12 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{ close: [], ordered: [result: { number: string, mailed: boolean, manual: boolean }] }>()
 
-const AUDIENCES = [
-  { label: 'Privat', value: 'privat' as Audience },
-  { label: 'Betrieb', value: 'betrieb' as Audience },
-]
+const { t, sprache } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
+const AUDIENCES = computed(() => [
+  { label: t.value.privat, value: 'privat' as Audience },
+  { label: t.value.betrieb, value: 'betrieb' as Audience },
+])
 const audience = ref<Audience>('privat')
 const isBusiness = computed(() => audience.value === 'betrieb')
 
@@ -71,7 +77,7 @@ async function submit(): Promise<void> {
   // Dieselbe Prüfung wie im Proxy, damit Fehler ohne Umweg über den Server am Feld stehen
   const parsed = parseOrder({ ...form, audience: audience.value, vehicles: vehicleCount.value })
   if (!parsed.ok) {
-    errors.value = parsed.errors
+    errors.value = feldfehlerUebersetzen(parsed.errors)
     return
   }
   saving.value = true
@@ -96,7 +102,7 @@ async function submit(): Promise<void> {
   <Dialog
     :visible="visible"
     modal
-    header="Jahresabo bestellen"
+    :header="t.titel"
     data-testid="business-order-dialog"
     :style="{ width: 'min(560px, 96vw)' }"
     @update:visible="emit('close')"
@@ -108,19 +114,19 @@ async function submit(): Promise<void> {
       option-value="value"
       :allow-empty="false"
       class="audience-switch"
-      aria-label="Privat oder Betrieb"
+      :aria-label="t.umschalter"
     />
 
     <p class="intro">
       <template v-if="isBusiness">
-        {{ formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF) }} pro Fahrzeug und Jahr, Rechnung auf die Firma.
+        {{ t.introBetrieb(formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF)) }}
       </template>
       <template v-else>
-        {{ formatCurrency(PRIVATE_YEARLY_CHF) }} im Jahr für bis zu {{ PRIVATE_MAX_VEHICLES }} Fahrzeuge.
+        {{ t.introPrivat(formatCurrency(PRIVATE_YEARLY_CHF), PRIVATE_MAX_VEHICLES) }}
       </template>
-      Du kannst sofort weiterarbeiten, die Rechnung kommt per Mail und ist in 30 Tagen zahlbar.
+      {{ t.introZahlbar }}
       <template v-if="trialEndsAt">
-        Das bezahlte Jahr beginnt nach deiner Testzeit am {{ formatDate(trialEndsAt) }}.
+        {{ t.introTestzeit(formatDate(trialEndsAt)) }}
       </template>
     </p>
 
@@ -130,56 +136,55 @@ async function submit(): Promise<void> {
 
     <form class="fields" @submit.prevent="submit">
       <div v-if="isBusiness" class="field span-2">
-        <label for="order-company">Firma</label>
+        <label for="order-company">{{ t.firma }}</label>
         <InputText id="order-company" v-model="form.company" autocomplete="organization" :invalid="!!errors.company" fluid />
         <small v-if="errors.company" class="error">{{ errors.company }}</small>
       </div>
       <div class="field span-2">
-        <label for="order-contact">{{ isBusiness ? 'Kontaktperson' : 'Name' }}</label>
+        <label for="order-contact">{{ isBusiness ? t.kontaktperson : t.name }}</label>
         <InputText id="order-contact" v-model="form.contact" autocomplete="name" :invalid="!!errors.contact" fluid />
         <small v-if="errors.contact" class="error">{{ errors.contact }}</small>
       </div>
       <div class="field span-2">
-        <label for="order-street">Strasse und Nummer</label>
+        <label for="order-street">{{ t.strasse }}</label>
         <InputText id="order-street" v-model="form.street" autocomplete="street-address" :invalid="!!errors.street" fluid />
         <small v-if="errors.street" class="error">{{ errors.street }}</small>
       </div>
       <div class="field">
-        <label for="order-zip">PLZ</label>
+        <label for="order-zip">{{ t.plz }}</label>
         <InputText id="order-zip" v-model="form.zip" inputmode="numeric" maxlength="4" autocomplete="postal-code" :invalid="!!errors.zip" fluid />
         <small v-if="errors.zip" class="error">{{ errors.zip }}</small>
       </div>
       <div class="field">
-        <label for="order-city">Ort</label>
+        <label for="order-city">{{ t.ort }}</label>
         <InputText id="order-city" v-model="form.city" autocomplete="address-level2" :invalid="!!errors.city" fluid />
         <small v-if="errors.city" class="error">{{ errors.city }}</small>
       </div>
       <div class="field span-2">
-        <label for="order-email">E-Mail für die Rechnung</label>
+        <label for="order-email">{{ t.email }}</label>
         <InputText id="order-email" v-model="form.email" type="email" autocomplete="email" :invalid="!!errors.email" fluid />
         <small v-if="errors.email" class="error">{{ errors.email }}</small>
       </div>
       <div v-if="isBusiness" class="field">
-        <label for="order-reference">Deine Referenz (optional)</label>
-        <InputText id="order-reference" v-model="form.reference" placeholder="z. B. Kostenstelle" fluid />
+        <label for="order-reference">{{ t.referenz }}</label>
+        <InputText id="order-reference" v-model="form.reference" :placeholder="t.referenzBeispiel" fluid />
       </div>
       <div class="field">
-        <label for="order-vehicles">Anzahl Fahrzeuge</label>
+        <label for="order-vehicles">{{ t.fahrzeuge }}</label>
         <InputText id="order-vehicles" v-model="form.vehicles" type="number" min="1" step="1" :invalid="!!errors.vehicles" fluid />
         <small v-if="errors.vehicles" class="error">{{ errors.vehicles }}</small>
       </div>
       <p class="price span-2" data-testid="order-price">
-        {{ formatCurrency(price) }} im Jahr
+        {{ t.proJahr(formatCurrency(price)) }}
       </p>
       <small v-if="overPrivateLimit" class="hint span-2">
-        Über {{ PRIVATE_MAX_VEHICLES }} Fahrzeuge gilt der Preis pro Fahrzeug, {{ formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF) }} im Jahr.
+        {{ t.ueberGrenze(PRIVATE_MAX_VEHICLES, formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF)) }}
       </small>
       <div class="terms span-2">
         <Checkbox v-model="form.acceptTerms" input-id="order-terms" binary :invalid="!!errors.acceptTerms" />
         <label for="order-terms">
-          Das Abo verlängert sich jährlich um ein Jahr, die Rechnung dafür kommt 30 Tage vor Ablauf nach dem dann
-          aktuellen Fahrzeugstand. Kündigen geht bis zum Ablauf ohne Frist, hier in den Einstellungen. Es gelten die
-          <a href="/agb" target="_blank" rel="noopener">AGB</a>.
+          {{ t.bedingungen }}
+          <a :href="mitSprache(sprache, '/agb')" target="_blank" rel="noopener">{{ t.agb }}</a>{{ t.agbNach }}
         </label>
       </div>
       <small v-if="errors.acceptTerms" class="error span-2">{{ errors.acceptTerms }}</small>
@@ -187,8 +192,8 @@ async function submit(): Promise<void> {
     </form>
 
     <template #footer>
-      <Button label="Abbrechen" text severity="secondary" @click="emit('close')" />
-      <Button label="Kostenpflichtig bestellen" icon="pi pi-check" :loading="saving" @click="submit" />
+      <Button :label="a.abbrechen" text severity="secondary" @click="emit('close')" />
+      <Button :label="t.bestellen" icon="pi pi-check" :loading="saving" @click="submit" />
     </template>
   </Dialog>
 </template>

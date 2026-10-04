@@ -4,10 +4,12 @@
  */
 import type { VehicleFields } from '../services/vehicle-scan'
 import { ref } from 'vue'
+import { waehle } from '../lib/app-sprache'
 import { userMessage } from '../lib/errors'
 import { parseVehicleDocument, parseVehicleDocumentPdf } from '../services/ai'
 import { getAiAccess } from '../services/ai-access'
 import { vehicleDocToFields } from '../services/vehicle-scan'
+import texte from '../texte/app/fahrzeugformular'
 import { autoRotateForDocument, getImageMimeType, readFileAsBase64 as readAsBase64, resizeImage } from './useImageResize'
 
 const MAX_IMAGE_SIZE = 25 * 1024 * 1024
@@ -20,18 +22,19 @@ export function useVehicleScan() {
   const message = ref('')
 
   async function handleFile(file: File): Promise<Partial<VehicleFields> | null> {
+    const t = waehle(texte).scan
     message.value = ''
     failed.value = false
     preview.value = null
     const isPdf = file.type === 'application/pdf'
     if (!isPdf && !file.type.startsWith('image/')) {
       failed.value = true
-      message.value = 'Nur Fotos oder PDF möglich.'
+      message.value = t.nurFotoPdf
       return null
     }
     if (file.size > (isPdf ? MAX_PDF_SIZE : MAX_IMAGE_SIZE)) {
       failed.value = true
-      message.value = `Datei zu gross (max. ${isPdf ? 50 : 25} MB).`
+      message.value = t.zuGross(isPdf ? 50 : 25)
       return null
     }
 
@@ -51,13 +54,13 @@ export function useVehicleScan() {
       }
       const fields = vehicleDocToFields(doc)
       message.value = Object.keys(fields).length
-        ? 'Felder aus dem Dokument ausgefüllt. Bitte prüfen.'
-        : 'Im Dokument waren keine Fahrzeugdaten zu lesen. Bitte Felder selbst ausfüllen.'
+        ? t.ausgefuellt
+        : t.nichtsGefunden
       return fields
     }
     catch (err) {
       failed.value = true
-      message.value = `${userMessage(err)} Felder bitte selbst ausfüllen.`
+      message.value = t.selbstAusfuellen(userMessage(err))
       return null
     }
     finally {

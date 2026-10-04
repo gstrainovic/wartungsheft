@@ -1,7 +1,10 @@
 /**
  * Einrichtungs-Checkliste pro Fahrzeug: empfohlene Reihenfolge, aber kein Zwang. «Erledigt» folgt aus den Daten,
  * egal über welchen Weg sie kamen (Formular, Chat, Scan), damit ein Kaufvertrag statt Ausweis als Lücke sichtbar bleibt.
+ * Texte in der App-Sprache (src/texte/app/einrichtung.ts).
  */
+import { waehle } from '../lib/app-sprache'
+import texte from '../texte/app/einrichtung'
 
 export type SetupStepKey = 'ausweis' | 'serviceheft' | 'wartungen' | 'rechnungen'
 
@@ -22,39 +25,34 @@ export interface SetupInput {
 }
 
 export function setupSteps({ vehicle, doneMaintenances, invoices }: SetupInput): SetupStep[] {
+  const t = waehle(texte)
   const missing = [
-    !vehicle.licensePlate && 'Kontrollschild',
-    !vehicle.vin && 'Fahrgestellnummer',
-    !vehicle.year && 'Baujahr',
+    !vehicle.licensePlate && t.felder.kontrollschild,
+    !vehicle.vin && t.felder.fahrgestellnummer,
+    !vehicle.year && t.felder.baujahr,
   ].filter(Boolean)
 
   return [
     {
       key: 'ausweis',
-      label: 'Fahrzeugausweis',
-      action: 'Fahrzeugausweis fotografieren',
-      hint: missing.length ? `Fehlt noch: ${missing.join(', ')}` : 'Stammdaten vollständig',
+      label: t.ausweis.label,
+      action: t.ausweis.action,
+      hint: missing.length ? t.fehltNoch(missing.join(', ')) : t.ausweis.vollstaendig,
       done: !missing.length,
     },
     {
       key: 'serviceheft',
-      label: 'Serviceheft',
-      action: 'Serviceheft fotografieren',
-      hint: 'Intervalle des Herstellers und Stempel, damit die Termine für genau dieses Fahrzeug stimmen',
+      ...t.serviceheft,
       done: !!vehicle.customSchedule?.length,
     },
     {
       key: 'wartungen',
-      label: 'Letzte Wartungen',
-      action: 'Letzte Wartungen eintragen',
-      hint: 'Wann wurden Service, Öl und MFK zuletzt gemacht? Ohne das gibt es keine Erinnerung',
+      ...t.wartungen,
       done: doneMaintenances > 0,
     },
     {
       key: 'rechnungen',
-      label: 'Rechnungen',
-      action: 'Rechnung fotografieren',
-      hint: 'Werkstattrechnungen für Kosten und lückenlose Historie',
+      ...t.rechnungen,
       done: invoices > 0,
     },
   ]

@@ -3,6 +3,8 @@ import type { BatchEntry, BatchVehicle } from '../services/invoice-scan'
 import type { InvoiceFormData } from '../types/forms'
 import Dialog from 'primevue/dialog'
 import { computed } from 'vue'
+import { useSprache } from '../composables/useSprache'
+import texte from '../texte/app/rechnungsformular'
 import InvoiceForm from './InvoiceForm.vue'
 
 interface Props {
@@ -11,18 +13,18 @@ interface Props {
   existingInvoices?: { vehicleId?: string, date: string, totalAmount?: number }[]
   vehicles?: BatchVehicle[]
   vehicleId?: string
+  /** ohne Angabe «Neue Rechnung» in der App-Sprache */
   title?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  title: 'Neue Rechnung',
-})
-
+const props = defineProps<Props>()
 const emit = defineEmits<{
   'update:visible': [value: boolean]
   'submit': [data: InvoiceFormData]
   'submitBatch': [entries: BatchEntry[]]
 }>()
+const { t } = useSprache(texte)
+const header = computed(() => props.title ?? t.value.neueRechnung)
 
 function handleSubmitBatch(entries: BatchEntry[]) {
   emit('submitBatch', entries)
@@ -47,7 +49,7 @@ function handleCancel() {
 <template>
   <Dialog
     v-model:visible="isVisible"
-    :header="title"
+    :header="header"
     :modal="true"
     :closable="true"
     :draggable="false"

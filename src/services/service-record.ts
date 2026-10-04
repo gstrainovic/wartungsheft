@@ -3,6 +3,8 @@
  * ob die Historie lückenlos wirkt. Reine Funktion, das PDF baut daraus die erste Seite (pdf-report.ts).
  */
 import type { Maintenance } from '../stores/maintenances'
+import { waehle } from '../lib/app-sprache'
+import texte from '../texte/app/historie'
 
 /** Ab dieser Lücke zwischen zwei Einträgen gilt die Historie nicht mehr als lückenlos */
 const GAP_MONTHS = 18
@@ -23,24 +25,25 @@ function months(from: string, to: string): number {
 }
 
 export function serviceRecordSummary(maintenances: Maintenance[], now: Date = new Date()): ServiceRecordSummary {
+  const t = waehle(texte)
   const done = maintenances
     .filter(m => m.status === 'done' && m.doneAt)
     .sort((a, b) => a.doneAt.localeCompare(b.doneAt))
   if (!done.length)
-    return { count: 0, from: '', to: '', gapless: false, note: 'noch keine Wartungen erfasst' }
+    return { count: 0, from: '', to: '', gapless: false, note: t.keine }
 
   const first = done[0]!
   const last = done[done.length - 1]!
   const gaps: string[] = []
   for (let i = 1; i < done.length; i++) {
     if (months(done[i - 1]!.doneAt, done[i]!.doneAt) > GAP_MONTHS)
-      gaps.push(`${done[i - 1]!.doneAt.slice(0, 7)} bis ${done[i]!.doneAt.slice(0, 7)}`)
+      gaps.push(t.bis(done[i - 1]!.doneAt.slice(0, 7), done[i]!.doneAt.slice(0, 7)))
   }
   const sinceLast = months(last.doneAt, now.toISOString())
   const notes = [
-    ...(done.length < 2 ? ['nur ein Eintrag'] : []),
-    ...(gaps.length ? [`Lücke ${gaps.join(', ')}`] : []),
-    ...(sinceLast > GAP_MONTHS ? ['letzter Eintrag liegt lange zurück'] : []),
+    ...(done.length < 2 ? [t.nurEiner] : []),
+    ...(gaps.length ? [t.luecke(gaps.join(', '))] : []),
+    ...(sinceLast > GAP_MONTHS ? [t.langeHer] : []),
   ]
   return {
     count: done.length,

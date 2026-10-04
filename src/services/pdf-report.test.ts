@@ -54,6 +54,39 @@ describe('buildDossier', () => {
     expect(text).not.toContain('(0 km)')
   })
 
+  it('spricht die App-Sprache, Akzente kommen im PDF an, Daten bleiben unverändert', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    const { buildServiceRecord, dossierFilename, fleetReportFilename, serviceRecordFilename } = await import('./pdf-report')
+    setAppSprache('fr')
+    try {
+      const text = buildDossier({ vehicle, invoices, maintenances, generatedAt: new Date(2026, 8, 14, 10) }).output()
+      expect(text).toContain('(Kilométrage)')
+      expect(text).toContain('Historique d')
+      expect(text).toContain('(Vidange)')
+      expect(text).toContain('(Garage Muster)')
+      expect(text).not.toContain('Wartungshistorie')
+      const heft = buildServiceRecord({ vehicle, invoices, maintenances, generatedAt: new Date(2026, 8, 14, 10) }).output()
+      expect(heft).toContain('Carnet d')
+      expect(heft).toContain('Page 1 sur')
+      expect(fleetReportFilename(new Date('2026-09-14T10:00:00Z'))).toBe('wartungsheft-tous-les-vehicules-2026-09-14.pdf')
+      expect(serviceRecordFilename(vehicle, new Date('2026-09-14T10:00:00Z'))).toBe('carnet-entretien-vw-caddy-sg-12345-2026-09-14.pdf')
+      expect(dossierFilename(vehicle, new Date('2026-09-14T10:00:00Z'))).toBe('wartungsheft-vw-caddy-sg-12345-2026-09-14.pdf')
+      setAppSprache('it')
+      const it = buildDossier({ vehicle, invoices, maintenances }).output()
+      expect(it).toContain('(Chilometraggio)')
+      expect(it).toContain('Cambio dell')
+      setAppSprache('en')
+      const en = buildDossier({ vehicle: { ...vehicle, soldAt: '2026-01-05', soldMileage: 70000 }, invoices, maintenances }).output()
+      expect(en).toContain('(Maintenance history)')
+      expect(en).toContain('(05/01/2026 at 70,000 km)')
+    }
+    finally {
+      setAppSprache('de')
+    }
+    const de = buildDossier({ vehicle: { ...vehicle, soldAt: '2026-01-05', soldMileage: 70000 }, invoices, maintenances }).output()
+    expect(de).toContain('(05.01.2026 bei 70\'000 km)')
+  })
+
   it('setzt einen sprechenden Dateinamen', async () => {
     const { dossierFilename } = await import('./pdf-report')
     expect(dossierFilename(vehicle, new Date('2026-09-14T10:00:00Z'))).toBe('wartungsheft-vw-caddy-sg-12345-2026-09-14.pdf')

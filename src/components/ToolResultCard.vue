@@ -1,47 +1,32 @@
 <script setup lang="ts">
 import type { ToolResult } from '../services/chat'
 import Panel from 'primevue/panel'
+import { computed } from 'vue'
+import { useSprache } from '../composables/useSprache'
 import { formatCurrency, formatDate, formatNumber, normalizeCurrency } from '../lib/locale'
-import { categoryLabel } from '../services/report'
+import { categoryLabel, planLabel } from '../services/report'
+import chatTexte from '../texte/app/chat'
 
 const props = defineProps<{ result: ToolResult }>()
+const { t } = useSprache(chatTexte)
 
-const TOOL_META: Record<string, { icon: string, label: string }> = {
-  add_vehicle: { icon: 'pi pi-car', label: 'Fahrzeug' },
-  add_invoice: { icon: 'pi pi-receipt', label: 'Rechnung' },
-  add_maintenance: { icon: 'pi pi-wrench', label: 'Wartung' },
-  set_maintenance_schedule: { icon: 'pi pi-calendar', label: 'Wartungsplan' },
-  delete_vehicle: { icon: 'pi pi-trash', label: 'Gelöscht' },
-  delete_invoice: { icon: 'pi pi-trash', label: 'Gelöscht' },
-}
-
-// Human-readable labels for known keys
-const FIELD_LABELS: Record<string, string> = {
-  make: 'Marke',
-  model: 'Modell',
-  year: 'Baujahr',
-  mileage: 'Kilometerstand',
-  licensePlate: 'Kennzeichen',
-  vin: 'VIN',
-  workshopName: 'Werkstatt',
-  date: 'Datum',
-  totalAmount: 'Betrag',
-  currency: 'Währung',
-  mileageAtService: 'Kilometerstand',
-  type: 'Typ',
-  description: 'Beschreibung',
-  doneAt: 'Datum',
-  message: 'Info',
-  label: 'Bezeichnung',
-  interval: 'Intervall',
-  category: 'Kategorie',
-  amount: 'Betrag',
+type MetaLabel = 'fahrzeug' | 'rechnung' | 'wartung' | 'wartungsplan' | 'geloescht'
+const TOOL_META: Record<string, { icon: string, label: MetaLabel }> = {
+  add_vehicle: { icon: 'pi pi-car', label: 'fahrzeug' },
+  add_invoice: { icon: 'pi pi-receipt', label: 'rechnung' },
+  add_maintenance: { icon: 'pi pi-wrench', label: 'wartung' },
+  set_maintenance_schedule: { icon: 'pi pi-calendar', label: 'wartungsplan' },
+  delete_vehicle: { icon: 'pi pi-trash', label: 'geloescht' },
+  delete_invoice: { icon: 'pi pi-trash', label: 'geloescht' },
 }
 
 // Keys to skip (internal IDs, arrays handled separately, redundant)
 const SKIP_KEYS = new Set(['items', 'schedule', 'vehicleId', 'invoiceId', 'id', 'currency'])
 
-const meta = TOOL_META[props.result.tool] ?? { icon: 'pi pi-check', label: 'Ergebnis' }
+const meta = computed(() => {
+  const m = TOOL_META[props.result.tool]
+  return m ? { icon: m.icon, label: t.value.karte[m.label] } : { icon: 'pi pi-check', label: t.value.karte.ergebnis }
+})
 
 function currencyOf(d: Record<string, any>): string {
   return normalizeCurrency(d.currency)
@@ -54,12 +39,12 @@ function summary(): string {
   if (d.workshopName)
     return `${d.workshopName} — ${formatCurrency(d.totalAmount, currencyOf(d))}`
   if (d.schedule?.length)
-    return `${d.schedule.length} Wartungsintervalle`
+    return t.value.karte.intervalle(d.schedule.length)
   if (d.type && d.description)
-    return `${d.description}`
+    return planLabel(d.description)
   if (d.message)
     return d.message.length > 50 ? `${d.message.slice(0, 50)}…` : d.message
-  return meta.label
+  return meta.value.label
 }
 
 function fields(): { label: string, value: string }[] {
@@ -70,7 +55,7 @@ function fields(): { label: string, value: string }[] {
       continue
     if (typeof val === 'object')
       continue
-    const label = FIELD_LABELS[key] || key
+    const label = (t.value.karte.felder as Record<string, string>)[key] || key
     let value = String(val)
     if ((key === 'mileage' || key === 'mileageAtService') && !Number.isNaN(Number(val)))
       value = `${formatNumber(Number(val))} km`
@@ -100,7 +85,7 @@ function scheduleRows(): { label: string, interval: string }[] {
   if (!d.schedule?.length)
     return []
   return d.schedule.map((s: any) => ({
-    label: s.label || s.type || s.description || 'Intervall',
+    label: planLabel(s.label || s.type || s.description) || t.value.karte.intervall,
     interval: s.interval || s.value || '',
   }))
 }
@@ -125,8 +110,8 @@ function scheduleRows(): { label: string, interval: string }[] {
       <table v-if="tableItems().length" class="tool-card-table">
         <thead>
           <tr>
-            <th>Position</th>
-            <th>Betrag</th>
+            <th>{{ t.karte.position }}</th>
+            <th>{{ t.karte.betrag }}</th>
           </tr>
         </thead>
         <tbody>
@@ -142,8 +127,8 @@ function scheduleRows(): { label: string, interval: string }[] {
       <table v-if="scheduleRows().length" class="tool-card-table">
         <thead>
           <tr>
-            <th>Wartung</th>
-            <th>Intervall</th>
+            <th>{{ t.karte.wartung }}</th>
+            <th>{{ t.karte.intervall }}</th>
           </tr>
         </thead>
         <tbody>

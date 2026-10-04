@@ -8,11 +8,16 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputNumber from 'primevue/inputnumber'
 import { computed, ref, watch } from 'vue'
-import { formatNumber, LOCALE } from '../lib/locale'
+import { useSprache } from '../composables/useSprache'
+import { formatNumber, zahlenLocale } from '../lib/locale'
 import { useVehiclesStore } from '../stores/vehicles'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/kilometerstand'
 
 const props = defineProps<{ vehicle: Vehicle | null }>()
 const emit = defineEmits<{ close: [] }>()
+const { t } = useSprache(texte)
+const { t: ta } = useSprache(allgemein)
 
 const store = useVehiclesStore()
 const mileage = ref<number | null>(null)
@@ -42,28 +47,28 @@ async function save(): Promise<void> {
   <Dialog
     :visible="!!vehicle"
     modal
-    header="Kilometerstand"
+    :header="t.titel"
     data-testid="mileage-dialog"
     :style="{ width: 'min(420px, 94vw)' }"
     @update:visible="emit('close')"
   >
     <p class="intro">
-      {{ vehicle?.make }} {{ vehicle?.model }}, bisher {{ formatNumber(vehicle?.mileage) }} km.
+      {{ t.bisher(`${vehicle?.make} ${vehicle?.model}`, formatNumber(vehicle?.mileage)) }}
     </p>
     <InputNumber
       v-model="mileage"
       input-id="mileage-input"
-      :locale="LOCALE"
+      :locale="zahlenLocale()"
       suffix=" km"
-      aria-label="Kilometerstand"
+      :aria-label="t.titel"
       autofocus
       fluid
       @keyup.enter="save"
     />
-    <small v-if="lower" class="warn">Niedriger als bisher. Nur eintragen, wenn der alte Stand falsch war.</small>
+    <small v-if="lower" class="warn">{{ t.niedriger }}</small>
     <template #footer>
-      <Button label="Abbrechen" text severity="secondary" @click="emit('close')" />
-      <Button label="Speichern" :disabled="!mileage" :loading="saving" @click="save" />
+      <Button :label="ta.abbrechen" text severity="secondary" @click="emit('close')" />
+      <Button :label="ta.speichern" :disabled="!mileage" :loading="saving" @click="save" />
     </template>
   </Dialog>
 </template>

@@ -3,7 +3,9 @@
  * Jahresabschluss und die Belege sind weg (Aufbewahrungspflicht, OR Art. 958f). Ein verkauftes Fahrzeug verschwindet
  * aus Fälligkeiten und Erinnerungen, bleibt aber in Kosten, Exporten und Dossier.
  */
+import { waehle } from '../lib/app-sprache'
 import { formatDate, formatNumber } from '../lib/locale'
+import texte from '../texte/app/verkauf'
 
 export interface SellableVehicle {
   make: string
@@ -31,8 +33,9 @@ export function soldVehicles<T extends SellableVehicle>(vehicles: T[], today: st
 export function soldLabel(vehicle: SellableVehicle, today: string = todayIso()): string {
   if (!vehicle.soldAt)
     return ''
+  const t = waehle(texte).vermerk
   const when = formatDate(vehicle.soldAt)
   if (!isSold(vehicle, today))
-    return `Übergabe am ${when}`
-  return vehicle.soldMileage ? `Verkauft am ${when} bei ${formatNumber(vehicle.soldMileage)} km` : `Verkauft am ${when}`
+    return t.uebergabeAm(when)
+  return vehicle.soldMileage ? t.verkauftAmBei(when, formatNumber(vehicle.soldMileage)) : t.verkauftAm(when)
 }

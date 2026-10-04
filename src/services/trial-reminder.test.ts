@@ -24,6 +24,18 @@ describe('trialNotice', () => {
   it('nennt nach Ablauf, was bleibt', () => {
     expect(trialNotice({ active: false, daysLeft: 0, endsAt: '2026-09-01' })).toContain('Testzeit vorbei')
   })
+
+  it('spricht die App-Sprache', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    setAppSprache('en')
+    try {
+      expect(trialNotice({ active: true, daysLeft: 1, endsAt: '2026-10-01' }))
+        .toBe('Trial ends in 1 day, on 01/10/2026. After that, scanning and chat need a subscription.')
+    }
+    finally {
+      setAppSprache('de')
+    }
+  })
 })
 
 describe('buildTrialReminders', () => {
@@ -34,6 +46,15 @@ describe('buildTrialReminders', () => {
     expect(mail!.subject).toContain('Testzeit endet am 27.09.2026')
     expect(mail!.text).toContain('/settings')
     expect(mail!.email).toBe('a@b.ch')
+  })
+
+  it('schreibt in der Sprache am Benutzer', () => {
+    const settings = [{ creatorId: 'u1', sprache: 'it' as const }]
+    const [mail] = buildTrialReminders({ users, subscriptions: [subAt(7, now)], settings, now, trialDays: TRIAL_DAYS })
+    expect(mail!.subject).toBe('Wartungsheft: il periodo di prova termina il 27.09.2026')
+    expect(mail!.text).toContain('Ciao')
+    expect(mail!.text).toContain('25 franchi')
+    expect(mail!.text).not.toContain('Testzeit')
   })
 
   it('nicht früher und nicht später', () => {

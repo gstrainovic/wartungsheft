@@ -31,14 +31,15 @@ import SellVehicleDialog from '../components/SellVehicleDialog.vue'
 import ServiceBookDialog from '../components/ServiceBookDialog.vue'
 import SetupChecklist from '../components/SetupChecklist.vue'
 import VehicleForm from '../components/VehicleForm.vue'
+import { useSprache } from '../composables/useSprache'
 import { db } from '../lib/instantdb'
-import { DEFAULT_CURRENCY, formatCurrency, formatDate, formatNumber, LOCALE, normalizeCurrency } from '../lib/locale'
+import { DEFAULT_CURRENCY, formatCurrency, formatDate, formatNumber, normalizeCurrency, zahlenLocale } from '../lib/locale'
 import { MAINTENANCE_CATEGORIES } from '../services/ai'
 import { resolveRates } from '../services/fx'
 import { formToInvoiceInput } from '../services/invoice-form'
 import { saveInvoice, updateInvoice } from '../services/invoice-save'
 import { saveMaintenances } from '../services/maintenance-save'
-import { doneFormInitial, DUE_STATUS_VIEW, dueDescription, dueForVehicle, getMaintenanceSchedule } from '../services/maintenance-schedule'
+import { doneFormInitial, DUE_STATUS_VIEW, dueDescription, dueForVehicle, getMaintenanceSchedule, planLabel } from '../services/maintenance-schedule'
 import { buildDossier, buildServiceRecord, dossierFilename, serviceRecordFilename } from '../services/pdf-report'
 import { categoryLabel, costsByYear, invoicesToCsv } from '../services/report'
 import { setupSteps } from '../services/vehicle-setup'
@@ -47,7 +48,11 @@ import { useInvoicesStore } from '../stores/invoices'
 import { useMaintenancesStore } from '../stores/maintenances'
 import { useSettingsStore } from '../stores/settings'
 import { useVehiclesStore } from '../stores/vehicles'
+import allgemein from '../texte/app/allgemein'
+import fahrzeugseite from '../texte/app/fahrzeugseite'
 
+const { t } = useSprache(fahrzeugseite)
+const { t: a } = useSprache(allgemein)
 const route = useRoute()
 const router = useRouter()
 const vehiclesStore = useVehiclesStore()
@@ -88,14 +93,14 @@ const planRows = computed(() => {
 })
 
 function intervalText(s: { intervalKm: number, intervalMonths: number }): string {
-  return [s.intervalKm > 0 && `${formatNumber(s.intervalKm)} km`, s.intervalMonths > 0 && `${s.intervalMonths} Monate`].filter(Boolean).join(' / ')
+  return [s.intervalKm > 0 && `${formatNumber(s.intervalKm)} km`, s.intervalMonths > 0 && t.value.plan.monate(s.intervalMonths)].filter(Boolean).join(' / ')
 }
 
 // «Eintragen» an einer Plan-Zeile: fällige Arbeit mit heute vorbelegt, nie erfasste fragt «wann zuletzt»
 const entryFor = ref<{ title: string, initial: Partial<MaintenanceFormData> } | null>(null)
 function openEntry(item: DueResult): void {
   entryFor.value = {
-    title: `${item.label} eintragen`,
+    title: t.value.plan.eintragenTitel(planLabel(item.label)),
     initial: doneFormInitial(item, vehicle.value?.mileage ?? 0, new Date().toISOString().slice(0, 10)),
   }
 }
@@ -158,11 +163,11 @@ const editMaintenanceForm = ref({
   status: 'done' as Maintenance['status'],
 })
 
-const statusOptions = [
-  { label: 'Erledigt', value: 'done' },
-  { label: 'Fällig', value: 'due' },
-  { label: 'Überfällig', value: 'overdue' },
-]
+const statusOptions = computed(() => [
+  { label: t.value.wartung.erledigt, value: 'done' },
+  { label: t.value.wartung.faellig, value: 'due' },
+  { label: t.value.wartung.ueberfaellig, value: 'overdue' },
+])
 
 const CURRENCIES = ['CHF', 'EUR']
 
@@ -174,7 +179,7 @@ function withCurrent(values: readonly string[], current: string, label: (v: stri
 }
 
 function categoryOptionsFor(current: string): { label: string, value: string }[] {
-  return withCurrent(MAINTENANCE_CATEGORIES, current, categoryLabel)
+  return withCurrent(MAINTENANCE_CATEGORIES, current, v => categoryLabel(v))
 }
 
 function currencyOptionsFor(current: string): { label: string, value: string }[] {
@@ -428,11 +433,11 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
 <template>
   <main class="page-container">
     <div class="header-row">
-      <Button icon="pi pi-arrow-left" text to="/vehicles" as="router-link" />
+      <Button icon="pi pi-arrow-left" text to="/vehicles" as="router-link" :aria-label="a.zurueck" />
       <div class="spacer" />
-      <Button icon="pi pi-pencil" label="Bearbeiten" text severity="primary" @click="editVehicle = true" />
-      <Button v-if="!vehicle?.soldAt" icon="pi pi-tag" label="Verkauft eintragen" text severity="secondary" @click="sellVehicle = true" />
-      <Button icon="pi pi-trash" label="Löschen" text severity="secondary" @click="confirmDeleteVehicle = true" />
+      <Button icon="pi pi-pencil" :label="a.bearbeiten" text severity="primary" @click="editVehicle = true" />
+      <Button v-if="!vehicle?.soldAt" icon="pi pi-tag" :label="t.verkauftEintragen" text severity="secondary" @click="sellVehicle = true" />
+      <Button icon="pi pi-trash" :label="a.loeschen" text severity="secondary" @click="confirmDeleteVehicle = true" />
     </div>
 
     <template v-if="vehicle">
@@ -449,20 +454,20 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
           <i class="pi pi-tag" />
         </template>
         <span class="sold-note-body">
-          <span>{{ soldNote }}. Kosten und Rechnungen bleiben erhalten.</span>
-          <Button label="Doch behalten" text size="small" @click="undoSell" />
+          <span>{{ t.verkauftHinweis(soldNote) }}</span>
+          <Button :label="t.dochBehalten" text size="small" @click="undoSell" />
         </span>
       </Message>
       <div class="vehicle-mileage">
         <i class="pi pi-gauge" /> {{ vehicle.mileage ? `${formatNumber(vehicle.mileage)} km` : '–' }}
         <Button
-          v-tooltip.top="'Kilometerstand ändern'"
+          v-tooltip.top="t.kmAendern"
           icon="pi pi-pencil"
           text
           rounded
           size="small"
           severity="secondary"
-          aria-label="Kilometerstand ändern"
+          :aria-label="t.kmAendern"
           @click="editMileage = true"
         />
       </div>
@@ -474,16 +479,16 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
       <Tabs v-model:value="tab">
         <TabList>
           <Tab value="plan">
-            Wartungsplan
+            {{ t.tabs.plan }}
           </Tab>
           <Tab value="maintenance">
-            Verlauf
+            {{ t.tabs.verlauf }}
           </Tab>
           <Tab value="invoices">
-            Rechnungen
+            {{ t.tabs.rechnungen }}
           </Tab>
           <Tab value="costs">
-            Kosten
+            {{ t.tabs.kosten }}
           </Tab>
         </TabList>
 
@@ -492,18 +497,17 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
           <TabPanel value="plan">
             <div class="plan-source">
               <template v-if="vehicle.customSchedule?.length">
-                <span class="plan-source-text"><i class="pi pi-book" /> Intervalle aus dem Serviceheft</span>
+                <span class="plan-source-text"><i class="pi pi-book" /> {{ t.plan.ausServiceheft }}</span>
                 <span class="plan-source-actions">
-                  <Button icon="pi pi-pencil" label="Intervalle bearbeiten" text size="small" @click="showServiceBook = true" />
-                  <Button icon="pi pi-trash" label="Zurücksetzen" text size="small" severity="danger" @click="confirmResetSchedule = true" />
+                  <Button icon="pi pi-pencil" :label="t.plan.intervalleBearbeiten" text size="small" @click="showServiceBook = true" />
+                  <Button icon="pi pi-trash" :label="t.plan.zuruecksetzen" text size="small" severity="danger" @click="confirmResetSchedule = true" />
                 </span>
               </template>
               <template v-else>
                 <span class="plan-source-text">
-                  Termine nach allgemeinen Intervallen. Mit dem Serviceheft stimmen sie für genau dieses Fahrzeug, die Stempel
-                  werden gleich als Wartungen erfasst.
+                  {{ t.plan.allgemein }}
                 </span>
-                <Button label="Serviceheft fotografieren" icon="pi pi-camera" @click="showServiceBook = true" />
+                <Button :label="t.plan.serviceheftFotografieren" icon="pi pi-camera" @click="showServiceBook = true" />
               </template>
             </div>
 
@@ -512,13 +516,13 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
                 <i :class="DUE_STATUS_VIEW[item.status].icon" :style="{ color: DUE_STATUS_VIEW[item.status].color }" class="plan-icon" />
                 <div class="plan-content">
                   <div class="plan-label">
-                    {{ item.label }}
+                    {{ planLabel(item.label) }}
                     <span class="plan-interval">{{ intervalText(s) }}</span>
                   </div>
                   <div class="plan-caption">
                     <template v-if="item.lastDoneAt">
-                      Zuletzt: {{ formatDate(item.lastDoneAt) }}<template v-if="item.lastMileage">
-                        bei {{ formatNumber(item.lastMileage) }} km
+                      {{ t.plan.zuletzt }} {{ formatDate(item.lastDoneAt) }}<template v-if="item.lastMileage">
+                        {{ ` ${t.plan.beiKm(formatNumber(item.lastMileage))}` }}
                       </template><template v-if="!vehicle.soldAt && (item.nextDueDate || item.nextDueMileage || item.plannedAt)">
                         · {{ dueDescription(item) }}
                       </template>
@@ -532,8 +536,8 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
                   <Badge v-if="!vehicle.soldAt && item.status !== 'unknown'" :value="DUE_STATUS_VIEW[item.status].label" :severity="DUE_STATUS_VIEW[item.status].severity" />
                   <!-- Nur Fälliges ist gefüllt; neun volle Knöpfe untereinander wirkten wie neun Pflichten -->
                   <Button
-                    label="Eintragen"
-                    :aria-label="`${item.label} eintragen`"
+                    :label="t.plan.eintragen"
+                    :aria-label="t.plan.eintragenTitel(planLabel(item.label))"
                     icon="pi pi-plus"
                     size="small"
                     :outlined="item.status === 'unknown'"
@@ -549,7 +553,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
             <div class="tab-header">
               <Button
                 icon="pi pi-plus"
-                label="Wartung hinzufügen"
+                :label="t.verlauf.wartungHinzufuegen"
                 severity="primary"
                 @click="showAddMaintenanceDialog = true"
               />
@@ -559,17 +563,17 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
               <div v-for="m in sortedMaintenances" :key="m.id" class="maintenance-item">
                 <div class="maintenance-content">
                   <div class="maintenance-label">
-                    {{ m.description || categoryLabel(m.type) }}
-                    <Badge v-if="m.status !== 'done'" value="Geplant" severity="info" class="planned-badge" />
+                    {{ planLabel(m.description) || categoryLabel(m.type) }}
+                    <Badge v-if="m.status !== 'done'" :value="t.verlauf.geplant" severity="info" class="planned-badge" />
                   </div>
                   <div class="maintenance-caption">
-                    {{ m.status === 'done' ? formatDate(m.doneAt) : `Termin am ${formatDate(m.doneAt)}` }}{{ m.mileageAtService ? ` · ${formatNumber(m.mileageAtService)} km` : '' }}
+                    {{ m.status === 'done' ? formatDate(m.doneAt) : t.verlauf.terminAm(formatDate(m.doneAt)) }}{{ m.mileageAtService ? ` · ${formatNumber(m.mileageAtService)} km` : '' }}
                   </div>
                 </div>
                 <div class="maintenance-actions">
                   <Button
-                    v-tooltip.top="'Eintrag bearbeiten'"
-                    aria-label="Bearbeiten"
+                    v-tooltip.top="t.verlauf.eintragBearbeiten"
+                    :aria-label="a.bearbeiten"
                     icon="pi pi-pencil"
                     text
                     rounded
@@ -577,8 +581,8 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
                     @click="openEditMaintenance(m)"
                   />
                   <Button
-                    v-tooltip.top="'Eintrag löschen'"
-                    aria-label="Löschen"
+                    v-tooltip.top="t.verlauf.eintragLoeschen"
+                    :aria-label="a.loeschen"
                     icon="pi pi-trash"
                     text
                     rounded
@@ -591,7 +595,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
             <div v-if="vehicleMaintenances.length === 0" class="empty-state">
               <i class="pi pi-wrench empty-icon" />
               <!-- Ein Weg pro Aufgabe: «wann zuletzt» steht im Wartungsplan, neue Arbeiten über den Knopf oben -->
-              <p>Noch keine Wartungen erfasst. Wann was zuletzt gemacht wurde, trägst du im Wartungsplan ein.</p>
+              <p>{{ t.verlauf.leer }}</p>
             </div>
           </TabPanel>
 
@@ -599,7 +603,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
             <div class="tab-header">
               <Button
                 icon="pi pi-plus"
-                label="Rechnung hinzufügen"
+                :label="t.rechnungen.hinzufuegen"
                 severity="primary"
                 @click="showAddInvoiceDialog = true"
               />
@@ -614,8 +618,8 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
                 <i :class="inv.imageData ? 'pi pi-image' : 'pi pi-receipt'" class="invoice-icon" />
                 <div class="invoice-content">
                   <div class="invoice-label">
-                    {{ inv.workshopName || 'Ohne Werkstatt' }}
-                    <Badge v-if="inv.scanPending" value="Scan ausstehend" severity="info" class="planned-badge" />
+                    {{ inv.workshopName || t.rechnungen.ohneWerkstatt }}
+                    <Badge v-if="inv.scanPending" :value="t.rechnungen.scanAusstehend" severity="info" class="planned-badge" />
                   </div>
                   <div class="invoice-caption">
                     {{ formatDate(inv.date) }} · {{ formatCurrency(inv.totalAmount, normalizeCurrency(inv.currency)) }}
@@ -627,33 +631,33 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
             <div v-if="vehicleInvoices.length === 0" class="empty-state">
               <i class="pi pi-file empty-icon" />
               <!-- Ein Knopf pro Aufgabe: «Rechnung hinzufügen» steht oben im Tab -->
-              <p>Keine Rechnungen. Über «Rechnung hinzufügen» Foto oder PDF der Werkstattrechnung hochladen, die KI füllt das Formular aus.</p>
+              <p>{{ t.rechnungen.leer }}</p>
             </div>
           </TabPanel>
 
           <TabPanel value="costs">
             <div class="tab-header costs-actions">
-              <Button v-tooltip.bottom="'Alle Rechnungspositionen als Tabelle für Excel'" icon="pi pi-file-excel" label="CSV für Excel" severity="secondary" outlined :disabled="!vehicleInvoices.length" @click="exportCsv" />
-              <Button v-tooltip.bottom="'Stammdaten, Wartungen, Kosten und Rechnungen, für dich und den Treuhänder'" icon="pi pi-file-pdf" label="Kostenbericht (PDF)" severity="primary" @click="exportPdf" />
+              <Button v-tooltip.bottom="t.kosten.csvTipp" icon="pi pi-file-excel" :label="t.kosten.csv" severity="secondary" outlined :disabled="!vehicleInvoices.length" @click="exportCsv" />
+              <Button v-tooltip.bottom="t.kosten.pdfTipp" icon="pi pi-file-pdf" :label="t.kosten.pdf" severity="primary" @click="exportPdf" />
             </div>
             <!-- Übergabemappe: dasselbe Fahrzeug, aber für den Käufer statt für die Buchhaltung -->
             <div class="service-record">
-              <Button v-tooltip.bottom="'Auszug, Wartungshistorie und Rechnungen als Mappe für den Käufer'" icon="pi pi-book" label="Serviceheft für den Verkauf" severity="secondary" outlined @click="exportServiceRecord" />
+              <Button v-tooltip.bottom="t.kosten.serviceheftTipp" icon="pi pi-book" :label="t.kosten.serviceheft" severity="secondary" outlined @click="exportServiceRecord" />
               <label class="service-record-prices">
                 <Checkbox v-model="serviceRecordPrices" binary input-id="service-record-prices" />
-                <span>mit Preisen</span>
+                <span>{{ t.kosten.mitPreisen }}</span>
               </label>
             </div>
             <div v-if="yearCosts.length" class="costs-table-wrap">
-              <table class="costs-table" aria-label="Kosten pro Jahr">
+              <table class="costs-table" :aria-label="t.kosten.tabelle">
                 <thead>
                   <tr>
-                    <th>Kategorie</th>
+                    <th>{{ t.kosten.kategorie }}</th>
                     <th v-for="r in yearCosts" :key="`${r.year}-${r.currency}`" class="num">
                       {{ r.year }} <span class="costs-currency">{{ r.currency }}</span>
                     </th>
                     <th v-if="singleCurrency" class="num">
-                      Total
+                      {{ t.kosten.total }}
                     </th>
                   </tr>
                 </thead>
@@ -668,7 +672,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
                     </td>
                   </tr>
                   <tr class="costs-total-row">
-                    <td>Total</td>
+                    <td>{{ t.kosten.total }}</td>
                     <td v-for="r in yearCosts" :key="`${r.year}-${r.currency}`" class="num costs-total">
                       {{ formatCurrency(r.total, r.currency) }}
                     </td>
@@ -681,16 +685,16 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
               <!-- Nur Hinweise, die zur Tabelle gehören, je eine Zeile; Erklärungen der Exporte stehen als Tooltip an den Knöpfen -->
               <p v-if="convertedCount > 0" class="costs-hint">
                 <i class="pi pi-info-circle" />
-                {{ convertedCount }} {{ convertedCount === 1 ? 'Rechnung' : 'Rechnungen' }} in fremder Währung, zum EZB-Kurs am Rechnungsdatum in {{ settings.homeCurrency }} umgerechnet.
+                {{ t.kosten.umgerechnet(convertedCount, settings.homeCurrency) }}
               </p>
               <p v-if="unconvertedCount > 0" class="costs-hint">
                 <i class="pi pi-exclamation-circle" />
-                {{ unconvertedCount }} {{ unconvertedCount === 1 ? 'Rechnung' : 'Rechnungen' }} in fremder Währung ohne Kurs, in eigener Spalte ausgewiesen.
+                {{ t.kosten.ohneKurs(unconvertedCount) }}
               </p>
             </div>
             <div v-else class="empty-state">
               <i class="pi pi-chart-bar empty-icon" />
-              <p>Noch keine Rechnungen erfasst, darum keine Kosten. Das PDF-Dossier geht trotzdem, mit Stammdaten und Wartungen.</p>
+              <p>{{ t.kosten.leer }}</p>
             </div>
           </TabPanel>
         </TabPanels>
@@ -701,7 +705,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <Dialog
       :visible="!!selectedInvoice"
       modal
-      :header="selectedInvoice?.workshopName || 'Rechnung'"
+      :header="selectedInvoice?.workshopName || t.rechnung.titel"
       class="invoice-dialog"
       :style="{ width: 'min(560px, 92vw)' }"
       @update:visible="v => { if (!v) selectedInvoice = null }"
@@ -718,13 +722,13 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
             @click="openMediaViewer(selectedInvoice!)"
           >
           <div class="image-hint">
-            Klick zum Vergrössern
+            {{ t.rechnung.vergroessern }}
           </div>
         </div>
 
         <div v-if="selectedInvoice.items?.length" class="items-section">
           <div class="items-title">
-            Positionen
+            {{ t.rechnung.positionen }}
           </div>
           <div class="items-list">
             <div v-for="(item, i) in selectedInvoice.items" :key="i" class="position-item">
@@ -745,14 +749,14 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
 
         <div class="dialog-actions">
           <!-- Schliessen über das X oben rechts oder Escape; unten nur die zwei Aktionen, damit sie auch am Handy in eine Zeile passen -->
-          <Button label="Löschen" icon="pi pi-trash" text severity="danger" class="action-destructive" @click="confirmDeleteInvoice = true" />
-          <Button label="Bearbeiten" icon="pi pi-pencil" @click="openEditInvoice(selectedInvoice!)" />
+          <Button :label="a.loeschen" icon="pi pi-trash" text severity="danger" class="action-destructive" @click="confirmDeleteInvoice = true" />
+          <Button :label="a.bearbeiten" icon="pi pi-pencil" @click="openEditInvoice(selectedInvoice!)" />
         </div>
       </template>
     </Dialog>
 
     <!-- Edit vehicle dialog -->
-    <Dialog v-model:visible="editVehicle" modal header="Fahrzeug bearbeiten" :style="{ minWidth: '340px', maxWidth: '90vw' }">
+    <Dialog v-model:visible="editVehicle" modal :header="t.fahrzeugBearbeiten" :style="{ minWidth: '340px', maxWidth: '90vw' }">
       <VehicleForm v-if="vehicle" :initial-data="vehicle" @save="saveVehicleEdit" />
     </Dialog>
 
@@ -760,25 +764,25 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <Dialog
       :visible="!!editInvoice"
       modal
-      header="Rechnung bearbeiten"
+      :header="t.rechnung.bearbeiten"
       :style="{ minWidth: '340px', maxWidth: '90vw' }"
       @update:visible="v => { if (!v) editInvoice = null }"
     >
       <form class="edit-form" @submit.prevent="saveInvoiceEdit">
         <div class="form-field">
-          <label for="invoice-workshop">Werkstatt</label>
+          <label for="invoice-workshop">{{ t.rechnung.werkstatt }}</label>
           <InputText id="invoice-workshop" v-model="editInvoiceForm.workshopName" class="w-full" />
         </div>
         <div class="form-field">
-          <label for="invoice-date">Datum</label>
+          <label for="invoice-date">{{ t.rechnung.datum }}</label>
           <InputText id="invoice-date" v-model="editInvoiceForm.date" type="date" class="w-full" />
         </div>
         <div class="form-field">
-          <label for="invoice-total">Gesamtbetrag</label>
-          <InputNumber id="invoice-total" v-model="editInvoiceForm.totalAmount" mode="decimal" :min-fraction-digits="2" :locale="LOCALE" class="w-full" input-id="invoice-total-input" />
+          <label for="invoice-total">{{ t.rechnung.gesamtbetrag }}</label>
+          <InputNumber id="invoice-total" v-model="editInvoiceForm.totalAmount" mode="decimal" :min-fraction-digits="2" :locale="zahlenLocale()" class="w-full" input-id="invoice-total-input" />
         </div>
         <div class="form-field">
-          <label for="invoice-currency">Währung</label>
+          <label for="invoice-currency">{{ t.rechnung.waehrung }}</label>
           <Select
             id="invoice-currency"
             v-model="editInvoiceForm.currency"
@@ -789,33 +793,33 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
           />
         </div>
         <div class="form-field">
-          <label for="invoice-mileage">Kilometerstand</label>
-          <InputNumber id="invoice-mileage" v-model="editInvoiceForm.mileageAtService" :locale="LOCALE" class="w-full" input-id="invoice-mileage-input" />
+          <label for="invoice-mileage">{{ t.rechnung.kilometerstand }}</label>
+          <InputNumber id="invoice-mileage" v-model="editInvoiceForm.mileageAtService" :locale="zahlenLocale()" class="w-full" input-id="invoice-mileage-input" />
         </div>
 
         <div class="items-section">
           <div class="items-title">
-            Positionen
+            {{ t.rechnung.positionen }}
           </div>
           <div v-for="(item, i) in editInvoiceForm.items" :key="i" class="item-row">
-            <InputText v-model="item.description" placeholder="Beschreibung" class="flex-grow" />
+            <InputText v-model="item.description" :placeholder="t.rechnung.beschreibung" class="flex-grow" />
             <Select
               v-model="item.category"
               :options="categoryOptionsFor(item.category)"
               option-label="label"
               option-value="value"
-              placeholder="Kategorie"
+              :placeholder="t.rechnung.kategorie"
               class="category-input"
             />
-            <InputNumber v-model="item.amount" mode="decimal" :min-fraction-digits="2" :locale="LOCALE" placeholder="Betrag" class="amount-input" />
-            <Button v-tooltip.top="'Position entfernen'" aria-label="Position entfernen" icon="pi pi-minus-circle" text rounded severity="secondary" @click="removeInvoiceItem(i)" />
+            <InputNumber v-model="item.amount" mode="decimal" :min-fraction-digits="2" :locale="zahlenLocale()" :placeholder="t.rechnung.betrag" class="amount-input" />
+            <Button v-tooltip.top="t.rechnung.positionEntfernen" :aria-label="t.rechnung.positionEntfernen" icon="pi pi-minus-circle" text rounded severity="secondary" @click="removeInvoiceItem(i)" />
           </div>
-          <Button icon="pi pi-plus" label="Position hinzufügen" text @click="addInvoiceItem" />
+          <Button icon="pi pi-plus" :label="t.rechnung.positionHinzufuegen" text @click="addInvoiceItem" />
         </div>
 
         <div class="dialog-actions">
-          <Button label="Abbrechen" text @click="editInvoice = null" />
-          <Button type="submit" label="Speichern" severity="primary" />
+          <Button :label="a.abbrechen" text @click="editInvoice = null" />
+          <Button type="submit" :label="a.speichern" severity="primary" />
         </div>
       </form>
     </Dialog>
@@ -824,13 +828,13 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <Dialog
       :visible="!!editMaintenance"
       modal
-      header="Wartungseintrag bearbeiten"
+      :header="t.wartung.bearbeiten"
       :style="{ minWidth: '340px', maxWidth: '90vw' }"
       @update:visible="v => { if (!v) editMaintenance = null }"
     >
       <form class="edit-form" @submit.prevent="saveMaintenanceEdit">
         <div class="form-field">
-          <label for="maintenance-type">Typ</label>
+          <label for="maintenance-type">{{ t.wartung.typ }}</label>
           <Select
             id="maintenance-type"
             v-model="editMaintenanceForm.type"
@@ -841,27 +845,27 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
           />
         </div>
         <div class="form-field">
-          <label for="maintenance-description">Beschreibung</label>
+          <label for="maintenance-description">{{ t.wartung.beschreibung }}</label>
           <InputText id="maintenance-description" v-model="editMaintenanceForm.description" class="w-full" />
         </div>
         <div class="form-field">
-          <label for="maintenance-done-at">Erledigt am</label>
+          <label for="maintenance-done-at">{{ t.wartung.erledigtAm }}</label>
           <InputText id="maintenance-done-at" v-model="editMaintenanceForm.doneAt" type="date" class="w-full" />
         </div>
         <div class="form-field">
-          <label for="maintenance-mileage">Kilometerstand</label>
-          <InputNumber id="maintenance-mileage" v-model="editMaintenanceForm.mileageAtService" :locale="LOCALE" class="w-full" input-id="maintenance-mileage-input" />
+          <label for="maintenance-mileage">{{ t.wartung.kilometerstand }}</label>
+          <InputNumber id="maintenance-mileage" v-model="editMaintenanceForm.mileageAtService" :locale="zahlenLocale()" class="w-full" input-id="maintenance-mileage-input" />
         </div>
         <div class="form-field">
-          <label for="maintenance-next-date">Nächster Termin</label>
+          <label for="maintenance-next-date">{{ t.wartung.naechsterTermin }}</label>
           <InputText id="maintenance-next-date" v-model="editMaintenanceForm.nextDueDate" type="date" class="w-full" />
         </div>
         <div class="form-field">
-          <label for="maintenance-next-mileage">Nächster Kilometerstand</label>
-          <InputNumber id="maintenance-next-mileage" v-model="editMaintenanceForm.nextDueMileage" :locale="LOCALE" class="w-full" input-id="maintenance-next-mileage-input" />
+          <label for="maintenance-next-mileage">{{ t.wartung.naechsterKm }}</label>
+          <InputNumber id="maintenance-next-mileage" v-model="editMaintenanceForm.nextDueMileage" :locale="zahlenLocale()" class="w-full" input-id="maintenance-next-mileage-input" />
         </div>
         <div class="form-field">
-          <label for="maintenance-status">Status</label>
+          <label for="maintenance-status">{{ t.wartung.status }}</label>
           <Select
             id="maintenance-status"
             v-model="editMaintenanceForm.status"
@@ -872,18 +876,18 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
           />
         </div>
         <div class="dialog-actions">
-          <Button label="Abbrechen" text @click="editMaintenance = null" />
-          <Button type="submit" label="Speichern" severity="primary" />
+          <Button :label="a.abbrechen" text @click="editMaintenance = null" />
+          <Button type="submit" :label="a.speichern" severity="primary" />
         </div>
       </form>
     </Dialog>
 
     <!-- Confirm delete invoice -->
-    <Dialog v-model:visible="confirmDeleteInvoice" modal header="Rechnung löschen?">
-      <p>Diese Aktion kann nicht rückgängig gemacht werden.</p>
+    <Dialog v-model:visible="confirmDeleteInvoice" modal :header="t.loeschen.rechnung">
+      <p>{{ t.loeschen.endgueltig }}</p>
       <template #footer>
-        <Button label="Abbrechen" text @click="confirmDeleteInvoice = false" />
-        <Button label="Löschen" severity="danger" @click="deleteInvoice(selectedInvoice!.id)" />
+        <Button :label="a.abbrechen" text @click="confirmDeleteInvoice = false" />
+        <Button :label="a.loeschen" severity="danger" @click="deleteInvoice(selectedInvoice!.id)" />
       </template>
     </Dialog>
 
@@ -891,22 +895,22 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <Dialog
       :visible="!!confirmDeleteMaintenance"
       modal
-      header="Wartungseintrag löschen?"
+      :header="t.loeschen.wartung"
       @update:visible="v => { if (!v) confirmDeleteMaintenance = null }"
     >
-      <p>Diese Aktion kann nicht rückgängig gemacht werden.</p>
+      <p>{{ t.loeschen.endgueltig }}</p>
       <template #footer>
-        <Button label="Abbrechen" text @click="confirmDeleteMaintenance = null" />
-        <Button label="Löschen" severity="danger" @click="deleteMaintenance(confirmDeleteMaintenance!)" />
+        <Button :label="a.abbrechen" text @click="confirmDeleteMaintenance = null" />
+        <Button :label="a.loeschen" severity="danger" @click="deleteMaintenance(confirmDeleteMaintenance!)" />
       </template>
     </Dialog>
 
     <!-- Confirm reset schedule -->
-    <Dialog v-model:visible="confirmResetSchedule" modal header="Wartungsplan zurücksetzen?">
-      <p>Der fahrzeugspezifische Wartungsplan wird gelöscht und die Standard-Intervalle werden verwendet.</p>
+    <Dialog v-model:visible="confirmResetSchedule" modal :header="t.loeschen.plan">
+      <p>{{ t.loeschen.planText }}</p>
       <template #footer>
-        <Button label="Abbrechen" text @click="confirmResetSchedule = false" />
-        <Button label="Zurücksetzen" severity="danger" @click="resetSchedule" />
+        <Button :label="a.abbrechen" text @click="confirmResetSchedule = false" />
+        <Button :label="t.plan.zuruecksetzen" severity="danger" @click="resetSchedule" />
       </template>
     </Dialog>
 
@@ -919,16 +923,15 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     />
 
     <!-- Confirm delete vehicle -->
-    <Dialog v-model:visible="confirmDeleteVehicle" modal header="Fahrzeug löschen?">
-      <p>Alle Rechnungen und Wartungseinträge werden ebenfalls gelöscht.</p>
+    <Dialog v-model:visible="confirmDeleteVehicle" modal :header="t.loeschen.fahrzeug">
+      <p>{{ t.loeschen.fahrzeugText }}</p>
       <p class="delete-hint">
-        Verkauft? Dann besser «Verkauft eintragen»: Das Fahrzeug verschwindet aus den Fälligkeiten, Kosten und Rechnungen
-        bleiben für den Jahresabschluss erhalten.
+        {{ t.loeschen.fahrzeugHinweis }}
       </p>
       <template #footer>
-        <Button label="Abbrechen" text @click="confirmDeleteVehicle = false" />
-        <Button label="Verkauft eintragen" icon="pi pi-tag" outlined @click="confirmDeleteVehicle = false; sellVehicle = true" />
-        <Button label="Löschen" severity="danger" @click="deleteVehicle" />
+        <Button :label="a.abbrechen" text @click="confirmDeleteVehicle = false" />
+        <Button :label="t.verkauftEintragen" icon="pi pi-tag" outlined @click="confirmDeleteVehicle = false; sellVehicle = true" />
+        <Button :label="a.loeschen" severity="danger" @click="deleteVehicle" />
       </template>
     </Dialog>
 
@@ -937,7 +940,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <!-- Add invoice dialog -->
     <InvoiceFormDialog
       v-model:visible="showAddInvoiceDialog"
-      title="Neue Rechnung"
+      :title="t.neueRechnung"
       :existing-invoices="invoicesStore.invoices"
       :vehicles="vehiclesStore.vehicles"
       :vehicle-id="vehicle?.id"
@@ -948,7 +951,7 @@ async function saveEntry(data: MaintenanceFormData): Promise<void> {
     <!-- Add maintenance dialog -->
     <MaintenanceFormDialog
       v-model:visible="showAddMaintenanceDialog"
-      title="Neue Wartung"
+      :title="t.neueWartung"
       @submit="handleAddMaintenance"
     />
 

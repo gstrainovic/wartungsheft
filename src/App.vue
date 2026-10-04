@@ -26,11 +26,14 @@ const scanQueue = useOfflineScanQueue()
 // Einstellungen am Benutzer laden: bringt die dort gespeicherte Sprache auf dieses Gerät (src/lib/app-sprache.ts)
 const reminders = useRemindersStore()
 watch(user, (u) => {
-  if (u) {
+  if (u)
     scanQueue.runQueue()
-    reminders.load().catch(err => console.error('[app] Einstellungen laden', err))
-  }
 })
+// sofort, falls die Anmeldung schon vor dem Start der App feststeht
+watch(() => user.value?.id, (userId) => {
+  if (userId)
+    reminders.load().catch(err => console.error('[app] Einstellungen laden', err))
+}, { immediate: true })
 
 const isPublicRoute = computed(() => route.meta.public === true)
 const showAppLayout = computed(() => user.value && !isPublicRoute.value)

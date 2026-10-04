@@ -14,13 +14,16 @@ import { computed, ref } from 'vue'
 import { z } from 'zod'
 import { useFormValidation } from '../composables/useFormValidation'
 import { useInvoiceScan } from '../composables/useInvoiceScan'
+import { useSprache } from '../composables/useSprache'
 import { userMessage } from '../lib/errors'
-import { DEFAULT_CURRENCY, formatCurrency, formatDate, LOCALE } from '../lib/locale'
+import { DEFAULT_CURRENCY, formatCurrency, formatDate, zahlenLocale } from '../lib/locale'
 import { MAINTENANCE_CATEGORIES, parseInvoiceFromSpeech } from '../services/ai'
 import { getAiAccess } from '../services/ai-access'
 import { itemsExceedTotal } from '../services/invoice-items'
 import { fillEmptyFields, scannedToFormFields } from '../services/invoice-scan'
 import { categoryLabel } from '../services/report'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/rechnungsformular'
 import DictateButton from './DictateButton.vue'
 
 interface Props {
@@ -43,6 +46,8 @@ const emit = defineEmits<{
 
 const scan = useInvoiceScan()
 const toast = useToast()
+const { t } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
 const { imagePreview, imageBase64, pdfName } = scan
 const isScanning = computed(() => scan.status.value === 'scanning')
 // Hat der Nutzer die Währung selbst umgestellt, überschreibt der Scan sie nicht
@@ -53,17 +58,22 @@ const batch = ref<BatchEntry[] | null>(null)
 const scanPending = ref(false)
 const selectedCount = computed(() => batch.value?.filter(e => e.selected && e.draft).length ?? 0)
 
-// Form schema
+// Form schema; Meldungen sind Schlüssel in texte.validierung, übersetzt erst bei der Anzeige
+type Validierung = keyof typeof texte.de.validierung
 const invoiceSchema = z.object({
-  date: z.string().min(1, 'Datum ist erforderlich'),
+  date: z.string().min(1, 'datumPflicht' satisfies Validierung),
   workshop: z.string().optional(),
-  amount: z.number().positive('Betrag muss positiv sein').optional(),
+  amount: z.number().positive('betragPositiv' satisfies Validierung).optional(),
   category: z.enum(MAINTENANCE_CATEGORIES).optional(),
   description: z.string().optional(),
-  mileage: z.number().positive('Kilometerstand muss positiv sein').optional(),
+  mileage: z.number().positive('kmPositiv' satisfies Validierung).optional(),
 })
 
 const { errors, validate } = useFormValidation(invoiceSchema)
+
+function fehlerText(schluessel: string | undefined): string {
+  return t.value.validierung[schluessel as Validierung] ?? schluessel ?? ''
+}
 
 // Currency options
 const currencyOptions = [
@@ -123,7 +133,7 @@ async function ansageUebernehmen(gesprochen: string): Promise<void> {
 }
 
 function ansageFehler(meldung: string): void {
-  toast.add({ severity: 'warn', summary: 'Ansage', detail: meldung, life: 5000 })
+  toast.add({ severity: 'warn', summary: t.value.ansage, detail: meldung, life: 5000 })
 }
 
 const vehicleOptions = computed(() => (props.vehicles ?? []).map(v => ({ label: `${v.make} ${v.model}${v.licensePlate ? ` · ${v.licensePlate}` : ''}`, value: v.id })))
@@ -144,10 +154,10 @@ function removeItem(index: number) {
 const selectedCurrency = computed(() => formData.value.currency || DEFAULT_CURRENCY)
 
 // Kategorien mit Anzeigenamen (Ölwechsel, MFK / Prüfung …)
-const categoryOptions = MAINTENANCE_CATEGORIES.map(cat => ({
+const categoryOptions = computed(() => MAINTENANCE_CATEGORIES.map(cat => ({
   label: categoryLabel(cat),
   value: cat,
-}))
+})))
 
 function handleSubmit() {
   if (validate(formData.value)) {
@@ -171,7 +181,7 @@ function handleCancel() {
       <div class="beleg">
         <label class="upload-label" :class="{ disabled: isScanning }">
           <i class="pi pi-camera" />
-          {{ imagePreview || pdfName || batch ? 'Andere Rechnung wählen' : 'Rechnung fotografieren oder PDF wählen' }}
+          {{ imagePreview || pdfName || batch ? t.andereWaehlen : t.fotografieren }}
           <input
             type="file"
             accept="image/*,application/pdf"
@@ -183,17 +193,17 @@ function handleCancel() {
         </label>
         <!-- Kein Beleg zur Hand: die Rechnung in einem Satz ansagen, der Rest läuft wie beim Foto -->
         <div class="ansage">
-          <DictateButton label="Rechnung ansagen" size="small" @text="ansageUebernehmen" @fehler="ansageFehler" />
+          <DictateButton :label="t.ansagen" size="small" @text="ansageUebernehmen" @fehler="ansageFehler" />
           <small class="field-hint">
-            Oder ansagen: «Muster-Garage, 14. September, 486.50, 118'400 Kilometer, Ölwechsel und Bremsbeläge vorne.»
+            {{ t.ansageBeispiel }}
           </small>
         </div>
         <div v-if="ansageLaeuft" class="scan-status" role="status">
           <i class="pi pi-spin pi-spinner" />
-          Ansage wird ausgewertet …
+          {{ t.ansageLaeuft }}
         </div>
         <small v-if="!batch && !imagePreview && !pdfName && !isScanning && !scan.message.value" class="field-hint">
-          Mehrere Fotos oder ein PDF mit mehreren Rechnungen werden einzeln erfasst.
+          {{ t.mehrere }}
         </small>
         <div v-if="isScanning" class="scan-status" role="status">
           <i class="pi pi-spin pi-spinner" />
@@ -203,16 +213,16 @@ function handleCancel() {
           {{ scan.message.value }}
         </small>
         <div v-if="imagePreview" class="image-preview">
-          <img :src="imagePreview" alt="Rechnung">
+          <img :src="imagePreview" :alt="t.bildAlt">
         </div>
         <div v-else-if="pdfName && !batch" class="pdf-name">
           <i class="pi pi-file-pdf" /> {{ pdfName }}
-          <small>PDF wird nur gelesen, nicht als Bild gespeichert.</small>
+          <small>{{ t.pdfNurGelesen }}</small>
         </div>
       </div>
 
       <!-- Stapel: jede erkannte Rechnung eine Zeile, schon erfasste abgewählt -->
-      <div v-if="batch" class="batch" aria-label="Erkannte Rechnungen">
+      <div v-if="batch" class="batch" :aria-label="t.erkannteRechnungen">
         <div
           v-for="(entry, i) in batch"
           :key="i"
@@ -223,17 +233,17 @@ function handleCancel() {
           <span class="batch-text">
             <label :for="`batch-${i}`">
               <template v-if="entry.draft">
-                <span class="batch-main">{{ formatDate(entry.draft.date) }} · {{ entry.draft.workshopName || 'Werkstatt unbekannt' }}</span>
+                <span class="batch-main">{{ formatDate(entry.draft.date) }} · {{ entry.draft.workshopName || t.werkstattUnbekannt }}</span>
                 <small>
-                  {{ entry.source }} · {{ entry.draft.items.length }} {{ entry.draft.items.length === 1 ? 'Position' : 'Positionen' }}
-                  <span v-if="entry.duplicate" class="batch-dup">· {{ entry.duplicate }}</span>
-                  <span v-else-if="itemsExceedTotal(entry.draft.items, entry.draft.totalAmount)" class="batch-dup">· Positionen ergeben mehr als das Total</span>
+                  {{ entry.source }} · {{ t.positionen(entry.draft.items.length) }}
+                  <span v-if="entry.duplicate" class="batch-dup">· {{ t.duplikat[entry.duplicate] }}</span>
+                  <span v-else-if="itemsExceedTotal(entry.draft.items, entry.draft.totalAmount)" class="batch-dup">· {{ t.positionenZuViel }}</span>
                 </small>
                 <small v-if="entry.plateNote" class="batch-dup batch-plate">{{ entry.plateNote }}</small>
               </template>
               <template v-else>
-                <span class="batch-main">Nicht lesbar</span>
-                <small>{{ entry.source }} · Datum oder Betrag fehlt</small>
+                <span class="batch-main">{{ t.nichtLesbar }}</span>
+                <small>{{ entry.source }} · {{ t.datumOderBetragFehlt }}</small>
               </template>
             </label>
             <Select
@@ -244,7 +254,7 @@ function handleCancel() {
               option-value="value"
               size="small"
               class="batch-vehicle"
-              :aria-label="`Fahrzeug für Rechnung ${i + 1}`"
+              :aria-label="t.fahrzeugFuer(i + 1)"
             />
           </span>
           <span v-if="entry.draft" class="batch-amount">{{ formatCurrency(entry.draft.totalAmount, entry.draft.currency) }}</span>
@@ -254,7 +264,7 @@ function handleCancel() {
       <template v-if="!batch">
         <!-- Datumsfelder zeigen immer «TT.MM.JJJJ», ein schwebendes Label läge darüber -->
         <div class="field">
-          <label for="invoice-date">Datum *</label>
+          <label for="invoice-date">{{ t.datum }}</label>
           <InputText
             id="invoice-date"
             v-model="formData.date"
@@ -264,7 +274,7 @@ function handleCancel() {
             fluid
           />
         </div>
-        <small v-if="errors.date" class="error">{{ errors.date }}</small>
+        <small v-if="errors.date" class="error">{{ fehlerText(errors.date) }}</small>
 
         <FloatLabel>
           <InputText
@@ -273,7 +283,7 @@ function handleCancel() {
             name="workshop"
             fluid
           />
-          <label for="invoice-workshop">Werkstatt</label>
+          <label for="invoice-workshop">{{ t.werkstatt }}</label>
         </FloatLabel>
 
         <div class="amount-row">
@@ -284,11 +294,11 @@ function handleCancel() {
               name="amount"
               mode="currency"
               :currency="selectedCurrency"
-              :locale="LOCALE"
+              :locale="zahlenLocale()"
               :invalid="!!errors.amount"
               fluid
             />
-            <label for="invoice-amount">Betrag</label>
+            <label for="invoice-amount">{{ t.betrag }}</label>
           </FloatLabel>
           <SelectButton
             v-model="formData.currency"
@@ -299,7 +309,7 @@ function handleCancel() {
             @update:model-value="currencyTouched = true"
           />
         </div>
-        <small v-if="errors.amount" class="error">{{ errors.amount }}</small>
+        <small v-if="errors.amount" class="error">{{ fehlerText(errors.amount) }}</small>
 
         <FloatLabel>
           <InputNumber
@@ -307,19 +317,19 @@ function handleCancel() {
             v-model="formData.mileage"
             name="mileage"
             :use-grouping="true"
-            :locale="LOCALE"
+            :locale="zahlenLocale()"
             suffix=" km"
             :invalid="!!errors.mileage"
             fluid
           />
-          <label for="invoice-mileage">Kilometerstand</label>
+          <label for="invoice-mileage">{{ t.kilometerstand }}</label>
         </FloatLabel>
-        <small v-if="errors.mileage" class="error">{{ errors.mileage }}</small>
+        <small v-if="errors.mileage" class="error">{{ fehlerText(errors.mileage) }}</small>
 
         <!-- Positionen aus dem Scan ersetzen Kategorie und Beschreibung -->
-        <div v-if="formData.items?.length" class="scan-items" aria-label="Erkannte Positionen">
+        <div v-if="formData.items?.length" class="scan-items" :aria-label="t.erkanntePositionen">
           <div class="scan-items-title">
-            Erkannte Positionen
+            {{ t.erkanntePositionen }}
           </div>
           <div v-for="(item, i) in formData.items" :key="i" class="scan-item">
             <div class="scan-item-text">
@@ -328,20 +338,20 @@ function handleCancel() {
             </div>
             <span class="scan-item-amount">{{ formatCurrency(item.amount, formData.currency) }}</span>
             <Button
-              v-tooltip.left="'Position entfernen'"
+              v-tooltip.left="t.positionEntfernen"
               type="button"
               icon="pi pi-times"
               text
               rounded
               severity="secondary"
               size="small"
-              aria-label="Position entfernen"
+              :aria-label="t.positionEntfernen"
               @click="removeItem(i)"
             />
           </div>
           <div v-if="itemsWarning" class="items-warning" role="alert">
             <i class="pi pi-exclamation-triangle" />
-            Positionen ergeben {{ formatCurrency(itemsWarning.itemsSum, formData.currency) }}, die Rechnung {{ formatCurrency(itemsWarning.total, formData.currency) }}. Bitte Positionen prüfen.
+            {{ t.positionenWarnung(formatCurrency(itemsWarning.itemsSum, formData.currency), formatCurrency(itemsWarning.total, formData.currency)) }}
           </div>
         </div>
 
@@ -356,7 +366,7 @@ function handleCancel() {
               option-value="value"
               fluid
             />
-            <label for="invoice-category">Kategorie</label>
+            <label for="invoice-category">{{ t.kategorie }}</label>
           </FloatLabel>
 
           <FloatLabel>
@@ -367,22 +377,22 @@ function handleCancel() {
               rows="3"
               fluid
             />
-            <label for="invoice-description">Beschreibung</label>
+            <label for="invoice-description">{{ t.beschreibung }}</label>
           </FloatLabel>
         </template>
       </template>
     </div>
 
     <div class="form-actions">
-      <Button type="button" label="Abbrechen" severity="secondary" @click="handleCancel" />
+      <Button type="button" :label="a.abbrechen" severity="secondary" @click="handleCancel" />
       <Button
         v-if="batch"
         type="button"
-        :label="selectedCount === 1 ? '1 Rechnung speichern' : `${selectedCount} Rechnungen speichern`"
+        :label="t.speichernN(selectedCount)"
         :disabled="isScanning || !selectedCount"
         @click="saveBatch"
       />
-      <Button v-else type="submit" label="Speichern" :disabled="isScanning" />
+      <Button v-else type="submit" :label="a.speichern" :disabled="isScanning" />
     </div>
   </form>
 </template>
@@ -487,6 +497,11 @@ function handleCancel() {
 
 .batch-dup {
   color: var(--status-warning);
+}
+
+/* Hinweis zum Kontrollschild steht in fr/it/en klein, damit er auch mitten im Satz passt */
+.batch-plate::first-letter {
+  text-transform: uppercase;
 }
 
 .batch-text label {

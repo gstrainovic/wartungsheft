@@ -2,10 +2,13 @@
  * E-Mail-Erinnerungen für fällige und überfällige Arbeiten. Reine Funktionen, damit der Server-Job
  * (scripts/reminders.ts) und die Tests dieselbe Logik nutzen. Fälligkeit kommt aus maintenance-schedule.ts.
  */
+import type { Sprache } from '../lib/sprache'
 import type { DueResult } from './maintenance-schedule'
 import { textToHtml } from '@strainovic/ai-proxy/mail-html'
+import { istSprache } from '../lib/app-sprache'
 import { formatDate, formatNumber } from '../lib/locale'
-import { checkDueMaintenances, getMaintenanceSchedule } from './maintenance-schedule'
+import erinnerungTexte from '../texte/app/erinnerung'
+import { checkDueMaintenances, getMaintenanceSchedule, planLabel } from './maintenance-schedule'
 import { activeVehicles } from './vehicle-status'
 
 export interface ReminderUser {
@@ -40,6 +43,8 @@ export interface ReminderSetting {
   creatorId: string
   /** fehlt = eingeschaltet */
   emailReminders?: boolean
+  /** Sprache der App und der Mails (src/lib/app-sprache.ts); fehlt = Deutsch */
+  sprache?: string
   lastReminderAt?: string
   lastReminderKey?: string
   /** Merker der Mail vor Ende der Testzeit (trial-reminder.ts), eine pro Testzeit */
@@ -81,17 +86,24 @@ export function shouldSend(setting: ReminderSetting | undefined, key: string, no
   return now.getTime() - last >= REPEAT_AFTER_DAYS * 86_400_000
 }
 
+/** Sprache der Mails an einen Nutzer: settings.sprache, sonst Deutsch */
+export function mailSprache(setting: ReminderSetting | undefined): Sprache {
+  return istSprache(setting?.sprache) ? setting.sprache : 'de'
+}
+
 function vehicleName(v: ReminderVehicle): string {
   return `${v.make} ${v.model}`
 }
 
-function itemLine(item: DueResult): string {
-  const when = item.nextDueDate ? formatDate(item.nextDueDate) : ''
-  const km = item.nextDueMileage ? `${formatNumber(item.nextDueMileage)} km` : ''
-  const target = [when, km].filter(Boolean).join(' oder ')
+function itemLine(item: DueResult, sprache: Sprache): string {
+  const t = erinnerungTexte[sprache]
+  const when = item.nextDueDate ? formatDate(item.nextDueDate, sprache) : ''
+  const km = item.nextDueMileage ? `${formatNumber(item.nextDueMileage, 0, sprache)} km` : ''
+  const target = [when, km].filter(Boolean).join(` ${t.faellig.alternativ} `)
+  const label = `- ${planLabel(item.label, sprache)}${t.doppelpunkt}`
   if (item.status === 'overdue')
-    return `- ${item.label}: überfällig${target ? ` (fällig war ${target})` : ''}`
-  return `- ${item.label}: bald fällig${target ? ` (bis ${target})` : ''}`
+    return `${label}${t.faellig.ueberfaellig}${target ? t.faellig.faelligWar(target) : ''}`
+  return `${label}${t.faellig.baldFaellig}${target ? t.faellig.bis(target) : ''}`
 }
 
 function dueItems(v: ReminderVehicle, maintenances: ReminderMaintenance[]): DueResult[] {
@@ -124,6 +136,8 @@ export function buildReminders(input: {
       continue
     if (byUser.get(user.id)?.emailReminders === false)
       continue
+    const sprache = mailSprache(byUser.get(user.id))
+    const t = erinnerungTexte[sprache]
 
     const blocks: string[] = []
     const entries: DueEntry[] = []
@@ -135,30 +149,29 @@ export function buildReminders(input: {
         continue
       names.push(vehicleName(v))
       entries.push(...items.map(i => ({ vehicleId: v.id, type: i.type, status: i.status })))
-      const head = [vehicleName(v), v.licensePlate, v.mileage ? `${formatNumber(v.mileage)} km` : ''].filter(Boolean).join(' · ')
-      blocks.push([head, ...items.map(itemLine)].join('\n'))
+      const head = [vehicleName(v), v.licensePlate, v.mileage ? `${formatNumber(v.mileage, 0, sprache)} km` : ''].filter(Boolean).join(' · ')
+      blocks.push([head, ...items.map(i => itemLine(i, sprache))].join('\n'))
     }
     if (!entries.length)
       continue
 
     const n = entries.length
-    const subject = `Wartungsheft: ${n} ${n === 1 ? 'Arbeit' : 'Arbeiten'} fällig${names.length === 1 ? ` beim ${names[0]}` : ''}`
+    const subject = t.faellig.betreff(n, names.length === 1 ? names[0]! : '')
     const text = [
-      'Hallo',
+      t.hallo,
       '',
-      `Bei ${names.length === 1 ? 'deinem Fahrzeug' : 'deinen Fahrzeugen'} ${n === 1 ? 'steht eine Arbeit' : `stehen ${n} Arbeiten`} an:`,
+      t.faellig.intro(n, names.length),
       '',
       blocks.join('\n\n'),
       '',
       // Ein Fahrzeug: direkt zu seinem Abschnitt; mehrere: zur Fälligkeitsliste oben im Dashboard
-      `Details und Eintragen: ${APP_URL}/dashboard${names.length === 1 ? `#fahrzeug-${entries[0]!.vehicleId}` : ''}`,
+      `${t.faellig.details} ${APP_URL}/dashboard${names.length === 1 ? `#fahrzeug-${entries[0]!.vehicleId}` : ''}`,
       '',
-      'Die Intervalle sind Standardwerte, solange kein Serviceheft hinterlegt ist. Erledigte Arbeiten trägst du im',
-      'Wartungsheft ein, dann verschwindet die Erinnerung.',
+      t.faellig.hinweis,
       '',
-      `Fragen? Einfach auf diese Mail antworten. Keine Erinnerungen mehr: ${APP_URL}/settings, Abschnitt «Erinnerungen».`,
+      t.fragen(APP_URL),
       '',
-      'Wartungsheft, ein Angebot von Strainovic IT, Steinach',
+      t.signatur,
     ].join('\n')
 
     reminders.push({ userId: user.id, email: user.email, subject, text, key: reminderKey(entries), entries })

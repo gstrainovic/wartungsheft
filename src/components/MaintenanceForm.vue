@@ -6,12 +6,15 @@ import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import Textarea from 'primevue/textarea'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { z } from 'zod'
 import { useFormValidation } from '../composables/useFormValidation'
-import { LOCALE } from '../lib/locale'
+import { useSprache } from '../composables/useSprache'
+import { zahlenLocale } from '../lib/locale'
 import { MAINTENANCE_CATEGORIES } from '../services/ai'
-import { categoryLabel } from '../services/report'
+import { categoryLabel, planLabel } from '../services/report'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/wartungsformular'
 import DictateButton from './DictateButton.vue'
 
 interface Props {
@@ -25,37 +28,46 @@ const emit = defineEmits<{
   cancel: []
 }>()
 
-// Form schema
+const { t } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
+
+// Form schema; Meldungen sind Schlüssel in texte.validierung, übersetzt erst bei der Anzeige
+type Validierung = keyof typeof texte.de.validierung
 const maintenanceSchema = z.object({
-  category: z.enum(MAINTENANCE_CATEGORIES, { message: 'Kategorie ist erforderlich' }),
-  date: z.string().min(1, 'Datum ist erforderlich'),
-  mileage: z.number().positive('Kilometerstand muss positiv sein').optional(),
+  category: z.enum(MAINTENANCE_CATEGORIES, { message: 'kategoriePflicht' satisfies Validierung }),
+  date: z.string().min(1, 'datumPflicht' satisfies Validierung),
+  mileage: z.number().positive('kmPositiv' satisfies Validierung).optional(),
   description: z.string().optional(),
   status: z.enum(['done', 'planned']).optional(),
 })
 
 const { errors, validate } = useFormValidation(maintenanceSchema)
 
+function meldung(schluessel: string | undefined): string {
+  return t.value.validierung[schluessel as Validierung] ?? schluessel ?? ''
+}
+
 // Form data
 const formData = ref<MaintenanceFormData>({
   category: props.initialData?.category || '' as any,
   date: props.initialData?.date || '',
   mileage: props.initialData?.mileage,
-  description: props.initialData?.description || '',
+  // Vorbelegung aus dem Wartungsplan («Ölwechsel») in der App-Sprache; eigene Texte bleiben
+  description: planLabel(props.initialData?.description),
   status: props.initialData?.status || 'done',
 })
 
 // Kategorien mit Anzeigenamen (Ölwechsel, MFK / Prüfung …)
-const categoryOptions = MAINTENANCE_CATEGORIES.map(cat => ({
+const categoryOptions = computed(() => MAINTENANCE_CATEGORIES.map(cat => ({
   label: categoryLabel(cat),
   value: cat,
-}))
+})))
 
 // Status options
-const statusOptions = [
-  { label: 'Erledigt', value: 'done' },
-  { label: 'Geplant (Termin vereinbart)', value: 'planned' },
-]
+const statusOptions = computed(() => [
+  { label: t.value.erledigt, value: 'done' },
+  { label: t.value.geplant, value: 'planned' },
+])
 
 function handleSubmit() {
   if (validate(formData.value)) {
@@ -82,13 +94,13 @@ function handleCancel() {
           :invalid="!!errors.category"
           fluid
         />
-        <label for="maintenance-category">Kategorie *</label>
+        <label for="maintenance-category">{{ t.kategorie }}</label>
       </FloatLabel>
-      <small v-if="errors.category" class="error">{{ errors.category }}</small>
+      <small v-if="errors.category" class="error">{{ meldung(errors.category) }}</small>
 
       <!-- Datumsfelder zeigen immer «TT.MM.JJJJ», ein schwebendes Label läge darüber -->
       <div class="field">
-        <label for="maintenance-date">{{ formData.status === 'planned' ? 'Termin *' : 'Datum *' }}</label>
+        <label for="maintenance-date">{{ formData.status === 'planned' ? t.termin : t.datum }}</label>
         <InputText
           id="maintenance-date"
           v-model="formData.date"
@@ -98,7 +110,7 @@ function handleCancel() {
           fluid
         />
       </div>
-      <small v-if="errors.date" class="error">{{ errors.date }}</small>
+      <small v-if="errors.date" class="error">{{ meldung(errors.date) }}</small>
 
       <FloatLabel>
         <InputNumber
@@ -106,14 +118,14 @@ function handleCancel() {
           v-model="formData.mileage"
           name="mileage"
           :use-grouping="true"
-          :locale="LOCALE"
+          :locale="zahlenLocale()"
           suffix=" km"
           :invalid="!!errors.mileage"
           fluid
         />
-        <label for="maintenance-mileage">Kilometerstand</label>
+        <label for="maintenance-mileage">{{ t.kilometerstand }}</label>
       </FloatLabel>
-      <small v-if="errors.mileage" class="error">{{ errors.mileage }}</small>
+      <small v-if="errors.mileage" class="error">{{ meldung(errors.mileage) }}</small>
 
       <FloatLabel>
         <Select
@@ -125,7 +137,7 @@ function handleCancel() {
           option-value="value"
           fluid
         />
-        <label for="maintenance-status">Status</label>
+        <label for="maintenance-status">{{ t.status }}</label>
       </FloatLabel>
 
       <FloatLabel>
@@ -136,15 +148,15 @@ function handleCancel() {
           rows="3"
           fluid
         />
-        <label for="maintenance-description">Beschreibung</label>
+        <label for="maintenance-description">{{ t.beschreibung }}</label>
       </FloatLabel>
       <!-- Ganze Sätze diktieren geht gut, einzelne Fachwörter schlecht (stt-vergleich.md) -->
-      <DictateButton label="Beschreibung diktieren" @text="t => formData.description = [formData.description, t].filter(Boolean).join(' ')" />
+      <DictateButton :label="t.diktieren" @text="text => formData.description = [formData.description, text].filter(Boolean).join(' ')" />
     </div>
 
     <div class="form-actions">
-      <Button type="button" label="Abbrechen" severity="secondary" @click="handleCancel" />
-      <Button type="submit" label="Speichern" />
+      <Button type="button" :label="a.abbrechen" severity="secondary" @click="handleCancel" />
+      <Button type="submit" :label="a.speichern" />
     </div>
   </form>
 </template>

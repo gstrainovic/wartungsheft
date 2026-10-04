@@ -9,11 +9,16 @@ import Dialog from 'primevue/dialog'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import { ref, watch } from 'vue'
-import { LOCALE } from '../lib/locale'
+import { useSprache } from '../composables/useSprache'
+import { zahlenLocale } from '../lib/locale'
 import { useVehiclesStore } from '../stores/vehicles'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/verkauf'
 
 const props = defineProps<{ vehicle: Vehicle | null }>()
 const emit = defineEmits<{ close: [], sold: [] }>()
+const { t } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
 
 const store = useVehiclesStore()
 const today = new Date().toISOString().slice(0, 10)
@@ -45,31 +50,30 @@ async function save(): Promise<void> {
   <Dialog
     :visible="!!vehicle"
     modal
-    header="Verkauft oder abgegeben"
+    :header="t.titel"
     data-testid="sell-vehicle-dialog"
     :style="{ width: 'min(480px, 94vw)' }"
     @update:visible="emit('close')"
   >
     <p class="intro">
-      <strong>{{ vehicle?.make }} {{ vehicle?.model }}</strong> verschwindet damit aus den Fälligkeiten und bekommt keine
-      Erinnerungen mehr. Rechnungen, Wartungen und Kosten bleiben erhalten, auch in den Exporten und im Dossier.
+      <strong>{{ vehicle?.make }} {{ vehicle?.model }}</strong> {{ t.einleitung }}
     </p>
     <div class="fields">
       <div class="field">
-        <label for="sold-date">Datum der Übergabe</label>
+        <label for="sold-date">{{ t.datum }}</label>
         <InputText id="sold-date" v-model="date" type="date" fluid />
       </div>
       <div class="field">
-        <label for="sold-mileage">Kilometerstand</label>
-        <InputNumber v-model="mileage" input-id="sold-mileage" :locale="LOCALE" suffix=" km" aria-label="Kilometerstand bei der Übergabe" fluid />
+        <label for="sold-mileage">{{ t.kilometerstand }}</label>
+        <InputNumber v-model="mileage" input-id="sold-mileage" :locale="zahlenLocale()" suffix=" km" :aria-label="t.kmBeiUebergabe" fluid />
       </div>
     </div>
     <p class="hint">
-      Tipp: Das PDF-Dossier im Tab «Kosten» ist die Übergabemappe für den Käufer.
+      {{ t.tipp }}
     </p>
     <template #footer>
-      <Button label="Abbrechen" text severity="secondary" @click="emit('close')" />
-      <Button label="Als verkauft eintragen" icon="pi pi-check" :disabled="!date" :loading="saving" @click="save" />
+      <Button :label="a.abbrechen" text severity="secondary" @click="emit('close')" />
+      <Button :label="t.eintragen" icon="pi pi-check" :disabled="!date" :loading="saving" @click="save" />
     </template>
   </Dialog>
 </template>

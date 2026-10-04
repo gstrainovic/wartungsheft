@@ -14,12 +14,14 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getCurrentUserId } from '../composables/useAuth'
 import { autoRotateForDocument, resizeImage } from '../composables/useImageResize'
+import { useSprache } from '../composables/useSprache'
 import { userMessage } from '../lib/errors'
 import { db, tx } from '../lib/instantdb'
 import { hashImage } from '../services/ai'
 import { getAiAccess } from '../services/ai-access'
 import { sendChatMessage, welcomeMessage } from '../services/chat'
 import { useVehiclesStore } from '../stores/vehicles'
+import chatTexte from '../texte/app/chat'
 import DictateButton from './DictateButton.vue'
 import MediaViewer from './MediaViewer.vue'
 import ToolResultCard from './ToolResultCard.vue'
@@ -36,6 +38,7 @@ const open = defineModel<boolean>({ default: false })
 
 const route = useRoute()
 const toast = useToast()
+const { t } = useSprache(chatTexte)
 
 // Offene Fahrzeugseite (/vehicles/<id>): dieses Fahrzeug gilt im Chat ohne Nachfrage
 const vehiclesStore = useVehiclesStore()
@@ -72,7 +75,7 @@ function diktatUebernehmen(text: string): void {
 }
 
 function diktatFehler(meldung: string): void {
-  toast.add({ severity: 'warn', summary: 'Diktat', detail: meldung, life: 5000 })
+  toast.add({ severity: 'warn', summary: t.value.diktat, detail: meldung, life: 5000 })
 }
 const mediaViewerOpen = ref(false)
 const mediaViewerImageSrc = ref('')
@@ -143,18 +146,15 @@ const showSplit = computed(() => maximized.value && allToolResults.value.length 
 // Show suggestions only when no chat history (just welcome message)
 const showSuggestions = computed(() => messages.value.length === 1 && messages.value[0]?.id === 'welcome')
 
-const suggestions = [
-  { icon: 'pi pi-receipt', label: 'Rechnung scannen', prompt: 'Ich möchte eine Rechnung scannen' },
-  { icon: 'pi pi-car', label: 'Fahrzeug anlegen', prompt: 'Neues Fahrzeug anlegen' },
-  { icon: 'pi pi-wrench', label: 'Wartungsstatus', prompt: 'Zeige den Wartungsstatus meiner Fahrzeuge' },
-]
+const SUGGESTION_ICONS = ['pi pi-receipt', 'pi pi-car', 'pi pi-wrench']
+const suggestions = computed(() => t.value.vorschlaege.map((s, i) => ({ ...s, icon: SUGGESTION_ICONS[i] })))
 
 function applySuggestion(prompt: string) {
   input.value = prompt
 }
 
 function applyConfirmation() {
-  input.value = 'Ja'
+  input.value = t.value.ja
   send()
 }
 
@@ -240,8 +240,8 @@ function processFiles(files: FileList) {
       if (file.size > MAX_PDF_SIZE) {
         toast.add({
           severity: 'error',
-          summary: 'Fehler',
-          detail: `PDF zu gross (${(file.size / 1024 / 1024).toFixed(0)} MB). Maximum: 50 MB.`,
+          summary: t.value.fehler,
+          detail: t.value.pdfZuGross((file.size / 1024 / 1024).toFixed(0)),
           life: 5000,
         })
         continue
@@ -259,7 +259,7 @@ function processFiles(files: FileList) {
           base64,
         })
         if (!input.value.trim())
-          input.value = 'Bitte erfassen'
+          input.value = t.value.bitteErfassen
       }
       reader.readAsDataURL(file)
     }
@@ -278,7 +278,7 @@ function processFiles(files: FileList) {
           base64: finalBase64,
         })
         if (!input.value.trim())
-          input.value = 'Bitte erfassen'
+          input.value = t.value.bitteErfassen
       })
     }
   }
@@ -324,7 +324,7 @@ async function send() {
     const assistantMsg: ChatMessage = {
       id: crypto.randomUUID(),
       role: 'assistant',
-      content: response.text || 'Erledigt.',
+      content: response.text || t.value.erledigt,
       toolResults: response.toolResults,
     }
     messages.value.push(assistantMsg)
@@ -406,12 +406,12 @@ async function clearChat() {
     <template #header>
       <div class="chat-header">
         <span class="chat-title">
-          KI-Assistent
+          {{ t.titel }}
           <small v-if="currentVehicle" class="chat-context">{{ currentVehicle.name }}</small>
         </span>
         <div class="chat-header-actions">
           <Button
-            v-tooltip.bottom="'Chat löschen'"
+            v-tooltip.bottom="t.chatLoeschen"
             icon="pi pi-trash"
             text
             rounded
@@ -424,7 +424,7 @@ async function clearChat() {
 
     <div v-if="isDragging" class="chat-drop-overlay">
       <i class="pi pi-cloud-upload" style="font-size: 2rem" />
-      <div>Dateien hier ablegen</div>
+      <div>{{ t.dateienAblegen }}</div>
     </div>
 
     <div v-if="showSplit" class="chat-split-layout">
@@ -446,7 +446,7 @@ async function clearChat() {
             :class="msg.role === 'user' ? 'chat-message-user' : 'chat-message-assistant'"
           >
             <div class="chat-message-name">
-              {{ msg.role === 'user' ? 'Du' : 'Assistent' }}
+              {{ msg.role === 'user' ? t.du : t.assistent }}
             </div>
             <div class="chat-message-bubble" :class="msg.role === 'user' ? 'bubble-user' : 'bubble-assistant'">
               <template v-if="msg.attachments?.length">
@@ -491,7 +491,7 @@ async function clearChat() {
 
           <div v-if="loading" class="chat-message chat-message-assistant chat-message-loading">
             <div class="chat-message-name">
-              Assistent
+              {{ t.assistent }}
             </div>
             <div class="chat-message-bubble bubble-assistant">
               <ProgressSpinner style="width: 24px; height: 24px" stroke-width="4" />
@@ -510,7 +510,7 @@ async function clearChat() {
           :class="msg.role === 'user' ? 'chat-message-user' : 'chat-message-assistant'"
         >
           <div class="chat-message-name">
-            {{ msg.role === 'user' ? 'Du' : 'Assistent' }}
+            {{ msg.role === 'user' ? t.du : t.assistent }}
           </div>
           <div class="chat-message-bubble" :class="msg.role === 'user' ? 'bubble-user' : 'bubble-assistant'">
             <template v-if="msg.attachments?.length">
@@ -575,13 +575,13 @@ async function clearChat() {
         <div v-if="showConfirmationButton" class="chat-suggestions">
           <button class="chat-suggestion-chip" @click="applyConfirmation">
             <i class="pi pi-check" />
-            Ja, passt
+            {{ t.jaPasst }}
           </button>
         </div>
 
         <div v-if="loading" class="chat-message chat-message-assistant chat-message-loading">
           <div class="chat-message-name">
-            Assistent
+            {{ t.assistent }}
           </div>
           <div class="chat-message-bubble bubble-assistant">
             <ProgressSpinner style="width: 24px; height: 24px" stroke-width="4" />
@@ -606,7 +606,7 @@ async function clearChat() {
 
       <div class="chat-drop-hint" @click="pickFile">
         <i class="pi pi-cloud-upload" />
-        <span>Dateien hierher ziehen oder klicken</span>
+        <span>{{ t.dropHinweis }}</span>
       </div>
 
       <div class="chat-input-row">
@@ -628,17 +628,17 @@ async function clearChat() {
         >
         <!-- Am Handy ersetzt dieser Knopf die Drop-Zone; Ziehen geht dort nicht -->
         <Button
-          v-tooltip.top="'Datei anhängen'"
+          v-tooltip.top="t.dateiAnhaengen"
           icon="pi pi-paperclip"
           text
           rounded
           severity="secondary"
-          aria-label="Datei anhängen"
+          :aria-label="t.dateiAnhaengen"
           class="chat-attach-btn"
           @click="pickFile"
         />
         <Button
-          v-tooltip.top="'Foto aufnehmen'"
+          v-tooltip.top="t.fotoAufnehmen"
           icon="pi pi-camera"
           text
           rounded
@@ -649,7 +649,7 @@ async function clearChat() {
         <!-- Auf dem Handy füllt der Chat den Bildschirm ohnehin; der Knopf nähme nur Platz in der Eingabezeile -->
         <Button
           v-if="breiterBildschirm"
-          v-tooltip.top="'Chat maximieren'"
+          v-tooltip.top="t.maximieren"
           :icon="maximized ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"
           text
           rounded
@@ -658,11 +658,11 @@ async function clearChat() {
           @click="maximized = !maximized"
         />
         <!-- Diktat: der erkannte Text landet in der Zeile, abgeschickt wird weiterhin von Hand -->
-        <DictateButton label="Nachricht diktieren" @text="diktatUebernehmen" @fehler="diktatFehler" />
+        <DictateButton :label="t.diktieren" @text="diktatUebernehmen" @fehler="diktatFehler" />
         <Textarea
           v-model="input"
           class="chat-input"
-          placeholder="Nachricht..."
+          :placeholder="t.platzhalter"
           auto-resize
           rows="1"
           @keydown.enter.exact.prevent="send"

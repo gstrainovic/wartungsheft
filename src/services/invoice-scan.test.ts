@@ -1,6 +1,6 @@
 import type { ParsedInvoice } from './ai'
 import { describe, expect, it } from 'vitest'
-import { buildBatch, draftFromParsed, fillEmptyFields, mergePdfPages, pagesLabel, scannedToFormFields } from './invoice-scan'
+import { buildBatch, draftFromParsed, fillEmptyFields, mergePdfPages, pagesLabel, plateAssignment, scannedToFormFields } from './invoice-scan'
 
 describe('mergePdfPages', () => {
   const inv = (over: Partial<ParsedInvoice>): ParsedInvoice => ({ workshopName: 'W', date: '2025-01-01', totalAmount: 100, currency: 'CHF', items: [], ...over })
@@ -84,6 +84,18 @@ describe('pagesLabel', () => {
     expect(pagesLabel([4, 2, 3])).toBe('Seite 2–4')
     expect(pagesLabel([1, 3])).toBe('Seiten 1, 3')
     expect(pagesLabel([])).toBe('PDF')
+  })
+
+  it('spricht die App-Sprache, auch im Hinweis zum Kontrollschild', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    setAppSprache('fr')
+    try {
+      expect(pagesLabel([1, 2])).toBe('Pages 1–2')
+      expect(plateAssignment('ZH 99', [{ id: 'v1', make: 'VW', model: 'Golf', licensePlate: 'SG 1' }], 'v1').note).toBe('la plaque ZH 99 n\'appartient à aucun véhicule')
+    }
+    finally {
+      setAppSprache('de')
+    }
   })
 })
 

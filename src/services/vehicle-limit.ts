@@ -5,12 +5,14 @@
  */
 import type { Plan } from '@strainovic/ai-proxy/plans'
 import { BUSINESS_VEHICLE_YEARLY_CHF, yearlyPriceChf } from '@strainovic/ai-proxy/plans'
+import { waehle } from '../lib/app-sprache'
 import { formatCurrency } from '../lib/locale'
+import texte from '../texte/app/fahrzeuge'
 
 export interface VehicleLimitState {
   /** true, wenn kein weiteres Fahrzeug im Plan enthalten ist */
   reached: boolean
-  /** Hinweistext für die Fahrzeugliste; leer, wenn nichts zu sagen ist */
+  /** Hinweistext für die Fahrzeugliste in der App-Sprache; leer, wenn nichts zu sagen ist */
   note: string
 }
 
@@ -19,9 +21,8 @@ export function vehicleLimit(count: number, plan: Plan | undefined, billingEnabl
   if (!billingEnabled || !max || plan?.perVehicle || count < max)
     return { reached: false, note: '' }
   const next = count + 1
-  const word = ['', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn'][next] ?? String(next)
   return {
     reached: true,
-    note: `Dein Privatplan deckt ${max} ${max === 1 ? 'Fahrzeug' : 'Fahrzeuge'}. Ab dem ${max === 5 ? 'sechsten' : 'nächsten'} gilt der Betriebspreis: ${formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF)} pro Fahrzeug und Jahr, also ${formatCurrency(yearlyPriceChf(next, 'betrieb'))} für ${word}.`,
+    note: waehle(texte).grenze(max, formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF), formatCurrency(yearlyPriceChf(next, 'betrieb')), next),
   }
 }

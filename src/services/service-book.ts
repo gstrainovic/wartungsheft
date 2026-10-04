@@ -92,7 +92,7 @@ export function mergeIntervals(rows: ScheduleRow[], intervals: ScannedInterval[]
       row.intervalMonths = months
     }
     else {
-      next.push({ key: nextKey(), type: interval.type, label: interval.label?.trim() || categoryLabel(interval.type), intervalKm: km, intervalMonths: months })
+      next.push({ key: nextKey(), type: interval.type, label: interval.label?.trim() || categoryLabel(interval.type, 'de'), intervalKm: km, intervalMonths: months })
     }
     changed++
   }
@@ -102,7 +102,7 @@ export function mergeIntervals(rows: ScheduleRow[], intervals: ScannedInterval[]
 /** Zeilen zum Speichern: ohne jedes Intervall weglassen, leere Bezeichnung mit dem Kategorienamen füllen */
 export function rowsToSchedule(rows: ScheduleRow[]): ScheduleItem[] {
   return rows
-    .map(r => ({ type: r.type, label: r.label.trim() || categoryLabel(r.type), intervalKm: r.intervalKm || 0, intervalMonths: r.intervalMonths || 0 }))
+    .map(r => ({ type: r.type, label: r.label.trim() || categoryLabel(r.type, 'de'), intervalKm: r.intervalKm || 0, intervalMonths: r.intervalMonths || 0 }))
     .filter(r => r.intervalKm > 0 || r.intervalMonths > 0)
 }
 

@@ -5,8 +5,10 @@
  * Entität `subscriptions`.
  */
 import type { ReminderSetting } from './reminders'
+import { waehle } from '../lib/app-sprache'
 import { formatDate } from '../lib/locale'
-import { APP_URL } from './reminders'
+import erinnerungTexte from '../texte/app/erinnerung'
+import { APP_URL, mailSprache } from './reminders'
 
 /** Ab so vielen verbleibenden Tagen weist die App auf das Abo hin (Tag 23 von 30) */
 export const NOTICE_DAYS_LEFT = 7
@@ -41,12 +43,12 @@ export interface TrialReminder {
 export function trialNotice(trial: TrialInfo | null | undefined): string | null {
   if (!trial)
     return null
+  const t = waehle(erinnerungTexte).hinweis
   if (!trial.active)
-    return 'Testzeit vorbei: Scannen und Chat brauchen ein Abo. Erfassen von Hand, Lesen und Exporte bleiben frei.'
+    return t.vorbei
   if (trial.daysLeft > NOTICE_DAYS_LEFT)
     return null
-  const days = trial.daysLeft === 1 ? 'noch 1 Tag' : `noch ${trial.daysLeft} Tage`
-  return `Testzeit läuft ${days}, bis ${formatDate(trial.endsAt)}. Danach brauchen Scannen und Chat ein Abo.`
+  return t.laeuft(trial.daysLeft, formatDate(trial.endsAt))
 }
 
 /** Verbleibende Tage einer Testzeit aus ihrem Beginn; dieselbe Rechnung wie `trialState` im AI-Proxy */
@@ -86,27 +88,28 @@ export function buildTrialReminders(input: {
     if (byUser.get(user.id)?.lastTrialNoticeKey === key)
       continue
     const endsAt = new Date(new Date(sub.trialStartedAt).getTime() + trialDays * 86_400_000).toISOString().slice(0, 10)
+    const sprache = mailSprache(byUser.get(user.id))
+    const t = erinnerungTexte[sprache]
+    const datum = formatDate(endsAt, sprache)
     reminders.push({
       userId: user.id,
       email: user.email,
       key,
-      subject: `Wartungsheft: Testzeit endet am ${formatDate(endsAt)}`,
+      subject: t.testzeit.betreff(datum),
       text: [
-        'Hallo',
+        t.hallo,
         '',
-        `deine Testzeit läuft noch ${NOTICE_DAYS_LEFT} Tage, bis zum ${formatDate(endsAt)}.`,
+        t.testzeit.laeuft(NOTICE_DAYS_LEFT, datum),
         '',
-        'Danach brauchen der Beleg-Scan und der Chat ein Abo. Alles andere bleibt: deine Fahrzeuge, Rechnungen und',
-        'Wartungen bleiben lesbar, Erfassen von Hand und die Exporte funktionieren weiter.',
+        t.testzeit.danach,
         '',
-        `Abo bestellen: ${APP_URL}/settings`,
+        `${t.testzeit.bestellen} ${APP_URL}/settings`,
         '',
-        'Privat kostet Wartungsheft 25 Franken im Jahr für bis zu fünf Fahrzeuge, Betriebe zahlen 36 Franken pro',
-        'Fahrzeug und Jahr und bekommen die Rechnung auf die Firma. Die Rechnung kommt per Mail, zahlbar in 30 Tagen.',
+        t.testzeit.preise,
         '',
-        `Fragen? Einfach auf diese Mail antworten. Keine Erinnerungen mehr: ${APP_URL}/settings, Abschnitt «Erinnerungen».`,
+        t.fragen(APP_URL),
         '',
-        'Wartungsheft, ein Angebot von Strainovic IT, Steinach',
+        t.signatur,
       ].join('\n'),
     })
   }

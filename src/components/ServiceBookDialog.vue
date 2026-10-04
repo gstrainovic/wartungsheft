@@ -14,13 +14,16 @@ import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import { computed, ref, watch } from 'vue'
 import { useServiceBookScan } from '../composables/useServiceBookScan'
-import { formatDate, formatNumber, LOCALE } from '../lib/locale'
+import { useSprache } from '../composables/useSprache'
+import { formatDate, formatNumber, zahlenLocale } from '../lib/locale'
 import { MAINTENANCE_CATEGORIES } from '../services/categories'
 import { saveMaintenances } from '../services/maintenance-save'
-import { categoryLabel } from '../services/report'
+import { categoryLabel, planLabel } from '../services/report'
 import { mergeIntervals, rowsToSchedule, scheduleRows, serviceBookEntries } from '../services/service-book'
 import { useMaintenancesStore } from '../stores/maintenances'
 import { useVehiclesStore } from '../stores/vehicles'
+import allgemein from '../texte/app/allgemein'
+import texte from '../texte/app/serviceheft'
 
 const props = defineProps<{
   visible: boolean
@@ -32,6 +35,8 @@ const emit = defineEmits<{ 'update:visible': [value: boolean], 'saved': [] }>()
 const vehiclesStore = useVehiclesStore()
 const maintenancesStore = useMaintenancesStore()
 const scan = useServiceBookScan()
+const { t } = useSprache(texte)
+const { t: a } = useSprache(allgemein)
 
 const rows = ref<ScheduleRow[]>([])
 const entries = ref<BookEntry[]>([])
@@ -39,7 +44,7 @@ const scanSummary = ref('')
 const newType = ref<MaintenanceCategory | null>(null)
 const saving = ref(false)
 
-const categoryOptions = MAINTENANCE_CATEGORIES.map(c => ({ value: c, label: categoryLabel(c) }))
+const categoryOptions = computed(() => MAINTENANCE_CATEGORIES.map(c => ({ value: c, label: categoryLabel(c) })))
 const selectedEntries = computed(() => entries.value.filter(e => e.selected))
 
 watch(() => props.visible, (v) => {
@@ -68,18 +73,19 @@ async function onFiles(event: Event): Promise<void> {
   // weitere Seiten ergänzen die Liste, gleiche Einträge nicht doppelt
   const known = new Set(entries.value.map(e => e.key))
   entries.value = [...entries.value, ...found.filter(e => !known.has(e.key))]
+  const z = t.value.zusammenfassung
   const parts = [
-    merged.changed ? `${merged.changed} ${merged.changed === 1 ? 'Intervall' : 'Intervalle'} übernommen` : 'keine Hersteller-Intervalle gefunden',
-    ...(merged.ignored ? [`${merged.ignored} aus einer Checkliste verworfen`] : []),
-    found.length ? `${found.length} ${found.length === 1 ? 'Eintrag' : 'Einträge'} gefunden` : 'keine Stempel gefunden',
+    merged.changed ? z.intervalle(merged.changed) : z.keineIntervalle,
+    ...(merged.ignored ? [z.verworfen(merged.ignored)] : []),
+    found.length ? z.eintraege(found.length) : z.keineStempel,
   ]
   const duplicates = found.filter(e => e.duplicate).length
   if (duplicates)
-    parts.push(`${duplicates} schon erfasst`)
+    parts.push(z.schonErfasst(duplicates))
   const doubtful = found.filter(e => e.doubtful).length
   if (doubtful)
-    parts.push(`${doubtful} mit unklarem Kilometerstand`)
-  scanSummary.value = `${parts.join(', ')}. Bitte prüfen.`
+    parts.push(z.unklarerKm(doubtful))
+  scanSummary.value = `${parts.join(', ')}. ${z.bittePruefen}`
 }
 
 function addRow(): void {
@@ -120,7 +126,7 @@ async function save(): Promise<void> {
   <Dialog
     :visible="visible"
     modal
-    header="Serviceheft"
+    :header="t.titel"
     data-testid="service-book-dialog"
     :style="{ width: 'min(720px, 96vw)' }"
     @update:visible="emit('update:visible', $event)"
@@ -128,7 +134,7 @@ async function save(): Promise<void> {
     <section class="book-scan">
       <label class="upload-label" :class="{ disabled: scan.scanning.value }">
         <i :class="scan.scanning.value ? 'pi pi-spin pi-spinner' : 'pi pi-camera'" />
-        <span>Serviceheft-Seiten fotografieren oder PDF wählen</span>
+        <span>{{ t.fotografieren }}</span>
         <input
           type="file"
           accept="image/*,application/pdf"
@@ -141,57 +147,57 @@ async function save(): Promise<void> {
       <small v-if="scan.scanning.value" class="scan-status" role="status">{{ scan.progress.value }}</small>
       <small v-else-if="scan.failed.value" class="scan-status error" role="status">{{ scan.progress.value }} {{ scanSummary }}</small>
       <small v-else-if="scanSummary" class="scan-status" role="status">{{ scanSummary }}</small>
-      <small v-else class="scan-status">Seite mit den Wartungsintervallen und Seiten mit Stempeln. Du kannst die Werte danach anpassen.</small>
+      <small v-else class="scan-status">{{ t.hinweisScan }}</small>
     </section>
 
     <section>
-      <h4>Wartungsintervalle</h4>
+      <h4>{{ t.intervalle }}</h4>
       <p class="hint">
-        Was zuerst eintritt, Kilometer oder Monate. 0 heisst: gilt nicht. Zeilen ohne beides werden nicht gespeichert.
+        {{ t.intervalleHinweis }}
       </p>
-      <div class="interval-rows" role="table" aria-label="Wartungsintervalle">
+      <div class="interval-rows" role="table" :aria-label="t.intervalle">
         <div class="interval-row interval-head" role="row">
-          <span role="columnheader">Arbeit</span>
-          <span role="columnheader">Kilometer</span>
-          <span role="columnheader">Monate</span>
+          <span role="columnheader">{{ t.arbeit }}</span>
+          <span role="columnheader">{{ t.kilometer }}</span>
+          <span role="columnheader">{{ t.monate }}</span>
           <span />
         </div>
+        <!-- Bezeichnungen bleiben in den Daten, wie sie sind; Standard-Bezeichnungen erscheinen übersetzt (planLabel) -->
         <div v-for="row in rows" :key="row.key" class="interval-row" role="row" :data-type="row.type">
-          <InputText v-model="row.label" :aria-label="`Bezeichnung ${categoryLabel(row.type)}`" />
-          <InputNumber v-model="row.intervalKm" :locale="LOCALE" :min="0" suffix=" km" :aria-label="`${row.label} Intervall Kilometer`" />
-          <InputNumber v-model="row.intervalMonths" :min="0" :max="240" suffix=" Mt." :aria-label="`${row.label} Intervall Monate`" />
-          <Button icon="pi pi-times" text rounded severity="secondary" :aria-label="`${row.label} entfernen`" @click="removeRow(row.key)" />
+          <InputText :model-value="planLabel(row.label)" :aria-label="t.bezeichnung(categoryLabel(row.type))" @update:model-value="v => row.label = v ?? ''" />
+          <InputNumber v-model="row.intervalKm" :locale="zahlenLocale()" :min="0" suffix=" km" :aria-label="t.intervallKm(planLabel(row.label))" />
+          <InputNumber v-model="row.intervalMonths" :min="0" :max="240" :suffix="t.monateEinheit" :aria-label="t.intervallMonate(planLabel(row.label))" />
+          <Button icon="pi pi-times" text rounded severity="secondary" :aria-label="t.entfernen(planLabel(row.label))" @click="removeRow(row.key)" />
         </div>
       </div>
       <div class="add-row">
-        <Select v-model="newType" :options="categoryOptions" option-label="label" option-value="value" placeholder="Weitere Arbeit" aria-label="Weitere Arbeit" />
-        <Button label="Hinzufügen" icon="pi pi-plus" text :disabled="!newType" @click="addRow" />
+        <Select v-model="newType" :options="categoryOptions" option-label="label" option-value="value" :placeholder="t.weitereArbeit" :aria-label="t.weitereArbeit" />
+        <Button :label="t.hinzufuegen" icon="pi pi-plus" text :disabled="!newType" @click="addRow" />
       </div>
     </section>
 
     <section v-if="entries.length">
-      <h4>Stempel aus dem Serviceheft</h4>
+      <h4>{{ t.stempel }}</h4>
       <p class="hint">
-        Angekreuzte Einträge werden als erledigte Wartungen gespeichert. Handschrift liest die KI nicht immer richtig,
-        darum vor dem Speichern Datum und Kilometer vergleichen.
+        {{ t.stempelHinweis }}
       </p>
       <div class="book-entries">
         <label v-for="entry in entries" :key="entry.key" class="book-entry" :class="{ duplicate: entry.duplicate || entry.doubtful }">
-          <Checkbox v-model="entry.selected" binary :aria-label="`${categoryLabel(entry.type)} ${formatDate(entry.doneAt)} übernehmen`" />
+          <Checkbox v-model="entry.selected" binary :aria-label="t.uebernehmen(`${categoryLabel(entry.type)} ${formatDate(entry.doneAt)}`)" />
           <span class="entry-main">
             <strong>{{ categoryLabel(entry.type) }}</strong> · {{ formatDate(entry.doneAt) }}<template v-if="entry.mileage"> · {{ formatNumber(entry.mileage) }} km</template>
             <small v-if="entry.description || entry.workshop">{{ [entry.workshop, entry.description].filter(Boolean).join(': ') }}</small>
           </span>
-          <small v-if="entry.duplicate" class="duplicate-note">schon erfasst</small>
-          <small v-else-if="entry.doubtful" class="duplicate-note">km prüfen</small>
+          <small v-if="entry.duplicate" class="duplicate-note">{{ t.schonErfasst }}</small>
+          <small v-else-if="entry.doubtful" class="duplicate-note">{{ t.kmPruefen }}</small>
         </label>
       </div>
     </section>
 
     <template #footer>
-      <Button label="Abbrechen" text severity="secondary" @click="emit('update:visible', false)" />
+      <Button :label="a.abbrechen" text severity="secondary" @click="emit('update:visible', false)" />
       <Button
-        :label="selectedEntries.length ? `Plan und ${selectedEntries.length} ${selectedEntries.length === 1 ? 'Eintrag' : 'Einträge'} speichern` : 'Plan speichern'"
+        :label="selectedEntries.length ? t.planUndEintraege(selectedEntries.length) : t.planSpeichern"
         :loading="saving"
         :disabled="scan.scanning.value"
         @click="save"
