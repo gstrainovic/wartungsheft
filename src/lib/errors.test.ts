@@ -13,6 +13,20 @@ describe('userMessage', () => {
     expect(userMessage(Object.assign(new Error(proxy), { statusCode: 402 }))).toBe(proxy)
   })
 
+  it('übersetzt Meldungen in die App-Sprache, die deutsche des Proxys wird zur eigenen', async () => {
+    const { setAppSprache } = await import('./app-sprache')
+    setAppSprache('fr')
+    try {
+      const proxy = 'Monatslimit erreicht: 500000 Chat-Tokens im Plan Gratis. Upgrade in den Einstellungen.'
+      expect(userMessage(Object.assign(new Error(proxy), { statusCode: 402 }))).toBe('Limite mensuelle atteinte. Passe à un abonnement supérieur dans les réglages.')
+      expect(userMessage(Object.assign(new Error('Testzeit vorbei: KI-Scan und Chat brauchen ein Abo.'), { statusCode: 402 }))).toBe('Période d\'essai terminée. Tu trouves l\'abonnement dans les réglages.')
+      expect(userMessage(new TypeError('Failed to fetch'))).toBe('Pas de connexion. Vérifie Internet.')
+    }
+    finally {
+      setAppSprache('de')
+    }
+  })
+
   it('bittet bei 429 um Geduld', () => {
     expect(userMessage(Object.assign(new Error('Too many'), { status: 429 }))).toBe('Zu viele Anfragen, bitte kurz warten.')
     expect(userMessage(new Error('Rate limit 429'))).toBe('Zu viele Anfragen, bitte kurz warten.')

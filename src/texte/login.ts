@@ -1,6 +1,7 @@
 import type { Sprache } from '../lib/sprache'
 
-// Anmeldeseite (LoginPage.vue). Die Mail mit dem Code und die App danach sind deutsch.
+// Anmeldeseite (LoginPage.vue). Die Mail mit dem Code ist deutsch (Vorlage des InstantDB-Servers), die App danach
+// spricht die Sprache dieser Seite (src/lib/app-sprache.ts).
 const de = {
   willkommen: 'Willkommen zurück.',
   neu: 'Neu hier? 30 Tage alles gratis. Kein Passwort — wir schicken dir einen Code.',

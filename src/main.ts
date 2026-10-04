@@ -4,8 +4,11 @@ import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
-import { createApp } from 'vue'
+import { createApp, watch } from 'vue'
 import App from './App.vue'
+import { appSprache } from './lib/app-sprache'
+import { primeVueSprache } from './lib/primevue-sprache'
+import { sprachTag } from './lib/sprache'
 import router from './router'
 
 import 'primeicons/primeicons.css'
@@ -37,6 +40,18 @@ app.use(PrimeVue, {
 })
 app.use(ToastService)
 app.use(ConfirmationService)
+
+// Sprache der App (src/lib/app-sprache.ts): PrimeVue-Texte und lang-Attribut hinter der Anmeldung; die öffentlichen
+// Seiten setzen lang selbst über page-meta
+watch(appSprache, (sprache) => {
+  primeVueSprache(app.config.globalProperties.$primevue.config.locale as Record<string, any>, sprache)
+  if (router.currentRoute.value.meta.public !== true)
+    document.documentElement.lang = sprachTag(sprache)
+}, { immediate: true })
+router.afterEach((to) => {
+  if (to.meta.public !== true)
+    document.documentElement.lang = sprachTag(appSprache.value)
+})
 
 app.mount('#app')
 // Vorgerenderter Inhalt ist jetzt ersetzt (src/lib/prerender.ts), die Seite darf wieder sichtbar sein

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_CURRENCY, formatCurrency, formatDate, formatMonth, formatNumber, normalizeCurrency } from './locale'
+import { DEFAULT_CURRENCY, formatCurrency, formatDate, formatMonth, formatNumber, normalizeCurrency, zahlenLocale } from './locale'
 
 // Schweizer Standard: CHF, Apostroph als Tausendertrenner, Punkt als Dezimaltrenner
 describe('locale', () => {
@@ -45,6 +45,33 @@ describe('locale', () => {
     expect(formatDate(undefined)).toBe('')
     expect(formatDate('kaputt')).toBe('kaputt')
     expect(formatMonth('2026-09')).toBe('September 2026')
+  })
+
+  it('formatiert je Sprache: Schweizer Format für de, fr, it, britisches für en', () => {
+    expect(formatCurrency(1234.5, 'CHF', 'fr')).toBe('CHF 1\'234.50')
+    expect(formatCurrency(1234.5, 'CHF', 'it')).toBe('CHF 1\'234.50')
+    expect(formatCurrency(1234.5, 'CHF', 'en')).toBe('CHF 1,234.50')
+    expect(formatNumber(45000, 0, 'en')).toBe('45,000')
+    expect(formatDate('2025-04-03', 'fr')).toBe('03.04.2025')
+    expect(formatDate('2025-04-03', 'it')).toBe('03.04.2025')
+    expect(formatDate('2025-04-03', 'en')).toBe('03/04/2025')
+    expect(formatDate(new Date(2024, 0, 31), 'en')).toBe('31/01/2024')
+    expect(formatMonth('2026-09', 'fr')).toBe('septembre 2026')
+    expect(formatMonth('2026-03', 'it')).toBe('marzo 2026')
+    expect(formatMonth('2026-09', 'en')).toBe('September 2026')
+  })
+
+  it('folgt ohne Angabe der Sprache der App', async () => {
+    const { setAppSprache } = await import('./app-sprache')
+    setAppSprache('en')
+    try {
+      expect(formatDate('2025-04-03')).toBe('03/04/2025')
+      expect(zahlenLocale()).toBe('en-GB')
+    }
+    finally {
+      setAppSprache('de')
+    }
+    expect(zahlenLocale()).toBe('de-CH')
   })
 
   it('formatiert Kilometer ohne Nachkommastellen', () => {

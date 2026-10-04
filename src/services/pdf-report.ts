@@ -109,7 +109,7 @@ function renderVehicle(doc: jsPDF, y: number, { vehicle, invoices, maintenances,
   const convertedCount = years.reduce((n, r) => n + r.converted, 0)
   autoTable(doc, {
     startY: y,
-    head: [['Jahr', 'Währung', ...categories.map(categoryLabel), 'Total']],
+    head: [['Jahr', 'Währung', ...categories.map(c => categoryLabel(c)), 'Total']],
     body: years.length
       ? years.map(r => [String(r.year), r.currency, ...categories.map(c => r.byCategory[c] === undefined ? '' : formatNumber(r.byCategory[c], 2)), formatNumber(r.total, 2)])
       : [['', '', ...categories.map(() => ''), 'Keine Rechnungen']],

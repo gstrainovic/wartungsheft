@@ -1,13 +1,9 @@
 /**
- * Fehler aus API, Proxy und Netz in eine kurze Nutzermeldung übersetzen.
+ * Fehler aus API, Proxy und Netz in eine kurze Nutzermeldung in der App-Sprache übersetzen.
  * Technische Details gehen nur in die Konsole, nie in die Oberfläche.
  */
-
-const LIMIT = 'Monatslimit erreicht. Upgrade in den Einstellungen.'
-const RATE = 'Zu viele Anfragen, bitte kurz warten.'
-const OFFLINE = 'Keine Verbindung. Bitte Internet prüfen.'
-const AUTH = 'Bitte neu anmelden.'
-const GENERIC = 'Das hat nicht geklappt. Bitte nochmals versuchen.'
+import texte from '../texte/app/fehler'
+import { appSprache, waehle } from './app-sprache'
 
 function statusOf(err: unknown): number | undefined {
   if (!err || typeof err !== 'object')
@@ -27,22 +23,26 @@ function messageOf(err: unknown): string {
 }
 
 export function userMessage(err: unknown): string {
+  const t = waehle(texte)
   const status = statusOf(err)
   const msg = messageOf(err)
   const has = (code: number) => status === code || new RegExp(`\\b${code}\\b`).test(msg)
 
   // 429 vor dem Monatslimit prüfen: «Rate limit» enthält ebenfalls «limit»
   if (has(429) || /rate.?limit/i.test(msg))
-    return RATE
-  // Der ai-proxy formuliert das Monatslimit schon für Nutzer (mit Kontingent und Plan)
-  if (err instanceof Error && (err.message.startsWith('Monatslimit erreicht') || err.message.startsWith('Testzeit vorbei')))
-    return err.message
+    return t.rate
+  // Der ai-proxy formuliert Monatslimit und Testzeit deutsch für Nutzer (mit Kontingent und Plan); in anderen
+  // Sprachen gilt die eigene, kürzere Meldung
+  if (err instanceof Error && err.message.startsWith('Testzeit vorbei'))
+    return appSprache.value === 'de' ? err.message : t.testzeit
+  if (err instanceof Error && err.message.startsWith('Monatslimit erreicht'))
+    return appSprache.value === 'de' ? err.message : t.limit
   if (has(402) || /limit/i.test(msg))
-    return LIMIT
+    return t.limit
   if (/failed to fetch|fetch failed|networkerror|network request failed|offline|load failed/i.test(msg))
-    return OFFLINE
+    return t.offline
   if (has(401) || has(403))
-    return AUTH
+    return t.auth
   console.error('[fehler]', err)
-  return GENERIC
+  return t.allgemein
 }
