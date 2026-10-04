@@ -1,3 +1,4 @@
+import type { Sprache } from '../lib/sprache'
 /**
  * Auswertungen für Kostenübersicht, CSV-Export (Treuhänder, Excel) und PDF-Dossier (Verkauf).
  * Reine Funktionen ohne DOM, damit sie im Unit-Test laufen. Mit `homeCurrency` und `rates`
@@ -7,34 +8,35 @@
 import type { Invoice } from '../stores/invoices'
 import type { Maintenance } from '../stores/maintenances'
 import type { RateMap } from './fx'
+import { appSprache, waehle } from '../lib/app-sprache'
 import { formatDate, formatNumber, normalizeCurrency } from '../lib/locale'
+import auswertungTexte from '../texte/app/auswertung'
+import kategorienTexte from '../texte/app/kategorien'
 import { rateKey } from './fx'
 
 /** Differenz zwischen Total (brutto) und Positionen (meist netto), damit die Kategorien zum Total addieren */
 export const UNASSIGNED_CATEGORY = 'nicht_zugeordnet'
 
-const CATEGORY_LABELS: Record<string, string> = {
-  oelwechsel: 'Ölwechsel',
-  inspektion: 'Inspektion / Service',
-  bremsen: 'Bremsen',
-  reifen: 'Reifen',
-  luftfilter: 'Luftfilter',
-  zahnriemen: 'Zahnriemen',
-  bremsflüssigkeit: 'Bremsflüssigkeit',
-  klimaanlage: 'Klimaanlage',
-  tuev: 'MFK / Prüfung',
-  karosserie: 'Karosserie',
-  elektrik: 'Elektrik',
-  fahrwerk: 'Fahrwerk',
-  auspuff: 'Auspuff',
-  kuehlung: 'Kühlung',
-  autoglas: 'Autoglas',
-  sonstiges: 'Sonstiges',
-  [UNASSIGNED_CATEGORY]: 'Nicht zugeordnet / MwSt.',
+/** Kategorie lesbar in der App-Sprache (Tabelle in src/texte/app/kategorien.ts); Unbekanntes bleibt stehen */
+export function categoryLabel(category: string, sprache: Sprache = appSprache.value): string {
+  return (kategorienTexte[sprache].kategorien as Record<string, string>)[category] ?? category
 }
 
-export function categoryLabel(category: string): string {
-  return CATEGORY_LABELS[category] ?? category
+/**
+ * Gespeicherte Bezeichnung (Wartungsplan, Beschreibung einer Wartung) in der App-Sprache: Standard-Bezeichnungen
+ * und Kategorien stehen deutsch in den Daten und werden übersetzt, eigene Texte bleiben, wie sie sind.
+ */
+export function planLabel(label: string | undefined | null, sprache: Sprache = appSprache.value): string {
+  if (!label)
+    return ''
+  const de = kategorienTexte.de
+  const ziel = kategorienTexte[sprache]
+  for (const gruppe of ['plan', 'kategorien'] as const) {
+    const eintrag = Object.entries(de[gruppe]).find(([, text]) => text === label)
+    if (eintrag)
+      return (ziel[gruppe] as Record<string, string>)[eintrag[0]]!
+  }
+  return label
 }
 
 /** Kilometerstand für Anzeige; 0 oder fehlend bedeutet unbekannt und bleibt leer */
@@ -167,9 +169,11 @@ export function invoicesToCsv(invoices: Invoice[], vehicle: VehicleInfo, opts?: 
 }
 
 export function invoicesToCsvRows(entries: { inv: Invoice, vehicle: VehicleInfo }[], opts?: CurrencyOptions): string {
-  const header = ['Fahrzeug', 'Kennzeichen', 'Datum', 'Werkstatt', 'Kilometerstand', 'Kategorie', 'Beschreibung', 'Betrag', 'Währung']
+  const t = waehle(auswertungTexte)
+  const c = t.csv
+  const header = [c.fahrzeug, c.kontrollschild, c.datum, c.werkstatt, c.kilometerstand, c.kategorie, c.beschreibung, c.betrag, c.waehrung]
   if (opts)
-    header.push(`Betrag ${opts.homeCurrency}`, 'Kurs')
+    header.push(`${c.betrag} ${opts.homeCurrency}`, c.kurs)
   const rows: string[][] = []
   const sorted = [...entries].sort((a, b) => a.inv.date.localeCompare(b.inv.date))
   for (const { inv, vehicle } of sorted) {
@@ -178,7 +182,7 @@ export function invoicesToCsvRows(entries: { inv: Invoice, vehicle: VehicleInfo 
     const items = itemsOf(inv)
     const diff = round2((inv.totalAmount ?? 0) - items.reduce((s, i) => s + (i.amount ?? 0), 0))
     const withDiff = diff > 0.005
-      ? [...items, { description: 'Differenz zum Rechnungstotal', category: UNASSIGNED_CATEGORY, amount: diff }]
+      ? [...items, { description: t.differenz, category: UNASSIGNED_CATEGORY, amount: diff }]
       : items
     for (const item of withDiff) {
       const row = [
@@ -209,5 +213,5 @@ export function invoicesToCsvRows(entries: { inv: Invoice, vehicle: VehicleInfo 
 export function maintenanceRows(maintenances: Maintenance[]): string[][] {
   return [...maintenances]
     .sort((a, b) => b.doneAt.localeCompare(a.doneAt))
-    .map(m => [formatDate(m.doneAt), m.description || categoryLabel(m.type), formatKm(m.mileageAtService)])
+    .map(m => [formatDate(m.doneAt), planLabel(m.description) || categoryLabel(m.type), formatKm(m.mileageAtService)])
 }

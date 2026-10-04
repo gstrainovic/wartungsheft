@@ -69,6 +69,20 @@ describe('categoryLabel', () => {
     expect(categoryLabel('sonstiges')).toBe('Sonstiges')
     expect(categoryLabel('xyz')).toBe('xyz')
   })
+
+  it('folgt der App-Sprache oder der angegebenen', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    expect(categoryLabel('tuev', 'fr')).toBe('Expertise (MFK)')
+    setAppSprache('en')
+    try {
+      expect(categoryLabel('reifen')).toBe('Tyres')
+      const csv = invoicesToCsv(invoices, { make: 'VW', model: 'Caddy', licensePlate: 'SG 12345' })
+      expect(csv.slice(1).split('\r\n')[0]).toBe('Vehicle;Number plate;Date;Garage;Mileage;Category;Description;Amount;Currency')
+    }
+    finally {
+      setAppSprache('de')
+    }
+  })
 })
 
 describe('invoicesToCsv', () => {

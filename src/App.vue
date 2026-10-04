@@ -9,19 +9,27 @@ import ChatDrawer from './components/ChatDrawer.vue'
 import FeedbackDialog from './components/FeedbackDialog.vue'
 import { useAuth } from './composables/useAuth'
 import { useOfflineScanQueue } from './composables/useOfflineScanQueue'
+import { useSprache } from './composables/useSprache'
 import { ohneSprache } from './lib/sprache'
+import { useRemindersStore } from './stores/reminders'
+import allgemein from './texte/app/allgemein'
 
 const router = useRouter()
 const route = useRoute()
 const drawer = ref(false)
+const { t } = useSprache(allgemein)
 const chatOpen = ref(false)
 const feedbackOpen = ref(false)
 const { user, isLoading, signOut } = useAuth()
 // Offline fotografierte Belege: Scan nachholen, sobald wieder Verbindung besteht
 const scanQueue = useOfflineScanQueue()
+// Einstellungen am Benutzer laden: bringt die dort gespeicherte Sprache auf dieses Gerät (src/lib/app-sprache.ts)
+const reminders = useRemindersStore()
 watch(user, (u) => {
-  if (u)
+  if (u) {
     scanQueue.runQueue()
+    reminders.load().catch(err => console.error('[app] Einstellungen laden', err))
+  }
 })
 
 const isPublicRoute = computed(() => route.meta.public === true)
@@ -63,7 +71,7 @@ function handleSignOut() {
             icon="pi pi-bars"
             text
             rounded
-            aria-label="Menu"
+            :aria-label="t.navigation.menu"
             @click="drawer = !drawer"
           />
           <AppLogo size="1.75rem" />
@@ -71,32 +79,32 @@ function handleSignOut() {
         </div>
       </header>
 
-      <Drawer v-model:visible="drawer" header="Navigation">
+      <Drawer v-model:visible="drawer" :header="t.navigation.titel">
         <nav class="nav-list">
           <RouterLink to="/dashboard" class="nav-item" @click="drawer = false">
             <i class="pi pi-home" />
-            <span>Übersicht</span>
+            <span>{{ t.navigation.uebersicht }}</span>
           </RouterLink>
           <RouterLink to="/vehicles" class="nav-item" @click="drawer = false">
             <i class="pi pi-car" />
-            <span>Fahrzeuge</span>
+            <span>{{ t.navigation.fahrzeuge }}</span>
           </RouterLink>
           <a class="nav-item" href="#" @click.prevent="openChat">
             <i class="pi pi-comments" />
-            <span>KI-Assistent</span>
+            <span>{{ t.navigation.assistent }}</span>
           </a>
           <RouterLink to="/settings" class="nav-item" @click="drawer = false">
             <i class="pi pi-cog" />
-            <span>Einstellungen</span>
+            <span>{{ t.navigation.einstellungen }}</span>
           </RouterLink>
           <a class="nav-item" href="#" data-testid="open-feedback" @click.prevent="openFeedback">
             <i class="pi pi-megaphone" />
-            <span>Fehler melden oder Wunsch</span>
+            <span>{{ t.navigation.feedback }}</span>
           </a>
           <hr class="nav-divider">
           <a class="nav-item nav-signout" href="#" @click.prevent="handleSignOut">
             <i class="pi pi-sign-out" />
-            <span>Abmelden</span>
+            <span>{{ t.navigation.abmelden }}</span>
           </a>
         </nav>
       </Drawer>

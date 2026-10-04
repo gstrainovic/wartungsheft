@@ -1,6 +1,6 @@
 import type { DueResult } from './maintenance-schedule'
 import { describe, expect, it } from 'vitest'
-import { addMonths, checkDueMaintenances, doneFormInitial, dueDescription, dueForVehicle, fleetDueList, getMaintenanceSchedule, vehicleDueStatus } from './maintenance-schedule'
+import { addMonths, checkDueMaintenances, doneFormInitial, DUE_STATUS_VIEW, dueDescription, dueForVehicle, fleetDueList, getMaintenanceSchedule, planLabel, vehicleDueStatus } from './maintenance-schedule'
 
 const schedule = getMaintenanceSchedule()
 
@@ -93,6 +93,38 @@ describe('dueDescription', () => {
     expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'due', nextDueDate: '2026-10-01' })).toBe('fällig am 01.10.2026')
     expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'done', nextDueDate: '2027-10-01', nextDueMileage: 90000 })).toBe('nächste am 01.10.2027 oder bei 90\'000 km')
     expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'unknown' })).toBe('noch nie erfasst')
+  })
+
+  it('spricht die App-Sprache', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    setAppSprache('fr')
+    try {
+      expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'done', nextDueDate: '2027-10-01', nextDueMileage: 90000 })).toBe('prochain le 01.10.2027 ou à 90\'000 km')
+      expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'unknown', plannedAt: '2027-01-05' })).toBe('Rendez-vous le 05.01.2027')
+      expect(DUE_STATUS_VIEW.overdue.label).toBe('En retard')
+    }
+    finally {
+      setAppSprache('de')
+    }
+    expect(DUE_STATUS_VIEW.overdue.label).toBe('Überfällig')
+  })
+})
+
+describe('planLabel', () => {
+  it('übersetzt die Standard-Bezeichnungen und lässt eigene stehen', async () => {
+    const { setAppSprache } = await import('../lib/app-sprache')
+    expect(planLabel('Bremsen prüfen')).toBe('Bremsen prüfen')
+    setAppSprache('it')
+    try {
+      expect(planLabel('Bremsen prüfen')).toBe('Controllo dei freni')
+      expect(planLabel('Ölwechsel')).toBe('Cambio dell\'olio')
+      expect(planLabel('Karosserie')).toBe('Carrozzeria')
+      expect(planLabel('Getriebeöl')).toBe('Getriebeöl')
+      expect(planLabel(undefined)).toBe('')
+    }
+    finally {
+      setAppSprache('de')
+    }
   })
 })
 

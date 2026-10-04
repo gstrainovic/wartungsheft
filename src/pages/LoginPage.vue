@@ -7,9 +7,12 @@ import AppLogo from '../components/AppLogo.vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import { useAuth } from '../composables/useAuth'
 import { useSprache } from '../composables/useSprache'
+import { setAppSprache } from '../lib/app-sprache'
 import loginTexte from '../texte/login'
 
-const { t, pfad } = useSprache(loginTexte)
+const { t, pfad, sprache } = useSprache(loginTexte)
+// Die App nach der Anmeldung spricht die Sprache der Login-Seite, bis am Benutzer eine andere gespeichert ist
+setAppSprache(sprache.value)
 const { sendMagicCode, signInWithMagicCode, googleAuthUrl, knownEmail, forgetKnownAccount } = useAuth()
 const googleUrl = googleAuthUrl()
 

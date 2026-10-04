@@ -1,6 +1,11 @@
 import type { MaintenanceCategory } from './ai'
+import { waehle } from '../lib/app-sprache'
 import { formatDate, formatNumber } from '../lib/locale'
+import kategorienTexte from '../texte/app/kategorien'
+import planTexte from '../texte/app/wartungsplan'
 import { categoryLabel } from './report'
+
+export { planLabel } from './report'
 
 export interface ScheduleItem {
   type: MaintenanceCategory
@@ -21,12 +26,24 @@ export interface LastMaintenance {
 /** done = erledigt und nicht bald fällig, due = innerhalb der Vorwarnung, overdue = überschritten, unknown = kein Eintrag vorhanden */
 export type DueStatus = 'done' | 'due' | 'overdue' | 'unknown'
 
+interface StatusView { readonly label: string, icon: string, color: string, severity: 'danger' | 'warn' | 'success' | 'secondary' }
+
+function view(status: DueStatus, rest: Omit<StatusView, 'label'>): StatusView {
+  // Bezeichnung als Getter: folgt der App-Sprache, auch reaktiv im Template
+  return {
+    ...rest,
+    get label() {
+      return waehle(planTexte).status[status]
+    },
+  }
+}
+
 /** Darstellung eines Status, gleich in Dashboard und Wartungsplan der Fahrzeugseite */
-export const DUE_STATUS_VIEW: Record<DueStatus, { label: string, icon: string, color: string, severity: 'danger' | 'warn' | 'success' | 'secondary' }> = {
-  overdue: { label: 'Überfällig', icon: 'pi pi-exclamation-triangle', color: 'var(--p-red-500)', severity: 'danger' },
-  due: { label: 'Bald fällig', icon: 'pi pi-clock', color: 'var(--p-yellow-500)', severity: 'warn' },
-  unknown: { label: 'Kein Eintrag', icon: 'pi pi-question-circle', color: 'var(--p-text-muted-color)', severity: 'secondary' },
-  done: { label: 'OK', icon: 'pi pi-check-circle', color: 'var(--p-green-500)', severity: 'success' },
+export const DUE_STATUS_VIEW: Record<DueStatus, StatusView> = {
+  overdue: view('overdue', { icon: 'pi pi-exclamation-triangle', color: 'var(--p-red-500)', severity: 'danger' }),
+  due: view('due', { icon: 'pi pi-clock', color: 'var(--p-yellow-500)', severity: 'warn' }),
+  unknown: view('unknown', { icon: 'pi pi-question-circle', color: 'var(--p-text-muted-color)', severity: 'secondary' }),
+  done: view('done', { icon: 'pi pi-check-circle', color: 'var(--p-green-500)', severity: 'success' }),
 }
 
 /** Vorwarnung: so viele Tage oder Kilometer vor dem Termin gilt eine Arbeit als «bald fällig» */
@@ -47,16 +64,19 @@ export interface DueResult {
   plannedAt?: string
 }
 
+// Bezeichnungen bleiben in den Daten deutsch (Zuordnung über die Beschreibung, gespeicherte Pläne); angezeigt
+// werden sie über planLabel in der App-Sprache
+const PLAN_DE = kategorienTexte.de.plan
 const DEFAULT_SCHEDULE: ScheduleItem[] = [
-  { type: 'oelwechsel', label: 'Ölwechsel', intervalKm: 15000, intervalMonths: 12 },
-  { type: 'inspektion', label: 'Inspektion', intervalKm: 30000, intervalMonths: 24 },
-  { type: 'bremsen', label: 'Bremsen prüfen', intervalKm: 30000, intervalMonths: 24 },
-  { type: 'reifen', label: 'Reifenwechsel', intervalKm: 40000, intervalMonths: 48 },
-  { type: 'luftfilter', label: 'Luftfilter', intervalKm: 40000, intervalMonths: 36 },
-  { type: 'zahnriemen', label: 'Zahnriemen', intervalKm: 120000, intervalMonths: 72 },
-  { type: 'bremsflüssigkeit', label: 'Bremsflüssigkeit', intervalKm: 60000, intervalMonths: 24 },
-  { type: 'klimaanlage', label: 'Klimaanlage Service', intervalKm: 0, intervalMonths: 24 },
-  { type: 'tuev', label: 'MFK / Prüfung', intervalKm: 0, intervalMonths: 24 },
+  { type: 'oelwechsel', label: PLAN_DE.oelwechsel, intervalKm: 15000, intervalMonths: 12 },
+  { type: 'inspektion', label: PLAN_DE.inspektion, intervalKm: 30000, intervalMonths: 24 },
+  { type: 'bremsen', label: PLAN_DE.bremsen, intervalKm: 30000, intervalMonths: 24 },
+  { type: 'reifen', label: PLAN_DE.reifen, intervalKm: 40000, intervalMonths: 48 },
+  { type: 'luftfilter', label: PLAN_DE.luftfilter, intervalKm: 40000, intervalMonths: 36 },
+  { type: 'zahnriemen', label: PLAN_DE.zahnriemen, intervalKm: 120000, intervalMonths: 72 },
+  { type: 'bremsflüssigkeit', label: PLAN_DE['bremsflüssigkeit'], intervalKm: 60000, intervalMonths: 24 },
+  { type: 'klimaanlage', label: PLAN_DE.klimaanlage, intervalKm: 0, intervalMonths: 24 },
+  { type: 'tuev', label: PLAN_DE.tuev, intervalKm: 0, intervalMonths: 24 },
 ]
 
 export function getMaintenanceSchedule(customSchedule?: ScheduleItem[]): ScheduleItem[] {
@@ -197,7 +217,8 @@ export function checkDueMaintenances(params: {
     .map(m => ({
       key: m.type,
       type: m.type,
-      label: categoryLabel(m.type),
+      // deutsch wie die Plan-Bezeichnungen, angezeigt über planLabel
+      label: categoryLabel(m.type, 'de'),
       status: 'done' as const,
       lastDoneAt: m.doneAt,
       lastMileage: knownMileage(m),
@@ -261,18 +282,21 @@ export function fleetDueList(
 
 /** Kurzbeschreibung des Termins: «fällig seit …», «fällig am …», «nächste am …», jeweils mit Kilometern falls bekannt */
 export function dueDescription(item: DueResult): string {
-  const appointment = item.plannedAt ? `Termin am ${formatDate(item.plannedAt)}` : ''
+  const t = waehle(planTexte)
+  const appointment = item.plannedAt ? t.termin(formatDate(item.plannedAt)) : ''
   if (item.status === 'unknown')
-    return appointment || 'noch nie erfasst'
+    return appointment || t.nieErfasst
   const parts: string[] = []
-  const prefix = item.status === 'overdue' ? 'fällig seit' : item.status === 'due' ? 'fällig am' : 'nächste am'
+  const prefix = item.status === 'overdue' ? t.faelligSeit : item.status === 'due' ? t.faelligAm : t.naechsteAm
   if (item.nextDueDate)
     parts.push(formatDate(item.nextDueDate))
-  if (item.nextDueMileage)
-    parts.push(`${item.status === 'overdue' ? '' : 'bei '}${formatNumber(item.nextDueMileage)} km`)
+  if (item.nextDueMileage) {
+    const km = formatNumber(item.nextDueMileage)
+    parts.push(item.status === 'overdue' ? `${km} km` : t.beiKm(km))
+  }
   if (!parts.length)
     return appointment
-  return [`${prefix} ${parts.join(' oder ')}`, appointment].filter(Boolean).join(', ')
+  return [`${prefix} ${parts.join(` ${t.oder} `)}`, appointment].filter(Boolean).join(', ')
 }
 
 /** Zustand eines Fahrzeugs für Karte und Kopfzeile; ohne jeden erfassten Eintrag «unknown», nicht «ok» */
