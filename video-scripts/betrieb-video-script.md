@@ -13,7 +13,7 @@ laufen als Untertitel über der App, zwischen den Abschnitten liegt eine Überbl
 
 | Nr. | Zeit | Bild | Quelle | Sprecher und Untertitel |
 |---|---|---|---|---|
-| 1 | 0–6 s | Vier gleiche Lieferwagen, kein Status | gezeichnet, `szenen/betrieb-problem.html` | «Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?» |
+| 1 | 0–6 s | Vier gleiche Lieferwagen, kein Status | gezeichnet, `szenen/betrieb-problem.html` | «Ein ganz normaler Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?» |
 | 2 | 6–12 s | Übersicht mit Fälligkeiten über alle Fahrzeuge | App, Szene 2 | «Ein Blick auf die Übersicht: was ansteht, für jedes Fahrzeug.» |
 | 3 | 12–19 s | Rechnung fotografieren, Felder füllen sich | App, Szene 3 | «Der Fahrer fotografiert die Werkstattrechnung. Erfasst ist sie damit auch.» |
 | 4 | 19–25 s | Kosten pro Fahrzeug und Jahr, CSV | App, Szene 4 | «Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.» |

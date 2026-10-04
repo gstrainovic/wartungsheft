@@ -85,11 +85,12 @@ ist eingecheckt.
 **Deutsch: ElevenLabs, Stimme «Andres»** (Bibliothek, Schweizerdeutsch gefärbt, `voice_id` `BfwuiKSWxqDOcSYQr6EC`),
 Modell `eleven_v3`, `voice_settings` `{"stability": 0.5, "similarity_boost": 0.75}`, Ausgabe `mp3_44100_192`.
 Natürlich, aber begeistert: Regieanweisungen in eckigen Klammern (`[excited]`, `[enthusiastic]`, `[delighted]`,
-`[curious]`, `[sighs]`) und Ausrufezeichen; die Tags werden nicht gesprochen und fallen aus den Untertiteln.
-Freigegebene Fassung des Betriebstexts (so in `BETRIEB`, je Szene ein Aufruf):
+`[curious]`, `[sighs]`, `[warm]`) und Ausrufezeichen; die Tags werden nicht gesprochen und fallen aus den Untertiteln.
+Der erste Satz eines Films steigt ruhig ein (`[warm]`, ohne Ausrufezeichen), sonst wirkt der Anfang abrupt und laut.
+Freigegebene Fassung des Betriebstexts (so in `BETRIEB_TEXT`, je Szene ein Aufruf):
 
 ```text
-[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service? [enthusiastic] Ein Blick auf die Übersicht,
+[warm] Ein ganz normaler Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service? [enthusiastic] Ein Blick auf die Übersicht,
 und schon ist klar: was ansteht, für jedes Fahrzeug! [excited] Der Fahrer fotografiert die Werkstattrechnung.
 Erfasst ist sie damit auch! [enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.
 [delighted] Und die Frage vom Montagmorgen? Beantwortet sich selbst! [excited] 36 Franken pro Fahrzeug und Jahr.
@@ -111,19 +112,19 @@ Freigegebene Hörproben des Betriebstexts, ohne Anrede (die Anrede tu/vous bzw. 
 Übersetzung der App), Vorlage für die Sprechertexte:
 
 ```text
-FR: [excited] Lundi matin dans l'entreprise. Quelle camionnette doit passer au service ? [enthusiastic] Un coup d'œil
+FR: [warm] Un lundi matin comme les autres dans l'entreprise. Quelle camionnette doit passer au service ? [enthusiastic] Un coup d'œil
 sur l'aperçu, et tout est clair : ce qui est à faire, pour chaque véhicule ! [excited] Le chauffeur photographie la
 facture du garage. Et elle est déjà saisie ! [enthusiastic] En fin d'année : les coûts par véhicule, en fichier pour
 la comptabilité. [delighted] Et la question du lundi matin ? Elle se règle toute seule ! [excited] 36 francs par
 véhicule et par an. 30 jours d'essai gratuit !
 
-IT: [excited] Lunedì mattina in azienda. Quale furgone deve andare in officina? [enthusiastic] Uno sguardo alla
+IT: [warm] Un lunedì mattina come tanti in azienda. Quale furgone deve andare in officina? [enthusiastic] Uno sguardo alla
 panoramica, ed è tutto chiaro: cosa è in scadenza, per ogni veicolo! [excited] L'autista fotografa la fattura
 dell'officina. Ed è già registrata! [enthusiastic] A fine anno: i costi per veicolo, in un file per la contabilità.
 [delighted] E la domanda del lunedì mattina? Si risolve da sola! [excited] 36 franchi per veicolo all'anno. 30 giorni
 di prova gratuita!
 
-EN: [excited] Monday morning at the company. Which van is due for a service? [enthusiastic] One look at the overview,
+EN: [warm] Just another Monday morning at the company. Which van is due for a service? [enthusiastic] One look at the overview,
 and it's all clear: what's coming up, for every vehicle! [excited] The driver snaps a photo of the garage invoice.
 And it's already recorded! [enthusiastic] At year end: costs per vehicle, as a file for the accountant. [delighted]
 And Monday's question? It answers itself! [excited] 36 francs per vehicle per year. Try it free for 30 days!
@@ -141,8 +142,15 @@ ihren Namen.
    Fedora-Python passt nicht zu faster-whisper.
 3. `npm run video:film -- sprecher` noch einmal: wählt nach Wortfehlern (Zahlwörter in allen vier Sprachen),
    Aussetzern (Pause über 0,8 s) und Lautheitsspanne (LRA), die Wahl steht in `video-scripts/sprecher-auswahl.json`.
-Für eine neue Wahl den Eintrag in der JSON löschen. Einzelnen Text testen:
-`node scripts/sprecher.ts "[excited] Text!" 1` (gibt den Pfad aus).
+Für eine neue Wahl den Eintrag in der JSON löschen. Steht die Wahl fest, holt die Pipeline nur diesen Durchlauf
+(`durchlaeufe`). Einzelnen Text testen: `node scripts/sprecher.ts "[excited] Text!" 1 [de|fr|it|en]` (gibt den Pfad
+aus; Französisch mit geschütztem Leerzeichen vor `? ! :` wie `franz()`, sonst stimmt der Schlüssel nicht).
+
+**Sparsam mit Zeichen:** Für einen einzelnen neuen Satz nur Durchlauf 1 erzeugen, per Spracherkennung prüfen und bei
+sauberer Aussprache in `sprecher-auswahl.json` mit `1` eintragen; Durchlauf 2 nur bei Fehlaussprache. Whisper hört
+«furgone» als «forgone», das ist kein Sprecherfehler. **Eine schon angehörte Aufnahme übernehmen** (z. B. eine von
+Goran abgenommene Probe): Schlüssel mit `sprecherSchluessel(text, 1, sprache)` aus `src/lib/sprecher.ts` berechnen,
+die MP3 als `video-out/sprecher/<schluessel>.mp3` ablegen und den Text mit `1` in die Auswahl eintragen.
 
 Schlüssel in `~/.config/elevenlabs/key` (Konto g.strainovic@gmail.com, Plan Creator mit kommerzieller Lizenz,
 Bibliotheksstimmen gehen über die API nur mit bezahltem Plan). Verbrauch: `GET /v1/user/subscription`, Feld

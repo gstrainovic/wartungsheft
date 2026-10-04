@@ -32,6 +32,7 @@ import { sprechen } from '../src/lib/sprecher.ts'
 import {
   abschnittDauer,
   besterDurchlauf,
+  durchlaeufe,
   musikAusdruck,
   ohneRegie,
   saetze,
@@ -170,7 +171,7 @@ const PRIVAT_TEXT: Record<Sprache, Text[]> = {
 
 const BETRIEB_TEXT: Record<Sprache, Text[]> = {
   de: [
-    { sprechen: '[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?' },
+    { sprechen: '[warm] Ein ganz normaler Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?' },
     { sprechen: '[enthusiastic] Ein Blick auf die Übersicht, und schon ist klar: was ansteht, für jedes Fahrzeug!' },
     { sprechen: '[excited] Der Fahrer fotografiert die Werkstattrechnung. Erfasst ist sie damit auch!' },
     { sprechen: '[enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.' },
@@ -178,7 +179,7 @@ const BETRIEB_TEXT: Record<Sprache, Text[]> = {
     { sprechen: '[excited] 36 Franken pro Fahrzeug und Jahr. 30 Tage gratis testen!' },
   ],
   fr: franzTexte([
-    { sprechen: '[excited] Lundi matin dans l\'entreprise. Quelle camionnette doit passer au service ?' },
+    { sprechen: '[warm] Un lundi matin comme les autres dans l\'entreprise. Quelle camionnette doit passer au service ?' },
     { sprechen: '[enthusiastic] Un coup d\'œil sur l\'aperçu, et tout est clair : ce qui est à faire, pour chaque véhicule !' },
     { sprechen: '[excited] Le chauffeur photographie la facture du garage. Et elle est déjà saisie !' },
     { sprechen: '[enthusiastic] En fin d\'année : les coûts par véhicule, en fichier pour la comptabilité.' },
@@ -186,7 +187,7 @@ const BETRIEB_TEXT: Record<Sprache, Text[]> = {
     { sprechen: '[excited] 36 francs par véhicule et par an. 30 jours d\'essai gratuit !' },
   ]),
   it: [
-    { sprechen: '[excited] Lunedì mattina in azienda. Quale furgone deve andare in officina?' },
+    { sprechen: '[warm] Un lunedì mattina come tanti in azienda. Quale furgone deve andare in officina?' },
     { sprechen: '[enthusiastic] Uno sguardo alla panoramica, ed è tutto chiaro: cosa è in scadenza, per ogni veicolo!' },
     { sprechen: '[excited] L\'autista fotografa la fattura dell\'officina. Ed è già registrata!' },
     { sprechen: '[enthusiastic] A fine anno: i costi per veicolo, in un file per la contabilità.' },
@@ -194,7 +195,7 @@ const BETRIEB_TEXT: Record<Sprache, Text[]> = {
     { sprechen: '[excited] 36 franchi per veicolo all\'anno. 30 giorni di prova gratuita!' },
   ],
   en: [
-    { sprechen: '[excited] Monday morning at the company. Which van is due for a service?' },
+    { sprechen: '[warm] Just another Monday morning at the company. Which van is due for a service?' },
     { sprechen: '[enthusiastic] One look at the overview, and it\'s all clear: what\'s coming up, for every vehicle!' },
     { sprechen: '[excited] The driver snaps a photo of the garage invoice. And it\'s already recorded!' },
     { sprechen: '[enthusiastic] At year end: costs per vehicle, as a file for the accountant.' },
@@ -299,7 +300,9 @@ async function sprecherWaehlen(texte: { text: string, sprache: Sprache }[]): Pro
     if (gesehen.has(text))
       continue
     gesehen.add(text)
-    const dateien = [await sprechen(text, 1, deps, sprache), await sprechen(text, 2, deps, sprache)]
+    const dateien: string[] = []
+    for (const n of durchlaeufe(auswahl[text]))
+      dateien.push(await sprechen(text, n, deps, sprache))
     if (auswahl[text])
       continue
     if (dateien.some(d => whisper[basename(d)] === undefined)) {
