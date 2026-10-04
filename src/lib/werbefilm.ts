@@ -266,3 +266,11 @@ export function besterDurchlauf(messungen: DurchlaufMessung[]): number {
   }
   return beste
 }
+
+/**
+ * Welche Durchläufe für einen Sprechertext gebraucht werden: neu zwei zum Vergleich, mit fester Wahl
+ * (`video-scripts/sprecher-auswahl.json`) nur der gewählte, damit eine übernommene Aufnahme keinen zweiten kostet
+ */
+export function durchlaeufe(gewaehlt: number | undefined): number[] {
+  return gewaehlt ? [gewaehlt] : [1, 2]
+}

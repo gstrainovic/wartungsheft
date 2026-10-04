@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   abschnittDauer,
   besterDurchlauf,
+  durchlaeufe,
   musikAusdruck,
   ohneRegie,
   saetze,
@@ -188,5 +189,16 @@ describe('besterDurchlauf', () => {
       { laengsteStille: 0.3, lautheitsSpanne: 1, wortfehler: 1 },
       { laengsteStille: 0.3, lautheitsSpanne: 4, wortfehler: 0 },
     ])).toBe(1)
+  })
+})
+
+describe('durchlaeufe', () => {
+  it('holt für einen neuen Text zwei Durchläufe zum Vergleich', () => {
+    expect(durchlaeufe(undefined)).toEqual([1, 2])
+  })
+
+  it('holt bei feststehender Wahl nur den gewählten Durchlauf (keine Zeichen für den anderen)', () => {
+    expect(durchlaeufe(1)).toEqual([1])
+    expect(durchlaeufe(2)).toEqual([2])
   })
 })

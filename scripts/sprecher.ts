@@ -1,12 +1,13 @@
 /**
  * Text → Sprecheraufnahme für die Werbefilme (Skill `werbefilm`, Abschnitt «Sprecher»).
  *
- *   node scripts/sprecher.ts "[excited] 30 Tage gratis testen!" [durchlauf]   # gibt den Pfad der MP3 aus
+ *   node scripts/sprecher.ts "[excited] 30 Tage gratis testen!" [durchlauf] [sprache]   # gibt den Pfad der MP3 aus
  *
  * ElevenLabs (Stimme Andres, eleven_v3) mit dem Schlüssel aus ~/.config/elevenlabs/key; ohne Schlüssel Piper mit
  * de_DE-thorsten-high (WAV). Ergebnis im Zwischenspeicher video-out/sprecher/, ein zweiter Aufruf kostet nichts.
  * Der Schlüssel wird nie ausgegeben.
  */
+import type { Sprache } from '../src/lib/sprache.ts'
 import type { SprecherDeps } from '../src/lib/sprecher.ts'
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -36,10 +37,10 @@ export function sprecherDeps(): SprecherDeps {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const [text, durchlauf = '1'] = process.argv.slice(2)
+  const [text, durchlauf = '1', sprache = 'de'] = process.argv.slice(2)
   if (!text) {
-    console.error('Aufruf: node scripts/sprecher.ts "<Text mit [Regie]>" [durchlauf]')
+    console.error('Aufruf: node scripts/sprecher.ts "<Text mit [Regie]>" [durchlauf] [de|fr|it|en]')
     process.exit(1)
   }
-  console.log(await sprechen(text, Number(durchlauf), sprecherDeps()))
+  console.log(await sprechen(text, Number(durchlauf), sprecherDeps(), sprache as Sprache))
 }
