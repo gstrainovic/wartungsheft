@@ -4,7 +4,7 @@
  * Jede Szene ist ein eigener Clip, damit der Schnitt sie einzeln kürzen und umstellen kann.
  */
 import { clearInstantDB, expect, mockInvoiceScan, test, waitForInstantDB } from '../fixtures/test-fixtures'
-import { beat, clipSpeichern, daysAgo, musterRechnungFoto, seed, showPointer, slowClick } from './szenen'
+import { aufnahmeStarten, beat, clipSpeichern, daysAgo, musterRechnungFoto, seed, showPointer, slowClick } from './szenen'
 
 const GOLF = { make: 'VW', model: 'Golf 7', year: 2016, mileage: 118_400, licensePlate: 'SG 248 901' }
 // Erfundener Name: im Film darf keine echte Werkstatt vorkommen
@@ -46,6 +46,7 @@ test.describe('Werbeclips Privathalter', () => {
     })
     await page.goto('/vehicles')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await beat(page)
 
     await slowClick(page, page.locator('.vehicle-card').first())
@@ -68,7 +69,7 @@ test.describe('Werbeclips Privathalter', () => {
     await beat(page, 3)
   })
 
-  test('Szene 3: Fälligkeit auf dem Dashboard und erledigt eintragen', async ({ page }) => {
+  test('Szene 3: Fälligkeit auf dem Dashboard und erledigt eintragen', async ({ page }, testInfo) => {
     await seed(page, {
       vehicles: [{ ...GOLF, mileage: 129_600 }],
       maintenances: [
@@ -78,6 +79,7 @@ test.describe('Werbeclips Privathalter', () => {
     })
     await page.goto('/dashboard')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await beat(page, 2)
 
     // Fälligkeitsliste oben: was ansteht, ohne Suchen
@@ -93,7 +95,7 @@ test.describe('Werbeclips Privathalter', () => {
     }
   })
 
-  test('Szene 4: Kosten und PDF-Dossier für den Verkauf', async ({ page }) => {
+  test('Szene 4: Kosten und PDF-Dossier für den Verkauf', async ({ page }, testInfo) => {
     await seed(page, {
       vehicles: [GOLF],
       invoices: [
@@ -104,6 +106,7 @@ test.describe('Werbeclips Privathalter', () => {
     })
     await page.goto('/vehicles')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await slowClick(page, page.locator('.vehicle-card').first())
     await page.waitForURL(/\/vehicles\/.+/)
 
@@ -120,11 +123,12 @@ test.describe('Werbeclips Privathalter', () => {
     }
   })
 
-  test('Szene 5: Preis und Testzeit in den Einstellungen', async ({ page }) => {
+  test('Szene 5: Preis und Testzeit in den Einstellungen', async ({ page }, testInfo) => {
     await seed(page, { vehicles: [GOLF] })
     await page.goto('/settings')
     await waitForInstantDB(page)
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await beat(page)
     const card = page.locator('.settings-card', { hasText: 'Abo & Nutzung' })
     await card.scrollIntoViewIfNeeded()

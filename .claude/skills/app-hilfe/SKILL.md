@@ -71,7 +71,7 @@ Adressen in der Search Console zur Indexierung anmelden.
 ## Werbefilme
 
 Die Filme auf den Landing Pages entstehen im Repo: `npm run video` nimmt die Szenen auf (Handy- und
-Desktop-Layout), `scripts/video-build.sh` montiert sie samt Sprecher und Untertiteln nach `public/`.
+Desktop-Layout), `npm run video:film` montiert sie samt Sprecher und Untertiteln nach `public/`.
 Ablauf, Drehbücher, Wortwahl und Fallstricke: Skill `.claude/skills/werbefilm/SKILL.md`.
 
 ## Abläufe prüfen, nicht nur Seiten

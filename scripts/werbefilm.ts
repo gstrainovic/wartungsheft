@@ -1,0 +1,484 @@
+/**
+ * Montiert die Werbefilme aus den Aufnahmen in video-out/roh/ (`npm run video`), mit Sprecher (ElevenLabs Andres,
+ * Rückfall Piper), Untertitel-Kästen im Stil der Plugin-Filme, Musik mit Absenkung unter der Stimme und
+ * Lautheit −16 LUFS. Skill `werbefilm`.
+ *
+ *   node scripts/werbefilm.ts                    # alles: Privat, Betrieb, Kurzfassungen
+ *   node scripts/werbefilm.ts privat betrieb     # nur diese Filme
+ *   node scripts/werbefilm.ts social             # nur die Kurzfassungen
+ *   node scripts/werbefilm.ts sprecher           # nur Sprecher erzeugen und den besseren Durchlauf wählen
+ *
+ * Ergebnis:
+ *   public/film-<film>.{mp4,webm}, -poster.jpg            Website, Handy 1080×1920, Untertitel eingebrannt
+ *   public/film-<film>-desktop.{mp4,webm}, -poster.jpg    Website, Desktop 1920×1080, Untertitel eingebrannt
+ *   video-out/youtube-<film>.mp4, .srt                    YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur
+ *   video-out/social-<film>.{mp4,webm}                    Kurzfassung 1080×1920 für Social und Anzeigen
+ *
+ * H.264 entsteht mit libx264 im Docker-Image von HyperFrames (Fedoras ffmpeg hat nur libopenh264), VP9 und alles
+ * andere mit dem ffmpeg des Systems. Musik: video-out/musik.mp3 (nicht im Git, Quelle im Skill).
+ */
+import type { Cue, Zeitraum } from '../src/lib/werbefilm.ts'
+import { execFileSync } from 'node:child_process'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { basename, join } from 'node:path'
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import { chromium } from '@playwright/test'
+import { sprechen } from '../src/lib/sprecher.ts'
+import {
+  abschnittDauer,
+  besterDurchlauf,
+  musikAusdruck,
+  ohneRegie,
+  saetze,
+  satzGrenzen,
+  sprechzeitenZusammenfassen,
+  srt,
+  untertitelSpur,
+  wortfehler,
+  zeitplan,
+} from '../src/lib/werbefilm.ts'
+import { sprecherDeps } from './sprecher.ts'
+
+const REPO = fileURLToPath(new URL('..', import.meta.url)).replace(/\/$/, '')
+const OUT = join(REPO, 'video-out')
+const ROH = join(OUT, 'roh')
+const TMP = join(OUT, 'tmp')
+const PUBLIC = join(REPO, 'public')
+const AUSWAHL = join(REPO, 'video-scripts/sprecher-auswahl.json')
+const WHISPER = join(OUT, 'sprecher/whisper.json')
+const MUSIK = process.env.MUSIK ?? join(OUT, 'musik.mp3')
+const SCHRIFT = join(REPO, 'video-scripts/schrift/ibm-plex-sans-latin-600-normal.woff2')
+const DOCKER_BILD = 'hyperframes-renderer:0.8.98'
+
+/** Überblendung zwischen zwei Abschnitten */
+const BLENDE = 0.45
+/** Einsatz des Sprechers nach Abschnittsbeginn */
+const VORLAUF = 0.3
+/** Luft nach dem letzten Laut, bevor der Schnitt kommt */
+const NACHLAUF = 1.2
+/** Musik: Grundpegel und Pegel unter der Stimme (linear), Rampe in Sekunden */
+const MUSIK_PEGEL = { grund: 0.2, unter: 0.05, rampe: 0.5 }
+
+/** Ausschnitt der Aufnahme: Mittelpunkt relativ zum Bild (0–1) und Vergrösserung */
+interface Blick { x: number, y: number, s: number }
+
+interface Abschnitt {
+  /** Ordner unter video-out/roh/ (ohne -desktop) */
+  clip: string
+  /** Sekunde in der Aufnahme, ab der der Abschnitt läuft */
+  start: number
+  /** Mindestlänge; mit langem Sprechertext wird der Abschnitt länger */
+  minimum: number
+  /** Sprechertext mit Regieanweisungen für ElevenLabs */
+  sprechen: string
+  /** Untertitel, falls die Schrift anders lauten muss als die Aussprache (gleiche Zahl Sätze) */
+  untertitel?: string
+  quer?: Blick
+  hoch?: Blick
+}
+
+// Titelkarten sind im Desktop-Layout klein: mittig vergrössert zeigen
+const TITEL_QUER: Blick = { x: 0.5, y: 0.5, s: 1.6 }
+// Der Rechnungsdialog steht im Desktop-Layout mittig und schmal: näher heran, damit die Felder lesbar sind
+const DIALOG_QUER: Blick = { x: 0.5, y: 0.62, s: 1.35 }
+
+/** Drehbuch video-scripts/privat-video-script.md, Wortlaut unverändert, nur Regie und Ausrufezeichen ergänzt */
+const PRIVAT: Abschnitt[] = [
+  { clip: 'szene-privat-kaeufer-fragt-nach-dem-serviceheft', start: 0, minimum: 6, sprechen: '[excited] Du willst dein Auto verkaufen. [curious] Der Käufer fragt: Gibt es ein Serviceheft?', untertitel: 'Du willst dein Auto verkaufen. Der Käufer fragt: «Gibt es ein Serviceheft?»' },
+  { clip: 'szene-privat-zettelwirtschaft-in-der-schachtel', start: 0.6, minimum: 4, sprechen: '[sighs] Und du suchst.' },
+  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, minimum: 8, sprechen: '[excited] Ab heute nicht mehr: Rechnung fotografieren genügt! [enthusiastic] Werkstatt, Datum, Betrag und Arbeiten stehen drin!', quer: DIALOG_QUER },
+  { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5, sprechen: '[enthusiastic] Wartungsheft meldet sich, bevor die nächste Arbeit fällig ist!' },
+  { clip: 'szene-4-kosten-und-pdf-dossier-fuer-den-verkauf', start: 3.5, minimum: 6.5, sprechen: '[excited] Und beim Verkauf liegt alles auf dem Tisch: das vollständige Serviceheft als PDF!' },
+  { clip: 'szene-privat-kaeufer-bekommt-die-antwort', start: 0, minimum: 4.5, sprechen: '[delighted] Alles da!', untertitel: '«Alles da!»' },
+  { clip: 'titel-6-abspann', start: 0.3, minimum: 5.5, sprechen: '[excited] 25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft punkt c h!', untertitel: '25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft.ch!', quer: TITEL_QUER },
+]
+
+/** Freigegebener Betriebstext aus dem Skill `werbefilm`, auf die Szenen verteilt */
+const BETRIEB: Abschnitt[] = [
+  { clip: 'szene-betrieb-montagmorgen-welcher-muss-zum-service', start: 0, minimum: 6, sprechen: '[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?' },
+  { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7, sprechen: '[enthusiastic] Ein Blick auf die Übersicht, und schon ist klar: was ansteht, für jedes Fahrzeug!' },
+  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, minimum: 7.5, sprechen: '[excited] Der Fahrer fotografiert die Werkstattrechnung. Erfasst ist sie damit auch!', quer: DIALOG_QUER },
+  { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5, sprechen: '[enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.' },
+  { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5, sprechen: '[delighted] Und die Frage vom Montagmorgen? Beantwortet sich selbst!' },
+  { clip: 'titel-6-abspann', start: 0.3, minimum: 5, sprechen: '[excited] 36 Franken pro Fahrzeug und Jahr. 30 Tage gratis testen!', quer: TITEL_QUER },
+]
+
+/** Kurzfassungen: Problem, Beweis, Angebot; dieselben Sprecheraufnahmen, keine neuen Credits */
+const SOCIAL_PRIVAT: Abschnitt[] = [
+  { ...PRIVAT[1]!, minimum: 3 },
+  { ...PRIVAT[2]!, minimum: 6 },
+  { ...PRIVAT[6]!, minimum: 4.5 },
+]
+const SOCIAL_BETRIEB: Abschnitt[] = [
+  { ...BETRIEB[0]!, minimum: 4 },
+  { ...BETRIEB[1]!, minimum: 5 },
+  { ...BETRIEB[5]!, minimum: 4.5 },
+]
+
+const FORMATE = {
+  quer: { w: 1920, h: 1080, suffix: '-desktop' },
+  hoch: { w: 1080, h: 1920, suffix: '' },
+} as const
+type Format = keyof typeof FORMATE
+
+// ---------- Werkzeuge ----------
+
+/** ffmpeg des Systems; bei einem Fehler mit dem Ende der Meldung */
+function ffmpegMessen(args: string[]): string {
+  try {
+    execFileSync('ffmpeg', ['-hide_banner', '-nostdin', ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 64 * 1024 * 1024 })
+    return ''
+  }
+  catch (e) {
+    throw new Error(`ffmpeg: ${(e as { stderr?: string }).stderr?.slice(-2000)}`)
+  }
+}
+
+function stderrVon(args: string[]): string {
+  const r = execFileSync('bash', ['-c', 'ffmpeg -hide_banner -nostdin "$@" 2>&1 >/dev/null', '--', ...args], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 })
+  return r
+}
+
+/** ffmpeg mit libx264: im Docker-Image von HyperFrames, Repo unter demselben Pfad eingehängt */
+function ffmpegX264(args: string[]): void {
+  execFileSync('docker', ['run', '--rm', '--user', `${process.getuid!()}:${process.getgid!()}`, '-v', `${REPO}:${REPO}`, '-w', REPO, '--entrypoint', 'ffmpeg', DOCKER_BILD, '-hide_banner', '-nostdin', '-v', 'error', '-y', ...args], { stdio: ['ignore', 'inherit', 'inherit'] })
+}
+
+function dauer(datei: string): number {
+  return Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', datei], { encoding: 'utf8' }).trim())
+}
+
+function stillen(datei: string): Zeitraum[] {
+  const log = stderrVon(['-i', datei, '-af', 'silencedetect=noise=-40dB:d=0.15', '-f', 'null', '-'])
+  const ergebnis: Zeitraum[] = []
+  let von: number | undefined
+  for (const zeile of log.split('\n')) {
+    const s = zeile.match(/silence_start: ([\d.]+)/)
+    const e = zeile.match(/silence_end: ([\d.]+)/)
+    if (s)
+      von = Number(s[1])
+    if (e && von !== undefined) {
+      ergebnis.push({ von, bis: Number(e[1]) })
+      von = undefined
+    }
+  }
+  if (von !== undefined)
+    ergebnis.push({ von, bis: dauer(datei) })
+  return ergebnis
+}
+
+function lautheitsSpanne(datei: string): number {
+  const log = stderrVon(['-i', datei, '-af', 'ebur128', '-f', 'null', '-'])
+  const lra = log.match(/LRA:\s+([\d.]+) LU/g)?.at(-1)
+  return lra ? Number(lra.match(/[\d.]+/)![0]) : 0
+}
+
+function jsonLesen<T>(pfad: string, standard: T): T {
+  return existsSync(pfad) ? JSON.parse(readFileSync(pfad, 'utf8')) as T : standard
+}
+
+// ---------- Sprecher ----------
+
+/**
+ * Je Sprechertext zwei Durchläufe (eleven_v3 betont jedes Mal anders), messen, den besseren in
+ * video-scripts/sprecher-auswahl.json festhalten. Liegt video-out/sprecher/whisper.json vor (Transkripte je Datei),
+ * zählen falsch gehörte Wörter mit. Ohne ElevenLabs-Schlüssel spricht Piper, ein Durchlauf.
+ */
+async function sprecherWaehlen(texte: string[]): Promise<Record<string, number>> {
+  const deps = sprecherDeps()
+  const auswahl = jsonLesen<Record<string, number>>(AUSWAHL, {})
+  const whisper = jsonLesen<Record<string, string>>(WHISPER, {})
+  if (!deps.schluessel) {
+    console.warn('Kein ElevenLabs-Schlüssel (~/.config/elevenlabs/key): Piper spricht')
+    return {}
+  }
+  let geaendert = false
+  for (const text of [...new Set(texte)]) {
+    const dateien = [await sprechen(text, 1, deps), await sprechen(text, 2, deps)]
+    if (auswahl[text])
+      continue
+    const messungen = dateien.map((d) => {
+      const st = stillen(d)
+      const lang = dauer(d)
+      const innen = st.filter(s => s.von > 0.05 && s.bis < lang - 0.05)
+      const erkannt = whisper[basename(d)]
+      return {
+        laengsteStille: Math.max(0, ...innen.map(s => s.bis - s.von)),
+        lautheitsSpanne: lautheitsSpanne(d),
+        wortfehler: erkannt === undefined ? undefined : wortfehler(text, erkannt),
+      }
+    })
+    auswahl[text] = besterDurchlauf(messungen) + 1
+    console.log(`Durchlauf ${auswahl[text]} für «${ohneRegie(text)}»`, JSON.stringify(messungen))
+    geaendert = true
+  }
+  if (geaendert)
+    writeFileSync(AUSWAHL, `${JSON.stringify(auswahl, null, 2)}\n`)
+  return auswahl
+}
+
+// ---------- Plan ----------
+
+interface Geplant {
+  abschnitte: Abschnitt[]
+  stimmen: string[]
+  dauern: number[]
+  starts: number[]
+  laenge: number
+  cues: Cue[]
+  sprechzeiten: Zeitraum[]
+}
+
+async function planen(abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<Geplant> {
+  const deps = sprecherDeps()
+  const stimmen: string[] = []
+  const lagen: Cue[][] = []
+  const dauern: number[] = []
+  for (const a of abschnitte) {
+    const stimme = await sprechen(a.sprechen, auswahl[a.sprechen] ?? 1, deps)
+    const lang = dauer(stimme)
+    const texte = saetze(a.untertitel ?? a.sprechen)
+    const grenzen = satzGrenzen(texte, lang, stillen(stimme))
+    lagen.push(grenzen.map((g, i) => ({ ...g, text: texte[i]! })))
+    stimmen.push(stimme)
+    dauern.push(abschnittDauer(grenzen.at(-1)!.bis, a.minimum, VORLAUF, NACHLAUF))
+  }
+  const { starts, laenge } = zeitplan(dauern, BLENDE)
+  const ton = abschnitte.map((_, i) => ({ start: starts[i]!, vorlauf: VORLAUF, saetze: lagen[i]! }))
+  const cues = untertitelSpur(ton, { nachhalten: 0.4, mindestens: 1.2 })
+  const sprechzeiten = sprechzeitenZusammenfassen(ton.map(t => ({
+    von: t.start + t.vorlauf + t.saetze[0]!.von,
+    bis: t.start + t.vorlauf + t.saetze.at(-1)!.bis,
+  })), 1.5)
+  return { abschnitte, stimmen, dauern, starts, laenge, cues, sprechzeiten }
+}
+
+// ---------- Ton ----------
+
+/** Stimme und Musik mischen, auf −16 LUFS bringen (zwei Durchgänge loudnorm) */
+function tonMischen(p: Geplant, ziel: string): void {
+  const roh = `${ziel}.roh.wav`
+  const eingaben: string[] = []
+  const filter: string[] = []
+  p.stimmen.forEach((s, i) => {
+    eingaben.push('-i', s)
+    const ms = Math.round((p.starts[i]! + VORLAUF) * 1000)
+    filter.push(`[${i}:a]aresample=48000,aformat=channel_layouts=stereo,adelay=${ms}|${ms}[v${i}]`)
+  })
+  const n = p.stimmen.length
+  filter.push(`${p.stimmen.map((_, i) => `[v${i}]`).join('')}amix=inputs=${n}:normalize=0:duration=longest[stimme]`)
+  let ausgang = '[stimme]'
+  if (existsSync(MUSIK)) {
+    eingaben.push('-stream_loop', '-1', '-i', MUSIK)
+    const ende = p.laenge
+    filter.push(`[${n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${ende},asetpts=PTS-STARTPTS,`
+      + `volume='${musikAusdruck(p.sprechzeiten, MUSIK_PEGEL)}':eval=frame,afade=t=in:d=1,afade=t=out:st=${Math.max(0, ende - 2.5)}:d=2.5[musik]`)
+    filter.push(`[stimme][musik]amix=inputs=2:normalize=0:duration=longest[mix]`)
+    ausgang = '[mix]'
+  }
+  else {
+    console.warn(`Keine Musik (${MUSIK}): Film nur mit Stimme`)
+  }
+  filter.push(`${ausgang}apad,atrim=0:${p.laenge}[aus]`)
+  ffmpegMessen(['-y', ...eingaben, '-filter_complex', filter.join(';'), '-map', '[aus]', '-ar', '48000', roh])
+  const log = stderrVon(['-i', roh, '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'])
+  const m = JSON.parse(log.slice(log.lastIndexOf('{'), log.lastIndexOf('}') + 1)) as Record<string, string>
+  ffmpegMessen(['-y', '-i', roh, '-af', `loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true`, '-ar', '48000', ziel])
+  rmSync(roh)
+}
+
+// ---------- Bild ----------
+
+interface ClipInfo { liste: string, laenge: number, breite: number, hoehe: number }
+
+function clipInfo(name: string): ClipInfo {
+  const liste = join(ROH, name, 'liste.txt')
+  if (!existsSync(liste))
+    throw new Error(`fehlt: ${liste} (zuerst npm run video)`)
+  const zeilen = readFileSync(liste, 'utf8').split('\n')
+  const laenge = zeilen.filter(z => z.startsWith('duration ')).reduce((s, z) => s + Number(z.slice(9)), 0)
+  const erstes = zeilen[0]!.match(/^file '(.+)'$/)![1]!
+  const [breite, hoehe] = execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', erstes], { encoding: 'utf8' }).trim().split(',').map(Number)
+  return { liste, laenge, breite: breite!, hoehe: hoehe! }
+}
+
+function cropFilter(info: ClipInfo, blick: Blick | undefined, w: number, h: number): string {
+  // Seitenverhältnis des Ziels herstellen, dann den Ausschnitt nehmen
+  const ziel = w / h
+  let cw = info.breite
+  let ch = cw / ziel
+  if (ch > info.hoehe) {
+    ch = info.hoehe
+    cw = ch * ziel
+  }
+  // Abrunden auf gerade Pixel: aufgerundet wäre der Ausschnitt um ein Pixel grösser als die Aufnahme (2080 > 2079)
+  const s = blick?.s ?? 1
+  cw = Math.floor(cw / s / 2) * 2
+  ch = Math.floor(ch / s / 2) * 2
+  const x = Math.min(Math.max(0, Math.round((blick?.x ?? 0.5) * info.breite - cw / 2)), info.breite - cw)
+  const y = Math.min(Math.max(0, Math.round((blick?.y ?? 0.5) * info.hoehe - ch / 2)), info.hoehe - ch)
+  return `crop=${cw}:${ch}:${x}:${y}`
+}
+
+/** Bild ohne Untertitel und Ton: Abschnitte zuschneiden, skalieren, überblenden. Schwerster Schritt (4K-Quellen) */
+function bildBauen(p: Geplant, format: Format, ziel: string): void {
+  const f = FORMATE[format]
+  const eingaben: string[] = []
+  const filter: string[] = []
+  p.abschnitte.forEach((a, i) => {
+    const info = clipInfo(`${a.clip}${f.suffix}`)
+    const d = p.dauern[i]!
+    let start = a.start
+    // Passt der Ausschnitt nicht in die Aufnahme, rückt der Start vor; reicht sie trotzdem nicht, steht das letzte Bild
+    if (start + d > info.laenge)
+      start = Math.max(0, info.laenge - d)
+    eingaben.push('-f', 'concat', '-safe', '0', '-i', info.liste)
+    let kette = `[${i}:v]fps=30,trim=start=${start.toFixed(3)},setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=${(d + 1).toFixed(3)},`
+      + `trim=duration=${d.toFixed(3)},${cropFilter(info, a[format], f.w, f.h)},scale=${f.w}:${f.h}:flags=lanczos,setsar=1,format=yuv420p`
+    if (i === 0)
+      kette += ',fade=t=in:st=0:d=0.4'
+    if (i === p.abschnitte.length - 1)
+      kette += `,fade=t=out:st=${(d - 0.6).toFixed(3)}:d=0.6`
+    filter.push(`${kette}[s${i}]`)
+  })
+  let vorher = '[s0]'
+  for (let k = 1; k < p.abschnitte.length; k++) {
+    const aus = k === p.abschnitte.length - 1 ? '[bild]' : `[x${k}]`
+    filter.push(`${vorher}[s${k}]xfade=transition=fade:duration=${BLENDE}:offset=${p.starts[k]!.toFixed(3)}${aus}`)
+    vorher = aus
+  }
+  ffmpegX264([...eingaben, '-filter_complex', filter.join(';'), '-map', '[bild]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '12', '-pix_fmt', 'yuv420p', ziel])
+}
+
+// ---------- Untertitel-Kästen ----------
+
+interface Kasten { datei: string, x: number, y: number, cue: Cue }
+
+const KASTEN_STIL: Record<Format, string> = {
+  quer: 'left:96px;bottom:72px;max-width:1500px;font-size:40px;padding:22px 34px;border-left-width:8px;',
+  hoch: 'left:56px;right:56px;bottom:170px;font-size:44px;padding:24px 32px;border-left-width:8px;',
+}
+
+/** Kästen wie im Plugin-Film: weiss, Farbrand in Wartungsheft-Grün, IBM Plex Sans; als PNG mit Alpha */
+async function kaestenRendern(cues: Cue[], format: Format, ordner: string): Promise<Kasten[]> {
+  const f = FORMATE[format]
+  const schrift = readFileSync(SCHRIFT).toString('base64')
+  const browser = await chromium.launch()
+  const page = await browser.newPage({ viewport: { width: f.w, height: f.h }, deviceScaleFactor: 1 })
+  const kaesten: Kasten[] = []
+  for (const [i, cue] of cues.entries()) {
+    const text = cue.text.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    await page.setContent(`<style>
+      @font-face { font-family: Plex; font-weight: 600; src: url(data:font/woff2;base64,${schrift}) format('woff2'); }
+      html, body { margin: 0; background: transparent; }
+      .ut { position: absolute; ${KASTEN_STIL[format]} box-sizing: border-box; background: #fff; color: #16202b;
+        border: 1.5px solid #d5dde4; border-left: 8px solid #059669; border-radius: 12px;
+        font-family: Plex, sans-serif; font-weight: 600; line-height: 1.3; }
+    </style><div class="ut">${text}</div>`)
+    await page.evaluate(() => document.fonts.ready)
+    const el = page.locator('.ut')
+    const box = (await el.boundingBox())!
+    const datei = join(ordner, `kasten-${format}-${i}.png`)
+    await el.screenshot({ path: datei, omitBackground: true })
+    kaesten.push({ datei, x: Math.round(box.x), y: Math.round(box.y), cue })
+  }
+  await browser.close()
+  return kaesten
+}
+
+/** Eingaben und Filter, die die Kästen über das Bild legen (weich ein- und ausgeblendet) */
+function kaestenFilter(kaesten: Kasten[], ersterIndex: number): { eingaben: string[], filter: string } {
+  const eingaben: string[] = []
+  const teile: string[] = []
+  let vorher = '[0:v]'
+  kaesten.forEach((k, i) => {
+    const n = ersterIndex + i
+    const { von, bis } = k.cue
+    eingaben.push('-loop', '1', '-framerate', '30', '-t', (bis + 0.1).toFixed(3), '-i', k.datei)
+    const aus = i === kaesten.length - 1 ? '[mitkasten]' : `[k${i}]`
+    teile.push(`[${n}:v]format=rgba,fade=t=in:st=${von.toFixed(3)}:d=0.25:alpha=1,fade=t=out:st=${(bis - 0.25).toFixed(3)}:d=0.25:alpha=1[p${i}]`)
+    teile.push(`${vorher}[p${i}]overlay=${k.x}:${k.y}:eof_action=pass:format=auto${aus}`)
+    vorher = aus
+  })
+  return { eingaben, filter: `${teile.join(';')};[mitkasten]format=yuv420p[v]` }
+}
+
+// ---------- Ausgabe ----------
+
+/** Website- oder Social-Fassung: Kästen einbrennen, MP4 (H.264 High, faststart, für Safari/iPhone) und WebM (VP9 Profil 0) */
+function webFassung(bild: string, ton: string, kaesten: Kasten[], ziel: string): void {
+  const { eingaben, filter } = kaestenFilter(kaesten, 2)
+  const gemeinsam = ['-i', bild, '-i', ton, ...eingaben, '-filter_complex', filter, '-map', '[v]', '-map', '1:a']
+  ffmpegX264([...gemeinsam, '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-movflags', '+faststart', `${ziel}.mp4`])
+  ffmpegMessen(['-v', 'error', '-y', ...gemeinsam, '-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '4', '-pix_fmt', 'yuv420p', '-c:a', 'libopus', '-b:a', '96k', `${ziel}.webm`])
+}
+
+function youtubeFassung(bild: string, ton: string, cues: Cue[], ziel: string): void {
+  ffmpegX264(['-i', bild, '-i', ton, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', `${ziel}.mp4`])
+  writeFileSync(`${ziel}.srt`, srt(cues))
+}
+
+function poster(film: string, sekunde: number): void {
+  ffmpegMessen(['-v', 'error', '-y', '-ss', sekunde.toFixed(2), '-i', `${film}.mp4`, '-frames:v', '1', '-q:v', '3', `${film}-poster.jpg`])
+}
+
+function bericht(datei: string): void {
+  const info = execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'stream=codec_name,width,height', '-show_entries', 'format=duration,size', '-of', 'compact=p=0:nk=1', datei], { encoding: 'utf8' })
+  console.log(`${datei.replace(`${REPO}/`, '')}: ${info.trim().split('\n').join(' · ')}`)
+}
+
+async function filmBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<void> {
+  const tmp = join(TMP, name)
+  rmSync(tmp, { recursive: true, force: true })
+  mkdirSync(tmp, { recursive: true })
+  const p = await planen(abschnitte, auswahl)
+  const ton = join(tmp, 'ton.wav')
+  tonMischen(p, ton)
+  // Poster aus dem dritten Abschnitt: die App mitten in der Arbeit
+  const posterZeit = p.starts[2]! + 3
+  for (const format of ['quer', 'hoch'] as const) {
+    const bild = join(tmp, `bild-${format}.mkv`)
+    bildBauen(p, format, bild)
+    const kaesten = await kaestenRendern(p.cues, format, tmp)
+    const ziel = join(PUBLIC, `film-${name}${FORMATE[format].suffix}`)
+    webFassung(bild, ton, kaesten, ziel)
+    poster(ziel, posterZeit)
+    bericht(`${ziel}.mp4`)
+    bericht(`${ziel}.webm`)
+    if (format === 'quer') {
+      youtubeFassung(bild, ton, p.cues, join(OUT, `youtube-${name}`))
+      bericht(join(OUT, `youtube-${name}.mp4`))
+    }
+  }
+  rmSync(tmp, { recursive: true, force: true })
+}
+
+async function kurzfassungBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<void> {
+  const tmp = join(TMP, `social-${name}`)
+  rmSync(tmp, { recursive: true, force: true })
+  mkdirSync(tmp, { recursive: true })
+  const p = await planen(abschnitte, auswahl)
+  const ton = join(tmp, 'ton.wav')
+  tonMischen(p, ton)
+  const bild = join(tmp, 'bild-hoch.mkv')
+  bildBauen(p, 'hoch', bild)
+  const ziel = join(OUT, `social-${name}`)
+  webFassung(bild, ton, await kaestenRendern(p.cues, 'hoch', tmp), ziel)
+  bericht(`${ziel}.mp4`)
+  rmSync(tmp, { recursive: true, force: true })
+}
+
+const wahl = process.argv.slice(2)
+const alles = wahl.length === 0
+const auswahl = await sprecherWaehlen([...PRIVAT, ...BETRIEB].map(a => a.sprechen))
+if (!wahl.includes('sprecher')) {
+  if (alles || wahl.includes('privat'))
+    await filmBauen('privat', PRIVAT, auswahl)
+  if (alles || wahl.includes('betrieb'))
+    await filmBauen('betrieb', BETRIEB, auswahl)
+  if (alles || wahl.includes('social')) {
+    await kurzfassungBauen('privat', SOCIAL_PRIVAT, auswahl)
+    await kurzfassungBauen('betrieb', SOCIAL_BETRIEB, auswahl)
+  }
+}

@@ -73,9 +73,8 @@ und bewusst trägst.
 Alles zusammensetzen in **Shotcut** oder **Kdenlive** (beide gratis, laufen auf Fedora). Ablauf: App-Clips aus
 `video-out/` auf die Spur legen, KI-Clips davor und dahinter, Sprecherspur darunter, Untertitel fest einbrennen.
 
-Die Aufnahmen aus Playwright sind WebM. `scripts/video-clips.sh` wandelt sie nach MP4, wenn ffmpeg einen
-H.264-Encoder hat; das ffmpeg aus den Fedora-Paketen hat keinen, dann bleibt es bei WebM in VP9 — Shotcut und
-Kdenlive nehmen das direkt.
+Die Aufnahmen liegen als Einzelbilder mit concat-Liste in `video-out/roh/<szene>/liste.txt`; ffmpeg macht daraus
+einen Clip (`ffmpeg -f concat -safe 0 -i liste.txt -vf fps=30 clip.webm`), den Shotcut und Kdenlive direkt nehmen.
 
 ## Kennzeichnung
 

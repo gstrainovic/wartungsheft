@@ -49,29 +49,21 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
-- [ ] **Filme je Sprache (DE, FR, IT, EN), YouTube mit eigener Untertitelspur.** Heute gibt es nur die deutschen Filme
-      mit eingebrannten Untertiteln; auf YouTube (Kanal strainovic-it) erscheinen sie doppelt, sobald ein Zuschauer
-      Untertitel einschaltet, weil YouTube automatische Untertitel erzeugt und YouTube Studio diese nicht abschalten
-      lässt (nur herunterladen oder bearbeiten). Ziel:
+- [ ] **Deutsche Filme auf YouTube ersetzen:** `video-out/youtube-privat.mp4` und `youtube-betrieb.mp4` (ohne
+      eingebrannte Untertitel) mit der SRT daneben als Untertitelspur hochladen (Kanal strainovic-it), die bisherigen
+      Querformate (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen; als Shorts `video-out/social-*.mp4`.
+      Bauen: Skill `werbefilm`
+- [ ] **Filme in FR, IT und EN** wie die deutschen (`npm run video:film`, Skill `werbefilm`):
       - Voraussetzung: die im Film gezeigten App-Seiten (Dashboard, Fahrzeug, Rechnung, Chat) sprechen FR, IT und EN;
         heute ist nur die Landing-Seite übersetzt (`useSprache`), siehe «Sobald über die Schweiz hinaus verkauft wird»
-      - neu im Stil der Plugin-Filme (`~/projects/zefix-uid-check/video`): HyperFrames-Komposition mit denselben Zooms
-        (`blick`/`kamera`), Untertitel im Plugin-Stil (IBM Plex Sans, weisser Kasten, Farbrand), scharfe Aufnahme per
-        Chrome-Screencast statt `recordVideo`; Quer- und Hochformat
-      - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und eigener Sprechertext in `video-scripts/`;
-        Sprecher über ElevenLabs (Skill `werbefilm`, Abschnitt «Sprecher»): DE Andres mit `eleven_v3`, gewählt;
-        FR, IT, EN noch nach Hörprobe wählen (Kandidaten Romain, Riccardo oder Valentino, Daniel). Das Abo läuft
-        bis 04.11.2026, alle Sprecher vorher erzeugen
-      - zuerst DE neu, FR/IT/EN nach der Übersetzung der App-Seiten
-      - zwei Fassungen je Film und Sprache: Webseite mit eingebrannten Untertiteln, YouTube ohne eingebrannte
-        Untertitel plus SRT-Datei als Untertitelspur; Shorts behalten eingebrannte Untertitel
-      - hochladen mit Titel und Beschreibung je Sprache, die bisherigen deutschen Querformate
-        (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen
+      - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und Sprechertext; Stimmen gewählt (FR Nathan,
+        IT Valentino, EN Adam Stone), Vorlagen im Skill. Das ElevenLabs-Abo läuft bis 04.11.2026, alle Sprecher
+        vorher erzeugen (sie bleiben in `video-out/sprecher/`)
       - `LandingVideo.vue` zeigt Film und YouTube-Link in der Sprache der Seite; der Hinweis «auf Deutsch» fällt weg.
         Der YouTube-Link liegt schon im Branch `youtube-link` (Tabelle `YOUTUBE`, Test in `landing-pages.spec.ts`),
         dort die IDs je Sprache nachtragen, dann nach `master`
-- [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-privat.webm` und `social-betrieb.webm` (je gut
-      10 Sekunden) beim ersten Beitrag oder der ersten Anzeige einsetzen
+- [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-privat.mp4` und `social-betrieb.mp4` (je rund
+      20 Sekunden, 1080×1920) beim ersten Beitrag oder der ersten Anzeige einsetzen
 
 ### Auffindbar, wenn jemand eine KI fragt
 

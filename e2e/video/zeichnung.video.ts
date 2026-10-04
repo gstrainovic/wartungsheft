@@ -4,13 +4,12 @@
  * Sekunden neu aufgenommen — derselbe Weg wie bei den App-Clips.
  *
  *   npm run video -- e2e/video/zeichnung.video.ts
- *   scripts/video-clips.sh      # sammelt die Clips nach video-out/
- *   scripts/video-build.sh      # montiert daraus den Film
+ *   npm run video:film          # montiert daraus die Filme (scripts/werbefilm.ts)
  */
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { expect, test } from '../fixtures/test-fixtures'
-import { clipSpeichern } from './szenen'
+import { aufnahmeStarten, clipSpeichern } from './szenen'
 
 /**
  * Die Animationen laufen etwa 4 Sekunden; der Rest ist Standbild für den Schnitt. Lieber zu lang als zu kurz:
@@ -46,17 +45,19 @@ const TITEL = [
 ]
 
 for (const szene of SZENEN) {
-  test(szene.name, async ({ page }) => {
+  test(szene.name, async ({ page }, testInfo) => {
     await page.goto(szeneUrl(szene.datei, szene.query))
     await expect(page.locator('.title')).toBeVisible()
+    await aufnahmeStarten(page, testInfo, 0)
     await page.waitForTimeout(LAUFZEIT)
   })
 }
 
 for (const karte of TITEL) {
-  test(karte.name, async ({ page }) => {
+  test(karte.name, async ({ page }, testInfo) => {
     await page.goto(szeneUrl('titel.html', `?t=${encodeURIComponent(karte.t)}&s=${encodeURIComponent(karte.s)}`))
     await expect(page.locator('h1')).toHaveText(karte.t)
+    await aufnahmeStarten(page, testInfo, 0)
     await page.waitForTimeout(TITELZEIT)
   })
 }
