@@ -19,35 +19,36 @@
     --warn: #f59e0b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+  html, body { width: 100vw; height: 100vh; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, #1b2638 0%, var(--bg) 70%); }
   body { display: grid; place-items: center; font-family: 'Segoe UI', system-ui, sans-serif; }
 
   .stage { position: relative; width: 100vw; height: 100vh; }
 
   .title {
-    position: absolute; top: 12vh; left: 0; right: 0; text-align: center;
-    color: var(--ink); font-size: 26px; font-weight: 600; line-height: 1.35; padding: 0 28px;
+    position: absolute; top: 9vh; left: 0; right: 0; text-align: center;
+    color: var(--ink); font-size: clamp(24px, 5vmin, 46px); font-weight: 650; line-height: 1.3; padding: 0 6vw;
     opacity: 0; animation: fade-in 700ms ease-out 400ms forwards;
   }
-  .title small { display: block; margin-top: 10px; font-size: 17px; font-weight: 400; color: #9ca3af; opacity: 0; animation: fade-in 700ms ease-out 1700ms forwards; }
+  .title small { display: block; margin-top: 0.5em; font-size: 0.62em; font-weight: 400; color: #9ca3af; opacity: 0; animation: fade-in 700ms ease-out 1700ms forwards; }
 
-  /* Höhe statt fester Grösse: die Szene wird einmal hochkant und einmal im Breitbild aufgenommen */
-  svg { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -46%); height: min(300px, 36vh); width: auto; }
+  /* An die Fläche gekoppelt: die Szene wird einmal hochkant und einmal im Breitbild aufgenommen */
+  svg { position: absolute; left: 50%; top: 58%; transform: translate(-50%, -50%); height: min(52vh, 82vw); width: auto; }
+  .karton { fill: #3f3424; opacity: 0; animation: fade-in 700ms ease-out 900ms forwards; }
 
   /* Kiste wird gezeichnet */
   .draw { fill: none; stroke: var(--ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
-          stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 1400ms ease-out 200ms forwards; }
-  .draw.delay { animation-delay: 700ms; }
+          stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 900ms ease-out 100ms forwards; }
+  .draw.delay { animation-delay: 300ms; }
 
-  /* Zettel quellen heraus */
-  .slip { opacity: 0; transform-origin: 50% 100%; animation: pop 900ms cubic-bezier(.2,.8,.3,1) forwards; }
-  .slip:nth-of-type(1) { animation-delay: 1500ms; }
-  .slip:nth-of-type(2) { animation-delay: 1750ms; }
-  .slip:nth-of-type(3) { animation-delay: 2000ms; }
-  .slip:nth-of-type(4) { animation-delay: 2250ms; }
-  .slip:nth-of-type(5) { animation-delay: 2500ms; }
+  /* Zettel quellen heraus, solange der Sprecher «Und du suchst» sagt (der Abschnitt ist nur rund vier Sekunden lang) */
+  .slip { opacity: 0; transform-origin: 50% 100%; animation: pop 800ms cubic-bezier(.2,.8,.3,1) forwards; }
+  .slip:nth-of-type(1) { animation-delay: 600ms; }
+  .slip:nth-of-type(2) { animation-delay: 800ms; }
+  .slip:nth-of-type(3) { animation-delay: 1000ms; }
+  .slip:nth-of-type(4) { animation-delay: 1200ms; }
+  .slip:nth-of-type(5) { animation-delay: 1400ms; }
 
-  .qmark { opacity: 0; animation: bob 2400ms ease-in-out 2900ms infinite, fade-in 500ms ease-out 2900ms forwards; }
+  .qmark { opacity: 0; animation: bob 2400ms ease-in-out 1700ms infinite, fade-in 500ms ease-out 1700ms forwards; }
 
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes fade-in { to { opacity: 1; } }
@@ -61,7 +62,7 @@
 </head>
 <body>
   <div class="stage">
-    <p class="title">
+    <p class="title" id="titel">
       Wann war nochmal<br>der letzte Ölwechsel?
       <small>Irgendwo in der Schachtel …</small>
     </p>
@@ -89,6 +90,7 @@
 
       <!-- Schachtel: Vorderseite deckt die Zettel ab, darum nach ihnen gezeichnet und gefüllt -->
       <path d="M44 168h242l-26 108H70z" fill="var(--bg)"/>
+      <path class="karton" d="M44 168h242l-26 108H70z"/>
       <path class="draw" d="M44 168h242l-26 108H70z"/>
       <path class="draw delay" d="M44 168l22-34h198l22 34"/>
 
@@ -100,5 +102,18 @@
       </g>
     </svg>
   </div>
+  <script>
+    // Sprache des Films (?sprache=fr); ohne Angabe bleibt der deutsche Text oben stehen
+    const TEXTE = {
+      fr: 'C’était quand, déjà,<br>la dernière vidange ?<small>Quelque part dans la boîte …</small>',
+      it: 'Quand’era<br>l’ultimo cambio dell’olio?<small>Da qualche parte nella scatola …</small>',
+      en: 'When was the last<br>oil change again?<small>Somewhere in the box …</small>',
+    }
+    const sprache = new URLSearchParams(location.search).get('sprache')
+    if (TEXTE[sprache]) {
+      document.documentElement.lang = sprache
+      document.getElementById('titel').innerHTML = TEXTE[sprache]
+    }
+  </script>
 </body>
 </html>

@@ -1,22 +1,24 @@
 /**
- * Montiert die Werbefilme aus den Aufnahmen in video-out/roh/ (`npm run video`), mit Sprecher (ElevenLabs Andres,
- * Rückfall Piper), Untertitel-Kästen im Stil der Plugin-Filme, Musik mit Absenkung unter der Stimme und
- * Lautheit −16 LUFS. Skill `werbefilm`.
+ * Montiert die Werbefilme aus den Aufnahmen in video-out/roh/ (`npm run video`), mit Sprecher (ElevenLabs, eine
+ * Stimme je Sprache, Rückfall Piper), Untertitel-Kästen im Stil der Plugin-Filme, Musik mit Absenkung unter der
+ * Stimme und Lautheit −16 LUFS. Skill `werbefilm`.
  *
- *   node scripts/werbefilm.ts                    # alles: Privat, Betrieb, Kurzfassungen
+ *   node scripts/werbefilm.ts                    # alles: Privat, Betrieb, Kurzfassungen in DE, FR, IT, EN
  *   node scripts/werbefilm.ts privat betrieb     # nur diese Filme
+ *   node scripts/werbefilm.ts fr it              # nur diese Sprachen (mit Film-Wahl kombinierbar)
  *   node scripts/werbefilm.ts social             # nur die Kurzfassungen
  *   node scripts/werbefilm.ts sprecher           # nur Sprecher erzeugen und den besseren Durchlauf wählen
  *
- * Ergebnis:
- *   public/film-<film>.{mp4,webm}, -poster.jpg            Website, Handy 1080×1920, Untertitel eingebrannt
- *   public/film-<film>-desktop.{mp4,webm}, -poster.jpg    Website, Desktop 1920×1080, Untertitel eingebrannt
- *   video-out/youtube-<film>.mp4, .srt                    YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur
- *   video-out/social-<film>.{mp4,webm}                    Kurzfassung 1080×1920 für Social und Anzeigen
+ * Ergebnis (<name> ist privat oder betrieb, ausser Deutsch mit Sprachkürzel: privat-fr, src/lib/film-datei.ts):
+ *   public/film-<name>.{mp4,webm}, -poster.jpg            Website, Handy 1080×1920, Untertitel eingebrannt
+ *   public/film-<name>-desktop.{mp4,webm}, -poster.jpg    Website, Desktop 1920×1080, Untertitel eingebrannt
+ *   video-out/youtube-<name>.mp4, .srt                    YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur
+ *   video-out/social-<name>.{mp4,webm}                    Kurzfassung 1080×1920 für Social und Anzeigen
  *
  * H.264 entsteht mit libx264 im Docker-Image von HyperFrames (Fedoras ffmpeg hat nur libopenh264), VP9 und alles
  * andere mit dem ffmpeg des Systems. Musik: video-out/musik.mp3 (nicht im Git, Quelle im Skill).
  */
+import type { Sprache } from '../src/lib/sprache.ts'
 import type { Cue, Zeitraum } from '../src/lib/werbefilm.ts'
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -24,6 +26,7 @@ import { basename, join } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
+import { filmName } from '../src/lib/film-datei.ts'
 import { sprechen } from '../src/lib/sprecher.ts'
 import {
   abschnittDauer,
@@ -34,6 +37,7 @@ import {
   satzGrenzen,
   sprechzeitenZusammenfassen,
   srt,
+  startInAufnahme,
   untertitelSpur,
   wortfehler,
   zeitplan,
@@ -68,6 +72,8 @@ interface Abschnitt {
   clip: string
   /** Sekunde in der Aufnahme, ab der der Abschnitt läuft */
   start: number
+  /** Stattdessen Sekunden vor dem Ende der Aufnahme (Szenen mit Scan, dessen Dauer je Lauf schwankt) */
+  vorEnde?: number
   /** Mindestlänge; mit langem Sprechertext wird der Abschnitt länger */
   minimum: number
   /** Sprechertext mit Regieanweisungen für ElevenLabs */
@@ -83,38 +89,129 @@ const TITEL_QUER: Blick = { x: 0.5, y: 0.5, s: 1.6 }
 // Der Rechnungsdialog steht im Desktop-Layout mittig und schmal: näher heran, damit die Felder lesbar sind
 const DIALOG_QUER: Blick = { x: 0.5, y: 0.62, s: 1.35 }
 
-/** Drehbuch video-scripts/privat-video-script.md, Wortlaut unverändert, nur Regie und Ausrufezeichen ergänzt */
-const PRIVAT: Abschnitt[] = [
-  { clip: 'szene-privat-kaeufer-fragt-nach-dem-serviceheft', start: 0, minimum: 6, sprechen: '[excited] Du willst dein Auto verkaufen. [curious] Der Käufer fragt: Gibt es ein Serviceheft?', untertitel: 'Du willst dein Auto verkaufen. Der Käufer fragt: «Gibt es ein Serviceheft?»' },
-  { clip: 'szene-privat-zettelwirtschaft-in-der-schachtel', start: 0.6, minimum: 4, sprechen: '[sighs] Und du suchst.' },
-  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, minimum: 8, sprechen: '[excited] Ab heute nicht mehr: Rechnung fotografieren genügt! [enthusiastic] Werkstatt, Datum, Betrag und Arbeiten stehen drin!', quer: DIALOG_QUER },
-  { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5, sprechen: '[enthusiastic] Wartungsheft meldet sich, bevor die nächste Arbeit fällig ist!' },
-  { clip: 'szene-4-kosten-und-pdf-dossier-fuer-den-verkauf', start: 3.5, minimum: 6.5, sprechen: '[excited] Und beim Verkauf liegt alles auf dem Tisch: das vollständige Serviceheft als PDF!' },
-  { clip: 'szene-privat-kaeufer-bekommt-die-antwort', start: 0, minimum: 4.5, sprechen: '[delighted] Alles da!', untertitel: '«Alles da!»' },
-  { clip: 'titel-6-abspann', start: 0.3, minimum: 5.5, sprechen: '[excited] 25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft punkt c h!', untertitel: '25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft.ch!', quer: TITEL_QUER },
+type Bild = Omit<Abschnitt, 'sprechen' | 'untertitel'>
+type Text = Pick<Abschnitt, 'sprechen' | 'untertitel'>
+
+/** Bildfolge des Privatfilms (Drehbuch video-scripts/privat-video-script.md); die Clips gibt es je Sprache */
+const PRIVAT_BILD: Bild[] = [
+  { clip: 'szene-privat-kaeufer-fragt-nach-dem-serviceheft', start: 0, minimum: 6 },
+  { clip: 'szene-privat-zettelwirtschaft-in-der-schachtel', start: 0.6, minimum: 4 },
+  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, vorEnde: 12, minimum: 8, quer: DIALOG_QUER },
+  { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5 },
+  // Ende der Aufnahme: Klick auf «Serviceheft für den Verkauf», danach die erste Seite des echten PDFs
+  { clip: 'szene-4-kosten-und-pdf-dossier-fuer-den-verkauf', start: 3.5, vorEnde: 7, minimum: 6.5 },
+  { clip: 'szene-privat-kaeufer-bekommt-die-antwort', start: 0, minimum: 4.5 },
+  { clip: 'titel-6-abspann', start: 0.3, minimum: 5.5, quer: TITEL_QUER },
 ]
 
-/** Freigegebener Betriebstext aus dem Skill `werbefilm`, auf die Szenen verteilt */
-const BETRIEB: Abschnitt[] = [
-  { clip: 'szene-betrieb-montagmorgen-welcher-muss-zum-service', start: 0, minimum: 6, sprechen: '[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?' },
-  { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7, sprechen: '[enthusiastic] Ein Blick auf die Übersicht, und schon ist klar: was ansteht, für jedes Fahrzeug!' },
-  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, minimum: 7.5, sprechen: '[excited] Der Fahrer fotografiert die Werkstattrechnung. Erfasst ist sie damit auch!', quer: DIALOG_QUER },
-  { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5, sprechen: '[enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.' },
-  { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5, sprechen: '[delighted] Und die Frage vom Montagmorgen? Beantwortet sich selbst!' },
-  { clip: 'titel-6-abspann', start: 0.3, minimum: 5, sprechen: '[excited] 36 Franken pro Fahrzeug und Jahr. 30 Tage gratis testen!', quer: TITEL_QUER },
+/** Bildfolge des Betriebsfilms (Drehbuch video-scripts/betrieb-video-script.md) */
+const BETRIEB_BILD: Bild[] = [
+  { clip: 'szene-betrieb-montagmorgen-welcher-muss-zum-service', start: 0, minimum: 6 },
+  { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7 },
+  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, vorEnde: 8, minimum: 7.5, quer: DIALOG_QUER },
+  { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5 },
+  { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5 },
+  { clip: 'titel-6-abspann', start: 0.3, minimum: 5, quer: TITEL_QUER },
 ]
+
+/** Französische Typografie: geschütztes Leerzeichen vor ? ! : (der Untertitel bricht dort nicht um) */
+function franz(text: string): string {
+  return text.replace(/ ([?!:])/g, ' $1')
+}
+function franzTexte(texte: Text[]): Text[] {
+  return texte.map(t => ({ sprechen: franz(t.sprechen), ...(t.untertitel ? { untertitel: franz(t.untertitel) } : {}) }))
+}
+
+/**
+ * Sprechertexte je Sprache, ein Eintrag je Bild. Deutsch: Drehbuch wörtlich, nur Regie und Ausrufezeichen ergänzt.
+ * Die Übersetzungen stehen mit Begründung in video-scripts/sprechertexte.md; der Betriebstext ist die freigegebene
+ * Hörprobe aus dem Skill `werbefilm`. Anrede wie die App: Du, tu, tu, englisch neutral.
+ */
+const PRIVAT_TEXT: Record<Sprache, Text[]> = {
+  de: [
+    { sprechen: '[excited] Du willst dein Auto verkaufen. [curious] Der Käufer fragt: Gibt es ein Serviceheft?', untertitel: 'Du willst dein Auto verkaufen. Der Käufer fragt: «Gibt es ein Serviceheft?»' },
+    { sprechen: '[sighs] Und du suchst.' },
+    { sprechen: '[excited] Ab heute nicht mehr: Rechnung fotografieren genügt! [enthusiastic] Werkstatt, Datum, Betrag und Arbeiten stehen drin!' },
+    { sprechen: '[enthusiastic] Wartungsheft meldet sich, bevor die nächste Arbeit fällig ist!' },
+    { sprechen: '[excited] Und beim Verkauf liegt alles auf dem Tisch: das vollständige Serviceheft als PDF!' },
+    { sprechen: '[delighted] Alles da!', untertitel: '«Alles da!»' },
+    { sprechen: '[excited] 25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft punkt c h!', untertitel: '25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft.ch!' },
+  ],
+  fr: franzTexte([
+    { sprechen: '[excited] Tu veux vendre ta voiture. [curious] L\'acheteur demande : il y a un carnet d\'entretien ?' },
+    { sprechen: '[sighs] Et tu cherches.' },
+    { sprechen: '[excited] À partir d\'aujourd\'hui, c\'est fini : une photo de la facture suffit ! [enthusiastic] Garage, date, montant et travaux, tout est rempli !' },
+    { sprechen: '[enthusiastic] Wartungsheft te prévient avant la prochaine échéance !' },
+    { sprechen: '[excited] Et au moment de vendre, tout est sur la table : le carnet d\'entretien complet en PDF !' },
+    { sprechen: '[delighted] Tout est là !' },
+    { sprechen: '[excited] 25 francs par an. 30 jours d\'essai gratuit, sur wartungsheft point c h !', untertitel: '25 francs par an. 30 jours d\'essai gratuit, sur wartungsheft.ch !' },
+  ]),
+  it: [
+    { sprechen: '[excited] Vuoi vendere la tua auto. [curious] L\'acquirente chiede: c\'è il libretto di manutenzione?', untertitel: 'Vuoi vendere la tua auto. L\'acquirente chiede: «C\'è il libretto di manutenzione?»' },
+    { sprechen: '[sighs] E tu cerchi.' },
+    { sprechen: '[excited] Da oggi non più: basta una foto della fattura! [enthusiastic] Officina, data, importo e lavori sono già compilati!' },
+    { sprechen: '[enthusiastic] Wartungsheft ti avvisa prima della prossima scadenza!' },
+    { sprechen: '[excited] E quando vendi, è tutto sul tavolo: il libretto di manutenzione completo in PDF!' },
+    { sprechen: '[delighted] C\'è tutto!', untertitel: '«C\'è tutto!»' },
+    { sprechen: '[excited] 25 franchi all\'anno. Prova gratis per 30 giorni, su wartungsheft punto ci acca!', untertitel: '25 franchi all\'anno. Prova gratis per 30 giorni, su wartungsheft.ch!' },
+  ],
+  en: [
+    { sprechen: '[excited] You want to sell your car. [curious] The buyer asks: is there a service book?', untertitel: 'You want to sell your car. The buyer asks: “Is there a service book?”' },
+    { sprechen: '[sighs] And you start searching.' },
+    { sprechen: '[excited] Not any more: a photo of the invoice is all it takes! [enthusiastic] Garage, date, amount and work, all filled in!' },
+    { sprechen: '[enthusiastic] Wartungsheft reminds you before the next job is due!' },
+    { sprechen: '[excited] And when you sell, everything\'s on the table: the complete service book as a PDF!' },
+    { sprechen: '[delighted] It\'s all here!', untertitel: '“It\'s all here!”' },
+    { sprechen: '[excited] 25 francs a year. Try it free for 30 days, at wartungsheft dot c h!', untertitel: '25 francs a year. Try it free for 30 days, at wartungsheft.ch!' },
+  ],
+}
+
+const BETRIEB_TEXT: Record<Sprache, Text[]> = {
+  de: [
+    { sprechen: '[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service?' },
+    { sprechen: '[enthusiastic] Ein Blick auf die Übersicht, und schon ist klar: was ansteht, für jedes Fahrzeug!' },
+    { sprechen: '[excited] Der Fahrer fotografiert die Werkstattrechnung. Erfasst ist sie damit auch!' },
+    { sprechen: '[enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.' },
+    { sprechen: '[delighted] Und die Frage vom Montagmorgen? Beantwortet sich selbst!' },
+    { sprechen: '[excited] 36 Franken pro Fahrzeug und Jahr. 30 Tage gratis testen!' },
+  ],
+  fr: franzTexte([
+    { sprechen: '[excited] Lundi matin dans l\'entreprise. Quelle camionnette doit passer au service ?' },
+    { sprechen: '[enthusiastic] Un coup d\'œil sur l\'aperçu, et tout est clair : ce qui est à faire, pour chaque véhicule !' },
+    { sprechen: '[excited] Le chauffeur photographie la facture du garage. Et elle est déjà saisie !' },
+    { sprechen: '[enthusiastic] En fin d\'année : les coûts par véhicule, en fichier pour la comptabilité.' },
+    { sprechen: '[delighted] Et la question du lundi matin ? Elle se règle toute seule !' },
+    { sprechen: '[excited] 36 francs par véhicule et par an. 30 jours d\'essai gratuit !' },
+  ]),
+  it: [
+    { sprechen: '[excited] Lunedì mattina in azienda. Quale furgone deve andare in officina?' },
+    { sprechen: '[enthusiastic] Uno sguardo alla panoramica, ed è tutto chiaro: cosa è in scadenza, per ogni veicolo!' },
+    { sprechen: '[excited] L\'autista fotografa la fattura dell\'officina. Ed è già registrata!' },
+    { sprechen: '[enthusiastic] A fine anno: i costi per veicolo, in un file per la contabilità.' },
+    { sprechen: '[delighted] E la domanda del lunedì mattina? Si risolve da sola!' },
+    { sprechen: '[excited] 36 franchi per veicolo all\'anno. 30 giorni di prova gratuita!' },
+  ],
+  en: [
+    { sprechen: '[excited] Monday morning at the company. Which van is due for a service?' },
+    { sprechen: '[enthusiastic] One look at the overview, and it\'s all clear: what\'s coming up, for every vehicle!' },
+    { sprechen: '[excited] The driver snaps a photo of the garage invoice. And it\'s already recorded!' },
+    { sprechen: '[enthusiastic] At year end: costs per vehicle, as a file for the accountant.' },
+    { sprechen: '[delighted] And Monday\'s question? It answers itself!' },
+    { sprechen: '[excited] 36 francs per vehicle per year. Try it free for 30 days!' },
+  ],
+}
+
+/** Bild und Text zusammen, die Clips mit dem Sprachkürzel der Aufnahme (szene-…-fr) */
+function film(bilder: Bild[], texte: Text[], sprache: Sprache): Abschnitt[] {
+  return bilder.map((b, i) => ({ ...b, ...texte[i]!, clip: filmName(b.clip, sprache) }))
+}
 
 /** Kurzfassungen: Problem, Beweis, Angebot; dieselben Sprecheraufnahmen, keine neuen Credits */
-const SOCIAL_PRIVAT: Abschnitt[] = [
-  { ...PRIVAT[1]!, minimum: 3 },
-  { ...PRIVAT[2]!, minimum: 6 },
-  { ...PRIVAT[6]!, minimum: 4.5 },
-]
-const SOCIAL_BETRIEB: Abschnitt[] = [
-  { ...BETRIEB[0]!, minimum: 4 },
-  { ...BETRIEB[1]!, minimum: 5 },
-  { ...BETRIEB[5]!, minimum: 4.5 },
-]
+function kurz(abschnitte: Abschnitt[], wahl: [index: number, minimum: number][]): Abschnitt[] {
+  return wahl.map(([i, minimum]) => ({ ...abschnitte[i]!, minimum }))
+}
+const KURZ_PRIVAT: [number, number][] = [[1, 3], [2, 6], [6, 4.5]]
+const KURZ_BETRIEB: [number, number][] = [[0, 4], [1, 5], [5, 4.5]]
 
 const FORMATE = {
   quer: { w: 1920, h: 1080, suffix: '-desktop' },
@@ -183,9 +280,10 @@ function jsonLesen<T>(pfad: string, standard: T): T {
 /**
  * Je Sprechertext zwei Durchläufe (eleven_v3 betont jedes Mal anders), messen, den besseren in
  * video-scripts/sprecher-auswahl.json festhalten. Liegt video-out/sprecher/whisper.json vor (Transkripte je Datei),
- * zählen falsch gehörte Wörter mit. Ohne ElevenLabs-Schlüssel spricht Piper, ein Durchlauf.
+ * zählen falsch gehörte Wörter mit. Fehlt dort ein Transkript eines neuen Texts, bleibt die Wahl offen (erst
+ * Spracherkennung laufen lassen, Skill `werbefilm`). Ohne ElevenLabs-Schlüssel spricht Piper, ein Durchlauf.
  */
-async function sprecherWaehlen(texte: string[]): Promise<Record<string, number>> {
+async function sprecherWaehlen(texte: { text: string, sprache: Sprache }[]): Promise<Record<string, number>> {
   const deps = sprecherDeps()
   const auswahl = jsonLesen<Record<string, number>>(AUSWAHL, {})
   const whisper = jsonLesen<Record<string, string>>(WHISPER, {})
@@ -194,10 +292,18 @@ async function sprecherWaehlen(texte: string[]): Promise<Record<string, number>>
     return {}
   }
   let geaendert = false
-  for (const text of [...new Set(texte)]) {
-    const dateien = [await sprechen(text, 1, deps), await sprechen(text, 2, deps)]
+  const gesehen = new Set<string>()
+  for (const { text, sprache } of texte) {
+    if (gesehen.has(text))
+      continue
+    gesehen.add(text)
+    const dateien = [await sprechen(text, 1, deps, sprache), await sprechen(text, 2, deps, sprache)]
     if (auswahl[text])
       continue
+    if (dateien.some(d => whisper[basename(d)] === undefined)) {
+      console.warn(`Spracherkennung fehlt, Wahl offen (Durchlauf 1): ${dateien.map(d => basename(d)).join(' ')} «${ohneRegie(text)}»`)
+      continue
+    }
     const messungen = dateien.map((d) => {
       const st = stillen(d)
       const lang = dauer(d)
@@ -213,8 +319,9 @@ async function sprecherWaehlen(texte: string[]): Promise<Record<string, number>>
     console.log(`Durchlauf ${auswahl[text]} für «${ohneRegie(text)}»`, JSON.stringify(messungen))
     geaendert = true
   }
+  // Geschützte Leerzeichen (Französisch) als Escape, sonst meldet ESLint unsichtbare Zeichen
   if (geaendert)
-    writeFileSync(AUSWAHL, `${JSON.stringify(auswahl, null, 2)}\n`)
+    writeFileSync(AUSWAHL, `${JSON.stringify(auswahl, null, 2).replace(/\u00A0/g, '\\u00a0')}\n`)
   return auswahl
 }
 
@@ -230,13 +337,13 @@ interface Geplant {
   sprechzeiten: Zeitraum[]
 }
 
-async function planen(abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<Geplant> {
+async function planen(abschnitte: Abschnitt[], auswahl: Record<string, number>, sprache: Sprache): Promise<Geplant> {
   const deps = sprecherDeps()
   const stimmen: string[] = []
   const lagen: Cue[][] = []
   const dauern: number[] = []
   for (const a of abschnitte) {
-    const stimme = await sprechen(a.sprechen, auswahl[a.sprechen] ?? 1, deps)
+    const stimme = await sprechen(a.sprechen, auswahl[a.sprechen] ?? 1, deps, sprache)
     const lang = dauer(stimme)
     const texte = saetze(a.untertitel ?? a.sprechen)
     const grenzen = satzGrenzen(texte, lang, stillen(stimme))
@@ -329,7 +436,7 @@ function bildBauen(p: Geplant, format: Format, ziel: string): void {
   p.abschnitte.forEach((a, i) => {
     const info = clipInfo(`${a.clip}${f.suffix}`)
     const d = p.dauern[i]!
-    let start = a.start
+    let start = startInAufnahme(a, info.laenge)
     // Passt der Ausschnitt nicht in die Aufnahme, rückt der Start vor; reicht sie trotzdem nicht, steht das letzte Bild
     if (start + d > info.laenge)
       start = Math.max(0, info.laenge - d)
@@ -428,11 +535,11 @@ function bericht(datei: string): void {
   console.log(`${datei.replace(`${REPO}/`, '')}: ${info.trim().split('\n').join(' · ')}`)
 }
 
-async function filmBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<void> {
+async function filmBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>, sprache: Sprache): Promise<void> {
   const tmp = join(TMP, name)
   rmSync(tmp, { recursive: true, force: true })
   mkdirSync(tmp, { recursive: true })
-  const p = await planen(abschnitte, auswahl)
+  const p = await planen(abschnitte, auswahl, sprache)
   const ton = join(tmp, 'ton.wav')
   tonMischen(p, ton)
   // Poster aus dem dritten Abschnitt: die App mitten in der Arbeit
@@ -454,11 +561,11 @@ async function filmBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<
   rmSync(tmp, { recursive: true, force: true })
 }
 
-async function kurzfassungBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>): Promise<void> {
+async function kurzfassungBauen(name: string, abschnitte: Abschnitt[], auswahl: Record<string, number>, sprache: Sprache): Promise<void> {
   const tmp = join(TMP, `social-${name}`)
   rmSync(tmp, { recursive: true, force: true })
   mkdirSync(tmp, { recursive: true })
-  const p = await planen(abschnitte, auswahl)
+  const p = await planen(abschnitte, auswahl, sprache)
   const ton = join(tmp, 'ton.wav')
   tonMischen(p, ton)
   const bild = join(tmp, 'bild-hoch.mkv')
@@ -469,16 +576,26 @@ async function kurzfassungBauen(name: string, abschnitte: Abschnitt[], auswahl: 
   rmSync(tmp, { recursive: true, force: true })
 }
 
-const wahl = process.argv.slice(2)
+const ALLE_SPRACHEN: Sprache[] = ['de', 'fr', 'it', 'en']
+const argumente = process.argv.slice(2)
+const sprachen = ALLE_SPRACHEN.filter(s => argumente.includes(s))
+const wahl = argumente.filter(a => !ALLE_SPRACHEN.includes(a as Sprache))
 const alles = wahl.length === 0
-const auswahl = await sprecherWaehlen([...PRIVAT, ...BETRIEB].map(a => a.sprechen))
+const filme = (sprachen.length ? sprachen : ALLE_SPRACHEN).map(sprache => ({
+  sprache,
+  privat: film(PRIVAT_BILD, PRIVAT_TEXT[sprache], sprache),
+  betrieb: film(BETRIEB_BILD, BETRIEB_TEXT[sprache], sprache),
+}))
+const auswahl = await sprecherWaehlen(filme.flatMap(f => [...f.privat, ...f.betrieb].map(a => ({ text: a.sprechen, sprache: f.sprache }))))
 if (!wahl.includes('sprecher')) {
-  if (alles || wahl.includes('privat'))
-    await filmBauen('privat', PRIVAT, auswahl)
-  if (alles || wahl.includes('betrieb'))
-    await filmBauen('betrieb', BETRIEB, auswahl)
-  if (alles || wahl.includes('social')) {
-    await kurzfassungBauen('privat', SOCIAL_PRIVAT, auswahl)
-    await kurzfassungBauen('betrieb', SOCIAL_BETRIEB, auswahl)
+  for (const f of filme) {
+    if (alles || wahl.includes('privat'))
+      await filmBauen(filmName('privat', f.sprache), f.privat, auswahl, f.sprache)
+    if (alles || wahl.includes('betrieb'))
+      await filmBauen(filmName('betrieb', f.sprache), f.betrieb, auswahl, f.sprache)
+    if (alles || wahl.includes('social')) {
+      await kurzfassungBauen(filmName('privat', f.sprache), kurz(f.privat, KURZ_PRIVAT), auswahl, f.sprache)
+      await kurzfassungBauen(filmName('betrieb', f.sprache), kurz(f.betrieb, KURZ_BETRIEB), auswahl, f.sprache)
+    }
   }
 }

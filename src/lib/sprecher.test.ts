@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { ELEVEN, elevenAnfrage, piperText, sprechen, sprecherSchluessel } from './sprecher'
+import { ELEVEN, elevenAnfrage, piperText, sprechen, sprecherSchluessel, STIMMEN } from './sprecher'
 
 describe('elevenAnfrage', () => {
   it('ruft die Stimme Andres mit eleven_v3 und den freigegebenen Einstellungen auf', () => {
@@ -15,7 +15,33 @@ describe('elevenAnfrage', () => {
   })
 })
 
+describe('stimmen je Sprache', () => {
+  it('nimmt die gewählten Stimmen: Andres, Nathan, Valentino, Adam Stone', () => {
+    expect(STIMMEN).toEqual({
+      de: 'BfwuiKSWxqDOcSYQr6EC',
+      fr: '6HYJeW6WLg97b4ika29W',
+      it: 'lJylpTXX0sNdqq5EUv4M',
+      en: 'DEFpwxCUkrj3WAbTDRTZ',
+    })
+  })
+
+  it('ruft für Französisch Nathan mit denselben Einstellungen wie Andres auf', () => {
+    const { url, init } = elevenAnfrage('[excited] Bonjour !', 'geheim', 'fr')
+    expect(url).toBe('https://api.elevenlabs.io/v1/text-to-speech/6HYJeW6WLg97b4ika29W?output_format=mp3_44100_192')
+    expect(JSON.parse(init.body).voice_settings).toEqual({ stability: 0.5, similarity_boost: 0.75 })
+  })
+})
+
 describe('sprecherSchluessel', () => {
+  it('bleibt für Deutsch wie bisher, damit der Zwischenspeicher keine Credits kostet', () => {
+    expect(sprecherSchluessel('[sighs] Und du suchst.', 2)).toBe('97156404-2')
+    expect(sprecherSchluessel('[sighs] Und du suchst.', 2, 'de')).toBe('97156404-2')
+  })
+
+  it('unterscheidet die Stimme: derselbe Text auf Französisch ist eine andere Datei', () => {
+    expect(sprecherSchluessel('Text', 1, 'fr')).not.toBe(sprecherSchluessel('Text', 1))
+  })
+
   it('ist für denselben Text und Durchlauf gleich, sonst verschieden', () => {
     expect(sprecherSchluessel('Text', 1)).toBe(sprecherSchluessel('Text', 1))
     expect(sprecherSchluessel('Text', 1)).not.toBe(sprecherSchluessel('Text', 2))
@@ -75,6 +101,13 @@ describe('sprechen', () => {
     const { d } = deps({ fetch: vi.fn(async () => new Response('quota_exceeded', { status: 401 })) })
     await expect(sprechen('Hallo!', 1, d)).rejects.toThrow(/ElevenLabs 401: quota_exceeded/)
     await expect(sprechen('Hallo!', 1, d)).rejects.not.toThrow(/geheim/)
+  })
+
+  it('spricht mit der Stimme der verlangten Sprache', async () => {
+    const { d } = deps()
+    const pfad = await sprechen('Ciao!', 1, d, 'it')
+    expect(pfad).toBe(`/cache/${sprecherSchluessel('Ciao!', 1, 'it')}.mp3`)
+    expect(d.fetch).toHaveBeenCalledWith(expect.stringContaining('/lJylpTXX0sNdqq5EUv4M?'), expect.anything())
   })
 
   it('fällt ohne Schlüssel auf Piper zurück (WAV)', async () => {

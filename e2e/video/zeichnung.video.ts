@@ -9,7 +9,7 @@
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { expect, test } from '../fixtures/test-fixtures'
-import { aufnahmeStarten, clipSpeichern } from './szenen'
+import { aufnahmeStarten, clipSpeichern, SPRACHE } from './szenen'
 
 /**
  * Die Animationen laufen etwa 4 Sekunden; der Rest ist Standbild für den Schnitt. Lieber zu lang als zu kurz:
@@ -22,8 +22,13 @@ test.afterEach(async ({ page }, testInfo) => {
   await clipSpeichern(page, testInfo)
 })
 
+/** Die Szenen lesen ihre Texte aus `?sprache=` (VIDEO_SPRACHE der Aufnahme) */
 function szeneUrl(datei: string, query = ''): string {
-  return pathToFileURL(`${process.cwd()}/video-scripts/szenen/${datei}`).href + query
+  const parameter = new URLSearchParams(query)
+  if (SPRACHE !== 'de')
+    parameter.set('sprache', SPRACHE)
+  const suche = parameter.toString()
+  return pathToFileURL(`${process.cwd()}/video-scripts/szenen/${datei}`).href + (suche ? `?${suche}` : '')
 }
 
 const SZENEN: { name: string, datei: string, query?: string }[] = [
@@ -34,15 +39,24 @@ const SZENEN: { name: string, datei: string, query?: string }[] = [
   { name: 'Szene Betrieb: auf einen Blick beantwortet', datei: 'betrieb-problem.html', query: '?antwort=1' },
 ]
 
+/** Abspann der übrigen Sprachen: die Filme nutzen nur diese Titelkarte, Text wie der Hauptknopf der Seite */
+const ABSPANN = {
+  fr: 'Essayer 30 jours gratuitement',
+  it: 'Prova gratis per 30 giorni',
+  en: 'Try free for 30 days',
+}
+
 /** Titelkarten; der Dateiname im Schnitt ergibt sich aus dem Testnamen */
-const TITEL = [
-  { name: 'Titel 1: Rechnung fotografieren', t: 'Rechnung fotografieren', s: 'Werkstatt, Datum, Betrag und Arbeiten stehen drin.' },
-  { name: 'Titel 2: Wartungsheft rechnet mit', t: 'Wartungsheft rechnet mit', s: 'Was fällig ist, meldet sich von selbst.' },
-  { name: 'Titel 3: Lueckenloses Serviceheft', t: 'Lückenloses Serviceheft', s: 'Beim Verkauf ein Klick zum PDF.' },
-  { name: 'Titel 4: Preis privat', t: '25 Franken im Jahr', s: 'Bis fünf Fahrzeuge. Keine Werbung, Daten in der Schweiz.' },
-  { name: 'Titel 5: Preis Betrieb', t: '36 Franken pro Fahrzeug', s: 'Im Jahr, Rechnung auf die Firma.' },
-  { name: 'Titel 6: Abspann', t: '30 Tage gratis testen', s: 'wartungsheft.ch' },
-]
+const TITEL = SPRACHE !== 'de'
+  ? [{ name: 'Titel 6: Abspann', t: ABSPANN[SPRACHE], s: 'wartungsheft.ch' }]
+  : [
+      { name: 'Titel 1: Rechnung fotografieren', t: 'Rechnung fotografieren', s: 'Werkstatt, Datum, Betrag und Arbeiten stehen drin.' },
+      { name: 'Titel 2: Wartungsheft rechnet mit', t: 'Wartungsheft rechnet mit', s: 'Was fällig ist, meldet sich von selbst.' },
+      { name: 'Titel 3: Lueckenloses Serviceheft', t: 'Lückenloses Serviceheft', s: 'Beim Verkauf ein Klick zum PDF.' },
+      { name: 'Titel 4: Preis privat', t: '25 Franken im Jahr', s: 'Bis fünf Fahrzeuge. Keine Werbung, Daten in der Schweiz.' },
+      { name: 'Titel 5: Preis Betrieb', t: '36 Franken pro Fahrzeug', s: 'Im Jahr, Rechnung auf die Firma.' },
+      { name: 'Titel 6: Abspann', t: '30 Tage gratis testen', s: 'wartungsheft.ch' },
+    ]
 
 for (const szene of SZENEN) {
   test(szene.name, async ({ page }, testInfo) => {

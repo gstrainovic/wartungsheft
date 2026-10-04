@@ -22,12 +22,17 @@
   .rule { width: 64px; height: 4px; border-radius: 2px; background: var(--accent); margin: 26px auto 0;
           transform: scaleX(0); transform-origin: center; animation: grow 600ms ease-out 1500ms forwards; }
 
+  .logo { display: block; width: 76px; height: 76px; margin: 0 auto 22px; opacity: 0;
+          animation: rise 700ms cubic-bezier(.2,.8,.3,1) 0ms forwards; }
+
   @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   @keyframes grow { to { transform: scaleX(1); } }
 </style>
 </head>
 <body>
   <div>
+    <!-- Marke über dem Text: das Logo der App (public/favicon.svg), sonst wirkt die Karte leer -->
+    <img class="logo" src="../../public/favicon.svg" alt="">
     <h1 id="t"></h1>
     <p id="s"></p>
     <div class="rule"></div>

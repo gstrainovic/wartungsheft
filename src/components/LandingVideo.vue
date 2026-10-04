@@ -6,11 +6,12 @@
  */
 import { computed, onMounted, ref } from 'vue'
 import { useSprache } from '../composables/useSprache'
+import { filmQuelle } from '../lib/film-datei'
 import angebotTexte from '../texte/angebot'
 
-// Die Filme sind deutsch; auf den Übersetzungen sagt der Hinweis darunter das
+// Jede Sprache hat ihren eigenen Film (Sprecher, Untertitel und App-Oberfläche), Namen aus src/lib/film-datei.ts
 const props = withDefaults(defineProps<{
-  /** Datei unter public/, ohne Pfad */
+  /** deutsche Datei unter public/, ohne Pfad; die Sprache der Seite wählt ihre Fassung */
   file?: string
   /** ohne Angabe Überschrift und Satz der Startseite (src/texte/angebot.ts) */
   title?: string
@@ -19,11 +20,11 @@ const props = withDefaults(defineProps<{
   file: 'film-privat.webm',
 })
 
-const { t } = useSprache(angebotTexte)
+const { t, sprache } = useSprache(angebotTexte)
 
 // Auf dem Desktop die eigene Aufnahme im Desktop-Layout, am Handy die hochkant aufgenommene
 const quer = ref(false)
-const src = computed(() => (quer.value ? `/${props.file.replace(/\.webm$/, '-desktop.webm')}` : `/${props.file}`))
+const src = computed(() => filmQuelle(props.file, sprache.value, quer.value))
 // MP4 zuerst: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM (VP9/Opus)
 const mp4 = computed(() => src.value.replace(/\.webm$/, '.mp4'))
 const poster = computed(() => src.value.replace(/\.webm$/, '-poster.jpg'))

@@ -54,6 +54,12 @@ describe('buildDossier', () => {
     expect(text).not.toContain('(0 km)')
   })
 
+  it('nennt das Schild wie der Schweizer Ausweis «Kontrollschild», nie «Kennzeichen»', () => {
+    const text = buildDossier({ vehicle, invoices, maintenances }).output()
+    expect(text).toContain('(Kontrollschild)')
+    expect(text).not.toContain('Kennzeichen')
+  })
+
   it('spricht die App-Sprache, Akzente kommen im PDF an, Daten bleiben unverändert', async () => {
     const { setAppSprache } = await import('../lib/app-sprache')
     const { buildServiceRecord, dossierFilename, fleetReportFilename, serviceRecordFilename } = await import('./pdf-report')

@@ -19,20 +19,23 @@
     --warn: #ef4444;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+  html, body { width: 100vw; height: 100vh; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, #1b2638 0%, var(--bg) 70%); }
   body { display: grid; place-items: center; font-family: 'Segoe UI', system-ui, sans-serif; }
 
   .stage { position: relative; width: 100vw; height: 100vh; }
   .title {
-    position: absolute; top: 12vh; left: 0; right: 0; text-align: center; padding: 0 26px;
-    color: var(--ink); font-size: 26px; font-weight: 600; line-height: 1.35;
+    position: absolute; top: 8vh; left: 0; right: 0; text-align: center; padding: 0 6vw;
+    color: var(--ink); font-size: clamp(24px, 5vmin, 46px); font-weight: 650; line-height: 1.3;
     opacity: 0; animation: fade-in 700ms ease-out 300ms forwards;
   }
-  .title small { display: block; margin-top: 10px; font-size: 17px; font-weight: 400; color: #9ca3af; opacity: 0; animation: fade-in 700ms ease-out 1600ms forwards; }
+  .title small { display: block; margin-top: 0.45em; font-size: 0.62em; font-weight: 400; color: #9ca3af; opacity: 0; animation: fade-in 700ms ease-out 1600ms forwards; }
 
-  /* Im Breitbild passen die vier Fahrzeuge nebeneinander schlecht; sie bleiben untereinander, nur kleiner */
-  .fleet { position: absolute; top: 44%; left: 0; right: 0; display: grid; gap: min(18px, 2vh); justify-items: center; }
-  .fleet svg { width: min(264px, 42vw); height: auto; }
+  /* Hochkant untereinander, so gross, dass der Untertitel-Kasten unten frei bleibt */
+  .fleet { position: absolute; top: 34%; left: 0; right: 0; display: grid; gap: 1.6vh; justify-items: center; }
+  .fleet svg { width: 52vw; height: auto; }
+  /* Status gross genug, dass man ihn im Film erkennt (CSS-Geometrie, Chrome) */
+  circle.status { r: 12px; }
+  .badge circle { r: 13px; }
   /* Die pulsierende Markierung darf über den viewBox-Rand hinaus wachsen */
   .van { overflow: visible; opacity: 0; transform: translateX(-30px); animation: roll-in 700ms cubic-bezier(.2,.8,.3,1) forwards; }
   .van:nth-child(1) { animation-delay: 900ms; }
@@ -44,12 +47,12 @@
   /* In der Frage-Fassung ist noch nichts bekannt: keine Status-Punkte */
   body.frage .status { display: none; }
   .frage-zeichen { opacity: 0; animation: fade-in 500ms ease-out 2200ms forwards; }
-  .pulse { transform-origin: center; animation: pulse 1400ms ease-in-out 2400ms infinite; }
+  .pulse { transform-box: fill-box; transform-origin: center; animation: pulse 1400ms ease-in-out 2400ms infinite; }
 
   /* Breitbild: zwei Reihen à zwei Fahrzeuge, sonst reicht die Höhe nicht */
   @media (min-aspect-ratio: 1/1) {
-    .fleet { top: 38%; grid-template-columns: 1fr 1fr; gap: 1.5vh 2vw; }
-    .fleet svg { width: min(264px, 27vw); }
+    .fleet { top: 37%; grid-template-columns: auto auto; justify-content: center; gap: 3vh 5vw; }
+    .fleet svg { width: 29vw; }
   }
 
   @keyframes fade-in { to { opacity: 1; } }
@@ -68,7 +71,8 @@
         <path d="M40 16h132l30 30h30a10 10 0 0 1 10 10v22H40z" fill="var(--van)"/>
         <path d="M172 16l30 30" stroke="var(--van-line)" stroke-width="3" stroke-linecap="round"/>
         <path d="M176 22l22 22h-22z" fill="#c3ccd6"/>
-        <rect x="56" y="28" width="44" height="22" rx="3" fill="#d7dde5"/>
+        <path d="M40 60h202" stroke="#10b981" stroke-width="5"/>
+        <rect x="58" y="26" width="64" height="22" rx="4" fill="#475569"/><rect x="66" y="34" width="34" height="6" rx="3" fill="#cbd5e1"/>
         <circle cx="90" cy="78" r="14" fill="#3f444c"/><circle cx="90" cy="78" r="5" fill="#9aa3ad"/>
         <circle cx="196" cy="78" r="14" fill="#3f444c"/><circle cx="196" cy="78" r="5" fill="#9aa3ad"/>
         <path d="M30 92h222" stroke="#d3d8de" stroke-width="4" stroke-linecap="round"/>
@@ -79,7 +83,8 @@
         <path d="M40 16h132l30 30h30a10 10 0 0 1 10 10v22H40z" fill="var(--van)"/>
         <path d="M172 16l30 30" stroke="var(--van-line)" stroke-width="3" stroke-linecap="round"/>
         <path d="M176 22l22 22h-22z" fill="#c3ccd6"/>
-        <rect x="56" y="28" width="44" height="22" rx="3" fill="#d7dde5"/>
+        <path d="M40 60h202" stroke="#10b981" stroke-width="5"/>
+        <rect x="58" y="26" width="64" height="22" rx="4" fill="#475569"/><rect x="66" y="34" width="34" height="6" rx="3" fill="#cbd5e1"/>
         <circle cx="90" cy="78" r="14" fill="#3f444c"/><circle cx="90" cy="78" r="5" fill="#9aa3ad"/>
         <circle cx="196" cy="78" r="14" fill="#3f444c"/><circle cx="196" cy="78" r="5" fill="#9aa3ad"/>
         <path d="M30 92h222" stroke="#d3d8de" stroke-width="4" stroke-linecap="round"/>
@@ -90,18 +95,20 @@
         <path d="M40 16h132l30 30h30a10 10 0 0 1 10 10v22H40z" fill="var(--van)"/>
         <path d="M172 16l30 30" stroke="var(--van-line)" stroke-width="3" stroke-linecap="round"/>
         <path d="M176 22l22 22h-22z" fill="#c3ccd6"/>
-        <rect x="56" y="28" width="44" height="22" rx="3" fill="#d7dde5"/>
+        <path d="M40 60h202" stroke="#10b981" stroke-width="5"/>
+        <rect x="58" y="26" width="64" height="22" rx="4" fill="#475569"/><rect x="66" y="34" width="34" height="6" rx="3" fill="#cbd5e1"/>
         <circle cx="90" cy="78" r="14" fill="#3f444c"/><circle cx="90" cy="78" r="5" fill="#9aa3ad"/>
         <circle cx="196" cy="78" r="14" fill="#3f444c"/><circle cx="196" cy="78" r="5" fill="#9aa3ad"/>
         <path d="M30 92h222" stroke="#d3d8de" stroke-width="4" stroke-linecap="round"/>
-        <g class="badge status"><circle class="pulse" cx="246" cy="14" r="8" fill="var(--warn)"/></g>
+        <g class="badge status"><circle class="pulse" cx="246" cy="14" r="8" fill="var(--warn)"/><text x="246" y="20" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Segoe UI, system-ui, sans-serif">!</text></g>
       </svg>
       <svg class="van" width="264" height="100" viewBox="20 0 264 100" aria-hidden="true">
         <!-- Kastenwagen von der Seite: Laderaum links, Kabine mit schräger Scheibe rechts -->
         <path d="M40 16h132l30 30h30a10 10 0 0 1 10 10v22H40z" fill="var(--van)"/>
         <path d="M172 16l30 30" stroke="var(--van-line)" stroke-width="3" stroke-linecap="round"/>
         <path d="M176 22l22 22h-22z" fill="#c3ccd6"/>
-        <rect x="56" y="28" width="44" height="22" rx="3" fill="#d7dde5"/>
+        <path d="M40 60h202" stroke="#10b981" stroke-width="5"/>
+        <rect x="58" y="26" width="64" height="22" rx="4" fill="#475569"/><rect x="66" y="34" width="34" height="6" rx="3" fill="#cbd5e1"/>
         <circle cx="90" cy="78" r="14" fill="#3f444c"/><circle cx="90" cy="78" r="5" fill="#9aa3ad"/>
         <circle cx="196" cy="78" r="14" fill="#3f444c"/><circle cx="196" cy="78" r="5" fill="#9aa3ad"/>
         <path d="M30 92h222" stroke="#d3d8de" stroke-width="4" stroke-linecap="round"/>
@@ -111,11 +118,19 @@
   </div>
 
   <script>
-    const antwort = new URLSearchParams(location.search).has('antwort')
+    const q = new URLSearchParams(location.search)
+    const antwort = q.has('antwort')
+    // Sprache des Films (?sprache=fr); der Sprecher duzt wie die App
+    const TEXTE = {
+      de: { frage: 'Montagmorgen im Betrieb.<br>Welcher muss zum Service?<small>Vier Fahrzeuge, vier Ordner.</small>', antwort: 'Jetzt siehst du es<br>auf einen Blick.<small>Einer ist überfällig.</small>' },
+      fr: { frage: 'Lundi matin.<br>Laquelle doit passer au service ?<small>Quatre véhicules, quatre classeurs.</small>', antwort: 'Maintenant, tu le vois<br>d’un coup d’œil.<small>L’une est en retard.</small>' },
+      it: { frage: 'Lunedì mattina.<br>Quale deve andare in officina?<small>Quattro veicoli, quattro classificatori.</small>', antwort: 'Ora lo vedi<br>a colpo d’occhio.<small>Uno è in ritardo.</small>' },
+      en: { frage: 'Monday morning.<br>Which one is due for a service?<small>Four vehicles, four binders.</small>', antwort: 'Now you can see it<br>at a glance.<small>One is overdue.</small>' },
+    }
+    const sprache = TEXTE[q.get('sprache')] ? q.get('sprache') : 'de'
+    document.documentElement.lang = sprache
     document.body.classList.toggle('frage', !antwort)
-    document.getElementById('titel').innerHTML = antwort
-      ? 'Jetzt siehst du es<br>auf einen Blick.<small>Einer ist überfällig.</small>'
-      : 'Montagmorgen im Betrieb.<br>Welcher muss zum Service?<small>Vier Fahrzeuge, vier Ordner.</small>'
+    document.getElementById('titel').innerHTML = antwort ? TEXTE[sprache].antwort : TEXTE[sprache].frage
   </script>
 </body>
 </html>

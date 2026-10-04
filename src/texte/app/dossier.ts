@@ -4,7 +4,7 @@ import type { Sprache } from '../../lib/sprache'
 // jsPDF-Standardschrift (WinAnsi): Akzente, « » und • gehen, andere Sonderzeichen nicht.
 const de = {
   feld: {
-    kontrollschild: 'Kennzeichen',
+    kontrollschild: 'Kontrollschild',
     baujahr: 'Baujahr',
     fahrgestellnummer: 'Fahrgestellnummer',
     kilometerstand: 'Kilometerstand',
