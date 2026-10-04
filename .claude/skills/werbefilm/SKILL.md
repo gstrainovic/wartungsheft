@@ -55,6 +55,10 @@ ist eingecheckt.
 
 ## Etwas ändern
 
+- **Reihenfolge bei mehreren Sprachen:** Zuerst Deutsch fertig machen, Kontaktbogen und Stichbilder Goran zeigen und
+  seine Abnahme abwarten; erst dann FR, IT und EN aufnehmen und rendern. Jede Sprache heisst 4 Echtzeit-Aufnahmen
+  plus Rendern; eine Korrektur nach dem Rendern aller Sprachen kostet Stunden.
+
 - **Satz umformulieren:** `sprechen` (und bei abweichender Schreibweise `untertitel`) in `PRIVAT_TEXT` bzw.
   `BETRIEB_TEXT` in `scripts/werbefilm.ts`, dann Sprecher, Spracherkennung und `npm run video:film`. Neue Texte kosten Credits (zwei Durchläufe), alles andere
   kommt aus dem Zwischenspeicher. Abschnittslänge und Untertitelzeiten folgen der Sprechdauer.
