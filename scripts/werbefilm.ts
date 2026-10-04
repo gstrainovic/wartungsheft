@@ -96,7 +96,7 @@ type Text = Pick<Abschnitt, 'sprechen' | 'untertitel'>
 const PRIVAT_BILD: Bild[] = [
   { clip: 'szene-privat-kaeufer-fragt-nach-dem-serviceheft', start: 0, minimum: 6 },
   { clip: 'szene-privat-zettelwirtschaft-in-der-schachtel', start: 0.6, minimum: 4 },
-  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, vorEnde: 12, minimum: 8, quer: DIALOG_QUER },
+  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, vorEnde: 10.5, minimum: 8, quer: DIALOG_QUER },
   { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5 },
   // Ende der Aufnahme: Klick auf «Serviceheft für den Verkauf», danach die erste Seite des echten PDFs
   { clip: 'szene-4-kosten-und-pdf-dossier-fuer-den-verkauf', start: 3.5, vorEnde: 7, minimum: 6.5 },
@@ -108,7 +108,7 @@ const PRIVAT_BILD: Bild[] = [
 const BETRIEB_BILD: Bild[] = [
   { clip: 'szene-betrieb-montagmorgen-welcher-muss-zum-service', start: 0, minimum: 6 },
   { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7 },
-  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, vorEnde: 8, minimum: 7.5, quer: DIALOG_QUER },
+  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, vorEnde: 7.5, minimum: 7.5, quer: DIALOG_QUER },
   { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5 },
   { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5 },
   { clip: 'titel-6-abspann', start: 0.3, minimum: 5, quer: TITEL_QUER },
