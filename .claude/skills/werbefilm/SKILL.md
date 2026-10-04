@@ -166,6 +166,16 @@ huggingface.co/rhasspy/piper-voices nach `~/.local/share/piper-voices/`. Andere 
 - Der Sprecher duzt wie die App. Figuren im Bild reden neutral, damit kein Sie/Du-Bruch entsteht.
 - «Lieferwagen», nicht «Bus»: in der Schweiz ist ein Bus das Postauto.
 - Dramaturgie: Frage am Anfang, dieselbe Szene am Ende mit der Antwort. Keine Funktionsliste.
+- Bild und Sprecher sagen dasselbe: verspricht der Satz das Serviceheft als PDF, klickt die Szene «Serviceheft für
+  den Verkauf» und zeigt danach die erste Seite des echten PDFs (`pdfZeigen` in `e2e/video/szenen.ts`, PDF und
+  Bild unter `video-out/pdf/`). Die Musterrechnungen tragen ihr Foto (`musterRechnungJpeg`), sonst meldet das PDF
+  «0 von 3 Rechnungen mit Foto».
+- Gezeichnete Szenen skalieren mit der Fläche (`vmin`, `vw`, `vh`), damit sie hochkant und quer gleich gross
+  wirken; Sprechblasen nie leer, Markenfarbe `#059669`/`#10b981` als Akzent. Vor dem Aufnehmen fotografieren:
+  `npx playwright screenshot --wait-for-timeout=4500 --viewport-size=390,693 "file://$PWD/video-scripts/szenen/<datei>?sprache=fr" bild.png`
+  (und 1280,720).
+- Wichtige Knöpfe vor dem Klick in die Bildmitte rollen (`scrollIntoView({ block: 'center' })`): unten liegt am
+  Handy der Untertitel-Kasten.
 
 ## Fallstricke, die schon einmal Zeit gekostet haben
 

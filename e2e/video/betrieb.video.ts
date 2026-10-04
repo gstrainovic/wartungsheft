@@ -87,7 +87,8 @@ test.describe('Werbeclips Betrieb', () => {
     await page.goto('/vehicles')
     await showPointer(page)
     await aufnahmeStarten(page, testInfo)
-    await slowClick(page, page.locator('.vehicle-card').first())
+    // Gezielt der Ducato: die Reihenfolge der Karten ist bei gleichem Anlagezeitpunkt zufällig, die Rechnung gehört zu ihm
+    await slowClick(page, page.locator('.vehicle-card', { hasText: 'Ducato' }))
     await page.waitForURL(/\/vehicles\/.+/)
     await slowClick(page, page.getByRole('tab', { name: T.fahrzeug.tabs.rechnungen }))
     await slowClick(page, page.getByRole('button', { name: T.fahrzeug.rechnungen.hinzufuegen }))

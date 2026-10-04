@@ -20,7 +20,8 @@ function ms(x: number): number {
 
 /** Regieanweisungen für ElevenLabs (`[excited]`) werden nicht gesprochen und gehören nicht in den Untertitel */
 export function ohneRegie(text: string): string {
-  return text.replace(/\[[^\]]*\]/g, ' ').replace(/\s+/g, ' ').trim()
+  // Nur gewöhnlichen Leerraum zusammenfassen: das geschützte Leerzeichen vor ? ! : (Französisch) bleibt stehen
+  return text.replace(/\[[^\]]*\]/g, ' ').replace(/[ \t\r\n]+/g, ' ').trim()
 }
 
 /** Sätze eines Sprechertexts, ohne Regie; ein Doppelpunkt trennt nicht */

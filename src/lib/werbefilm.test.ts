@@ -19,6 +19,11 @@ describe('ohneRegie', () => {
   it('entfernt Regieanweisungen in eckigen Klammern und doppelte Leerzeichen', () => {
     expect(ohneRegie('[excited] Montagmorgen im Betrieb.  [enthusiastic] Los!')).toBe('Montagmorgen im Betrieb. Los!')
   })
+
+  it('behält das geschützte Leerzeichen vor französischen Satzzeichen, sonst steht «!» allein auf einer Zeile', () => {
+    expect(ohneRegie('[excited] Tout est là !')).toBe('Tout est là !')
+    expect(saetze('Et tu cherches. Tout est là !')).toEqual(['Et tu cherches.', 'Tout est là !'])
+  })
 })
 
 describe('saetze', () => {
