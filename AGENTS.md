@@ -110,7 +110,13 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
 - All source TypeScript; eslint.config.js stays .js (ESLint compat)
 
 ## Unit-Tests und Proxy
-- Vitest: `src/**/*.test.ts`, Konfig `vitest.config.ts`. Proxy-Tests im Repo ai-proxy: `createApp(deps)` nimmt alles per
+- Vitest: `src/**/*.test.ts`, Konfig `vitest.config.ts` (mit Vue-Plugin). Seiten rendert ein Test per
+  `vue/server-renderer` mit Memory-Router; Kopf, Fuss und Events-Store per `vi.mock` ersetzen, sonst zieht er den
+  InstantDB-Client mit (Beispiel `src/pages/AnlagenPage.test.ts`).
+- Grafiken der Angebotsseiten: Inline-SVG aus `GrafikAblauf.vue` und `GrafikVorherNachher.vue` (Stil der
+  Produktseiten von strainovic-it.ch), Masse in `src/lib/grafik.ts`, Stile in `src/styles/grafik.css`, Beschriftungen aus
+  `src/texte/`. `grafik.test.ts` prüft je Sprache, dass kein Text aus seinem Kasten ragt.
+- Proxy-Tests im Repo ai-proxy: `createApp(deps)` nimmt alles per
   DI (fetch, Store, verifyToken) → Proxy-Logik ohne Netz testbar. Stripe-Webhooks mit `generateTestHeaderString` signiert.
 - Der Proxy läuft mit Node-nativem Type-Stripping: relative Imports **mit `.ts`-Endung** (`./app.ts`), kein Build.
 - Node `--env-file` überschreibt bereits exportierte Shell-Variablen **nicht**: ein in der Shell gesetzter
