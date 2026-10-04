@@ -17,6 +17,12 @@ Führe Playwright E2E-Tests aus.
 ## Voraussetzungen
 1. InstantDB Server muss laufen (nutze `/instantdb-start`)
 2. Dev-Server startet automatisch via Playwright
+3. Läuft schon ein Vite auf 5173, dessen Modus prüfen: Playwright nimmt ihn (`reuseExistingServer`), und ohne
+   `VITE_INSTANTDB_MODE=local` spricht er mit der Cloud (Seeds scheitern mit «Permission denied: not perms-pass?»).
+   Prüfen: `for pid in $(pgrep -f bin/vite); do tr '\0' '\n' < /proc/$pid/environ | grep VITE_INSTANTDB_MODE; done`.
+   Fehlt `local`: beenden und mit `VITE_INSTANTDB_MODE=local VITE_AI_PROXY_URL=http://localhost:8787 npm run dev:vite`
+   neu starten. Nie Seeds oder Screenshots gegen einen Server unbekannten Modus.
+4. Testausgabe nie mit `tail`/`head` kürzen, die Fehlermeldungen stehen am Ende; voll lesen.
 
 ## E2E Testing
 

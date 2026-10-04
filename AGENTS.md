@@ -17,6 +17,13 @@ mit Rechnung auf die Firma (`plans.ts`: `yearlyPriceChf(n, audience)`, Pläne `f
 Bezahlt wird zuerst per QR-Rechnung für Schweizer Kunden; ob später Payrexx oder Stripe für Karten dazukommt, ist offen
 (Skill `abo-rechnung`).
 
+## Arbeitsweise
+- Text-, Style- und Marketing-Änderungen einer Runde erst sammeln, dann einmal Lint und die betroffenen Specs (oder wenn Goran «testen» sagt); nicht nach jeder kleinen Änderung. Deploy nur auf Aufforderung.
+- Gorans eigenes Konto in der Produktion ist ein Testkonto: Datenfehler dort ohne Rückfrage korrigieren und im Bericht nennen. Bei echten Kunden weiter fragen.
+- Produktpost läuft über info@wartungsheft.ch mit `mailbox … wartungsheft` (Skill `mailbox`), nie über die Gmail-Anbindung (deren Absender ist immer die Gmail-Adresse). Resend (login@, erinnerung@) nur für automatische App-Mails, kein Empfang.
+- Google Ads nur über die CLI `ads` (`~/projects/tools/ads.py`, Zugang in `~/.config/google-ads/`); fehlt ein Befehl, in `ads.py` ergänzen. Die Ads-Oberfläche in Chrome nur für Einstellungen ohne API.
+- Meldet die Chrome-Extension «not connected», erneut versuchen und nach Skill `browser-wahl` selbst beheben, die Aufgabe nicht zurückgeben.
+
 ## Hilfs-Repos und todo.md
 Gearbeitet wird auf zwei Rechnern (Windows und Fedora); neben diesem Repo auch `../business` und `../ai-proxy` pullen.
 Scheitert ein Pull (lokale Änderungen, abweichende Historie), nicht selbst auflösen, sondern melden. Bringt der Pull in
@@ -107,7 +114,8 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
 ## Code Style
 - UI text in DE, FR, IT, EN only via `src/texte/` (no hard-coded strings, test `app-deutsch.test.ts`); AI prompts and
   schema descriptions stay German (`src/services/prompts.ts`)
-- antfu ESLint (no semicolons, single quotes, if-newline rule)
+- antfu ESLint (no semicolons, single quotes, if-newline rule); `npm run lint` muss ganz sauber sein, auch vorbestehende Fehler beheben
+- Zod-Fehler über `error.issues` lesen, `error.errors` gibt es nicht
 - All source TypeScript; eslint.config.js stays .js (ESLint compat)
 
 ## Unit-Tests und Proxy
