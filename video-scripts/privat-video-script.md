@@ -23,8 +23,9 @@ der App, nicht mehr als Vollbild-Karten — die hielten den Film an.
 | 6 | 29–33 s | Dieselbe Szene wie 1, Haken statt Fragezeichen | gezeichnet, `szenen/privat-kaeufer.html?antwort=1` | «Alles da.» |
 | 7 | 33–37 s | Abspann | gezeichnet, `szenen/titel.html` | «25 Franken im Jahr. 30 Tage gratis testen, auf wartungsheft.ch» |
 
-Zwischen den Abschnitten liegt eine Überblendung von 0,45 s (`BLENDE` in `scripts/video-build.sh`), keine harten
-Schnitte.
+Zwischen den Abschnitten liegt eine Überblendung von 0,45 s (`BLENDE` in `scripts/werbefilm.ts`), keine harten
+Schnitte. Der Sprecher sagt den Text wörtlich, mit Regieanweisungen für ElevenLabs (Liste `PRIVAT` in
+`scripts/werbefilm.ts`).
 
 ## Kurzfassung 15 Sekunden (Ads)
 
@@ -63,21 +64,21 @@ Nicht behaupten: Zeitersparnis in Stunden, Wiederverkaufswert in Franken, Kunden
 
 ```bash
 npm run video              # alle Clips (App, Zeichnungen, Titelkarten)
-scripts/video-build.sh     # montiert public/film-privat.webm und film-betrieb.webm
+npm run video:film         # montiert public/film-privat.* und film-betrieb.* (Skill werbefilm)
 ```
 
-Reihenfolge und Länge je Abschnitt stehen in `scripts/video-build.sh`. Die Landing Pages binden die Dateien über
+Reihenfolge und Länge je Abschnitt stehen in `scripts/werbefilm.ts`. Die Landing Pages binden die Dateien über
 `LandingVideo.vue` ein, stumm und erst auf Klick.
 
 ## Aufnahme der App-Szenen
 
 ```bash
-npm run video -- e2e/video/privat.video.ts   # spielt die Szenen, zeichnet sie auf
-scripts/video-clips.sh                        # sammelt sie nach video-out/ und wandelt sie um
+npm run video -- e2e/video/privat.video.ts   # spielt die Szenen, zeichnet sie nach video-out/roh/ auf
 ```
 
-Aufgenommen wird zweimal: im Handyformat 390 × 844 (Video 1170 × 2532) und im Desktop-Layout 1280 × 720 (Video
-1920 × 1080). Jede Szene ist ein eigener Clip, die Desktop-Clips tragen `-desktop` im Namen. Die Daten sind erfunden und werden bei jeder Aufnahme neu angelegt, also nie Kundendaten im Bild.
+Aufgenommen wird zweimal per Chrome-Screencast: im Handyformat 390 × 693 (Bilder 1170 × 2079, Film 1080 × 1920) und
+im Desktop-Layout 1280 × 720 (Bilder 3840 × 2160, Film 1920 × 1080). Jede Szene ist ein eigener Clip, die
+Desktop-Clips tragen `-desktop` im Namen. Die Daten sind erfunden und werden bei jeder Aufnahme neu angelegt, also nie Kundendaten im Bild.
 
 Die Seite zeigt ab 760 px die Desktop-Fassung, darunter die hochkant aufgenommene.
 

@@ -74,32 +74,33 @@ export default defineConfig({
     },
     {
       // Aufnahme der Werbe-Clips (video-scripts/, `npm run video`): kein Test, sondern gespielte Szenen im
-      // Handyformat mit Videomitschnitt. Läuft nie in online/offline, weil die Dateien auf .video.ts enden.
+      // Handyformat. Läuft nie in online/offline, weil die Dateien auf .video.ts enden. Aufgenommen wird per
+      // Chrome-Screencast (e2e/video/szenen.ts), nicht mit recordVideo: dessen VP8 macht Text unscharf.
       name: 'video',
       testMatch: /.*\.video\.ts/,
       use: {
         baseURL: 'http://localhost:6060',
-        viewport: { width: 390, height: 844 },
+        // 9:16 wie der fertige Film (1080×1920); Gerätepixel 1170×2079
+        viewport: { width: 390, height: 693 },
         // Die App folgt prefers-color-scheme; hell blendete im Film und brach mit den Landing Pages
         colorScheme: 'dark',
-        // Der Videorekorder nimmt Gerätepixel: erst mit --force-device-scale-factor wird die Aufnahme scharf
+        // Ohne den Startschalter liefert der Screencast nur CSS-Pixel (390 breit), egal was deviceScaleFactor sagt
         deviceScaleFactor: 3,
         launchOptions: { args: ['--force-device-scale-factor=3'] },
-        video: { mode: 'on', size: { width: 1170, height: 2532 } },
         simulateOffline: false,
       },
     },
     {
-      // Dieselben Szenen im Desktop-Layout: eigene Aufnahme statt Hochformat mit gefülltem Rand
+      // Dieselben Szenen im Desktop-Layout: eigene Aufnahme statt Hochformat mit gefülltem Rand.
+      // Dreifache Pixeldichte (3840×2160), damit der Film ohne Unschärfe auf Ausschnitte zoomen kann.
       name: 'video-desktop',
       testMatch: /.*\.video\.ts/,
       use: {
         baseURL: 'http://localhost:6060',
         viewport: { width: 1280, height: 720 },
         colorScheme: 'dark',
-        deviceScaleFactor: 1.5,
-        launchOptions: { args: ['--force-device-scale-factor=1.5'] },
-        video: { mode: 'on', size: { width: 1920, height: 1080 } },
+        deviceScaleFactor: 3,
+        launchOptions: { args: ['--force-device-scale-factor=3'] },
         simulateOffline: false,
       },
     },

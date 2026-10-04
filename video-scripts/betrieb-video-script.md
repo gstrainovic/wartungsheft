@@ -58,8 +58,11 @@ Tankbuch oder Buchhaltung — das kann die App bewusst nicht (`business-plan/03-
 
 ```bash
 npm run video -- e2e/video/betrieb.video.ts
-scripts/video-clips.sh
+npm run video:film -- betrieb
 ```
+
+Der Sprechertext ist der freigegebene aus dem Skill `werbefilm` (Abschnitt «Sprecher»), auf die Szenen verteilt
+(Liste `BETRIEB` in `scripts/werbefilm.ts`).
 
 Szene 5 zeigt den Bestelldialog nur, wenn der lokale AI-Proxy die Rechnungsstellung kennt. Beim Aufnehmen über
 `npm run video` ist das der Fall (Test-IBAN in `playwright.config.ts`).

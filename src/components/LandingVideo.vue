@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * Kurzfilm auf den Landing Pages. Startet stumm und erst auf Klick, damit die Seite nicht von selbst lärmt und
- * das Handy kein Datenvolumen verbraucht; der Ton (Sprecher) lässt sich über die Bedienleiste einschalten. Die Filme entstehen aus `npm run video` und `scripts/video-build.sh`
+ * das Handy kein Datenvolumen verbraucht; der Ton (Sprecher) lässt sich über die Bedienleiste einschalten. Die Filme entstehen aus `npm run video` und `npm run video:film`
  * (Drehbücher in `video-scripts/`); fehlt die Datei, zeigt die Seite den Abschnitt gar nicht.
  */
 import { computed, onMounted, ref } from 'vue'
@@ -129,7 +129,7 @@ h2 {
 .video-frame video {
   display: block;
   width: 100%;
-  aspect-ratio: 585 / 1266;
+  aspect-ratio: 9 / 16;
   max-height: 72vh;
 }
 

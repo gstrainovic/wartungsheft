@@ -3,22 +3,25 @@
  * vor, Playwright zeichnet sie auf. Alle Daten sind erfunden, damit nie Kundendaten im Video landen.
  * Die Drehbücher stehen in `video-scripts/privat-video-script.md` und `video-scripts/betrieb-video-script.md`.
  */
-import type { Browser, Page, TestInfo } from '@playwright/test'
-import { mkdir } from 'node:fs/promises'
+import type { Browser, CDPSession, Page, TestInfo } from '@playwright/test'
+import { Buffer } from 'node:buffer'
+import { mkdir, rm, writeFile } from 'node:fs/promises'
 import process from 'node:process'
 import { waitForInstantDB } from '../fixtures/test-fixtures'
 
-/** Zielordner der fertigen Clips; `scripts/video-clips.sh` wandelt sie von dort aus um */
-export const CLIP_DIR = `${process.cwd()}/video-out`
+/** Ablage der Aufnahmen: je Szene ein Ordner mit den Einzelbildern und einer concat-Liste für ffmpeg */
+export const CLIP_DIR = `${process.cwd()}/video-out/roh`
 
-/**
- * Speichert die Aufnahme unter dem Namen der Szene statt unter Playwrights Ordner-Hash. Gehört in ein
- * `test.afterEach`, dort wartet `saveAs` auf das Ende der Aufnahme.
- */
-export async function clipSpeichern(page: Page, testInfo: TestInfo): Promise<void> {
-  const video = page.video()
-  if (!video)
-    return
+interface Aufnahme {
+  cdp: CDPSession
+  ordner: string
+  bilder: { datei: string, t: number }[]
+  schreiben: Promise<void>[]
+}
+
+const aufnahmen = new WeakMap<Page, Aufnahme>()
+
+function clipName(testInfo: TestInfo): string {
   const slug = testInfo.title
     .replace(/ä/g, 'ae')
     .replace(/ö/g, 'oe')
@@ -27,12 +30,62 @@ export async function clipSpeichern(page: Page, testInfo: TestInfo): Promise<voi
     .replace(/[^a-z0-9]+/gi, '-')
     .replace(/^-|-$/g, '')
     .toLowerCase()
-  // Der Desktop-Lauf legt eigene Dateien an, sonst überschreiben sich die beiden Formate
-  const suffix = testInfo.project.name === 'video-desktop' ? '-desktop' : ''
-  await mkdir(CLIP_DIR, { recursive: true })
-  // Erst die Seite schliessen: solange sie offen ist, wartet saveAs auf das Ende der Aufnahme und läuft in den Timeout
-  await page.close()
-  await video.saveAs(`${CLIP_DIR}/${slug}${suffix}.webm`)
+  // Der Desktop-Lauf legt eigene Ordner an, sonst überschreiben sich die beiden Formate
+  return testInfo.project.name === 'video-desktop' ? `${slug}-desktop` : slug
+}
+
+/**
+ * Startet die Aufnahme über den Screencast von Chrome statt über Playwrights recordVideo: dessen VP8 mit rund
+ * 1 Mbit/s macht UI-Text unscharf. Die Bilder kommen in Gerätepixeln (Desktop 3840×2160, Handy 1170×2079) als
+ * JPEG; Chrome schickt nur bei Änderungen ein Bild, die Standzeiten stehen in der concat-Liste. Erst aufrufen,
+ * wenn die Seite steht: Ladeschirme gehören nicht in den Film.
+ */
+export async function aufnahmeStarten(page: Page, testInfo: TestInfo, warten = 800): Promise<void> {
+  // Daten aus InstantDB und Schriften brauchen nach dem Laden einen Moment; gezeichnete Szenen starten sofort
+  await page.waitForTimeout(warten)
+  const ordner = `${CLIP_DIR}/${clipName(testInfo)}`
+  await rm(ordner, { recursive: true, force: true })
+  await mkdir(ordner, { recursive: true })
+  const cdp = await page.context().newCDPSession(page)
+  const a: Aufnahme = { cdp, ordner, bilder: [], schreiben: [] }
+  cdp.on('Page.screencastFrame', (f) => {
+    const datei = `${ordner}/${String(a.bilder.length).padStart(5, '0')}.jpg`
+    a.bilder.push({ datei, t: f.metadata.timestamp ?? Date.now() / 1000 })
+    a.schreiben.push(writeFile(datei, Buffer.from(f.data, 'base64')))
+    cdp.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {})
+  })
+  const { width, height } = page.viewportSize()!
+  const dpr = await page.evaluate(() => window.devicePixelRatio)
+  await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 92, maxWidth: Math.round(width * dpr), maxHeight: Math.round(height * dpr) })
+  aufnahmen.set(page, a)
+  // Ein stehendes Bild löst keinen Screencast-Rahmen aus: einmal neu zeichnen lassen, damit das erste Bild sofort kommt
+  await page.evaluate(() => {
+    document.body.style.setProperty('outline', '1px solid transparent')
+    requestAnimationFrame(() => document.body.style.removeProperty('outline'))
+  })
+}
+
+/**
+ * Beendet die Aufnahme und schreibt `video-out/roh/<szene>/liste.txt` (ffmpeg concat mit Standzeiten). Gehört in
+ * ein `test.afterEach`. Die Montage (`scripts/werbefilm.ts`) liest die Bilder direkt, ohne Zwischenkodierung.
+ */
+export async function clipSpeichern(page: Page, _testInfo: TestInfo): Promise<void> {
+  const a = aufnahmen.get(page)
+  if (!a)
+    return
+  aufnahmen.delete(page)
+  const ende = Date.now() / 1000
+  await a.cdp.send('Page.stopScreencast').catch(() => {})
+  await Promise.all(a.schreiben)
+  if (!a.bilder.length)
+    throw new Error(`keine Bilder in ${a.ordner}`)
+  // Der Zeitstempel von Chrome ist Sekunden seit Epoche wie Date.now(); das letzte Bild steht bis zum Ende
+  const zeilen = a.bilder.map((b, i) => {
+    const naechstes = a.bilder[i + 1]
+    const dauer = (naechstes ? naechstes.t : Math.max(ende, b.t + 0.5)) - b.t
+    return `file '${b.datei}'\nduration ${Math.max(dauer, 0.001).toFixed(4)}`
+  })
+  await writeFile(`${a.ordner}/liste.txt`, `${zeilen.join('\n')}\nfile '${a.bilder.at(-1)!.datei}'\n`)
 }
 
 /**

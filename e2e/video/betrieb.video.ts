@@ -3,7 +3,7 @@
  * Aufnahme: `npm run video -- e2e/video/betrieb.video.ts`, Ergebnis unter test-results/…/video.webm.
  */
 import { clearInstantDB, expect, mockInvoiceScan, test } from '../fixtures/test-fixtures'
-import { beat, clipSpeichern, daysAgo, musterRechnungFoto, seed, showPointer, slowClick } from './szenen'
+import { aufnahmeStarten, beat, clipSpeichern, daysAgo, musterRechnungFoto, seed, showPointer, slowClick } from './szenen'
 
 const FLEET = [
   { make: 'Fiat', model: 'Ducato', year: 2019, mileage: 184_300, licensePlate: 'SG 41 220' },
@@ -21,7 +21,7 @@ test.describe('Werbeclips Betrieb', () => {
     await clipSpeichern(page, testInfo)
   })
 
-  test('Szene 2: Fuhrpark auf einen Blick, was ist fällig', async ({ page }) => {
+  test('Szene 2: Fuhrpark auf einen Blick, was ist fällig', async ({ page }, testInfo) => {
     await seed(page, {
       vehicles: FLEET,
       maintenances: [
@@ -33,6 +33,7 @@ test.describe('Werbeclips Betrieb', () => {
     })
     await page.goto('/dashboard')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await beat(page, 2)
     await page.mouse.wheel(0, 240)
     await beat(page, 3)
@@ -67,6 +68,7 @@ test.describe('Werbeclips Betrieb', () => {
     })
     await page.goto('/vehicles')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await slowClick(page, page.locator('.vehicle-card').first())
     await page.waitForURL(/\/vehicles\/.+/)
     await slowClick(page, page.getByRole('tab', { name: 'Rechnungen' }))
@@ -79,7 +81,7 @@ test.describe('Werbeclips Betrieb', () => {
     await beat(page, 3)
   })
 
-  test('Szene 4: Kosten pro Fahrzeug und Jahr, Export für die Buchhaltung', async ({ page }) => {
+  test('Szene 4: Kosten pro Fahrzeug und Jahr, Export für die Buchhaltung', async ({ page }, testInfo) => {
     await seed(page, {
       vehicles: FLEET,
       // dieselben Wartungen wie in Szene 2: sonst meldet das Dashboard «nichts fällig» und widerspricht dem Film
@@ -98,25 +100,25 @@ test.describe('Werbeclips Betrieb', () => {
     })
     await page.goto('/dashboard')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     await beat(page, 2)
-    // langsam zur Fuhrpark-Tabelle: der Ausschnitt im Film beginnt erst nach dem Seitenaufbau
-    await page.mouse.wheel(0, 450)
-    await beat(page, 2)
-    await page.mouse.wheel(0, 450)
+    // Kostentabelle sanft in die Bildmitte rollen; Mausrad-Schritte schossen im Desktop-Layout an ihr vorbei
+    await page.getByText('Kosten pro Fahrzeug und Jahr').first().evaluate(el => el.scrollIntoView({ behavior: 'smooth', block: 'center' }))
     await beat(page, 3)
 
-    const csv = page.getByRole('button', { name: /CSV/ }).first()
-    if (await csv.count()) {
-      await csv.hover()
+    const exportKnopf = page.getByRole('button', { name: /Export/ }).first()
+    if (await exportKnopf.count()) {
+      await exportKnopf.hover()
       await beat(page, 2)
     }
     await beat(page, 2)
   })
 
-  test('Szene 5: Bestellung mit Rechnung auf die Firma', async ({ page }) => {
+  test('Szene 5: Bestellung mit Rechnung auf die Firma', async ({ page }, testInfo) => {
     await seed(page, { vehicles: FLEET })
     await page.goto('/settings')
     await showPointer(page)
+    await aufnahmeStarten(page, testInfo)
     const card = page.locator('.settings-card', { hasText: 'Abo & Nutzung' })
     await card.scrollIntoViewIfNeeded()
     await beat(page, 2)

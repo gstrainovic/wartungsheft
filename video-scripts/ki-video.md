@@ -31,7 +31,6 @@ Transporter, einer meldet sich rot). Aufgenommen werden sie wie die App-Clips:
 
 ```bash
 npm run video -- e2e/video/zeichnung.video.ts
-scripts/video-clips.sh
 ```
 
 Das kostet nichts, wirft keine Lizenzfrage auf, passt farblich zur App und ist nach einer Textänderung in
@@ -48,11 +47,11 @@ Falls doch einmal ein fotorealistisches Bild gebraucht wird:
 3. **Geliehene GPU**, falls Wan lokal laufen soll: eine Stunde auf RunPod oder Thunder Compute kostet weniger als
    einen Franken. Streng genommen nicht mehr gratis, aber billiger als jedes Abo.
 
-### 3. Stimme: lokal und frei, schon eingebaut
+### 3. Stimme: lokal und frei, als Rückfall eingebaut
 
-**Piper TTS** (MIT-Lizenz) mit der deutschen Stimme **Thorsten** (Datensatz CC0) läuft auf der CPU, ohne Konto und
-ohne Netz. `scripts/video-build.sh` ruft es selbst auf: die Sprechertexte stehen dort je Abschnitt, die Länge des
-Abschnitts wächst automatisch mit der Sprechdauer.
+Die Filme spricht ElevenLabs (Skill `werbefilm`, Abschnitt «Sprecher»). Fehlt der Schlüssel, nimmt
+`scripts/sprecher.ts` **Piper TTS** (MIT-Lizenz) mit der deutschen Stimme **Thorsten** (Datensatz CC0): CPU, ohne
+Konto und ohne Netz. Die Länge jedes Abschnitts wächst automatisch mit der Sprechdauer.
 
 ```bash
 pipx install piper-tts
@@ -60,14 +59,12 @@ pipx install piper-tts
 #   huggingface.co/rhasspy/piper-voices  →  de/de_DE/thorsten/high/de_DE-thorsten-high.onnx (+ .json)
 ```
 
-Fehlt piper oder die Stimme, baut das Skript den Film stumm und ohne Untertitel; die Titelkarten tragen die
-Aussagen dann allein. Qualität: gut verständlich, nüchterner als ElevenLabs — für einen Film über
-Werkstattrechnungen passend. Andere Stimme: `PIPER_VOICE=/pfad/stimme.onnx scripts/video-build.sh`.
+Qualität: gut verständlich, nüchterner als ElevenLabs. Andere Stimme: `PIPER_VOICE=/pfad/stimme.onnx npm run video:film`.
 
 ### 4. Untertitel: aus dem Sprechertext, nicht aus Whisper
 
-Der Text steht ohnehin im Skript, also braucht es keine Spracherkennung: `video-build.sh` schreibt pro Abschnitt
-eine SRT-Datei und brennt sie mit libass ein. Das ist exakt statt geraten und spart den Whisper-Schritt.
+Der Text steht ohnehin im Skript, also braucht es keine Spracherkennung für die Untertitel: `scripts/werbefilm.ts`
+legt jeden Satz in die Sprechpause, die ffmpeg `silencedetect` findet, und brennt ihn als Kasten ein.
 
 ### 5. Musik: weglassen oder CC0
 
