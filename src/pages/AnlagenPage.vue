@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
+import GrafikAblauf from '../components/GrafikAblauf.vue'
+import GrafikVorherNachher from '../components/GrafikVorherNachher.vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
 import { useSprache } from '../composables/useSprache'
@@ -30,12 +32,27 @@ function vorbestellen() {
         </p>
       </section>
 
+      <section class="anlagen-grafik">
+        <h2>{{ t.ablauf.titel }}</h2>
+        <GrafikAblauf :titel="t.ablauf.bild" :schritte="t.ablauf.schritte" />
+      </section>
+
       <section class="anlagen-benefits">
         <div v-for="b in t.benefits" :key="b.title" class="anlagen-benefit">
           <i :class="`pi ${b.icon}`" />
           <h2>{{ b.title }}</h2>
           <p>{{ b.text }}</p>
         </div>
+      </section>
+
+      <section class="anlagen-grafik">
+        <h2>{{ t.vorherNachher.titel }}</h2>
+        <GrafikVorherNachher
+          :titel="t.vorherNachher.bild"
+          :bisher="t.vorherNachher.bisher"
+          :neu="t.vorherNachher.neu"
+          :zeilen="t.vorherNachher.zeilen"
+        />
       </section>
 
       <section class="anlagen-fuer">
@@ -102,6 +119,16 @@ function vorbestellen() {
   color: var(--p-text-muted-color);
   max-width: 640px;
   margin: 0 auto;
+}
+
+.anlagen-grafik {
+  margin-bottom: 3rem;
+}
+
+.anlagen-grafik h2 {
+  font-size: 1.25rem;
+  margin: 0 0 1.25rem;
+  text-align: center;
 }
 
 .anlagen-benefits {

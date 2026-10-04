@@ -1,0 +1,86 @@
+/*
+ * Inline-Grafiken der Angebotsseiten (GrafikAblauf.vue, GrafikVorherNachher.vue), Stil von strainovic-it.ch.
+ * Jede Grafik liegt breit und schmal im HTML; die Breite der Spalte entscheidet, welche sichtbar ist.
+ * Farben nur über die PrimeVue-Variablen, damit Hell und Dunkel (.dark-mode) ohne eigene Regeln stimmen.
+ */
+.grafik {
+  container-type: inline-size;
+  margin: 0;
+}
+
+.grafik svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.grafik .grafik-breit {
+  display: none;
+}
+
+@container (min-width: 34rem) {
+  .grafik .grafik-breit {
+    display: block;
+  }
+
+  .grafik .grafik-schmal {
+    display: none;
+  }
+}
+
+.g-kasten {
+  fill: var(--p-content-background);
+  stroke: var(--p-content-border-color);
+  stroke-width: 1.5;
+}
+
+.g-kasten-eigen {
+  stroke: var(--p-primary-color);
+}
+
+.g-kasten-bisher {
+  fill: var(--surface-ground);
+  stroke: var(--p-content-border-color);
+}
+
+.g-oben {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--p-text-muted-color);
+}
+
+.g-kasten-eigen ~ .g-oben {
+  fill: var(--p-primary-color);
+}
+
+.g-unten {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--p-text-color);
+}
+
+.g-kasten-bisher ~ .g-unten {
+  font-weight: 400;
+  fill: var(--p-text-muted-color);
+}
+
+.g-pfeil,
+.g-symbol {
+  fill: none;
+  stroke: var(--p-text-muted-color);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.g-spitze {
+  fill: var(--p-text-muted-color);
+}
+
+.g-kasten-eigen ~ .g-symbol {
+  stroke: var(--p-primary-color);
+  stroke-width: 2;
+}

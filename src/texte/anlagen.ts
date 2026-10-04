@@ -4,6 +4,28 @@ import type { Sprache } from '../lib/sprache'
 const de = {
   titel: 'Wartungsplan für Liegenschaften und Anlagen',
   problem: 'Wer Gebäude oder Anlagen unterhält, verliert Fristen in Excel-Listen und Belege in Ordnern. Wartungsheft erinnert an jede Wartung und Prüfung, das Foto der Rechnung wird zum Eintrag, das Protokoll zum PDF.',
+  // Grafiken (GrafikAblauf, GrafikVorherNachher): `bild` ist der <title> der SVG, Wörter höchstens 14 Zeichen
+  ablauf: {
+    titel: 'So funktioniert es',
+    bild: 'Ablauf in vier Schritten: Anlage erfassen, Fristen und Intervalle hinterlegen, Erinnerung vor Ablauf, Nachweis bei der Kontrolle',
+    schritte: [
+      { ort: 'Erfassen', text: 'Anlage beim Objekt erfassen', eigen: false },
+      { ort: 'Hinterlegen', text: 'Fristen und Intervalle eintragen', eigen: false },
+      { ort: 'Erinnern', text: 'E-Mail rechtzeitig vor Ablauf', eigen: true },
+      { ort: 'Nachweisen', text: 'Protokoll als PDF für die Kontrolle', eigen: false },
+    ],
+  },
+  vorherNachher: {
+    titel: 'Was sich ändert',
+    bild: 'Bisher und mit Wartungsheft: aus Zetteln, Kalender und Excel wird eine Liste mit allen Fristen, aus der verpassten Frist eine rechtzeitige Erinnerung, aus der Suche nach dem Nachweis ein fertiges Protokoll',
+    bisher: 'Bisher',
+    neu: 'Mit Wartungsheft',
+    zeilen: [
+      { bisher: 'Fristen auf Zetteln, im Kalender und in Excel-Listen', neu: 'Eine Liste mit allen Fristen pro Objekt' },
+      { bisher: 'Eine Prüffrist geht vergessen', neu: 'Eine E-Mail erinnert rechtzeitig' },
+      { bisher: 'Belege im Ordner suchen, wenn die Kontrolle kommt', neu: 'Das Protokoll liegt als PDF bereit' },
+    ],
+  },
   benefits: [
     { icon: 'pi-calendar', title: 'Jede Frist im Blick', text: 'Heizung, Lift, Lüftung, Brandmelder, Maschinen: Wartungsintervalle und gesetzliche Prüffristen pro Objekt, eine E-Mail erinnert rechtzeitig.' },
     { icon: 'pi-camera', title: 'Rechnung oder Prüfbericht fotografieren', text: 'Firma, Datum und Betrag werden ausgelesen und dem Objekt zugeordnet. Die Historie füllt sich von selbst.' },
@@ -26,6 +48,27 @@ export default {
   fr: {
     titel: 'Plan d\'entretien pour immeubles et installations',
     problem: 'Qui entretient des bâtiments ou des installations perd des délais dans des listes Excel et des justificatifs dans des classeurs. Wartungsheft rappelle chaque entretien et chaque contrôle, la photo de la facture devient une entrée, le procès-verbal un PDF.',
+    ablauf: {
+      titel: 'Comment ça marche',
+      bild: 'Déroulement en quatre étapes : saisir l\'installation, enregistrer délais et intervalles, rappel avant l\'échéance, preuve lors du contrôle',
+      schritte: [
+        { ort: 'Saisir', text: 'Saisir l\'installation de l\'objet', eigen: false },
+        { ort: 'Enregistrer', text: 'Délais et intervalles d\'entretien', eigen: false },
+        { ort: 'Rappeler', text: 'E-mail à temps avant l\'échéance', eigen: true },
+        { ort: 'Prouver', text: 'Procès-verbal PDF pour le contrôle', eigen: false },
+      ],
+    },
+    vorherNachher: {
+      titel: 'Ce qui change',
+      bild: 'Avant et avec Wartungsheft : les notes, l\'agenda et Excel deviennent une liste avec tous les délais, le délai manqué un rappel à temps, la recherche du justificatif un procès-verbal prêt',
+      bisher: 'Avant',
+      neu: 'Avec Wartungsheft',
+      zeilen: [
+        { bisher: 'Délais sur des notes, dans l\'agenda et des listes Excel', neu: 'Une liste avec tous les délais par objet' },
+        { bisher: 'Un délai de contrôle est oublié', neu: 'Un e-mail rappelle à temps' },
+        { bisher: 'Chercher les justificatifs dans les classeurs au moment du contrôle', neu: 'Le procès-verbal est prêt en PDF' },
+      ],
+    },
     benefits: [
       { icon: 'pi-calendar', title: 'Chaque délai sous contrôle', text: 'Chauffage, ascenseur, ventilation, détecteurs incendie, machines : intervalles d\'entretien et délais de contrôle légaux par objet, un e-mail rappelle à temps.' },
       { icon: 'pi-camera', title: 'Photographier la facture ou le rapport de contrôle', text: 'Entreprise, date et montant sont lus et attribués à l\'objet. L\'historique se remplit tout seul.' },
@@ -45,6 +88,27 @@ export default {
   it: {
     titel: 'Piano di manutenzione per immobili e impianti',
     problem: 'Chi gestisce edifici o impianti perde scadenze nelle liste Excel e documenti nei classificatori. Wartungsheft ricorda ogni manutenzione e ogni controllo, la foto della fattura diventa una registrazione, il verbale un PDF.',
+    ablauf: {
+      titel: 'Come funziona',
+      bild: 'Procedura in quattro passi: registrare l\'impianto, inserire scadenze e intervalli, promemoria prima della scadenza, prova al controllo',
+      schritte: [
+        { ort: 'Registrare', text: 'Registra l\'impianto dell\'oggetto', eigen: false },
+        { ort: 'Inserire', text: 'Scadenze e intervalli di manutenzione', eigen: false },
+        { ort: 'Ricordare', text: 'E-mail in tempo prima della scadenza', eigen: true },
+        { ort: 'Dimostrare', text: 'Verbale in PDF per il controllo', eigen: false },
+      ],
+    },
+    vorherNachher: {
+      titel: 'Cosa cambia',
+      bild: 'Prima e con Wartungsheft: foglietti, calendario ed Excel diventano una lista con tutte le scadenze, la scadenza mancata un promemoria in tempo, la ricerca del documento un verbale pronto',
+      bisher: 'Prima',
+      neu: 'Con Wartungsheft',
+      zeilen: [
+        { bisher: 'Scadenze su foglietti, nel calendario e in liste Excel', neu: 'Una lista con tutte le scadenze per oggetto' },
+        { bisher: 'Una scadenza di controllo viene dimenticata', neu: 'Un\'e-mail ricorda in tempo' },
+        { bisher: 'Cercare i documenti nei classificatori quando arriva il controllo', neu: 'Il verbale è pronto in PDF' },
+      ],
+    },
     benefits: [
       { icon: 'pi-calendar', title: 'Ogni scadenza sotto controllo', text: 'Riscaldamento, ascensore, ventilazione, rilevatori d\'incendio, macchine: intervalli di manutenzione e scadenze di controllo legali per oggetto, un\'e-mail ricorda in tempo.' },
       { icon: 'pi-camera', title: 'Fotografa la fattura o il rapporto di controllo', text: 'Ditta, data e importo vengono letti e assegnati all\'oggetto. Lo storico si riempie da solo.' },
@@ -64,6 +128,27 @@ export default {
   en: {
     titel: 'Maintenance plan for buildings and equipment',
     problem: 'Anyone who looks after buildings or equipment loses deadlines in Excel lists and receipts in binders. Wartungsheft reminds you of every service and inspection, the photo of the invoice becomes an entry, the report a PDF.',
+    ablauf: {
+      titel: 'How it works',
+      bild: 'Four steps: record the equipment, set deadlines and intervals, reminder before they expire, proof at the inspection',
+      schritte: [
+        { ort: 'Record', text: 'Add the equipment to the property', eigen: false },
+        { ort: 'Set', text: 'Deadlines and service intervals', eigen: false },
+        { ort: 'Remind', text: 'Email in good time before expiry', eigen: true },
+        { ort: 'Prove', text: 'PDF report as proof at the inspection', eigen: false },
+      ],
+    },
+    vorherNachher: {
+      titel: 'What changes',
+      bild: 'Before and with Wartungsheft: notes, calendar and Excel become one list with every deadline, the missed deadline a timely reminder, the search for proof a ready report',
+      bisher: 'Before',
+      neu: 'With Wartungsheft',
+      zeilen: [
+        { bisher: 'Deadlines on notes, in the calendar and in Excel lists', neu: 'One list with every deadline per property' },
+        { bisher: 'An inspection deadline is missed', neu: 'An email reminds you in good time' },
+        { bisher: 'Searching binders for receipts when the inspection comes', neu: 'The report is ready as a PDF' },
+      ],
+    },
     benefits: [
       { icon: 'pi-calendar', title: 'Every deadline in view', text: 'Heating, lift, ventilation, fire detectors, machines: maintenance intervals and statutory inspection deadlines per property, with an email reminder in good time.' },
       { icon: 'pi-camera', title: 'Photograph the invoice or inspection report', text: 'Company, date and amount are read out and assigned to the property. The history fills itself.' },
