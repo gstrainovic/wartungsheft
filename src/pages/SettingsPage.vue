@@ -591,6 +591,14 @@ const currencyOptions = HOME_CURRENCIES.map(c => ({ label: c, value: c }))
 </template>
 
 <style scoped>
+/* Vier Sprachnamen passen auf 390px nicht in eine Zeile: umbrechen statt abschneiden */
+.sprache-wahl {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sprache-wahl :deep(.p-togglebutton) {
+  flex: 1 1 auto;
+}
 .account-note {
   margin: 0 0 1rem;
   color: var(--p-text-muted-color);
