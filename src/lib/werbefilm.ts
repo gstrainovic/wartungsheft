@@ -171,6 +171,16 @@ export function srt(cues: Cue[]): string {
   return `${cues.map((c, i) => `${i + 1}\n${srtZeit(c.von)} --> ${srtZeit(c.bis)}\n${zeilenUmbruch(c.text, 42).join('\n')}`).join('\n\n')}\n`
 }
 
+/**
+ * Untertitelspur für die Website (WebVTT, `<track>` in LandingVideo.vue): ohne festen Umbruch, weil der Film am
+ * Handy nur 390 px breit ist und der Browser selbst umbricht
+ */
+export function vtt(cues: Cue[]): string {
+  const zeit = (s: number): string => srtZeit(s).replace(',', '.')
+  const text = (t: string): string => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return `WEBVTT\n\n${cues.map(c => `${zeit(c.von)} --> ${zeit(c.bis)}\n${text(c.text)}`).join('\n\n')}\n`
+}
+
 /** Sprechstellen mit kurzer Pause dazwischen zusammenfassen, sonst hebt und senkt sich die Musik in jeder Atempause */
 export function sprechzeitenZusammenfassen(zeiten: Zeitraum[], luecke: number): Zeitraum[] {
   const sortiert = [...zeiten].sort((a, b) => a.von - b.von)

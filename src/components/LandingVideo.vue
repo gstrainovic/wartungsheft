@@ -1,12 +1,13 @@
 <script setup lang="ts">
 /**
  * Kurzfilm auf den Landing Pages. Startet stumm und erst auf Klick, damit die Seite nicht von selbst lärmt und
- * das Handy kein Datenvolumen verbraucht; der Ton (Sprecher) lässt sich über die Bedienleiste einschalten. Die Filme entstehen aus `npm run video` und `npm run video:film`
+ * das Handy kein Datenvolumen verbraucht; der Ton (Sprecher) lässt sich über die Bedienleiste einschalten, die
+ * Untertitel (WebVTT-Spur, nicht eingebrannt) über den Untertitel-Knopf ausschalten. Die Filme entstehen aus `npm run video` und `npm run video:film`
  * (Drehbücher in `video-scripts/`); fehlt die Datei, zeigt die Seite den Abschnitt gar nicht.
  */
 import { computed, onMounted, ref } from 'vue'
 import { useSprache } from '../composables/useSprache'
-import { filmQuelle } from '../lib/film-datei'
+import { filmQuelle, filmUntertitel, untertitelName } from '../lib/film-datei'
 import angebotTexte from '../texte/angebot'
 
 // Jede Sprache hat ihren eigenen Film (Sprecher, Untertitel und App-Oberfläche), Namen aus src/lib/film-datei.ts
@@ -28,6 +29,7 @@ const src = computed(() => filmQuelle(props.file, sprache.value, quer.value))
 // MP4 zuerst: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM (VP9/Opus)
 const mp4 = computed(() => src.value.replace(/\.webm$/, '.mp4'))
 const poster = computed(() => src.value.replace(/\.webm$/, '-poster.jpg'))
+const untertitel = computed(() => filmUntertitel(props.file, sprache.value))
 const vorhanden = ref(false)
 const laeuft = ref(false)
 const video = ref<HTMLVideoElement | null>(null)
@@ -85,6 +87,8 @@ function abspielen(): void {
         >
           <source :src="mp4" type="video/mp4">
           <source :src="src" type="video/webm">
+          <!-- Untertitel als Spur statt eingebrannt: an, über den Untertitel-Knopf des Players abschaltbar -->
+          <track kind="subtitles" :srclang="sprache" :label="untertitelName(sprache)" :src="untertitel" default>
         </video>
         <button v-if="!laeuft" class="video-play" type="button" :aria-label="t.film.abspielen" @click="abspielen">
           <i class="pi pi-play" />

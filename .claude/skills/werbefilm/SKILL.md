@@ -1,6 +1,6 @@
 ---
 name: werbefilm
-description: Werbefilme für die Landing Pages neu aufnehmen, montieren und ausliefern (Playwright mit Chrome-Screencast, Sprecher ElevenLabs Andres bzw. Piper, ffmpeg mit Untertitel-Kästen und Musik)
+description: Werbefilme für die Landing Pages neu aufnehmen, montieren und ausliefern (Playwright mit Chrome-Screencast, Sprecher ElevenLabs Andres bzw. Piper, ffmpeg mit Musik, Untertitel als WebVTT-Spur bzw. Kästen in den Kurzfassungen)
 ---
 
 Die Filme auf `/`, `/privathalter` und `/betrieb` entstehen vollständig im Repo: keine Kamera, kein fremdes
@@ -24,13 +24,18 @@ Danach liegen bereit (`<name>` ist `privat`, `betrieb`, in anderen Sprachen `pri
 
 | Datei | Zweck |
 |---|---|
-| `public/film-<name>.{mp4,webm}` | Website Handy, 1080×1920, Untertitel-Kästen eingebrannt |
-| `public/film-<name>-desktop.{mp4,webm}` | Website ab 760 px, 1920×1080, Untertitel-Kästen eingebrannt |
+| `public/film-<name>.{mp4,webm}` | Website Handy, 1080×1920, ohne eingebrannte Untertitel |
+| `public/film-<name>-desktop.{mp4,webm}` | Website ab 760 px, 1920×1080, ohne eingebrannte Untertitel |
+| `public/film-<name>.vtt` | Untertitel beider Website-Fassungen (WebVTT, gleiche Zeiten wie die SRT) |
 | `public/film-<name>-poster.jpg`, `-desktop-poster.jpg` | Standbild vor dem Start |
 | `video-out/youtube-<name>.mp4` und `.srt` | YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur hochladen |
-| `video-out/social-<name>.{mp4,webm}` | Kurzfassungen 1080×1920 (rund 20 s) für Social, Shorts und Anzeigen |
+| `video-out/social-<name>.{mp4,webm}` | Kurzfassungen 1080×1920 (rund 20 s) für Social, Shorts und Anzeigen, Untertitel-Kästen eingebrannt |
 
-`LandingVideo.vue` wählt den Film in der Sprache der Seite (`/fr/privathalter` → `film-privat-fr`).
+`LandingVideo.vue` wählt den Film in der Sprache der Seite (`/fr/privathalter` → `film-privat-fr`) und hängt die
+VTT als `<track kind="subtitles" default>` an: Untertitel an, über den Untertitel-Knopf des Players abschaltbar
+(z. B. für Zuschauer ohne Ton). Die Kästen tragen nur Sprechertext; Szenentitel und Botschaften sind Teil der
+gezeichneten Szenen und Titelkarten und bleiben im Bild. Caddy liefert `.vtt` als `text/vtt` (mime.types im
+Container), E2E prüft Spur und Datei (`untertitelPruefen` in `e2e/landing-pages.spec.ts`).
 
 MP4 ist H.264 High, Level 4.1, yuv420p, faststart (spielt in Safari und auf dem iPhone), WebM VP9 Profil 0 mit Opus.
 Ton −16 LUFS, Spitzen unter −1 dBFS. Ausliefern wie der Rest der App: `npm run deploy` (`public/` wandert ins `dist/`).
@@ -42,7 +47,7 @@ Ton −16 LUFS, Spitzen unter −1 dBFS. Ausliefern wie der Rest der App: `npm r
 | Drehbücher: Szenenplan, belegbare Aussagen, Wortwahl | `video-scripts/privat-video-script.md`, `betrieb-video-script.md` |
 | Sprechertexte FR, IT, EN mit Begründung und Prüfpunkten | `video-scripts/sprechertexte.md` |
 | Bildfolge (Clip, Start, Mindestlänge, Ausschnitt), Sprechertexte je Sprache, Kurzfassungen | `scripts/werbefilm.ts` (`PRIVAT_BILD`, `PRIVAT_TEXT`, `BETRIEB_*`, `KURZ_*`) |
-| Rechenschritte: Satzgrenzen, Zeitplan, Untertitel, SRT, Musikpegel, Wahl des Durchlaufs | `src/lib/werbefilm.ts` (Tests daneben) |
+| Rechenschritte: Satzgrenzen, Zeitplan, Untertitel, SRT und VTT, Musikpegel, Wahl des Durchlaufs | `src/lib/werbefilm.ts` (Tests daneben) |
 | Sprecher: ElevenLabs-Aufruf, Zwischenspeicher, Piper-Rückfall | `src/lib/sprecher.ts`, `scripts/sprecher.ts` |
 | Gewählter Durchlauf je Sprechertext | `video-scripts/sprecher-auswahl.json` |
 | App-Szenen (was die Aufnahme klickt und scrollt), Screencast | `e2e/video/*.video.ts`, `e2e/video/szenen.ts` |
@@ -150,9 +155,11 @@ huggingface.co/rhasspy/piper-voices nach `~/.local/share/piper-voices/`. Andere 
 - **Aufnahme per Chrome-Screencast** (`aufnahmeStarten`/`clipSpeichern` in `e2e/video/szenen.ts`): JPEG-Bilder in
   Gerätepixeln plus concat-Liste mit Standzeiten, ohne Zwischenkodierung. Desktop 1280×720 CSS bei Pixeldichte 3
   (3840×2160), Handy 390×693 bei 3 (1170×2079, 9:16).
-- **Untertitel-Kästen** im Stil der Plugin-Filme: weiss, Rand 8 px in `#059669`, IBM Plex Sans 600, unten links;
-  je Satz ein Kasten, gerendert als PNG mit Chromium und weich eingeblendet. Satzgrenzen aus den Sprechpausen
-  (`silencedetect`), Einsatz 0,3 s nach Abschnittsbeginn, Überblendung 0,45 s.
+- **Untertitel:** je Satz ein Eintrag, Satzgrenzen aus den Sprechpausen (`silencedetect`), Einsatz 0,3 s nach
+  Abschnittsbeginn, Überblendung 0,45 s. Daraus entstehen VTT (Website), SRT (YouTube) und in den Kurzfassungen
+  eingebrannte Kästen im Stil der Plugin-Filme: weiss, Rand 8 px in `#059669`, IBM Plex Sans 600, unten links,
+  gerendert als PNG mit Chromium und weich eingeblendet. Nur Untertitel ändern (ohne neues Bild): nur
+  `npm run video:film -- privat betrieb`, Sprecher kommen aus dem Zwischenspeicher.
 - **Musik:** «Corporate Background» von The_Mountain (Pixabay Content License, kommerziell ohne Namensnennung,
   pixabay.com/music/corporate-corporate-background-576564) als `video-out/musik.mp3`, nicht im Git (Pixabay erlaubt
   keine Weitergabe der Datei allein). Grundpegel 0,2, unter der Stimme 0,05 mit Rampen von 0,5 s, Ein- und
@@ -178,8 +185,8 @@ huggingface.co/rhasspy/piper-voices nach `~/.local/share/piper-voices/`. Andere 
   wirken; Sprechblasen nie leer, Markenfarbe `#059669`/`#10b981` als Akzent. Vor dem Aufnehmen fotografieren:
   `npx playwright screenshot --wait-for-timeout=4500 --viewport-size=390,693 "file://$PWD/video-scripts/szenen/<datei>?sprache=fr" bild.png`
   (und 1280,720).
-- Wichtige Knöpfe vor dem Klick in die Bildmitte rollen (`scrollIntoView({ block: 'center' })`): unten liegt am
-  Handy der Untertitel-Kasten.
+- Wichtige Knöpfe vor dem Klick in die Bildmitte rollen (`scrollIntoView({ block: 'center' })`): unten liegen am
+  Handy die Untertitel.
 
 ## Fallstricke, die schon einmal Zeit gekostet haben
 
