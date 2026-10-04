@@ -59,9 +59,9 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
         (`blick`/`kamera`), Untertitel im Plugin-Stil (IBM Plex Sans, weisser Kasten, Farbrand), scharfe Aufnahme per
         Chrome-Screencast statt `recordVideo`; Quer- und Hochformat
       - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und eigener Sprechertext in `video-scripts/`;
-        Stimmen (von Goran nach Hörprobe gewählt, alle lokal und gratis): DE Piper `de_DE-thorsten-high`, FR Kokoro
-        `ff_siwis`, EN Piper `en_US-lessac-high`, IT Kokoro `im_nicola` (Kokoro über `hyperframes tts`, braucht
-        `kokoro-onnx` in einer venv, `HYPERFRAMES_PYTHON` darauf zeigen; Piper-Stimmen in `~/.local/share/piper-voices/`)
+        Sprecher über ElevenLabs (Skill `werbefilm`, Abschnitt «Sprecher»): DE Andres mit `eleven_v3`, gewählt;
+        FR, IT, EN noch nach Hörprobe wählen (Kandidaten Romain, Riccardo oder Valentino, Daniel). Das Abo läuft
+        bis 04.11.2026, alle Sprecher vorher erzeugen
       - zuerst DE neu, FR/IT/EN nach der Übersetzung der App-Seiten
       - zwei Fassungen je Film und Sprache: Webseite mit eingebrannten Untertiteln, YouTube ohne eingebrannte
         Untertitel plus SRT-Datei als Untertitelspur; Shorts behalten eingebrannte Untertitel

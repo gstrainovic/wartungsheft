@@ -1,6 +1,6 @@
 ---
 name: werbefilm
-description: Werbefilme für die Landing Pages neu aufnehmen, montieren und ausliefern (Playwright-Szenen, Piper-Sprecher, ffmpeg)
+description: Werbefilme für die Landing Pages neu aufnehmen, montieren und ausliefern (Playwright-Szenen, Sprecher ElevenLabs Andres bzw. Piper, ffmpeg)
 ---
 
 Die Filme auf `/`, `/privathalter` und `/betrieb` entstehen vollständig im Repo: keine Kamera, kein fremdes
@@ -56,7 +56,28 @@ Ausliefern wie der Rest der App: `npm run deploy` (die Filme liegen in `public/`
 
 ## Sprecher
 
-Piper mit der Stimme `de_DE-thorsten-high` (MIT bzw. CC0, lokal, gratis):
+**Deutsch: ElevenLabs, Stimme «Andres»** (Bibliothek, Schweizerdeutsch gefärbt, `voice_id` `BfwuiKSWxqDOcSYQr6EC`),
+Modell `eleven_v3`, `voice_settings` `{"stability": 0.5, "similarity_boost": 0.75}` («natürlich»), Ausgabe
+`mp3_44100_192`. Von Goran nach Hörprobe gewählt: natürlich, aber begeistert. Die Begeisterung kommt aus
+Regieanweisungen in eckigen Klammern vor jedem Satz (`[excited]`, `[enthusiastic]`, `[delighted]`) und aus
+lockerem Text mit Ausrufezeichen; die Tags werden nicht gesprochen. Freigegebene Fassung des Betriebstexts:
+
+```text
+[excited] Montagmorgen im Betrieb. Welcher Lieferwagen muss zum Service? [enthusiastic] Ein Blick auf die Übersicht,
+und schon ist klar: was ansteht, für jedes Fahrzeug! [excited] Der Fahrer fotografiert die Werkstattrechnung.
+Erfasst ist sie damit auch! [enthusiastic] Am Jahresende: Kosten pro Fahrzeug, als Datei für die Buchhaltung.
+[delighted] Und die Frage vom Montagmorgen? Beantwortet sich selbst! [excited] 36 Franken pro Fahrzeug und Jahr.
+30 Tage gratis testen!
+```
+
+`eleven_v3` betont bei jedem Aufruf etwas anders: je Satz zwei Durchläufe erzeugen und den besseren nehmen, einen
+missratenen Satz einzeln neu erzeugen. Schlüssel in `~/.config/elevenlabs/key` (Konto g.strainovic@gmail.com, Plan
+Creator mit kommerzieller Lizenz; Bibliotheksstimmen gehen über die API nur mit bezahltem Plan), Aufruf
+`POST https://api.elevenlabs.io/v1/text-to-speech/<voice_id>?output_format=mp3_44100_192` mit Header `xi-api-key`.
+FR, IT und EN: Stimmen noch nicht gewählt (Hörproben mit Romain, Riccardo, Valentino und Daniel liegen vor).
+
+**Rückfall ohne ElevenLabs:** Piper mit der Stimme `de_DE-thorsten-high` (MIT bzw. CC0, lokal, gratis), so baut
+`scripts/video-build.sh` heute noch:
 
 ```bash
 pipx install piper-tts
