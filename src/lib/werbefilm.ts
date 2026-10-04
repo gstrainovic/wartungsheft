@@ -73,6 +73,14 @@ export function satzGrenzen(saetzeListe: string[], dauer: number, stillen: Zeitr
   return ergebnis
 }
 
+/**
+ * Sekunde in der Aufnahme, ab der ein Abschnitt läuft. Mit `vorEnde` vom Ende der Aufnahme gerechnet: Szenen mit
+ * Scan dauern je Lauf verschieden lang, die Pausen danach sind fest.
+ */
+export function startInAufnahme(a: { start: number, vorEnde?: number }, laenge: number): number {
+  return a.vorEnde === undefined ? a.start : ms(Math.max(0, laenge - a.vorEnde))
+}
+
 /** Länge eines Abschnitts: Einsatz, Sprechdauer und Luft danach, nie kürzer als das Minimum */
 export function abschnittDauer(sprechdauer: number, minimum: number, vorlauf: number, nachlauf: number): number {
   return ms(Math.max(minimum, vorlauf + sprechdauer + nachlauf))
@@ -191,7 +199,21 @@ export function musikAusdruck(sprechzeiten: Zeitraum[], opt: { grund: number, un
   return `${grund}-${ms(opt.grund - opt.unter)}*${absenkung}`
 }
 
-const ZAHLWOERTER: Record<string, string> = { fuenfundzwanzig: '25', fünfundzwanzig: '25', dreissig: '30', sechsunddreissig: '36' }
+const ZAHLWOERTER: Record<string, string> = {
+  fuenfundzwanzig: '25',
+  fünfundzwanzig: '25',
+  dreissig: '30',
+  sechsunddreissig: '36',
+  vingtcinq: '25',
+  trente: '30',
+  trentesix: '36',
+  venticinque: '25',
+  trenta: '30',
+  trentasei: '36',
+  twentyfive: '25',
+  thirty: '30',
+  thirtysix: '36',
+}
 
 function woerter(text: string): string[] {
   return ohneRegie(text).toLowerCase().replace(/ß/g, 'ss').replace(/-/g, '').split(/[^\p{L}\p{N}]+/u).filter(w => w.length > 0).map(w => ZAHLWOERTER[w] ?? w)

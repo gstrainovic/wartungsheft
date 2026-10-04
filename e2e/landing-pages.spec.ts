@@ -174,4 +174,24 @@ test.describe('Landing Pages', () => {
     await page.setViewportSize({ width: 1280, height: 900 })
     await expect.poll(() => quellen(betrieb)).toEqual(['/film-betrieb-desktop.mp4 video/mp4', '/film-betrieb-desktop.webm video/webm'])
   })
+
+  test('LP-005: jede Sprache zeigt ihren eigenen Film, ohne Hinweis auf Deutsch', async ({ page }) => {
+    const quellen = (v: ReturnType<typeof page.locator>) => v.locator('source').evaluateAll(s => s.map(e => `${e.getAttribute('src')} ${e.getAttribute('type')}`))
+    for (const [sprache, deutsch] of [['fr', /allemand/i], ['it', /tedesco/i], ['en', /german/i]] as const) {
+      await page.setViewportSize({ width: 1280, height: 900 })
+      await page.goto(`/${sprache}/privathalter`)
+      const film = page.getByTestId('landing-video')
+      const video = film.locator('video')
+      await expect.poll(() => quellen(video)).toEqual([`/film-privat-${sprache}-desktop.mp4 video/mp4`, `/film-privat-${sprache}-desktop.webm video/webm`])
+      await expect(video).toHaveAttribute('poster', `/film-privat-${sprache}-desktop-poster.jpg`)
+      await expect(film).not.toContainText(deutsch)
+      expect((await page.request.head(`/film-privat-${sprache}-desktop.mp4`)).headers()['content-type']).toMatch(/^video\/mp4/)
+
+      await page.goto(`/${sprache}/betrieb`)
+      await page.setViewportSize({ width: 390, height: 844 })
+      const betrieb = page.getByTestId('landing-video').locator('video')
+      await expect.poll(() => quellen(betrieb)).toEqual([`/film-betrieb-${sprache}.mp4 video/mp4`, `/film-betrieb-${sprache}.webm video/webm`])
+      expect((await page.request.head(`/film-betrieb-${sprache}.mp4`)).headers()['content-type']).toMatch(/^video\/mp4/)
+    }
+  })
 })

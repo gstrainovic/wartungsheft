@@ -8,6 +8,7 @@ import {
   satzGrenzen,
   sprechzeitenZusammenfassen,
   srt,
+  startInAufnahme,
   untertitelSpur,
   wortfehler,
   zeilenUmbruch,
@@ -55,6 +56,18 @@ describe('abschnittDauer', () => {
   it('wächst mit der Sprechdauer, nie unter das Minimum', () => {
     expect(abschnittDauer(2, 5, 0.3, 1.2)).toBe(5)
     expect(abschnittDauer(6, 5, 0.3, 1.2)).toBeCloseTo(7.5, 6)
+  })
+})
+
+describe('startInAufnahme', () => {
+  it('nimmt die feste Sekunde, wenn kein Abstand zum Ende verlangt ist', () => {
+    expect(startInAufnahme({ start: 4.5 }, 12.5)).toBe(4.5)
+  })
+
+  it('rechnet vom Ende der Aufnahme zurück, damit ein langsamer Scan den Ausschnitt nicht verschiebt', () => {
+    expect(startInAufnahme({ start: 4.5, vorEnde: 8 }, 12.5)).toBe(4.5)
+    expect(startInAufnahme({ start: 4.5, vorEnde: 8 }, 17.6)).toBe(9.6)
+    expect(startInAufnahme({ start: 0, vorEnde: 8 }, 6)).toBe(0)
   })
 })
 
@@ -127,6 +140,12 @@ describe('wortfehler', () => {
     expect(wortfehler('[excited] 36 Franken pro Fahrzeug und Jahr!', 'Sechsunddreißig Franken pro Fahrzeug und Jahr.')).toBe(0)
     expect(wortfehler('30 Tage gratis testen!', '13 Tage gratis testen')).toBe(1)
     expect(wortfehler('Gibt es ein Serviceheft?', 'Gibt es ein Service-Heft?')).toBe(0)
+  })
+
+  it('kennt die Zahlwörter auf Französisch, Italienisch und Englisch', () => {
+    expect(wortfehler('36 francs. 30 jours, 25 francs', 'Trente-six francs. Trente jours, vingt-cinq francs')).toBe(0)
+    expect(wortfehler('36 franchi. 30 giorni, 25 franchi', 'Trentasei franchi. Trenta giorni, venticinque franchi')).toBe(0)
+    expect(wortfehler('36 francs. 30 days, 25 francs', 'Thirty-six francs. Thirty days, twenty-five francs')).toBe(0)
   })
 })
 

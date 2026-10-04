@@ -89,7 +89,7 @@ export default {
       titel: 'Vu en 40 secondes',
       text: 'De la photo de la facture du garage au carnet d\'entretien pour la vente.',
       abspielen: 'Lire le film',
-      hinweis: 'Une bonne demi-minute, en allemand avec sous-titres. On y voit l\'app avec des données d\'exemple inventées.',
+      hinweis: 'Une bonne demi-minute, avec son et sous-titres. On y voit l\'app avec des données d\'exemple inventées.',
     },
   },
   it: {
@@ -125,7 +125,7 @@ export default {
       titel: 'Visto in 40 secondi',
       text: 'Dalla foto della fattura dell\'officina al libretto di manutenzione per la vendita.',
       abspielen: 'Riproduci il filmato',
-      hinweis: 'Poco più di mezzo minuto, in tedesco con sottotitoli. Mostra l\'app con dati di esempio inventati.',
+      hinweis: 'Poco più di mezzo minuto, con audio e sottotitoli. Mostra l\'app con dati di esempio inventati.',
     },
   },
   en: {
@@ -161,7 +161,7 @@ export default {
       titel: 'Seen in 40 seconds',
       text: 'From the photo of the garage invoice to the service book for selling.',
       abspielen: 'Play film',
-      hinweis: 'Just over half a minute, in German with subtitles. It shows the app with made-up sample data.',
+      hinweis: 'Just over half a minute, with sound and subtitles. It shows the app with made-up sample data.',
     },
   },
 } satisfies Record<Sprache, typeof de>

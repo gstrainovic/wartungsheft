@@ -3,14 +3,28 @@
  * vor, Playwright zeichnet sie auf. Alle Daten sind erfunden, damit nie Kundendaten im Video landen.
  * Die Drehbücher stehen in `video-scripts/privat-video-script.md` und `video-scripts/betrieb-video-script.md`.
  */
-import type { Browser, CDPSession, Page, TestInfo } from '@playwright/test'
+import type { Browser, CDPSession, Download, Page, TestInfo } from '@playwright/test'
+import type { Sprache } from '../../src/lib/sprache'
 import { Buffer } from 'node:buffer'
-import { mkdir, rm, writeFile } from 'node:fs/promises'
+import { execFileSync } from 'node:child_process'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import process from 'node:process'
+import { filmName } from '../../src/lib/film-datei'
 import { waitForInstantDB } from '../fixtures/test-fixtures'
 
 /** Ablage der Aufnahmen: je Szene ein Ordner mit den Einzelbildern und einer concat-Liste für ffmpeg */
 export const CLIP_DIR = `${process.cwd()}/video-out/roh`
+
+/**
+ * Sprache der Aufnahme: `VIDEO_SPRACHE=fr npm run video`. Die App bekommt sie vor dem Laden über localStorage (wie
+ * nach der Login-Seite /fr/login), die Clips tragen das Kürzel im Namen (szene-…-fr, szene-…-fr-desktop).
+ */
+export const SPRACHE: Sprache = (['fr', 'it', 'en'] as const).find(s => s === process.env.VIDEO_SPRACHE) ?? 'de'
+
+/** Texte der Aufnahme in der Sprache des Laufs */
+export function inSprache<T>(texte: Record<Sprache, T>): T {
+  return texte[SPRACHE]
+}
 
 interface Aufnahme {
   cdp: CDPSession
@@ -30,8 +44,9 @@ function clipName(testInfo: TestInfo): string {
     .replace(/[^a-z0-9]+/gi, '-')
     .replace(/^-|-$/g, '')
     .toLowerCase()
+  const name = filmName(slug, SPRACHE)
   // Der Desktop-Lauf legt eigene Ordner an, sonst überschreiben sich die beiden Formate
-  return testInfo.project.name === 'video-desktop' ? `${slug}-desktop` : slug
+  return testInfo.project.name === 'video-desktop' ? `${name}-desktop` : name
 }
 
 /**
@@ -98,6 +113,48 @@ export async function beat(page: Page, factor = 1): Promise<void> {
   await page.waitForTimeout(BEAT * factor)
 }
 
+/**
+ * Zeigt das PDF, das die App gerade heruntergeladen hat: erste Seite mit pdftoppm als Bild, über der App eingeblendet
+ * und herangezoomt. So sieht der Zuschauer das echte Ergebnis des Knopfs, nicht nur den Klick.
+ */
+export async function pdfZeigen(page: Page, download: Download, testInfo: TestInfo): Promise<void> {
+  // Neben den Aufnahmen abgelegt, damit man das PDF des Films nachprüfen kann
+  const ordner = `${CLIP_DIR}/../pdf`
+  await mkdir(ordner, { recursive: true })
+  const pdf = `${ordner}/${clipName(testInfo)}.pdf`
+  await download.saveAs(pdf)
+  const bild = pdf.replace(/\.pdf$/, '')
+  // Nur der obere Teil der ersten Seite: dort stehen Fahrzeug und Historie, der Rest der Seite ist leer
+  const breite = Math.round(210 / 25.4 * 160)
+  const hoehe = Math.round(breite * 0.68)
+  execFileSync('pdftoppm', ['-png', '-r', '160', '-f', '1', '-l', '1', '-x', '0', '-y', '0', '-W', String(breite), '-H', String(hoehe), '-singlefile', pdf, bild])
+  const daten = (await readFile(`${bild}.png`)).toString('base64')
+  await page.evaluate((src) => {
+    const style = document.createElement('style')
+    style.textContent = `
+      .video-pdf { position: fixed; inset: 0; z-index: 2147483646; display: grid; place-items: center;
+        background: rgb(3 7 18 / 72%); animation: video-pdf-ein 450ms ease-out both; }
+      .video-pointer { display: none; }
+      .video-pdf img { width: auto; height: auto; max-height: 86vh; max-width: 96vw; border-radius: 6px; background: #fff;
+        box-shadow: 0 24px 60px rgb(0 0 0 / 55%); animation: video-pdf-zoom 900ms cubic-bezier(.2,.8,.3,1) both; }
+      /* Hochkant ist die Seite schmal: danach langsam auf Titel, Angaben und Historie heranfahren */
+      @media (max-aspect-ratio: 1/1) {
+        .video-pdf img { transform-origin: 8% 35%;
+          animation: video-pdf-zoom 900ms cubic-bezier(.2,.8,.3,1) both, video-pdf-nah 2600ms ease-in-out 1300ms forwards; }
+      }
+      @keyframes video-pdf-nah { to { transform: scale(1.75); } }
+      @keyframes video-pdf-ein { from { opacity: 0; } }
+      @keyframes video-pdf-zoom { from { transform: translateY(6vh) scale(.55); opacity: 0; } }`
+    const huelle = document.createElement('div')
+    huelle.className = 'video-pdf'
+    const img = document.createElement('img')
+    img.src = `data:image/png;base64,${src}`
+    huelle.append(img)
+    document.head.append(style)
+    document.body.append(huelle)
+  }, daten)
+}
+
 /** Zeigt den Mauszeiger als Punkt, sonst wirkt die Aufnahme wie ein Standbild mit Sprüngen */
 export async function showPointer(page: Page): Promise<void> {
   await page.addStyleTag({
@@ -144,6 +201,8 @@ export interface VideoInvoice {
   totalAmount: number
   mileageAtService: number
   items: { description: string, category: string, amount: number }[]
+  /** Foto der Rechnung als JPEG in Base64 (wie die App es speichert), z. B. aus `musterRechnungJpeg` */
+  imageData?: string
 }
 
 export interface VideoMaintenance {
@@ -160,6 +219,10 @@ export async function seed(page: Page, data: {
   invoices?: VideoInvoice[]
   maintenances?: VideoMaintenance[]
 }): Promise<void> {
+  // Vor jedem Laden der Seite: die App liest die gemerkte Wahl beim Start (src/lib/app-sprache.ts)
+  await page.addInitScript((s) => {
+    localStorage.setItem('sprache', s)
+  }, SPRACHE)
   await page.goto('/')
   await waitForInstantDB(page)
   await page.evaluate(async (payload) => {
@@ -178,6 +241,7 @@ export async function seed(page: Page, data: {
         currency: 'CHF',
         mileageAtService: inv.mileageAtService,
         items: inv.items,
+        ...(inv.imageData ? { imageData: inv.imageData } : {}),
         createdAt: now,
         updatedAt: now,
         source: 'formular',
@@ -224,31 +288,46 @@ function chf(betrag: number): string {
  * Ergebnis müssen im Film übereinstimmen. Werkstatt und Adresse sind erfundene Musternamen, keine echte Firma.
  * Eigener Browser-Kontext ohne Aufnahme, das Bild landet im Ausgabeordner des Clips.
  */
-export async function musterRechnungFoto(browser: Browser, testInfo: TestInfo, r: MusterRechnung): Promise<string> {
+/** Beschriftung der Musterrechnung: eine Werkstatt aus der Romandie schreibt französisch, aus dem Tessin italienisch */
+const RECHNUNG_TEXTE: Record<Sprache, { muster: string, nr: string, datum: string, fahrzeug: string, schild: string, km: string, position: string, total: string }> = {
+  de: { muster: 'MUSTER', nr: 'Rechnung Nr.', datum: 'Datum', fahrzeug: 'Fahrzeug', schild: 'Kontrollschild', km: 'Kilometerstand', position: 'Position', total: 'Total CHF inkl. MWST' },
+  fr: { muster: 'EXEMPLE', nr: 'Facture n°', datum: 'Date', fahrzeug: 'Véhicule', schild: 'plaque', km: 'Kilométrage', position: 'Prestation', total: 'Total CHF TVA incl.' },
+  it: { muster: 'ESEMPIO', nr: 'Fattura n.', datum: 'Data', fahrzeug: 'Veicolo', schild: 'targa', km: 'Chilometraggio', position: 'Prestazione', total: 'Totale CHF IVA incl.' },
+  en: { muster: 'SAMPLE', nr: 'Invoice no.', datum: 'Date', fahrzeug: 'Vehicle', schild: 'number plate', km: 'Mileage', position: 'Item', total: 'Total CHF incl. VAT' },
+}
+
+export async function musterRechnungFoto(browser: Browser, testInfo: TestInfo, r: MusterRechnung, datei = 'muster-rechnung.png'): Promise<string> {
   const [y, m, d] = r.datum.split('-')
   const total = r.positionen.reduce((sum, p) => sum + p.betrag, 0)
   const zeilen = r.positionen.map(p => `<tr><td>${p.text}</td><td class="r">${chf(p.betrag)}</td></tr>`).join('')
+  const b = inSprache(RECHNUNG_TEXTE)
   // Hochformat wie ein A4-Blatt: ein breiteres Bild dreht die App als Handyfoto um 90° (autoRotateForDocument)
   const html = `<div style="font-family: Arial; padding: 40px; width: 640px; min-height: 905px; background: white; color: #111;">
-    <div style="float:right; border:2px solid #999; color:#999; padding:2px 8px; font-size:13px;">MUSTER</div>
+    <div style="float:right; border:2px solid #999; color:#999; padding:2px 8px; font-size:13px;">${b.muster}</div>
     <h1 style="margin:0 0 6px">${r.werkstatt}</h1>
     <p style="margin:0">${r.adresse}</p>
     <hr>
-    <p><strong>Rechnung Nr.:</strong> 26-0417 &nbsp; <strong>Datum:</strong> ${d}.${m}.${y}</p>
-    <p><strong>Fahrzeug:</strong> ${r.fahrzeug} · Kontrollschild ${r.kontrollschild}</p>
-    <p><strong>Kilometerstand:</strong> ${r.kilometer.toLocaleString('de-CH').replace(/’/g, '\'')} km</p>
+    <p><strong>${b.nr}:</strong> 26-0417 &nbsp; <strong>${b.datum}:</strong> ${d}.${m}.${y}</p>
+    <p><strong>${b.fahrzeug}:</strong> ${r.fahrzeug} · ${b.schild} ${r.kontrollschild}</p>
+    <p><strong>${b.km}:</strong> ${r.kilometer.toLocaleString('de-CH').replace(/’/g, '\'')} km</p>
     <hr>
     <style>td,th{padding:6px;border-bottom:1px solid #eee} .r{text-align:right}</style>
     <table style="width:100%; border-collapse:collapse">
-      <tr><th style="text-align:left">Position</th><th class="r">CHF</th></tr>
+      <tr><th style="text-align:left">${b.position}</th><th class="r">CHF</th></tr>
       ${zeilen}
-      <tr style="font-weight:bold; border-top:2px solid #000"><td>Total CHF inkl. MWST</td><td class="r">${chf(total)}</td></tr>
+      <tr style="font-weight:bold; border-top:2px solid #000"><td>${b.total}</td><td class="r">${chf(total)}</td></tr>
     </table>
   </div>`
   const page = await browser.newPage({ viewport: { width: 720, height: 900 } })
   await page.setContent(html)
-  const pfad = testInfo.outputPath('muster-rechnung.png')
+  const pfad = testInfo.outputPath(datei)
   await page.locator('div').first().screenshot({ path: pfad })
   await page.close()
   return pfad
+}
+
+/** Musterrechnung als JPEG in Base64, wie die App das Foto an der Rechnung speichert (`imageData`) */
+export async function musterRechnungJpeg(browser: Browser, testInfo: TestInfo, r: MusterRechnung, nr: number): Promise<string> {
+  const pfad = await musterRechnungFoto(browser, testInfo, r, `muster-rechnung-${nr}.jpg`)
+  return (await readFile(pfad)).toString('base64')
 }

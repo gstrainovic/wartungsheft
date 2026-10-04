@@ -51,21 +51,16 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
-- [ ] **Deutsche Filme auf YouTube ersetzen:** `video-out/youtube-privat.mp4` und `youtube-betrieb.mp4` (ohne
-      eingebrannte Untertitel) mit der SRT daneben als Untertitelspur hochladen (Kanal strainovic-it), die bisherigen
-      Querformate (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen; als Shorts `video-out/social-*.mp4`.
-      Bauen: Skill `werbefilm`
-- [ ] **Filme in FR, IT und EN** wie die deutschen (`npm run video:film`, Skill `werbefilm`):
-      - die App spricht FR, IT und EN (Sprachwahl in den Einstellungen oder über `/fr/login` usw., Skill
-        `texte-und-sprachen`); die Aufnahme stellt die Sprache vorher ein
-      - je Sprache eigene Aufnahme (Oberfläche in dieser Sprache) und Sprechertext; Stimmen gewählt (FR Nathan,
-        IT Valentino, EN Adam Stone), Vorlagen im Skill. Das ElevenLabs-Abo läuft bis 04.11.2026, alle Sprecher
-        vorher erzeugen (sie bleiben in `video-out/sprecher/`)
-      - `LandingVideo.vue` zeigt Film und YouTube-Link in der Sprache der Seite; der Hinweis «auf Deutsch» fällt weg.
-        Der YouTube-Link liegt schon im Branch `youtube-link` (Tabelle `YOUTUBE`, Test in `landing-pages.spec.ts`),
-        dort die IDs je Sprache nachtragen, dann nach `master`
-- [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-privat.mp4` und `social-betrieb.mp4` (je rund
-      20 Sekunden, 1080×1920) beim ersten Beitrag oder der ersten Anzeige einsetzen
+- [ ] **Filme auf YouTube (Kanal strainovic-it):** `video-out/youtube-<name>.mp4` (ohne eingebrannte Untertitel) mit
+      der SRT daneben als Untertitelspur hochladen, je Sprache (`privat`, `privat-fr`, `betrieb-it` usw.); die
+      bisherigen deutschen Querformate (gVyuTsk_LrI, CypEsJgVRC8) und Shorts ersetzen und löschen; als Shorts
+      `video-out/social-<name>.mp4`. Bauen: Skill `werbefilm`
+- [ ] **YouTube-Link auf den Seiten:** Branch `youtube-link` (Tabelle `YOUTUBE`, Test in `landing-pages.spec.ts`), dort
+      die IDs je Sprache nachtragen, dann nach `master`
+- [ ] Sprechertexte FR, IT, EN von Muttersprachlern prüfen lassen (`video-scripts/sprechertexte.md`, letzter
+      Abschnitt); geänderte Sätze kosten neue Credits, das ElevenLabs-Abo läuft bis 04.11.2026
+- [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-<name>.mp4` (je rund 20 Sekunden, 1080×1920) beim
+      ersten Beitrag oder der ersten Anzeige einsetzen
 
 ### Auffindbar, wenn jemand eine KI fragt
 
