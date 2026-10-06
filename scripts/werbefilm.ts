@@ -20,7 +20,7 @@
  * andere mit dem ffmpeg des Systems. Musik: video-out/musik.mp3 (nicht im Git, Quelle im Skill).
  */
 import type { Sprache } from '../src/lib/sprache.ts'
-import type { Cue, Zeitraum } from '../src/lib/werbefilm.ts'
+import type { Blick, Cue, Effekt, Zeitraum } from '../src/lib/werbefilm.ts'
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
@@ -31,8 +31,10 @@ import { filmName } from '../src/lib/film-datei.ts'
 import { sprechen } from '../src/lib/sprecher.ts'
 import {
   abschnittDauer,
+  ausschnitt,
   besterDurchlauf,
   durchlaeufe,
+  effektZeiten,
   musikAusdruck,
   ohneRegie,
   saetze,
@@ -55,6 +57,8 @@ const PUBLIC = join(REPO, 'public')
 const AUSWAHL = join(REPO, 'video-scripts/sprecher-auswahl.json')
 const WHISPER = join(OUT, 'sprecher/whisper.json')
 const MUSIK = process.env.MUSIK ?? join(OUT, 'musik.mp3')
+/** Effekte (Pixabay Content License) aus dem Skill media-use, wie in den Plugin-Filmen; fehlt der Ordner, ohne Effekte */
+const SFX = process.env.SFX ?? join(process.env.HOME ?? '', '.claude/skills/media-use/audio/assets/sfx')
 const SCHRIFT = join(REPO, 'video-scripts/schrift/ibm-plex-sans-latin-600-normal.woff2')
 const DOCKER_BILD = 'hyperframes-renderer:0.8.98'
 
@@ -66,9 +70,6 @@ const VORLAUF = 0.3
 const NACHLAUF = 1.2
 /** Musik: Grundpegel und Pegel unter der Stimme (linear), Rampe in Sekunden */
 const MUSIK_PEGEL = { grund: 0.2, unter: 0.05, rampe: 0.5 }
-
-/** Ausschnitt der Aufnahme: Mittelpunkt relativ zum Bild (0–1) und Vergrösserung */
-interface Blick { x: number, y: number, s: number }
 
 interface Abschnitt {
   /** Ordner unter video-out/roh/ (ohne -desktop) */
@@ -85,12 +86,21 @@ interface Abschnitt {
   untertitel?: string
   quer?: Blick
   hoch?: Blick
+  /** Geräusche zu Aktionen im Bild (Klick beim Speichern, Glocke bei der Antwort) */
+  effekte?: Effekt[]
 }
 
 // Titelkarten sind im Desktop-Layout klein: mittig vergrössert zeigen
 const TITEL_QUER: Blick = { x: 0.5, y: 0.5, s: 1.6 }
 // Der Rechnungsdialog steht im Desktop-Layout mittig und schmal: näher heran, damit die Felder lesbar sind
 const DIALOG_QUER: Blick = { x: 0.5, y: 0.62, s: 1.35 }
+// Übersicht («Fällig», Fahrzeuge) und Tabelle «Kosten pro Fahrzeug und Jahr» gehen im Desktop-Layout über die
+// ganze Breite und sind klein: näher heran und ruhig von links (Namen) nach rechts (Stand, Beträge) fahren
+const UEBERSICHT_QUER: Blick = { x: 0.3, y: 0.4, s: 1.4, bisX: 0.7 }
+const KOSTEN_QUER: Blick = { x: 0.3, y: 0.55, s: 1.4, bisX: 0.7 }
+// Klick auf «Speichern» am Ende der Rechnungsszene, Glocke, wenn die Frage vom Anfang beantwortet ist
+const SPEICHERN: Effekt = { datei: 'click-soft.mp3', bei: 0.8, vonEnde: true, pegel: 0.7 }
+const ANTWORT: Effekt = { datei: 'chime.mp3', bei: 1, pegel: 0.45 }
 
 type Bild = Omit<Abschnitt, 'sprechen' | 'untertitel'>
 type Text = Pick<Abschnitt, 'sprechen' | 'untertitel'>
@@ -99,21 +109,21 @@ type Text = Pick<Abschnitt, 'sprechen' | 'untertitel'>
 const PRIVAT_BILD: Bild[] = [
   { clip: 'szene-privat-kaeufer-fragt-nach-dem-serviceheft', start: 0, minimum: 6 },
   { clip: 'szene-privat-zettelwirtschaft-in-der-schachtel', start: 0.6, minimum: 4 },
-  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, vorEnde: 10.5, minimum: 8, quer: DIALOG_QUER },
-  { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5 },
+  { clip: 'szene-2-rechnung-fotografieren-felder-fuellen-sich', start: 6.5, vorEnde: 10.5, minimum: 8, quer: DIALOG_QUER, effekte: [SPEICHERN] },
+  { clip: 'szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen', start: 0.5, minimum: 6.5, quer: UEBERSICHT_QUER },
   // Ende der Aufnahme: Klick auf «Serviceheft für den Verkauf», danach die erste Seite des echten PDFs
   { clip: 'szene-4-kosten-und-pdf-dossier-fuer-den-verkauf', start: 3.5, vorEnde: 7, minimum: 6.5 },
-  { clip: 'szene-privat-kaeufer-bekommt-die-antwort', start: 0, minimum: 4.5 },
+  { clip: 'szene-privat-kaeufer-bekommt-die-antwort', start: 0, minimum: 4.5, effekte: [ANTWORT] },
   { clip: 'titel-6-abspann', start: 0.3, minimum: 5.5, quer: TITEL_QUER },
 ]
 
 /** Bildfolge des Betriebsfilms (Drehbuch video-scripts/betrieb-video-script.md) */
 const BETRIEB_BILD: Bild[] = [
   { clip: 'szene-betrieb-montagmorgen-welcher-muss-zum-service', start: 0, minimum: 6 },
-  { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7 },
-  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, vorEnde: 7.5, minimum: 7.5, quer: DIALOG_QUER },
-  { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5 },
-  { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5 },
+  { clip: 'szene-2-fuhrpark-auf-einen-blick-was-ist-faellig', start: 0.5, minimum: 7, quer: UEBERSICHT_QUER },
+  { clip: 'szene-3-rechnung-vom-fahrer-ein-foto-genuegt', start: 4.5, vorEnde: 7.5, minimum: 7.5, quer: DIALOG_QUER, effekte: [SPEICHERN] },
+  { clip: 'szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung', start: 1.5, minimum: 6.5, quer: KOSTEN_QUER },
+  { clip: 'szene-betrieb-auf-einen-blick-beantwortet', start: 0, minimum: 5, effekte: [ANTWORT] },
   { clip: 'titel-6-abspann', start: 0.3, minimum: 5, quer: TITEL_QUER },
 ]
 
@@ -379,12 +389,20 @@ function tonMischen(p: Geplant, ziel: string): void {
     filter.push(`[${i}:a]aresample=48000,aformat=channel_layouts=stereo,adelay=${ms}|${ms}[v${i}]`)
   })
   const n = p.stimmen.length
-  filter.push(`${p.stimmen.map((_, i) => `[v${i}]`).join('')}amix=inputs=${n}:normalize=0:duration=longest[stimme]`)
+  const effekte = existsSync(SFX) ? effektZeiten(p.abschnitte, p.starts, p.dauern) : []
+  if (!existsSync(SFX))
+    console.warn(`Keine Effekte (${SFX})`)
+  effekte.forEach((e, k) => {
+    eingaben.push('-i', join(SFX, e.datei))
+    const ms = Math.round(e.sekunde * 1000)
+    filter.push(`[${n + k}:a]aresample=48000,aformat=channel_layouts=stereo,volume=${e.pegel},adelay=${ms}|${ms}[e${k}]`)
+  })
+  filter.push(`${[...p.stimmen.map((_, i) => `[v${i}]`), ...effekte.map((_, k) => `[e${k}]`)].join('')}amix=inputs=${n + effekte.length}:normalize=0:duration=longest[stimme]`)
   let ausgang = '[stimme]'
   if (existsSync(MUSIK)) {
     eingaben.push('-stream_loop', '-1', '-i', MUSIK)
     const ende = p.laenge
-    filter.push(`[${n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${ende},asetpts=PTS-STARTPTS,`
+    filter.push(`[${n + effekte.length}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${ende},asetpts=PTS-STARTPTS,`
       + `volume='${musikAusdruck(p.sprechzeiten, MUSIK_PEGEL)}':eval=frame,afade=t=in:d=1,afade=t=out:st=${Math.max(0, ende - 2.5)}:d=2.5[musik]`)
     filter.push(`[stimme][musik]amix=inputs=2:normalize=0:duration=longest[mix]`)
     ausgang = '[mix]'
@@ -415,24 +433,6 @@ function clipInfo(name: string): ClipInfo {
   return { liste, laenge, breite: breite!, hoehe: hoehe! }
 }
 
-function cropFilter(info: ClipInfo, blick: Blick | undefined, w: number, h: number): string {
-  // Seitenverhältnis des Ziels herstellen, dann den Ausschnitt nehmen
-  const ziel = w / h
-  let cw = info.breite
-  let ch = cw / ziel
-  if (ch > info.hoehe) {
-    ch = info.hoehe
-    cw = ch * ziel
-  }
-  // Abrunden auf gerade Pixel: aufgerundet wäre der Ausschnitt um ein Pixel grösser als die Aufnahme (2080 > 2079)
-  const s = blick?.s ?? 1
-  cw = Math.floor(cw / s / 2) * 2
-  ch = Math.floor(ch / s / 2) * 2
-  const x = Math.min(Math.max(0, Math.round((blick?.x ?? 0.5) * info.breite - cw / 2)), info.breite - cw)
-  const y = Math.min(Math.max(0, Math.round((blick?.y ?? 0.5) * info.hoehe - ch / 2)), info.hoehe - ch)
-  return `crop=${cw}:${ch}:${x}:${y}`
-}
-
 /** Bild ohne Untertitel und Ton: Abschnitte zuschneiden, skalieren, überblenden. Schwerster Schritt (4K-Quellen) */
 function bildBauen(p: Geplant, format: Format, ziel: string): void {
   const f = FORMATE[format]
@@ -447,7 +447,7 @@ function bildBauen(p: Geplant, format: Format, ziel: string): void {
       start = Math.max(0, info.laenge - d)
     eingaben.push('-f', 'concat', '-safe', '0', '-i', info.liste)
     let kette = `[${i}:v]fps=30,trim=start=${start.toFixed(3)},setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=${(d + 1).toFixed(3)},`
-      + `trim=duration=${d.toFixed(3)},${cropFilter(info, a[format], f.w, f.h)},scale=${f.w}:${f.h}:flags=lanczos,setsar=1,format=yuv420p`
+      + `trim=duration=${d.toFixed(3)},${ausschnitt(info.breite, info.hoehe, a[format], f.w, f.h, d)},scale=${f.w}:${f.h}:flags=lanczos,setsar=1,format=yuv420p`
     if (i === 0)
       kette += ',fade=t=in:st=0:d=0.4'
     if (i === p.abschnitte.length - 1)

@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   abschnittDauer,
+  ausschnitt,
   besterDurchlauf,
   durchlaeufe,
+  effektZeiten,
   musikAusdruck,
   ohneRegie,
   saetze,
@@ -200,5 +202,40 @@ describe('durchlaeufe', () => {
   it('holt bei feststehender Wahl nur den gewählten Durchlauf (keine Zeichen für den anderen)', () => {
     expect(durchlaeufe(1)).toEqual([1])
     expect(durchlaeufe(2)).toEqual([2])
+  })
+})
+
+describe('ausschnitt', () => {
+  it('ohne Blick: grösster Ausschnitt im Seitenverhältnis des Ziels, mittig', () => {
+    expect(ausschnitt(3840, 2160, undefined, 1920, 1080, 6)).toBe('crop=3840:2160:0:0')
+  })
+
+  it('mit Vergrösserung: kleinerer Ausschnitt um den Mittelpunkt, nie über den Rand', () => {
+    expect(ausschnitt(3840, 2160, { x: 0.5, y: 0.5, s: 2 }, 1920, 1080, 6)).toBe('crop=1920:1080:960:540')
+    expect(ausschnitt(3840, 2160, { x: 0, y: 1, s: 2 }, 1920, 1080, 6)).toBe('crop=1920:1080:0:1080')
+  })
+
+  it('kamerafahrt: x läuft über die Abschnittsdauer vom Start- zum Zielpunkt', () => {
+    // s 1.5: 2560 breit; Mittelpunkt 0.3 → x 0 (Rand), Ziel 0.7 → x 1280; über 8 s
+    expect(ausschnitt(3840, 2160, { x: 0.3, y: 0.5, s: 1.5, bisX: 0.7 }, 1920, 1080, 8))
+      .toBe('crop=2560:1440:\'0+1280*min(1,t/8)\':360')
+  })
+})
+
+describe('effektZeiten', () => {
+  it('setzt Effekte vom Beginn oder vom Ende ihres Abschnitts auf die Filmzeit', () => {
+    const abschnitte = [
+      {},
+      { effekte: [{ datei: 'click-soft.mp3', bei: 0.8, vonEnde: true, pegel: 0.7 }] },
+      { effekte: [{ datei: 'chime.mp3', bei: 1, pegel: 0.45 }] },
+    ]
+    expect(effektZeiten(abschnitte, [0, 5.55, 15.1], [6, 10, 5])).toEqual([
+      { datei: 'click-soft.mp3', sekunde: 14.75, pegel: 0.7 },
+      { datei: 'chime.mp3', sekunde: 16.1, pegel: 0.45 },
+    ])
+  })
+
+  it('ohne Effekte: keine', () => {
+    expect(effektZeiten([{}, {}], [0, 5], [6, 6])).toEqual([])
   })
 })

@@ -72,6 +72,9 @@ ist eingecheckt.
 - **Anderer Bildausschnitt:** `start` (Sekunde in der Aufnahme; bei Szenen mit Scan `vorEnde`, Sekunden vor dem
   Clip-Ende, weil der Scan je Lauf und Sprache verschieden lang braucht) oder `quer`/`hoch` (`{ x, y, s }`: Mittelpunkt
   relativ, Vergrösserung) im Abschnitt. Desktop-Aufnahmen haben dreifache Pixel, bis `s` 2 bleibt das Bild scharf.
+  Übersicht und Kostentabelle gehen im Desktop-Layout über die ganze Breite: dort fährt der Ausschnitt mit `bisX`
+  über die Abschnittsdauer von links (Namen) nach rechts (Stand, Beträge) (`ausschnitt()` in `src/lib/werbefilm.ts`).
+  Die Handy-Fassung zeigt die App in Originalgrösse und braucht keinen Zoom.
   Startpunkte findet man über einen Kontaktbogen:
   `ffmpeg -f concat -safe 0 -i video-out/roh/<clip>/liste.txt -vf "fps=1,scale=480:-2,tile=4x5" -frames:v 1 bogen.jpg`
   (Kachel n = Sekunde n).
@@ -174,6 +177,9 @@ huggingface.co/rhasspy/piper-voices nach `~/.local/share/piper-voices/`. Andere 
   pixabay.com/music/corporate-corporate-background-576564) als `video-out/musik.mp3`, nicht im Git (Pixabay erlaubt
   keine Weitergabe der Datei allein). Grundpegel 0,2, unter der Stimme 0,05 mit Rampen von 0,5 s, Ein- und
   Ausblenden; fehlt die Datei, gibt es nur Stimme. Andere Datei: `MUSIK=/pfad.mp3`.
+- **Effekte:** `effekte` im Abschnitt (`{ datei, bei, vonEnde?, pegel }`, Sekunden ab Beginn bzw. vor Ende), Dateien
+  aus `~/.claude/skills/media-use/audio/assets/sfx` (Pixabay Content License, andere Quelle `SFX=/ordner`): Klick beim
+  «Speichern» der Rechnung, Glocke, wenn die Frage vom Anfang beantwortet ist. Fehlt der Ordner, ohne Effekte.
 - **H.264** kodiert ffmpeg im Docker-Image `hyperframes-renderer:0.8.98` (libx264), weil Fedoras ffmpeg nur
   libopenh264 hat; VP9 und Messungen laufen mit dem System-ffmpeg.
 
