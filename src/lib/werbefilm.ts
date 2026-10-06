@@ -210,6 +210,46 @@ export function musikAusdruck(sprechzeiten: Zeitraum[], opt: { grund: number, un
   return `${grund}-${ms(opt.grund - opt.unter)}*${absenkung}`
 }
 
+/** Ausschnitt der Aufnahme: Mittelpunkt relativ zum Bild (0–1), Vergrösserung, optional Kamerafahrt nach `bisX` */
+export interface Blick { x: number, y: number, s: number, bisX?: number }
+
+/**
+ * ffmpeg-crop für eine Aufnahme `breite`×`hoehe`, die auf `w`×`h` skaliert wird: Seitenverhältnis des Ziels, durch
+ * `s` verkleinert, um den Mittelpunkt gelegt und am Rand gehalten. Mit `bisX` fährt der Ausschnitt in `dauer`
+ * Sekunden gleichmässig vom Start- zum Zielpunkt (für Zeilen, die breiter sind als der Ausschnitt).
+ */
+export function ausschnitt(breite: number, hoehe: number, blick: Blick | undefined, w: number, h: number, dauer: number): string {
+  const ziel = w / h
+  let cw = breite
+  let ch = cw / ziel
+  if (ch > hoehe) {
+    ch = hoehe
+    cw = ch * ziel
+  }
+  // Abrunden auf gerade Pixel: aufgerundet wäre der Ausschnitt um ein Pixel grösser als die Aufnahme (2080 > 2079)
+  const s = blick?.s ?? 1
+  cw = Math.floor(cw / s / 2) * 2
+  ch = Math.floor(ch / s / 2) * 2
+  const links = (mitte: number) => Math.min(Math.max(0, Math.round(mitte * breite - cw / 2)), breite - cw)
+  const x = links(blick?.x ?? 0.5)
+  const y = Math.min(Math.max(0, Math.round((blick?.y ?? 0.5) * hoehe - ch / 2)), hoehe - ch)
+  if (blick?.bisX === undefined)
+    return `crop=${cw}:${ch}:${x}:${y}`
+  return `crop=${cw}:${ch}:'${x}+${links(blick.bisX) - x}*min(1,t/${ms(dauer)})':${y}`
+}
+
+/** Geräusch zu einer Aktion im Bild (Klick, Glocke), `bei` Sekunden nach Beginn bzw. vor Ende des Abschnitts */
+export interface Effekt { datei: string, bei: number, vonEnde?: boolean, pegel: number }
+
+/** Effekte aller Abschnitte auf der Filmzeit, aus Abschnittsbeginn (`starts`) und -länge (`dauern`) */
+export function effektZeiten(abschnitte: { effekte?: Effekt[] }[], starts: number[], dauern: number[]): { datei: string, sekunde: number, pegel: number }[] {
+  return abschnitte.flatMap((a, i) => (a.effekte ?? []).map(e => ({
+    datei: e.datei,
+    sekunde: ms(e.vonEnde ? starts[i]! + dauern[i]! - e.bei : starts[i]! + e.bei),
+    pegel: e.pegel,
+  })))
+}
+
 const ZAHLWOERTER: Record<string, string> = {
   fuenfundzwanzig: '25',
   fünfundzwanzig: '25',
