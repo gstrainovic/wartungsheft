@@ -14,6 +14,8 @@
 	}
 	@assets path /assets/*
 	header @assets Cache-Control "public, max-age=31536000, immutable"
+	# Kurzlinks aus Kaltmails (wartungsheft.ch/r/<code>): zählt strainovic-connect, dann weiter zum Ziel
+	redir /r/* https://connect.strainovic-it.ch{uri} 302
 	# Rechtsseiten nicht in Suchmaschinen: niemand sucht sie, und indexiert ziehen sie Abmahnanwälte an
 	@legal path /agb /datenschutz /impressum /fr/agb /fr/datenschutz /fr/impressum /it/agb /it/datenschutz /it/impressum /en/agb /en/datenschutz /en/impressum
 	header @legal X-Robots-Tag "noindex, nofollow"
