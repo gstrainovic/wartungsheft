@@ -26,6 +26,9 @@ function vorbestellen() {
 
     <main class="anlagen-container anlagen-main">
       <section class="anlagen-hero">
+        <p class="anlagen-in-entwicklung">
+          {{ t.inEntwicklung }}
+        </p>
         <h1>{{ t.titel }}</h1>
         <p class="anlagen-problem">
           {{ t.problem }}
@@ -105,6 +108,17 @@ function vorbestellen() {
 .anlagen-hero {
   text-align: center;
   margin-bottom: 3rem;
+}
+
+.anlagen-in-entwicklung {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .anlagen-hero h1 {
