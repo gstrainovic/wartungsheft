@@ -81,6 +81,18 @@ describe('anlagen-Seite: Grafiken', () => {
     })
   }
 
+  // Das Produkt ist noch nicht gebaut: wer die Seite liest, darf es nicht für fertig halten
+  for (const { code } of SPRACHEN) {
+    it(`${code}: kennzeichnet den Wartungsplan vor dem Titel als in Entwicklung und verspricht keinen Gratis-Test`, async () => {
+      const html = await rendere(code)
+      const t = anlagenTexte[code]
+      const hinweis = html.indexOf(`>${entschaerfe(t.inEntwicklung)}<`)
+      expect(hinweis).toBeGreaterThan(-1)
+      expect(hinweis).toBeLessThan(html.indexOf('<h1'))
+      expect(html).not.toMatch(/30 (Tage|jours|giorni|days)/)
+    })
+  }
+
   it('ablauf steht direkt unter dem Einstieg, Vorher/Nachher nach dem Nutzen', async () => {
     const html = await rendere('de')
     const stelle = (s: string) => html.indexOf(s)
