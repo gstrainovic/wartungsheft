@@ -45,6 +45,11 @@ description: >
 - `src/texte/texte.test.ts` prüft Form, Gliederung und Links der öffentlichen Texte, `src/texte/app-texte.test.ts`
   Form, leere Texte und ß der App-Texte, `src/texte/app-deutsch.test.ts` (Heuristik `deutsch-finden.ts`), dass in
   Seiten, Komponenten und Diensten der App kein deutscher Text fest steht; Fehlalarme mit Begründung in `AUSNAHMEN`.
+- `src/texte/franzoesisch.test.ts` prüft alle französischen Texte (öffentliche Seiten, App, Mails, lange Seiten,
+  Ratgeber) nach den Regeln des fr-Teams (User-Skill `wp-plugin-ch`, `fr-richtlinien.md`): geschütztes Leerzeichen
+  U+00A0 vor `: ; ? ! » %` und nach `«`, Apostroph `’`, `…`, CHF und Einheiten mit U+00A0. Das Edit-Werkzeug macht aus
+  U+00A0 ein normales Leerzeichen, deshalb per Skript setzen; ESLint lässt U+00A0 nur in Texten zu. Beträge aus
+  `formatCurrency` bleiben im Schweizer Format und sind ausgenommen.
 - `e2e/languages.spec.ts` prüft Sprache, Links und 390px der öffentlichen Seiten, `e2e/app-sprache.spec.ts` die
   Sprachwahl der App. E2E läuft deutsch: ohne gespeicherte Wahl ist die App deutsch, deutsche Texte also nur bewusst ändern.
 

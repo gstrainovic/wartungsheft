@@ -45,24 +45,24 @@ export const PAGE_META_SPRACHEN: Record<Sprache, Record<string, PageMeta>> = {
   de: PAGE_META,
   fr: {
     '/': {
-      title: 'Wartungsheft : carnet d\'entretien numérique pour la voiture',
-      description: 'Wartungsheft est le carnet d\'entretien numérique suisse : photographiez la facture du garage, service et expertise sous contrôle. Dès 25 CHF par an.',
+      title: 'Wartungsheft : carnet d’entretien numérique pour la voiture',
+      description: 'Wartungsheft est le carnet d’entretien numérique suisse : photographiez la facture du garage, service et expertise sous contrôle. Dès 25 CHF par an.',
     },
     '/privathalter': {
-      title: 'Carnet d\'entretien de la voiture en app | Wartungsheft',
-      description: 'Votre carnet d\'entretien sur le téléphone : facture du garage en photo, historique complet, rappel avant le service et l\'expertise. 25 CHF par an.',
+      title: 'Carnet d’entretien de la voiture en app | Wartungsheft',
+      description: 'Votre carnet d’entretien sur le téléphone : facture du garage en photo, historique complet, rappel avant le service et l’expertise. 25 CHF par an.',
     },
     '/betrieb': {
-      title: 'App parc de véhicules : carnet d\'entretien | Wartungsheft',
-      description: 'Carnet d\'entretien numérique des véhicules d\'entreprise : facture en photo, service et expertise par véhicule, coûts pour la fiduciaire. 36 CHF par véhicule.',
+      title: 'App parc de véhicules : carnet d’entretien | Wartungsheft',
+      description: 'Carnet d’entretien numérique des véhicules d’entreprise : facture en photo, service et expertise par véhicule, coûts pour la fiduciaire. 36 CHF par véhicule.',
     },
     '/anlagen': {
-      title: 'Plan d\'entretien pour immeubles et installations | Wartungsheft',
-      description: 'Intervalles d\'entretien et délais de contrôle par objet, rappel par e-mail, facture en photo, procès-verbal en PDF. 36 CHF par objet et par an.',
+      title: 'Plan d’entretien pour immeubles et installations | Wartungsheft',
+      description: 'Intervalles d’entretien et délais de contrôle par objet, rappel par e-mail, facture en photo, procès-verbal en PDF. 36 CHF par objet et par an.',
     },
     '/hilfe': {
-      title: 'Aide : tenir un carnet d\'entretien numérique | Wartungsheft',
-      description: 'Tenir votre carnet d\'entretien avec Wartungsheft : saisir un véhicule, photographier une facture, définir les intervalles, exporter les coûts, vendre.',
+      title: 'Aide : tenir un carnet d’entretien numérique | Wartungsheft',
+      description: 'Tenir votre carnet d’entretien avec Wartungsheft : saisir un véhicule, photographier une facture, définir les intervalles, exporter les coûts, vendre.',
     },
   },
   it: {

@@ -42,38 +42,38 @@ const de: Frage[] = [
 
 const fr: Frage[] = [
   {
-    frage: 'Qu\'est-ce que Wartungsheft ?',
-    antwort: `Wartungsheft est un carnet d'entretien numérique pour voitures, motos, caravanes et véhicules `
-      + `d'entreprise. Vous photographiez la facture du garage, l'application en extrait le garage, la date, le `
-      + `montant et les travaux et tient à partir de là le plan d'entretien. Elle fonctionne dans le navigateur, `
+    frage: 'Qu’est-ce que Wartungsheft ?',
+    antwort: `Wartungsheft est un carnet d’entretien numérique pour voitures, motos, caravanes et véhicules `
+      + `d’entreprise. Vous photographiez la facture du garage, l’application en extrait le garage, la date, le `
+      + `montant et les travaux et tient à partir de là le plan d’entretien. Elle fonctionne dans le navigateur, `
       + `aussi hors ligne, et elle est exploitée en Suisse.`,
   },
   {
-    frage: 'Combien coûte Wartungsheft ?',
-    antwort: `Pour les particuliers, ${formatCurrency(PRIVATE_YEARLY_CHF)} par an pour jusqu'à `
+    frage: 'Combien coûte Wartungsheft ?',
+    antwort: `Pour les particuliers, ${formatCurrency(PRIVATE_YEARLY_CHF)} par an pour jusqu’à `
       + `${PRIVATE_MAX_VEHICLES} véhicules. Les entreprises paient ${formatCurrency(BUSINESS_VEHICLE_YEARLY_CHF)} `
-      + `par véhicule et par an et reçoivent une facture au nom de l'entreprise. Les deux tarifs offrent les mêmes `
+      + `par véhicule et par an et reçoivent une facture au nom de l’entreprise. Les deux tarifs offrent les mêmes `
       + `fonctions. Les 30 premiers jours sont gratuits.`,
   },
   {
-    frage: 'Que se passe-t-il après les 30 jours ?',
+    frage: 'Que se passe-t-il après les 30 jours ?',
     antwort: `La consultation, la saisie manuelle et tous les exports restent gratuits. Seuls le scan des `
-      + `factures et l'assistant de chat nécessitent ensuite un abonnement. Vos données sont entièrement conservées.`,
+      + `factures et l’assistant de chat nécessitent ensuite un abonnement. Vos données sont entièrement conservées.`,
   },
   {
-    frage: 'Faut-il une application du Store ?',
-    antwort: `Non. Wartungsheft fonctionne dans le navigateur et peut être ajouté à l'écran d'accueil du `
+    frage: 'Faut-il une application du Store ?',
+    antwort: `Non. Wartungsheft fonctionne dans le navigateur et peut être ajouté à l’écran d’accueil du `
       + `téléphone. Il se comporte alors comme une application et fonctionne aussi sans connexion.`,
   },
   {
-    frage: 'Où sont stockées mes données ?',
-    antwort: `Sur des serveurs en Suisse. Pour la lecture des factures, l'image est transmise à Mistral en France `
-      + `(UE) ; les détails figurent dans la politique de confidentialité.`,
+    frage: 'Où sont stockées mes données ?',
+    antwort: `Sur des serveurs en Suisse. Pour la lecture des factures, l’image est transmise à Mistral en France `
+      + `(UE) ; les détails figurent dans la politique de confidentialité.`,
   },
   {
-    frage: 'Puis-je récupérer mes données ?',
-    antwort: `Oui. Les coûts et les entretiens s'exportent en CSV vers Excel, chaque véhicule dispose d'un `
-      + `dossier PDF et, pour la vente, d'un carnet d'entretien en PDF. Une clôture annuelle regroupe le tableau `
+    frage: 'Puis-je récupérer mes données ?',
+    antwort: `Oui. Les coûts et les entretiens s’exportent en CSV vers Excel, chaque véhicule dispose d’un `
+      + `dossier PDF et, pour la vente, d’un carnet d’entretien en PDF. Une clôture annuelle regroupe le tableau `
       + `et les images des factures dans un ZIP.`,
   },
 ]

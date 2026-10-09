@@ -32,7 +32,7 @@ export default {
     faelligSeit: 'en retard depuis',
     faelligAm: 'à faire le',
     naechsteAm: 'prochain le',
-    beiKm: (km: string) => `à ${km} km`,
+    beiKm: (km: string) => `à ${km} km`,
     oder: 'ou',
   },
   it: {

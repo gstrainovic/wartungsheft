@@ -12,7 +12,7 @@ const de = {
 export default {
   de,
   fr: {
-    keine: 'aucun entretien saisi pour l\'instant',
+    keine: 'aucun entretien saisi pour l’instant',
     bis: (von: string, bis: string) => `${von} à ${bis}`,
     nurEiner: 'une seule entrée',
     luecke: (zeitraeume: string) => `lacune ${zeitraeume}`,

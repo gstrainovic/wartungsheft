@@ -23,7 +23,7 @@ test.describe('Sprachfassungen', () => {
     await page.goto('/fr')
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr-CH')
     await expect(page).toHaveTitle(PAGE_META_SPRACHEN.fr['/']!.title)
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('carnet d\'entretien')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('carnet d’entretien')
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${SITE_URL}/fr`)
     await expect(page.locator('link[rel="alternate"][hreflang="de-CH"]')).toHaveAttribute('href', `${SITE_URL}/`)
     await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute('href', `${SITE_URL}/`)

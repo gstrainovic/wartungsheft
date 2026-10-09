@@ -46,21 +46,21 @@ export default {
       fahrgestellnummer: 'numéro de châssis',
       baujahr: 'année de construction',
     },
-    fehltNoch: (felder: string) => `Il manque encore : ${felder}`,
+    fehltNoch: (felder: string) => `Il manque encore : ${felder}`,
     ausweis: {
       label: 'Permis de circulation',
       action: 'Photographier le permis de circulation',
       vollstaendig: 'Données du véhicule complètes',
     },
     serviceheft: {
-      label: 'Carnet d\'entretien',
-      action: 'Photographier le carnet d\'entretien',
+      label: 'Carnet d’entretien',
+      action: 'Photographier le carnet d’entretien',
       hint: 'Intervalles du constructeur et tampons, pour que les échéances correspondent exactement à ce véhicule',
     },
     wartungen: {
       label: 'Derniers entretiens',
       action: 'Saisir les derniers entretiens',
-      hint: 'Quand le service, la vidange et l\'expertise ont-ils été faits la dernière fois ? Sans cela, pas de rappel',
+      hint: 'Quand le service, la vidange et l’expertise ont-ils été faits la dernière fois ? Sans cela, pas de rappel',
     },
     rechnungen: {
       label: 'Factures',

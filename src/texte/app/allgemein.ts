@@ -51,7 +51,7 @@ export default {
     gespeichert: 'Enregistré',
     geloescht: 'Supprimé',
     unbekannt: 'inconnu',
-    heute: 'Aujourd\'hui',
+    heute: 'Aujourd’hui',
     navigation: {
       menu: 'Menu',
       titel: 'Navigation',

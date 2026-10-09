@@ -27,7 +27,7 @@ export default {
   fr: {
     ausweisFotografieren: 'Photographier le permis de circulation',
     wirdGelesen: 'Lecture du document …',
-    scanHinweis: 'Remplit la marque, le modèle, l\'année, la plaque et le numéro de châssis. Un contrat de vente fonctionne aussi.',
+    scanHinweis: 'Remplit la marque, le modèle, l’année, la plaque et le numéro de châssis. Un contrat de vente fonctionne aussi.',
     dokument: 'Document',
     marke: 'Marque',
     modell: 'Modèle',
@@ -38,7 +38,7 @@ export default {
     speichern: 'Enregistrer',
     scan: {
       nurFotoPdf: 'Seulement des photos ou des PDF.',
-      zuGross: (mb: number) => `Fichier trop volumineux (max. ${mb} Mo).`,
+      zuGross: (mb: number) => `Fichier trop volumineux (max. ${mb} Mo).`,
       ausgefuellt: 'Champs remplis depuis le document. Vérifie-les.',
       nichtsGefunden: 'Aucune donnée de véhicule lisible dans le document. Remplis les champs toi-même.',
       selbstAusfuellen: (fehler: string) => `${fehler} Remplis les champs toi-même.`,

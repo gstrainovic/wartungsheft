@@ -24,12 +24,12 @@ export default {
     datum: 'Date de remise',
     kilometerstand: 'Kilométrage',
     kmBeiUebergabe: 'Kilométrage à la remise',
-    tipp: 'Astuce : le dossier PDF de l\'onglet « Coûts » sert de dossier de remise pour l\'acheteur.',
+    tipp: 'Astuce : le dossier PDF de l’onglet « Coûts » sert de dossier de remise pour l’acheteur.',
     eintragen: 'Marquer comme vendu',
     vermerk: {
       uebergabeAm: (datum: string) => `Remise le ${datum}`,
       verkauftAm: (datum: string) => `Vendu le ${datum}`,
-      verkauftAmBei: (datum: string, km: string) => `Vendu le ${datum} à ${km} km`,
+      verkauftAmBei: (datum: string, km: string) => `Vendu le ${datum} à ${km} km`,
     },
   },
   it: {

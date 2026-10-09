@@ -33,7 +33,7 @@ const de = {
 export default {
   de,
   fr: {
-    einstieg: { app: 'Vers l\'aperçu', login: 'Se connecter', trial: 'Essayer 30 jours gratuitement' },
+    einstieg: { app: 'Vers l’aperçu', login: 'Se connecter', trial: 'Essayer 30 jours gratuitement' },
     kopfTrial: 'Essai gratuit',
     menue: {
       features: 'Fonctions',
@@ -45,8 +45,8 @@ export default {
     sprachwahl: 'Langue',
     dunkel: 'Thème sombre',
     fuss: {
-      hinweis: 'Serveurs en Suisse, IA dans l\'UE. Vos données vous appartiennent : exportables à tout moment, nous supprimons le compte sur demande.',
-      fragen: 'Des questions ?',
+      hinweis: 'Serveurs en Suisse, IA dans l’UE. Vos données vous appartiennent : exportables à tout moment, nous supprimons le compte sur demande.',
+      fragen: 'Des questions ?',
       betrieb: 'Entreprises',
       privat: 'Particuliers',
       hilfe: 'Aide',
@@ -55,7 +55,7 @@ export default {
       datenschutz: 'Confidentialité',
       agb: 'CG',
     },
-    appSprache: 'L\'application elle-même est aussi en français.',
+    appSprache: 'L’application elle-même est aussi en français.',
   },
   it: {
     einstieg: { app: 'Alla panoramica', login: 'Accedi', trial: 'Prova gratis per 30 giorni' },

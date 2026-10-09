@@ -14,11 +14,11 @@ export default {
   de,
   fr: {
     limit: 'Limite mensuelle atteinte. Passe à un abonnement supérieur dans les réglages.',
-    testzeit: 'Période d\'essai terminée. Tu trouves l\'abonnement dans les réglages.',
+    testzeit: 'Période d’essai terminée. Tu trouves l’abonnement dans les réglages.',
     rate: 'Trop de demandes, attends un instant.',
     offline: 'Pas de connexion. Vérifie Internet.',
     auth: 'Reconnecte-toi.',
-    allgemein: 'Cela n\'a pas fonctionné. Réessaie.',
+    allgemein: 'Cela n’a pas fonctionné. Réessaie.',
   },
   it: {
     limit: 'Limite mensile raggiunto. Passa a un piano superiore nelle impostazioni.',

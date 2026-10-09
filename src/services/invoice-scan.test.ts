@@ -91,7 +91,7 @@ describe('pagesLabel', () => {
     setAppSprache('fr')
     try {
       expect(pagesLabel([1, 2])).toBe('Pages 1–2')
-      expect(plateAssignment('ZH 99', [{ id: 'v1', make: 'VW', model: 'Golf', licensePlate: 'SG 1' }], 'v1').note).toBe('la plaque ZH 99 n\'appartient à aucun véhicule')
+      expect(plateAssignment('ZH 99', [{ id: 'v1', make: 'VW', model: 'Golf', licensePlate: 'SG 1' }], 'v1').note).toBe('la plaque ZH 99 n’appartient à aucun véhicule')
     }
     finally {
       setAppSprache('de')

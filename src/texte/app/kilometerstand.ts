@@ -11,8 +11,8 @@ export default {
   de,
   fr: {
     titel: 'Kilométrage',
-    bisher: (fahrzeug: string, km: string) => `${fahrzeug}, jusqu'ici ${km} km.`,
-    niedriger: 'Inférieur à l\'actuel. Ne saisis-le que si l\'ancien kilométrage était faux.',
+    bisher: (fahrzeug: string, km: string) => `${fahrzeug}, jusqu’ici ${km} km.`,
+    niedriger: 'Inférieur à l’actuel. Ne saisis-le que si l’ancien kilométrage était faux.',
   },
   it: {
     titel: 'Chilometraggio',
