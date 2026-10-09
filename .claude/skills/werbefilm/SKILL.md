@@ -1,10 +1,16 @@
 ---
 name: werbefilm
-description: Werbefilme für die Landing Pages neu aufnehmen, montieren und ausliefern (Playwright mit Chrome-Screencast, Sprecher ElevenLabs Andres bzw. Piper, ffmpeg mit Musik, Untertitel als WebVTT-Spur bzw. Kästen in den Kurzfassungen)
+description: Werbefilme und Tutorial von Wartungsheft neu aufnehmen, montieren und ausliefern (Playwright mit Chrome-Screencast, Sprecher ElevenLabs, ffmpeg mit Musik, Untertitel als WebVTT-Spur bzw. Kästen in den Kurzfassungen). Nur das Wartungsheft-Spezifische; die Regeln für alle Produktvideos stehen im User-Skill produktvideos.
 ---
 
-Die Filme auf `/`, `/privathalter` und `/betrieb` entstehen vollständig im Repo: keine Kamera, kein fremdes
-Bildmaterial. Ändert sich die Oberfläche oder ein Satz, wird neu aufgenommen bzw. neu montiert statt neu gefilmt.
+Die Filme auf `/`, `/privathalter` und `/betrieb` (und das Tutorial für `/hilfe`) entstehen vollständig im Repo:
+keine Kamera, kein fremdes Bildmaterial. Ändert sich die Oberfläche oder ein Satz, wird neu aufgenommen bzw. neu
+montiert statt neu gefilmt.
+
+**Regeln** (Reihenfolge der Freigaben, Stimmen, Untertitel, −16 LUFS, Formate Handy und Desktop, Gegenhören mit
+Whisper) stehen nur im User-Skill `produktvideos`; hier steht, wie Wartungsheft sie umsetzt. Geprüft werden sie über
+`video-scripts/produktvideo.toml` (Filme, Dateien, Lücken mit Grund, Freigaben mit Datum):
+`cd video-scripts && uv run --with pytest --with-editable ~/projects/produktvideo pytest produktvideo.toml`.
 
 ## Ablauf in zwei Befehlen
 
@@ -39,8 +45,8 @@ fehlen WebKit die Bibliotheken. Die Kästen tragen nur Sprechertext; Szenentitel
 gezeichneten Szenen und Titelkarten und bleiben im Bild. Caddy liefert `.vtt` als `text/vtt` (mime.types im
 Container), E2E prüft Spur und Datei (`untertitelPruefen` in `e2e/landing-pages.spec.ts`).
 
-MP4 ist H.264 High, Level 4.1, yuv420p, faststart (spielt in Safari und auf dem iPhone), WebM VP9 Profil 0 mit Opus.
-Ton −16 LUFS, Spitzen unter −1 dBFS. Ausliefern wie der Rest der App: `npm run deploy` (`public/` wandert ins `dist/`).
+MP4 ist H.264 High, Level 4.1, yuv420p, faststart, dazu WebM VP9 Profil 0 mit Opus; Spitzen unter −1 dBFS.
+Ausliefern wie der Rest der App: `npm run deploy` (`public/` wandert ins `dist/`).
 
 ## Wo was steht
 
@@ -50,7 +56,8 @@ Ton −16 LUFS, Spitzen unter −1 dBFS. Ausliefern wie der Rest der App: `npm r
 | Sprechertexte FR, IT, EN mit Begründung und Prüfpunkten | `video-scripts/sprechertexte.md` |
 | Bildfolge (Clip, Start, Mindestlänge, Ausschnitt), Sprechertexte je Sprache, Kurzfassungen | `scripts/werbefilm.ts` (`PRIVAT_BILD`, `PRIVAT_TEXT`, `BETRIEB_*`, `KURZ_*`) |
 | Rechenschritte: Satzgrenzen, Zeitplan, Untertitel, SRT und VTT, Musikpegel, Wahl des Durchlaufs | `src/lib/werbefilm.ts` (Tests daneben) |
-| Sprecher: ElevenLabs-Aufruf, Zwischenspeicher, Piper-Rückfall | `src/lib/sprecher.ts`, `scripts/sprecher.ts` |
+| Sprecher: ElevenLabs-Aufruf, Zwischenspeicher, Piper nur als Entwurf | `src/lib/sprecher.ts`, `scripts/sprecher.ts` |
+| Filme, Dateien, Lücken und Freigaben für die Regeltests | `video-scripts/produktvideo.toml` |
 | Gewählter Durchlauf je Sprechertext | `video-scripts/sprecher-auswahl.json` |
 | App-Szenen (was die Aufnahme klickt und scrollt), Screencast | `e2e/video/*.video.ts`, `e2e/video/szenen.ts` |
 | Gezeichnete Szenen und Titelkarten | `video-scripts/szenen/*.html`, aufgenommen von `e2e/video/zeichnung.video.ts` |
@@ -62,10 +69,8 @@ ist eingecheckt.
 
 ## Etwas ändern
 
-- **Reihenfolge bei mehreren Sprachen:** Zuerst Deutsch fertig machen, Kontaktbogen und Stichbilder Goran zeigen und
-  seine Abnahme abwarten; erst dann FR, IT und EN aufnehmen und rendern. Jede Sprache heisst 4 Echtzeit-Aufnahmen
-  plus Rendern; eine Korrektur nach dem Rendern aller Sprachen kostet Stunden.
-
+- **Reihenfolge** wie im Skill `produktvideos`; hier heisst jede weitere Sprache 4 Echtzeit-Aufnahmen plus Rendern.
+  Eine Freigabe trägt Claude mit Datum in `video-scripts/produktvideo.toml` ein.
 - **Satz umformulieren:** `sprechen` (und bei abweichender Schreibweise `untertitel`) in `PRIVAT_TEXT` bzw.
   `BETRIEB_TEXT` in `scripts/werbefilm.ts`, dann Sprecher, Spracherkennung und `npm run video:film`. Neue Texte kosten Credits (zwei Durchläufe), alles andere
   kommt aus dem Zwischenspeicher. Abschnittslänge und Untertitelzeiten folgen der Sprechdauer.
@@ -85,8 +90,7 @@ ist eingecheckt.
 
 ## Sprecher
 
-**Deutsch: ElevenLabs, Stimme «Andres»** (Bibliothek, Schweizerdeutsch gefärbt, `voice_id` `BfwuiKSWxqDOcSYQr6EC`),
-Modell `eleven_v3`, `voice_settings` `{"stability": 0.5, "similarity_boost": 0.75}`, Ausgabe `mp3_44100_192`.
+Stimmen, Modell und Einstellungen wie im Skill `produktvideos` (`ELEVEN` und `STIMMEN` in `src/lib/sprecher.ts`).
 Natürlich, aber begeistert: Regieanweisungen in eckigen Klammern (`[excited]`, `[enthusiastic]`, `[delighted]`,
 `[curious]`, `[sighs]`, `[warm]`) und Ausrufezeichen; die Tags werden nicht gesprochen und fallen aus den Untertiteln.
 Der erste Satz eines Films steigt ruhig ein (`[warm]`, ohne Ausrufezeichen), sonst wirkt der Anfang abrupt und laut.
@@ -102,14 +106,6 @@ Erfasst ist sie damit auch! [enthusiastic] Am Jahresende: Kosten pro Fahrzeug, a
 
 Der Privatfilm spricht den Drehbuchtext wörtlich (Du-Form), nur mit Regie und Ausrufezeichen. Die Webadresse geht
 als «wartungsheft punkt c h» an die Stimme, der Untertitel zeigt `wartungsheft.ch`.
-
-**Weitere Sprachen** (`STIMMEN` in `src/lib/sprecher.ts`), gleiche Einstellungen und begeisterte Regie wie Andres:
-
-| Sprache | Stimme | `voice_id` |
-|---|---|---|
-| FR | Nathan, Westschweiz | `6HYJeW6WLg97b4ika29W` |
-| IT | Valentino | `lJylpTXX0sNdqq5EUv4M` |
-| EN | Adam Stone, britisch | `DEFpwxCUkrj3WAbTDRTZ` |
 
 Freigegebene Hörproben des Betriebstexts, ohne Anrede (die Anrede tu/vous bzw. tu/Lei richtet sich nach der
 Übersetzung der App), Vorlage für die Sprechertexte:
@@ -140,9 +136,9 @@ ihren Namen.
 **Zwei Durchläufe, der bessere gewinnt:** `eleven_v3` betont jedes Mal anders und verschluckt gelegentlich ein Wort
 («und ja» statt «und Jahr», «ein Auto» statt «dein Auto»). Ablauf für neue Texte:
 1. `npm run video:film -- sprecher` erzeugt je Text Durchlauf 1 und 2 und meldet «Spracherkennung fehlt».
-2. Transkripte nach `video-out/sprecher/whisper.json` (`{ "<datei>.mp3": "erkannter Text" }`): faster-whisper,
-   Modell `medium`, Sprache automatisch; Audio vorher mit ffmpeg zu 16 kHz mono dekodieren, das `av`-Paket der
-   Fedora-Python passt nicht zu faster-whisper.
+2. Transkripte nach `video-out/sprecher/whisper.json` (`{ "<datei>.mp3": "erkannter Text" }`), nur für fehlende
+   Dateien, lokal und gratis (Paket `~/projects/produktvideo`, im Ordner `~/projects/produktvideo`):
+   `HF_HUB_OFFLINE=1 uv run --extra hoeren produktvideo hoeren --whisper-json ../wartungsheft/video-out/sprecher/whisper.json ../wartungsheft/video-out/sprecher/*.mp3`
 3. `npm run video:film -- sprecher` noch einmal: wählt nach Wortfehlern (Zahlwörter in allen vier Sprachen),
    Aussetzern (Pause über 0,8 s) und Lautheitsspanne (LRA), die Wahl steht in `video-scripts/sprecher-auswahl.json`.
 Für eine neue Wahl den Eintrag in der JSON löschen. Steht die Wahl fest, holt die Pipeline nur diesen Durchlauf
@@ -159,8 +155,9 @@ Schlüssel in `~/.config/elevenlabs/key` (Konto g.strainovic@gmail.com, Plan Cre
 Bibliotheksstimmen gehen über die API nur mit bezahltem Plan). Verbrauch: `GET /v1/user/subscription`, Feld
 `character_count`; beide Filme einer Sprache mit neuen Texten kosten rund 2000 Zeichen.
 
-**Rückfall ohne Schlüssel:** Piper mit `de_DE-thorsten-high` (lokal, gratis), `scripts/sprecher.ts` schreibt dafür
-Zahlen aus und «Serviceheft» als «Serwis-Heft». Installation: `pipx install piper-tts`, Stimme von
+**Ohne Schlüssel** bricht der Sprecher ab. Piper (`de_DE-thorsten-high`, lokal) nur für einen ausdrücklichen
+Entwurf mit `SPRECHER_ENTWURF=1`, nie für eine Auslieferung; `piperText` schreibt dafür Zahlen aus und
+«Serviceheft» als «Serwis-Heft». Installation: `pipx install piper-tts`, Stimme von
 huggingface.co/rhasspy/piper-voices nach `~/.local/share/piper-voices/`. Andere Stimme: `PIPER_VOICE=/pfad.onnx`.
 
 ## Bild, Untertitel, Musik
