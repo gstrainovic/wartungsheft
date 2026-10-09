@@ -121,6 +121,11 @@ describe('übersetzte Artikel', () => {
     expect(html).toContain('<a class="lang" href="/ratgeber/serviceheft-verloren" hreflang="de-CH" lang="de-CH">DE</a>')
   })
 
+  it('behaupten nicht, die App sei nur deutsch (es gibt sie auf Französisch, Italienisch und Englisch)', () => {
+    for (const [sprache, deutsch] of [['fr', /allemand/i], ['it', /tedesco/i], ['en', /german/i]] as const)
+      expect(renderArticlePage(parseArticle('serviceheft-verloren', SOURCE_FR, sprache), [sprache]), sprache).not.toMatch(deutsch)
+  })
+
   it('haben eine eigene Übersicht', () => {
     const index = renderIndexPage([fr], 'fr')
     expect(index).toContain('<html lang="fr-CH">')
