@@ -19,6 +19,7 @@ import { buildReminders, resendPayload, shouldSend } from '../src/services/remin
 import { buildSignupNotice } from '../src/services/signup-notice'
 import { buildTrialFeedbackMails, feedbackVersandAn } from '../src/services/trial-feedback'
 import { buildTrialReminders } from '../src/services/trial-reminder'
+import { buildWelcomeMails, willkommenVersandAn } from '../src/services/welcome-mail'
 
 const API = process.env.INSTANT_API_URI ?? ''
 const APP_ID = process.env.INSTANT_APP_ID ?? ''
@@ -162,6 +163,33 @@ async function main(): Promise<void> {
     log(`${r.email}: ${r.subject}`)
   }
   log(`${feedbackSent} Rückfrage(n) an Testkonten gesendet${FEEDBACK_ON ? '' : ' (Versand aus)'}`)
+
+  // Willkommensmail am Tag nach der Anmeldung, persönlich von Goran (src/services/welcome-mail.ts); Versand nur mit
+  // WELCOME_MAILS=on, bis Goran die Texte freigibt (find-jobs/freigaben/wartungsheft-willkommensmail.md)
+  const welcomeOn = willkommenVersandAn(process.env)
+  const welcomeMails = buildWelcomeMails({ users: $users, subscriptions, settings, now })
+    .filter(r => !only || r.email === only)
+  let welcomeSent = 0
+  for (const r of welcomeMails) {
+    if (dryRun) {
+      log(`[dry-run] ${r.email} (Willkommen, ${r.mitHerkunftsfrage ? 'mit' : 'ohne'} Herkunftsfrage, von ${FEEDBACK_FROM}): ${r.subject}\n${r.text}\n`)
+      continue
+    }
+    if (!welcomeOn) {
+      log(`${r.email}: Willkommensmail fällig, Versand aus (WELCOME_MAILS)`)
+      continue
+    }
+    await sendMail(r.email, r.subject, r.text, FEEDBACK_FROM, FEEDBACK_REPLY_TO)
+    const setting = byUser.get(r.userId)
+    const id = setting?.id ?? randomUUID()
+    byUser.set(r.userId, { ...setting, id, creatorId: r.userId })
+    await admin('transact', {
+      steps: [['update', 'settings', id, { creatorId: r.userId, welcomeMailAt: now.toISOString(), updatedAt: now.toISOString() }]],
+    })
+    welcomeSent++
+    log(`${r.email}: ${r.subject}`)
+  }
+  log(`${welcomeSent} Willkommensmail(s) gesendet${welcomeOn ? '' : ' (Versand aus)'}`)
 
   // Meldung an den Betreiber: wer sich seit dem letzten Lauf angemeldet hat
   const notice = only ? null : buildSignupNotice({ users: $users, settings, now })

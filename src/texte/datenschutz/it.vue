@@ -88,9 +88,11 @@
 
   <h3>3.7 E-mail di riscontro durante il periodo di prova</h3>
   <p>
-    Durante il periodo di prova ti inviamo al massimo due e-mail con domande sulla tua esperienza: il 21° giorno con
-    domande su che cosa ti è piaciuto e che cosa è mancato, e il giorno dopo la fine del periodo di prova una sola
-    domanda, se non è stato ordinato alcun abbonamento. Gli account con abbonamento non ricevono queste e-mail. L'invio
+    Durante il periodo di prova ti inviamo al massimo tre e-mail: poco dopo la registrazione un'e-mail di benvenuto
+    con i primi passi che, se al momento della registrazione non hai indicato come ci hai conosciuti, contiene la
+    domanda su come hai scoperto Wartungsheft; il 21° giorno domande sulla tua esperienza, su che cosa ti è piaciuto e
+    che cosa è mancato; e il giorno dopo la fine del periodo di prova una sola domanda, se non è stato ordinato alcun
+    abbonamento. Gli account con abbonamento non ricevono queste e-mail. L'invio
     avviene tramite Resend, come per i promemoria (sezione 7). La risposta è facoltativa; giunge a
     info@wartungsheft.ch, viene valutata solo per migliorare l'app e conservata, come le segnalazioni dall'app, al
     massimo due anni. Indicazioni facoltative come lavoro, età o uso privato oppure aziendale vengono trattate solo se

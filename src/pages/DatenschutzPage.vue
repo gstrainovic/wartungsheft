@@ -105,9 +105,10 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
 
       <h3>3.7 Feedback-Mails während der Testzeit</h3>
       <p>
-        Während der Testzeit schicken wir Ihnen höchstens zwei Mails mit Fragen zu Ihrer Erfahrung: am 21. Tag mit
-        Fragen, was gefallen und was gefehlt hat, und am Tag nach Ende der Testzeit eine einzelne Frage, falls kein
-        Abo bestellt wurde. Konten mit Abo erhalten diese Mails nicht. Der Versand läuft wie bei den Erinnerungen über
+        Während der Testzeit schicken wir Ihnen höchstens drei Mails: kurz nach der Anmeldung eine Willkommensmail mit
+        den ersten Schritten, die, falls Sie bei der Anmeldung keine Herkunftsangabe gemacht haben, die Frage enthält,
+        wie Sie auf Wartungsheft gestossen sind; am 21. Tag Fragen zu Ihrer Erfahrung, was gefallen und was gefehlt
+        hat; und am Tag nach Ende der Testzeit eine einzelne Frage, falls kein Abo bestellt wurde. Konten mit Abo erhalten diese Mails nicht. Der Versand läuft wie bei den Erinnerungen über
         Resend (Abschnitt 7). Eine Antwort ist freiwillig; sie geht an info@wartungsheft.ch, wird nur zur Verbesserung
         der App ausgewertet und wie Rückmeldungen aus der App höchstens zwei Jahre aufbewahrt. Freiwillige Angaben wie
         Beruf, Alter oder private beziehungsweise geschäftliche Nutzung bearbeiten wir nur, wenn Sie sie von sich aus

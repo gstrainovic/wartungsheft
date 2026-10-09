@@ -109,7 +109,8 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
   keine Serverabfrage voraussetzen; `db.queryOnce` scheitert offline.
 - Herkunftsfrage der Anmeldung und Rückfrage-Mails an Testkonten (Tag 21 und 31, Schalter `TRIAL_FEEDBACK_MAILS`,
   auf der Instanz `on`): README «7. E-Mail-Erinnerungen». Die Texte (`src/texte/app/feedback.ts`) sind von Goran
-  freigegeben; Änderungen nur nach seiner Freigabe, Französisch siezt wie die App.
+  freigegeben; Änderungen nur nach seiner Freigabe, Französisch siezt wie die App. Willkommensmail am Tag nach der
+  Anmeldung (Schalter `WELCOME_MAILS`, aus bis zur Freigabe der Texte in `src/texte/app/willkommen.ts`): ebenda.
 - Wortwahl in der App: «Rechnung» (nie «Beleg»), «Kontrollschild» und «Fahrgestellnummer» wie auf dem Schweizer
   Ausweis (nie «Kennzeichen», «FIN»). Formular «Neues Fahrzeug» belegt nichts vor: Baujahr und Kilometerstand 0 heisst
   unbekannt, der Ausweis-Scan füllt leere Felder. Löschen eines Fahrzeugs nur auf der Fahrzeugseite, nicht auf der Karte.

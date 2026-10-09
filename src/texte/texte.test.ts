@@ -77,6 +77,14 @@ describe('übersetzte Seiten (src/texte/<seite>/<sprache>.vue)', () => {
     }
   })
 
+  it('datenschutz nennt die Willkommensmail nach der Anmeldung in jeder Sprache', () => {
+    const WORT = { de: /Willkommensmail/, fr: /bienvenue/i, it: /benvenuto/i, en: /welcome email/i }
+    for (const [sprache, wort] of Object.entries(WORT)) {
+      const html = sprache === 'de' ? deutsch('DatenschutzPage.vue') : UEBERSETZUNGEN[`./datenschutz/${sprache}.vue`]!
+      expect(html, `datenschutz/${sprache}`).toMatch(wort)
+    }
+  })
+
   it('rechtstexte nennen die deutsche Fassung als massgebend', () => {
     for (const ordner of ['agb', 'datenschutz', 'impressum']) {
       for (const sprache of PRAEFIXE)
