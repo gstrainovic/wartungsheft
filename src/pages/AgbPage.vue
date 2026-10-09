@@ -144,9 +144,8 @@ const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
         Belegen, sofort und endgültig; oder du schreibst an <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>,
         dann erledigen wir es. Rechnungen, die wir dir gestellt haben, bewahren wir
         so lange auf, wie das Gesetz es verlangt. Wie wir mit Personendaten umgehen, steht in der
-        <router-link to="/datenschutz">
-          Datenschutzerklärung
-        </router-link>.
+        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+        <router-link to="/datenschutz">Datenschutzerklärung</router-link>.
       </p>
 
       <h2>10. Pflichten bei der Nutzung</h2>

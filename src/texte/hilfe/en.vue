@@ -97,8 +97,7 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     Legal matters are covered in the <router-link to="/en/agb">
       Terms and conditions
     </router-link> and in the
-    <router-link to="/en/datenschutz">
-      Privacy policy
-    </router-link>.
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    <router-link to="/en/datenschutz">Privacy policy</router-link>.
   </p>
 </template>
