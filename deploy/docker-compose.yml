@@ -2,6 +2,8 @@
 # der Caddy des InstantDB-Stacks bedient auch die PWA (./dist) und den Proxy, siehe Caddyfile und README.
 # Der AI-Proxy kommt aus dem Repo gstrainovic/ai-proxy, das neben auto-service ausgecheckt sein muss (../../ai-proxy).
 # Start: docker compose --env-file .env up -d --build   (im Ordner deploy/, dist/ vorher per rsync nach ./dist)
+# Eigener Projektname: auch strainovic-connect startet aus einem Ordner deploy/, sonst teilen sich beide das Projekt «deploy»
+name: wartungsheft
 services:
   ai-proxy:
     build:
