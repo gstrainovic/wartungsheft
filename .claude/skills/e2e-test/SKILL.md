@@ -27,6 +27,10 @@ Führe Playwright E2E-Tests aus.
    Seeds des ersten und verliert mitgenutzte Server, wenn der erste endet. `playwright.config.ts` nimmt darum beim Laden
    die Sperre `~/.cache/wartungsheft-e2e.lock` (`e2e/lauf-sperre.ts`); ein zweiter `playwright test` meldet «Warte auf
    E2E-Lauf PID …» und startet erst danach. Nach `kill -9` räumt der nächste Lauf die verwaiste Sperre selbst ab.
+   Die Sperre schützt nur vor anderen `playwright test`: Ein von Hand gestartetes Vite, das Playwright mitnutzt,
+   während des Laufs nicht beenden oder neu starten. Fällt Vite weg, ist die Seite im Projekt `offline` nur weiss
+   (dort werden alle Konsolenfehler ignoriert, z. B. GL-001 «Code senden» fehlt), online scheitert der Test an
+   `ERR_CONNECTION_REFUSED`.
 
 ## E2E Testing
 
@@ -35,7 +39,7 @@ Führe Playwright E2E-Tests aus.
 - Tests folgen **CRUD-Paradigma**: Create → Read → Update → Delete
 - Tests laufen automatisch **zweimal**: online + offline (via Network-Blocking)
 - **Playwright startet Server automatisch** (Vite + InstantDB) — kein manuelles `podman-compose up` nötig
-- `npm run test:e2e` führt beide Projekt-Varianten aus (284 Tests: 142 online + 142 offline; 8 weitere nur via `test:e2e:soft`)
+- `npm run test:e2e` führt beide Projekt-Varianten aus (376 Tests: 188 online + 188 offline; 11 weitere nur via `test:e2e:soft`)
 - Playwright startet drei Server: Vite (`VITE_INSTANTDB_MODE=local`, `VITE_AI_PROXY_URL=http://localhost:8787`),
   InstantDB (podman-compose) und den AI-Proxy (`npm run dev:proxy` im Auth-Bypass, Key aus `.env` explizit per `env`,
   `AI_PROXY_BURST_LIMIT=10000`, weil alle Tests einen Nutzer teilen und die Fair-Use-Bremse sonst 429 liefert)
@@ -95,7 +99,7 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 | FB | Rückmeldung | FB-001 bis FB-003: Text senden, Adresse kopieren, Sprachnachricht |
 | TN | Testzeit-Hinweis | TN-001 bis TN-003: Hinweis in der letzten Woche, vorher still, ohne Kaufweg gar nicht |
 
-**Gesamt: 142 Tests pro Projekt** (+8 `@soft`) — `npm run test:e2e --list` zeigt alle
+**Gesamt: 188 Tests pro Projekt** (+11 `@soft`) — nachzählen mit `npx playwright test --list --project=online --project=offline | tail -1`
 
 ### Test-Konventionen
 - Tests importieren von `./fixtures/test-fixtures` statt `@playwright/test`
