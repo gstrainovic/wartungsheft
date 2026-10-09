@@ -110,39 +110,39 @@ export default {
     du: 'Toi',
     assistent: 'Assistant',
     ja: 'Oui',
-    jaPasst: 'Oui, c\'est juste',
+    jaPasst: 'Oui, c’est juste',
     dropHinweis: 'Glisse des fichiers ici ou clique',
     dateiAnhaengen: 'Joindre un fichier',
     fotoAufnehmen: 'Prendre une photo',
     maximieren: 'Agrandir le chat',
     diktieren: 'Dicter un message',
-    platzhalter: 'Message...',
+    platzhalter: 'Message…',
     bitteErfassen: 'Merci de saisir',
     diktat: 'Dictée',
     fehler: 'Erreur',
-    pdfZuGross: (mb: string) => `PDF trop volumineux (${mb} Mo). Maximum : 50 Mo.`,
-    erledigt: 'C\'est fait.',
+    pdfZuGross: (mb: string) => `PDF trop volumineux (${mb} Mo). Maximum : 50 Mo.`,
+    erledigt: 'C’est fait.',
     keineErgebnisse: 'Aucun résultat.',
     vorschlaege: [
       { label: 'Scanner une facture', prompt: 'Je veux scanner une facture' },
       { label: 'Ajouter un véhicule', prompt: 'Ajouter un nouveau véhicule' },
-      { label: 'État de l\'entretien', prompt: 'Montre l\'état de l\'entretien de mes véhicules' },
+      { label: 'État de l’entretien', prompt: 'Montre l’état de l’entretien de mes véhicules' },
     ],
-    begruessung: (erstes: string, zweites: string) => `Salut ! Envoie-moi une photo de la facture du garage, je la saisis pour toi. Ou pose-moi une question, par exemple :
+    begruessung: (erstes: string, zweites: string) => `Salut ! Envoie-moi une photo de la facture du garage, je la saisis pour toi. Ou pose-moi une question, par exemple :
 
-- « Quand la ${erstes} doit-elle aller au service ? »
-- « Combien la ${zweites} a-t-elle coûté cette année ? »
-- « Saisis : vidange hier à 68'500 km »
+- « Quand la ${erstes} doit-elle aller au service ? »
+- « Combien la ${zweites} a-t-elle coûté cette année ? »
+- « Saisis : vidange hier à 68 500 km »
 
-Je sais aussi lire le permis de circulation, le contrat de vente et le carnet d'entretien.`,
+Je sais aussi lire le permis de circulation, le contrat de vente et le carnet d’entretien.`,
     werkzeug: {
       fahrzeugAngelegt: 'Véhicule ajouté',
       aktualisiert: (name: string) => `${name} mis à jour`,
       fahrzeugGeloescht: 'Véhicule supprimé',
       fahrzeugNichtGefunden: 'Véhicule introuvable',
-      planGespeichert: (name: string, anzahl: number) => `Plan d'entretien enregistré pour ${name} (${anzahl} positions)`,
+      planGespeichert: (name: string, anzahl: number) => `Plan d’entretien enregistré pour ${name} (${anzahl} positions)`,
       monate: (anzahl: number) => `${anzahl} mois`,
-      rechnungExistiert: (werkstatt: string, datum: string, betrag: string) => `Cette facture existe déjà : ${werkstatt}, ${datum}, ${betrag}. Pas de doublon.`,
+      rechnungExistiert: (werkstatt: string, datum: string, betrag: string) => `Cette facture existe déjà : ${werkstatt}, ${datum}, ${betrag}. Pas de doublon.`,
       rechnungErfasst: 'Facture saisie',
       rechnungNichtGefunden: 'Facture introuvable',
       rechnungGeloescht: 'Facture supprimée',
@@ -168,10 +168,10 @@ Je sais aussi lire le permis de circulation, le contrat de vente et le carnet d'
       fahrzeug: 'Véhicule',
       rechnung: 'Facture',
       wartung: 'Entretien',
-      wartungsplan: 'Plan d\'entretien',
+      wartungsplan: 'Plan d’entretien',
       geloescht: 'Supprimé',
       ergebnis: 'Résultat',
-      intervalle: (anzahl: number) => `${anzahl} intervalles d'entretien`,
+      intervalle: (anzahl: number) => `${anzahl} intervalles d’entretien`,
       position: 'Position',
       betrag: 'Montant',
       intervall: 'Intervalle',

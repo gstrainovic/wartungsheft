@@ -45,10 +45,10 @@ const TEXTE: Record<Sprache, {
     ratgeber: 'Guide',
     hilfe: 'Aide',
     impressum: 'Mentions légales',
-    cta: '<strong>Le carnet d\'entretien sur le téléphone :</strong> photographiez la facture du garage, Wartungsheft\n        enregistre la date, le kilométrage et les travaux et vous rappelle le service et l\'expertise. L\'app est en allemand.',
+    cta: '<strong>Le carnet d’entretien sur le téléphone :</strong> photographiez la facture du garage, Wartungsheft\n        enregistre la date, le kilométrage et les travaux et vous rappelle le service et l’expertise. L’app est en allemand.',
     knopf: 'Essayer 30 jours gratuitement',
-    indexTitel: 'Guide : carnet d\'entretien, entretien et occasion | Wartungsheft',
-    indexBeschreibung: 'Guide pour les détenteurs de voitures en Suisse : tenir le carnet d\'entretien, planifier l\'entretien, vendre une occasion.',
+    indexTitel: 'Guide : carnet d’entretien, entretien et occasion | Wartungsheft',
+    indexBeschreibung: 'Guide pour les détenteurs de voitures en Suisse : tenir le carnet d’entretien, planifier l’entretien, vendre une occasion.',
   },
   it: {
     ratgeber: 'Guida',

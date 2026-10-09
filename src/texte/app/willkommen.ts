@@ -35,13 +35,13 @@ export default {
     oben: [
       'Bonjour',
       '',
-      'Merci d\'essayer Wartungsheft. Je suis Goran et je développe l\'application moi-même. Pour que vous en profitiez rapidement, voici les trois premiers pas les plus importants :',
+      'Merci d’essayer Wartungsheft. Je suis Goran et je développe l’application moi-même. Pour que vous en profitiez rapidement, voici les trois premiers pas les plus importants :',
       '',
-      '1. Saisir un véhicule : le plus rapide, c\'est de photographier le permis de circulation, l\'application remplit les données du véhicule.',
-      '2. Photographier une facture du garage : l\'IA lit la date, le kilométrage et les positions, puis enregistre les entretiens.',
-      '3. Saisir les derniers entretiens : quand le service, la vidange et l\'expertise (MFK) ont-ils été faits la dernière fois ? Sans cela, pas de rappel. Ensuite, Wartungsheft vous envoie un e-mail quand le service, les freins, les pneus ou l\'expertise (MFK) arrivent à échéance.',
+      '1. Saisir un véhicule : le plus rapide, c’est de photographier le permis de circulation, l’application remplit les données du véhicule.',
+      '2. Photographier une facture du garage : l’IA lit la date, le kilométrage et les positions, puis enregistre les entretiens.',
+      '3. Saisir les derniers entretiens : quand le service, la vidange et l’expertise (MFK) ont-ils été faits la dernière fois ? Sans cela, pas de rappel. Ensuite, Wartungsheft vous envoie un e-mail quand le service, les freins, les pneus ou l’expertise (MFK) arrivent à échéance.',
     ].join('\n'),
-    herkunftsfrage: 'Petite question : comment avez-vous découvert Wartungsheft ?',
+    herkunftsfrage: 'Petite question : comment avez-vous découvert Wartungsheft ?',
     unten: [
       'Pour toute question ou si quelque chose ne fonctionne pas, répondez simplement à cet e-mail. Je lis chaque réponse personnellement.',
       '',
@@ -50,7 +50,7 @@ export default {
       '',
       'Goran Strainovic, Wartungsheft',
       '',
-      'Plus d\'e-mails de ce type : https://wartungsheft.ch/settings, rubrique « Rappels ».',
+      'Plus d’e-mails de ce type : https://wartungsheft.ch/settings, rubrique « Rappels ».',
     ].join('\n'),
   },
   it: {

@@ -40,7 +40,7 @@ export default {
       imJahr: (betrag: string, jahr: number) => `${betrag} en ${jahr}`,
     },
     grenze: (max: number, preis: string, total: string, naechstes: number) =>
-      `Ton plan Particulier couvre ${max} ${max === 1 ? 'véhicule' : 'véhicules'}. À partir du ${max === 5 ? 'sixième' : 'suivant'}, le tarif Entreprise s'applique : ${preis} par véhicule et par an, soit ${total} pour ${naechstes}.`,
+      `Ton plan Particulier couvre ${max} ${max === 1 ? 'véhicule' : 'véhicules'}. À partir du ${max === 5 ? 'sixième' : 'suivant'}, le tarif Entreprise s’applique : ${preis} par véhicule et par an, soit ${total} pour ${naechstes}.`,
   },
   it: {
     titel: 'Veicoli',

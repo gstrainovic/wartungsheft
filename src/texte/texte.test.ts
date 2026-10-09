@@ -64,7 +64,7 @@ describe('übersetzte Seiten (src/texte/<seite>/<sprache>.vue)', () => {
   it('datenschutz erklärt Herkunftsfrage und Feedback-Mails in jeder Sprache, mit gleicher Unterteilung', () => {
     const TITEL = {
       de: ['Herkunftsfrage bei der Anmeldung', 'Feedback-Mails während der Testzeit'],
-      fr: ['Question sur l\'origine lors de la connexion', 'E-mails de retour pendant la période d\'essai'],
+      fr: ['Question sur l’origine lors de la connexion', 'E-mails de retour pendant la période d’essai'],
       it: ['Domanda sulla provenienza all\'accesso', 'E-mail di riscontro durante il periodo di prova'],
       en: ['Origin question at sign-in', 'Feedback emails during the trial'],
     }

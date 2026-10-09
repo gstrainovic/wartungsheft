@@ -19,7 +19,7 @@ describe('userMessage', () => {
     try {
       const proxy = 'Monatslimit erreicht: 500000 Chat-Tokens im Plan Gratis. Upgrade in den Einstellungen.'
       expect(userMessage(Object.assign(new Error(proxy), { statusCode: 402 }))).toBe('Limite mensuelle atteinte. Passe à un abonnement supérieur dans les réglages.')
-      expect(userMessage(Object.assign(new Error('Testzeit vorbei: KI-Scan und Chat brauchen ein Abo.'), { statusCode: 402 }))).toBe('Période d\'essai terminée. Tu trouves l\'abonnement dans les réglages.')
+      expect(userMessage(Object.assign(new Error('Testzeit vorbei: KI-Scan und Chat brauchen ein Abo.'), { statusCode: 402 }))).toBe('Période d’essai terminée. Tu trouves l’abonnement dans les réglages.')
       expect(userMessage(new TypeError('Failed to fetch'))).toBe('Pas de connexion. Vérifie Internet.')
     }
     finally {

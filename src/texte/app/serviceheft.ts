@@ -45,11 +45,11 @@ const de = {
 export default {
   de,
   fr: {
-    titel: 'Carnet d\'entretien',
+    titel: 'Carnet d’entretien',
     fotografieren: 'Photographier les pages du carnet ou choisir un PDF',
-    hinweisScan: 'La page avec les intervalles d\'entretien et les pages avec les tampons. Tu peux adapter les valeurs ensuite.',
-    intervalle: 'Intervalles d\'entretien',
-    intervalleHinweis: 'Ce qui arrive en premier, kilomètres ou mois. 0 signifie : ne s\'applique pas. Les lignes sans l\'un ni l\'autre ne sont pas enregistrées.',
+    hinweisScan: 'La page avec les intervalles d’entretien et les pages avec les tampons. Tu peux adapter les valeurs ensuite.',
+    intervalle: 'Intervalles d’entretien',
+    intervalleHinweis: 'Ce qui arrive en premier, kilomètres ou mois. 0 signifie : ne s’applique pas. Les lignes sans l’un ni l’autre ne sont pas enregistrées.',
     arbeit: 'Travail',
     kilometer: 'Kilomètres',
     monate: 'Mois',
@@ -60,8 +60,8 @@ export default {
     entfernen: (arbeit: string) => `Retirer ${arbeit}`,
     weitereArbeit: 'Autre travail',
     hinzufuegen: 'Ajouter',
-    stempel: 'Tampons du carnet d\'entretien',
-    stempelHinweis: 'Les entrées cochées sont enregistrées comme entretiens faits. L\'IA ne lit pas toujours bien l\'écriture manuscrite : compare la date et les kilomètres avant d\'enregistrer.',
+    stempel: 'Tampons du carnet d’entretien',
+    stempelHinweis: 'Les entrées cochées sont enregistrées comme entretiens faits. L’IA ne lit pas toujours bien l’écriture manuscrite : compare la date et les kilomètres avant d’enregistrer.',
     uebernehmen: (eintrag: string) => `Reprendre ${eintrag}`,
     schonErfasst: 'déjà saisi',
     kmPruefen: 'vérifier les km',
@@ -70,7 +70,7 @@ export default {
     zusammenfassung: {
       intervalle: (n: number) => `${n} ${n === 1 ? 'intervalle repris' : 'intervalles repris'}`,
       keineIntervalle: 'aucun intervalle du constructeur trouvé',
-      verworfen: (n: number) => `${n} d'une liste de contrôle écarté(s)`,
+      verworfen: (n: number) => `${n} d’une liste de contrôle écarté(s)`,
       eintraege: (n: number) => `${n} ${n === 1 ? 'entrée trouvée' : 'entrées trouvées'}`,
       keineStempel: 'aucun tampon trouvé',
       schonErfasst: (n: number) => `${n} déjà saisi(s)`,
@@ -79,9 +79,9 @@ export default {
     },
     scan: {
       seiteLesen: (i: number, n: number) => `Lecture de la page ${i} sur ${n} …`,
-      heftLesen: 'Lecture du carnet d\'entretien …',
-      nurFotoPdf: (name: string) => `${name} : seulement des photos ou un PDF.`,
-      zuGross: (name: string, mb: number) => `${name} : trop volumineux (max. ${mb} Mo).`,
+      heftLesen: 'Lecture du carnet d’entretien …',
+      nurFotoPdf: (name: string) => `${name} : seulement des photos ou un PDF.`,
+      zuGross: (name: string, mb: number) => `${name} : trop volumineux (max. ${mb} Mo).`,
     },
   },
   it: {

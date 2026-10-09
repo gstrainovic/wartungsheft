@@ -99,7 +99,7 @@ describe('dueDescription', () => {
     const { setAppSprache } = await import('../lib/app-sprache')
     setAppSprache('fr')
     try {
-      expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'done', nextDueDate: '2027-10-01', nextDueMileage: 90000 })).toBe('prochain le 01.10.2027 ou à 90\'000 km')
+      expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'done', nextDueDate: '2027-10-01', nextDueMileage: 90000 })).toBe('prochain le 01.10.2027 ou à 90\'000\u00A0km')
       expect(dueDescription({ key: 'x', type: 'x', label: 'x', status: 'unknown', plannedAt: '2027-01-05' })).toBe('Rendez-vous le 05.01.2027')
       expect(DUE_STATUS_VIEW.overdue.label).toBe('En retard')
     }

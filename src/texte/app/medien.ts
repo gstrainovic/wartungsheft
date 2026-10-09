@@ -14,7 +14,7 @@ export default {
     bild: 'Image',
     pdf: 'PDF',
     ocr: 'Texte OCR',
-    optimiert: 'Les images sont optimisées automatiquement : réduites à 1540 px, pivotées et enregistrées en WebP.',
+    optimiert: 'Les images sont optimisées automatiquement : réduites à 1540 px, pivotées et enregistrées en WebP.',
   },
   it: {
     bild: 'Immagine',

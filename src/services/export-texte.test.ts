@@ -22,6 +22,6 @@ describe('meldungen von Datensicherung und Kontolöschung', () => {
     vi.stubGlobal('navigator', { onLine: false })
     await expect(deleteWholeAccount()).rejects.toThrow('Offline: Zum Löschen des Kontos braucht es eine Verbindung.')
     setAppSprache('fr')
-    await expect(deleteWholeAccount()).rejects.toThrow('Hors ligne : pour supprimer le compte, il faut une connexion.')
+    await expect(deleteWholeAccount()).rejects.toThrow('Hors ligne\u00A0: pour supprimer le compte, il faut une connexion.')
   })
 })

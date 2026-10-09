@@ -22,8 +22,8 @@ export default {
       beleg: 'justificatif',
       jahresabschluss: 'bouclement',
     },
-    formatUngueltig: 'Format d\'exportation non valable',
-    offline: 'Hors ligne : pour supprimer le compte, il faut une connexion.',
+    formatUngueltig: 'Format d’exportation non valable',
+    offline: 'Hors ligne : pour supprimer le compte, il faut une connexion.',
   },
   it: {
     datei: {

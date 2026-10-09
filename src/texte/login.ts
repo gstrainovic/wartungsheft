@@ -40,8 +40,8 @@ export default {
   de,
   fr: {
     willkommen: 'Bon retour.',
-    neu: 'Nouveau ici ? 30 jours, tout gratuit. Pas de mot de passe : nous vous envoyons un code.',
-    kunde: 'Déjà client ? Même e-mail, même compte.',
+    neu: 'Nouveau ici ? 30 jours, tout gratuit. Pas de mot de passe : nous vous envoyons un code.',
+    kunde: 'Déjà client ? Même e-mail, même compte.',
     beschreibung: 'Saisissez votre adresse e-mail, le code de connexion arrive par e-mail. La façon dont nous traitons votre adresse est décrite dans la',
     datenschutz: 'politique de confidentialité',
     email: 'Adresse e-mail',
@@ -53,10 +53,10 @@ export default {
     gesendetNach: '.',
     code: 'Code à 6 chiffres',
     anmelden: 'Se connecter',
-    fehlerSenden: 'Le code n\'a pas pu être envoyé.',
+    fehlerSenden: 'Le code n’a pas pu être envoyé.',
     fehlerCode: 'Code non valable.',
     herkunft: {
-      frage: 'Comment avez-vous découvert Wartungsheft ? (facultatif)',
+      frage: 'Comment avez-vous découvert Wartungsheft ? (facultatif)',
       platzhalter: 'Choisir',
       optionen: {
         google: 'Recherche Google',
@@ -66,7 +66,7 @@ export default {
         social: 'Réseaux sociaux',
         anderes: 'Autre',
       },
-      anderesPlatzhalter: 'Où exactement ?',
+      anderesPlatzhalter: 'Où exactement ?',
     },
   },
   it: {
