@@ -29,9 +29,11 @@ Aufnahme trotzdem raus. Ohne `RESEND_TOKEN` landet alles im Proxy-Log.
 
 ## Hilfe und Auffindbarkeit
 
-`/hilfe` (`HilfePage.vue`, im Fuss verlinkt) erklärt die neun Kernabläufe in je ein paar Sätzen und beantwortet
-die häufigen Fragen; dieselben Fragen stehen als `FAQPage` im Kopf des Dokuments. Keine Bedienvideos: sie
-veralten mit jeder Änderung der Oberfläche. Steht ein Schritt nur in der Hilfe und nicht in der App, ist das
+`/hilfe` (`HilfePage.vue`, im Fuss der Landing Pages und im Menü der App verlinkt, je in der Sprache der Seite) erklärt die neun Kernabläufe in je ein paar Sätzen und beantwortet
+die häufigen Fragen; dieselben Fragen stehen als `FAQPage` im Kopf des Dokuments. Bedienvideo: ein Tutorial mit
+Sprecher (Anmelden, Fahrzeug, erste Rechnung, Checkliste, Fälligkeit) entsteht wie die Werbefilme aus echten
+Aufnahmen (Skill `werbefilm`), damit es nach jeder Änderung der Oberfläche neu aufgenommen statt neu gedreht wird;
+Reihenfolge der Freigaben im User-Skill `produktvideos`. Steht ein Schritt nur in der Hilfe und nicht in der App, ist das
 eine Lücke in der Oberfläche, kein fehlendes Handbuch.
 
 Titel, Beschreibung, `og:*` und `canonical` pro öffentlicher Seite stehen nur in `src/lib/page-meta.ts` (Test
