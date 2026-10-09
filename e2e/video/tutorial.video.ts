@@ -6,21 +6,92 @@
  * Neben den Bildern schreibt jede Szene `marken.json` (Sekunden ab Aufnahmebeginn, z. B. «Felder gefüllt»): die
  * Montage legt die Sätze des Sprechertexts auf diese Stellen, auch wenn der Scan je Lauf verschieden lang braucht.
  * Scans gemockt (`mockInvoiceScan`), keine KI-Aufrufe; alle Daten erfunden («Muster-…»).
+ * Andere Sprache: `VIDEO_SPRACHE=fr` davor; Knopfnamen kommen aus src/texte/app/, Musterdaten aus `DATEN`.
  */
 import type { Browser, Page, TestInfo } from '@playwright/test'
 import { writeFile } from 'node:fs/promises'
 import process from 'node:process'
+import { mitSprache } from '../../src/lib/sprache'
 import { buildReminders } from '../../src/services/reminders'
+import allgemein from '../../src/texte/app/allgemein'
+import einrichtung from '../../src/texte/app/einrichtung'
+import fahrzeuge from '../../src/texte/app/fahrzeuge'
+import fahrzeugformular from '../../src/texte/app/fahrzeugformular'
+import fahrzeugseite from '../../src/texte/app/fahrzeugseite'
+import kategorien from '../../src/texte/app/kategorien'
+import rechnungsformular from '../../src/texte/app/rechnungsformular'
+import uebersicht from '../../src/texte/app/uebersicht'
+import wartungsplan from '../../src/texte/app/wartungsplan'
 import { clearInstantDB, expect, mockInvoiceScan, test, waitForInstantDB } from '../fixtures/test-fixtures'
-import { aufnahmeStarten, beat, CLIP_DIR, clipName, clipSpeichern, daysAgo, musterRechnungFoto, seed, showPointer, slowClick } from './szenen'
+import { aufnahmeStarten, beat, CLIP_DIR, clipName, clipSpeichern, daysAgo, inSprache, musterRechnungFoto, seed, showPointer, slowClick, SPRACHE } from './szenen'
 
 const GOLF = { make: 'VW', model: 'Golf 7', year: 2016, licensePlate: 'SG 248 901' }
 const KM_HAND = 118_000
 const KM_RECHNUNG = 118_400
-const WERKSTATT = 'Muster-Garage AG'
-const ADRESSE = 'Musterstrasse 12, 9999 Musterhausen'
-const OEL = 'Motoröl und Ölfilter'
-const BREMSEN = 'Bremsbeläge vorne'
+
+/** Erfundene Daten in der Sprache des Films (wie privat.video.ts), dazu Beschriftung von Ausweis und Mail */
+const DATEN = inSprache({
+  de: {
+    werkstatt: 'Muster-Garage AG',
+    adresse: 'Musterstrasse 12, 9999 Musterhausen',
+    oel: 'Motoröl und Ölfilter',
+    bremsen: 'Bremsbeläge vorne',
+    mfk: 'MFK',
+    halter: 'Max Muster',
+    mail: 'max.muster@example.ch',
+    mailKopf: (an: string) => `Von: Wartungsheft · An: ${an}`,
+    ausweis: { land: 'SCHWEIZERISCHE EIDGENOSSENSCHAFT', titel: 'Fahrzeugausweis', muster: 'MUSTER', schild: 'Kontrollschild', halter: 'Halter/in', adresse: 'Adresse', typ: 'Marke und Typ', erste: '1. Inverkehrsetzung' },
+  },
+  fr: {
+    werkstatt: 'Garage Modèle SA',
+    adresse: 'Rue de l\'Exemple 12, 9999 Exempleville',
+    oel: 'Huile moteur et filtre à huile',
+    bremsen: 'Plaquettes de frein avant',
+    mfk: 'Expertise',
+    halter: 'Jean Modèle',
+    mail: 'jean.modele@example.ch',
+    mailKopf: (an: string) => `De : Wartungsheft · À : ${an}`,
+    ausweis: { land: 'CONFÉDÉRATION SUISSE', titel: 'Permis de circulation', muster: 'SPÉCIMEN', schild: 'Plaque de contrôle', halter: 'Détenteur/trice', adresse: 'Adresse', typ: 'Marque et type', erste: '1re mise en circulation' },
+  },
+  it: {
+    werkstatt: 'Garage Modello SA',
+    adresse: 'Via Esempio 12, 9999 Esempiano',
+    oel: 'Olio motore e filtro dell\'olio',
+    bremsen: 'Pastiglie dei freni anteriori',
+    mfk: 'Collaudo',
+    halter: 'Mario Modello',
+    mail: 'mario.modello@example.ch',
+    mailKopf: (an: string) => `Da: Wartungsheft · A: ${an}`,
+    ausweis: { land: 'CONFEDERAZIONE SVIZZERA', titel: 'Licenza di circolazione', muster: 'ESEMPIO', schild: 'Targa', halter: 'Detentore/trice', adresse: 'Indirizzo', typ: 'Marca e tipo', erste: '1a messa in circolazione' },
+  },
+  en: {
+    werkstatt: 'Sample Garage Ltd',
+    adresse: 'Sample Street 12, 9999 Sampletown',
+    oel: 'Engine oil and oil filter',
+    bremsen: 'Front brake pads',
+    mfk: 'Inspection',
+    halter: 'John Sample',
+    mail: 'john.sample@example.ch',
+    mailKopf: (an: string) => `From: Wartungsheft · To: ${an}`,
+    ausweis: { land: 'SWISS CONFEDERATION', titel: 'Vehicle registration document', muster: 'SAMPLE', schild: 'Number plate', halter: 'Keeper', adresse: 'Address', typ: 'Make and type', erste: 'First registration' },
+  },
+})
+const WERKSTATT = DATEN.werkstatt
+const ADRESSE = DATEN.adresse
+const OEL = DATEN.oel
+const BREMSEN = DATEN.bremsen
+/** Bedientexte der App in der Sprache der Aufnahme */
+const T = {
+  allgemein: inSprache(allgemein),
+  einrichtung: inSprache(einrichtung),
+  fahrzeuge: inSprache(fahrzeuge),
+  formular: inSprache(fahrzeugformular),
+  fahrzeug: inSprache(fahrzeugseite),
+  kategorien: inSprache(kategorien),
+  rechnung: inSprache(rechnungsformular),
+  uebersicht: inSprache(uebersicht),
+  plan: inSprache(wartungsplan),
+}
 /** Rechnung aus Szene 2, drei Tage alt: dieselben Daten in Szene 3 und 4 */
 const RECHNUNG_TAGE = 3
 
@@ -78,6 +149,7 @@ async function scanVerzoegern(page: Page, ms: number): Promise<void> {
 
 /** Fahrzeugausweis als Muster (quer wie das Original), nur mit den Angaben, die der gemockte Scan liefert */
 async function musterAusweisFoto(browser: Browser, testInfo: TestInfo): Promise<string> {
+  const A = DATEN.ausweis
   const feld = (nr: string, titel: string, wert: string) =>
     `<div class="f"><span class="nr">${nr}</span><span class="t">${titel}</span><b>${wert}</b></div>`
   const html = `<div id="a" style="font-family: Arial; width: 860px; height: 560px; padding: 28px 34px; box-sizing: border-box;
@@ -88,14 +160,14 @@ async function musterAusweisFoto(browser: Browser, testInfo: TestInfo): Promise<
       .t { font-size: 13px; color: #5d6d5d; }
       b { font-size: 24px; letter-spacing: .5px; }
     </style>
-    <div style="position:absolute; right:30px; top:24px; border:2px solid #8a9a8a; color:#8a9a8a; padding:2px 10px; font-size:14px;">MUSTER</div>
-    <div style="font-size:15px; letter-spacing:2px; color:#4f5f4f;">SCHWEIZERISCHE EIDGENOSSENSCHAFT</div>
-    <div style="font-size:30px; font-weight:bold; margin:6px 0 18px;">Fahrzeugausweis</div>
-    ${feld('15', 'Kontrollschild', GOLF.licensePlate)}
-    ${feld('01', 'Halter/in', 'Max Muster')}
-    ${feld('', 'Adresse', ADRESSE)}
-    ${feld('21', 'Marke und Typ', `${GOLF.make} ${GOLF.model}`)}
-    ${feld('36', '1. Inverkehrsetzung', `03.${String(GOLF.year).slice(2)}`)}
+    <div style="position:absolute; right:30px; top:24px; border:2px solid #8a9a8a; color:#8a9a8a; padding:2px 10px; font-size:14px;">${A.muster}</div>
+    <div style="font-size:15px; letter-spacing:2px; color:#4f5f4f;">${A.land}</div>
+    <div style="font-size:30px; font-weight:bold; margin:6px 0 18px;">${A.titel}</div>
+    ${feld('15', A.schild, GOLF.licensePlate)}
+    ${feld('01', A.halter, DATEN.halter)}
+    ${feld('', A.adresse, ADRESSE)}
+    ${feld('21', A.typ, `${GOLF.make} ${GOLF.model}`)}
+    ${feld('36', A.erste, `03.${String(GOLF.year).slice(2)}`)}
   </div>`
   const page = await browser.newPage({ viewport: { width: 900, height: 600 } })
   await page.setContent(html)
@@ -106,7 +178,7 @@ async function musterAusweisFoto(browser: Browser, testInfo: TestInfo): Promise<
 }
 
 /** Erinnerungsmail über der App eingeblendet, Text aus der echten Erinnerung (`buildReminders`) */
-async function mailZeigen(page: Page, mail: { betreff: string, an: string, text: string }): Promise<void> {
+async function mailZeigen(page: Page, mail: { betreff: string, kopf: string, text: string }): Promise<void> {
   await page.evaluate((m) => {
     const style = document.createElement('style')
     style.textContent = `
@@ -129,7 +201,7 @@ async function mailZeigen(page: Page, mail: { betreff: string, an: string, text:
     const kopf = document.createElement('div')
     kopf.className = 'kopf'
     const von = document.createElement('div')
-    von.textContent = `Von: Wartungsheft · An: ${m.an}`
+    von.textContent = m.kopf
     const betreff = document.createElement('strong')
     betreff.textContent = m.betreff
     kopf.append(von, betreff)
@@ -171,10 +243,10 @@ test.describe('Tutorial', () => {
     // bleibt offen und erscheint in Szene 3 als «Fehlt noch»
     await mockInvoiceScan(page, { vehicleDoc: { documentType: 'fahrzeugausweis', make: GOLF.make, model: GOLF.model, year: GOLF.year, plate: GOLF.licensePlate } })
     await scanVerzoegern(page, 2200)
-    await page.addInitScript(() => localStorage.setItem('sprache', 'de'))
+    await page.addInitScript(s => localStorage.setItem('sprache', s), SPRACHE)
     await page.goto('/dashboard')
     await waitForInstantDB(page)
-    const hinzufuegen = page.getByRole('button', { name: 'Fahrzeug hinzufügen' }).first()
+    const hinzufuegen = page.getByRole('button', { name: T.uebersicht.fahrzeugHinzufuegen }).first()
     await expect(hinzufuegen).toBeVisible()
     await starten(page, testInfo)
     marke('uebersicht')
@@ -182,8 +254,8 @@ test.describe('Tutorial', () => {
     await mitte(page, hinzufuegen, 0.6)
     await slowClick(page, hinzufuegen, 0.8)
 
-    const dialog = page.getByRole('dialog', { name: 'Neues Fahrzeug' })
-    const scanKnopf = dialog.getByText('Fahrzeugausweis fotografieren')
+    const dialog = page.getByRole('dialog', { name: T.fahrzeuge.neu })
+    const scanKnopf = dialog.getByText(T.formular.ausweisFotografieren)
     await expect(scanKnopf).toBeVisible()
     await beat(page, 0.5)
     marke('formular')
@@ -193,21 +265,21 @@ test.describe('Tutorial', () => {
     const auswahl = page.waitForEvent('filechooser')
     await scanKnopf.click()
     await (await auswahl).setFiles(ausweis)
-    await expect(dialog.getByText('Felder aus dem Dokument ausgefüllt. Bitte prüfen.')).toBeVisible({ timeout: 30_000 })
-    await expect(dialog.getByLabel('Marke')).toHaveValue(GOLF.make)
+    await expect(dialog.getByText(T.formular.scan.ausgefuellt)).toBeVisible({ timeout: 30_000 })
+    await expect(dialog.getByLabel(T.formular.marke)).toHaveValue(GOLF.make)
     marke('gefuellt')
     await beat(page, 1)
-    await mitte(page, dialog.getByLabel('Marke'), 2)
-    await mitte(page, dialog.getByLabel('Kontrollschild'), 1.5)
+    await mitte(page, dialog.getByLabel(T.formular.marke), 2)
+    await mitte(page, dialog.getByLabel(T.formular.kontrollschild), 1.5)
 
     // «Du kannst die Felder auch selbst ausfüllen»: Kilometerstand von Hand
-    const km = dialog.getByLabel('Kilometerstand')
+    const km = dialog.getByLabel(T.formular.kilometerstand)
     await mitte(page, km, 0.6)
     marke('selbst')
     await slowClick(page, km, 0.4)
     await km.pressSequentially(String(KM_HAND), { delay: 140 })
     await beat(page, 1)
-    const speichern = dialog.getByRole('button', { name: 'Speichern' })
+    const speichern = dialog.getByRole('button', { name: T.formular.speichern })
     await mitte(page, speichern, 0.6)
     await slowClick(page, speichern, 0.8)
     await page.waitForURL(/\/vehicles\/.+/)
@@ -249,11 +321,11 @@ test.describe('Tutorial', () => {
     await starten(page, testInfo)
     marke('checkliste')
     await beat(page, 1)
-    const knopf = setup.locator('li.next').getByRole('button', { name: 'Rechnung fotografieren' })
+    const knopf = setup.locator('li.next').getByRole('button', { name: T.einrichtung.rechnungen.action })
     await mitte(page, knopf, 1.5)
     await slowClick(page, knopf, 0.8)
 
-    const beleg = page.getByText('Rechnung fotografieren oder PDF wählen')
+    const beleg = page.getByText(T.rechnung.fotografieren)
     await expect(beleg).toBeVisible()
     await beat(page, 1)
     await beleg.hover()
@@ -267,9 +339,9 @@ test.describe('Tutorial', () => {
     // Schwenk über Werkstatt, Datum, Kilometerstand, Betrag und die erkannten Positionen
     await mitte(page, page.locator('#invoice-mileage'), 2)
     await mitte(page, page.locator('#invoice-amount'), 1.5)
-    await mitte(page, page.getByText('Erkannte Positionen'), 2.5)
+    await mitte(page, page.getByText(T.rechnung.erkanntePositionen), 2.5)
     // Bei einem einzelnen Foto heisst der Knopf «Speichern» («1 Rechnung speichern» nur bei mehreren Belegen)
-    const speichern = page.getByRole('dialog').getByRole('button', { name: 'Speichern', exact: true })
+    const speichern = page.getByRole('dialog').getByRole('button', { name: T.allgemein.speichern, exact: true })
     await mitte(page, speichern, 0.8)
     marke('speichern')
     await slowClick(page, speichern, 0.8)
@@ -277,9 +349,9 @@ test.describe('Tutorial', () => {
     await beat(page, 1)
 
     // Wartungsplan: aus der Rechnung wurde der Ölwechsel, mit «Zuletzt» und nächstem Termin
-    const plan = page.getByRole('tabpanel', { name: 'Wartungsplan' })
-    const oel = plan.locator('.plan-item', { hasText: 'Ölwechsel' })
-    await expect(oel).toContainText('Zuletzt')
+    const plan = page.getByRole('tabpanel', { name: T.fahrzeug.tabs.plan })
+    const oel = plan.locator('.plan-item', { hasText: T.kategorien.plan.oelwechsel })
+    await expect(oel).toContainText(T.fahrzeug.plan.zuletzt.replace(/\s*:$/, ''))
     marke('plan')
     await mitte(page, oel, 3)
     await mitte(page, setup, 3)
@@ -302,10 +374,10 @@ test.describe('Tutorial', () => {
     await beat(page, 4.5)
     await setup.locator('[data-step="ausweis"]').hover()
     await beat(page, 2)
-    await setup.getByRole('button', { name: 'Serviceheft fotografieren' }).hover()
+    await setup.getByRole('button', { name: T.einrichtung.serviceheft.action }).hover()
     await beat(page, 2)
     // Finger auf «Ausblenden», ohne zu tippen
-    await setup.getByRole('button', { name: 'Ausblenden' }).hover()
+    await setup.getByRole('button', { name: T.einrichtung.ausblenden }).hover()
     await beat(page, 4)
   })
 
@@ -314,33 +386,33 @@ test.describe('Tutorial', () => {
     const wartungen = [
       ...ausRechnung(),
       // MFK vor knapp zwei Jahren: in drei Wochen fällig, «Bald fällig»
-      { vehicleIndex: 0, type: 'tuev', description: 'MFK', doneAt: daysAgo(710), mileageAtService: 96_200 },
+      { vehicleIndex: 0, type: 'tuev', description: DATEN.mfk, doneAt: daysAgo(710), mileageAtService: 96_200 },
     ]
     await seed(page, { vehicles: [{ ...GOLF, mileage: km }], invoices: rechnung(), maintenances: wartungen })
     // Die echte Erinnerung zu genau diesen Daten, an eine Musteradresse
     const [mail] = buildReminders({
-      users: [{ id: 'u', email: 'max.muster@example.ch' }],
+      users: [{ id: 'u', email: DATEN.mail }],
       vehicles: [{ id: 'v', creatorId: 'u', ...GOLF, mileage: km }],
       maintenances: wartungen.map(w => ({ vehicleId: 'v', type: w.type, doneAt: w.doneAt, mileageAtService: w.mileageAtService, status: 'done', description: w.description })),
-      settings: [],
+      settings: [{ creatorId: 'u', sprache: SPRACHE }],
       now: new Date(),
     })
     expect(mail, 'Erinnerung zu den Musterdaten').toBeTruthy()
     await page.goto('/dashboard')
     await waitForInstantDB(page)
-    const faellig = page.getByRole('region', { name: 'Fällige Arbeiten' })
+    const faellig = page.getByRole('region', { name: T.uebersicht.faelligeArbeiten })
     await expect(faellig.locator('.fleet-due-item')).toHaveCount(1)
-    await expect(faellig).toContainText('Bald fällig')
+    await expect(faellig).toContainText(T.plan.status.due)
     await starten(page, testInfo)
     marke('uebersicht')
     await mitte(page, faellig, 2.5)
-    await mailZeigen(page, { betreff: mail!.subject, an: mail!.email, text: mail!.text })
+    await mailZeigen(page, { betreff: mail!.subject, kopf: DATEN.mailKopf(mail!.email), text: mail!.text })
     marke('mail')
     await beat(page, 4.5)
     await mailWeg(page)
     await beat(page, 1)
 
-    const erledigt = faellig.getByRole('button', { name: 'Erledigt eintragen' })
+    const erledigt = faellig.getByRole('button', { name: T.uebersicht.erledigtEintragen })
     await mitte(page, erledigt, 0.6)
     marke('erledigt')
     await slowClick(page, erledigt, 0.8)
@@ -348,13 +420,13 @@ test.describe('Tutorial', () => {
     await expect(dialog.locator('#maintenance-date')).not.toHaveValue('')
     await beat(page, 1)
     await mitte(page, dialog.locator('#maintenance-mileage'), 2)
-    const speichern = dialog.getByRole('button', { name: 'Speichern' })
+    const speichern = dialog.getByRole('button', { name: T.allgemein.speichern })
     await mitte(page, speichern, 0.6)
     await slowClick(page, speichern, 0.8)
     await expect(dialog).toBeHidden()
     marke('ok')
     // Die Arbeit steht beim Fahrzeug auf «OK»
-    const mfk = page.locator('.vehicle-section').locator('.maintenance-item', { hasText: 'MFK' }).first()
+    const mfk = page.locator('.vehicle-section').locator('.maintenance-item', { hasText: DATEN.mfk }).first()
     await mitte(page, mfk, 3.5)
   })
 
@@ -363,16 +435,16 @@ test.describe('Tutorial', () => {
     await seed(page, {
       vehicles: [{ ...GOLF, mileage: 121_300 }],
       invoices: rechnung(),
-      maintenances: [...ausRechnung(), { vehicleIndex: 0, type: 'tuev', description: 'MFK', doneAt: daysAgo(0), mileageAtService: 121_300 }],
+      maintenances: [...ausRechnung(), { vehicleIndex: 0, type: 'tuev', description: DATEN.mfk, doneAt: daysAgo(0), mileageAtService: 121_300 }],
     })
     await page.goto('/dashboard')
     await waitForInstantDB(page)
     await starten(page, testInfo)
     marke('uebersicht')
     await beat(page, 1)
-    await slowClick(page, page.getByRole('button', { name: 'Menu' }), 0.8)
+    await slowClick(page, page.getByRole('button', { name: T.allgemein.navigation.menu }), 0.8)
     marke('menu')
-    const hilfe = page.getByRole('link', { name: 'Hilfe' })
+    const hilfe = page.getByRole('link', { name: T.allgemein.navigation.hilfe })
     await expect(hilfe).toBeVisible()
     await hilfe.hover()
     await beat(page, 1.8)
@@ -391,7 +463,7 @@ test.describe('Tutorial', () => {
   test('Tutorial 6: Schlussbild', async ({ page }, testInfo) => {
     const url = new URL(`file://${process.cwd()}/video-scripts/szenen/titel.html`)
     url.searchParams.set('t', 'Wartungsheft')
-    url.searchParams.set('s', 'wartungsheft.ch/hilfe')
+    url.searchParams.set('s', `wartungsheft.ch${mitSprache(SPRACHE, '/hilfe')}`)
     await page.goto(url.href)
     await expect(page.locator('h1')).toHaveText('Wartungsheft')
     await aufnahmeStarten(page, testInfo, 0)

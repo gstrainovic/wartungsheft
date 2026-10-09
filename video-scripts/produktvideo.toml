@@ -96,32 +96,16 @@ oberflaechen = [ "wartungsheft" ]
 komposition = "../scripts/werbefilm.ts"
 bild = "TUTORIAL"
 lesbar = [ { ziel = "tutorial-2-erste-werkstattrechnung", was = "erste Werkstattrechnung fotografieren und prüfen" } ]
-sprecher = { auswahl = "sprecher-auswahl.json", ordner = "../video-out/sprecher", texte = "TUTORIAL" }
+sprecher = { auswahl = "sprecher-auswahl.json", ordner = "../video-out/sprecher", texte = { de = "TUTORIAL", fr = "TUTORIAL_FR", it = "TUTORIAL_IT", en = "TUTORIAL_EN" } }
 
 [film.dateien]
-hoch = "../video-out/{name}{suffix}"
-quer = "../video-out/{name}{suffix}-desktop"
-untertitel = "../video-out/{name}{suffix}"
+hoch = "../public/film-{name}{suffix}"
+quer = "../public/film-{name}{suffix}-desktop"
+untertitel = "../public/film-{name}{suffix}"
 
 [film.freigaben]
 text = 2026-10-09
 stumm = 2026-10-09 # Commit b984bb5
-vertont = 2026-10-09 # deutsche Fassung Handy und Desktop, Commits 4de7d1d und b047c9e, Länge 102 s (Entscheid 59a)
-
-[[film.luecke]]
-regel = "video_vorhanden"
-sprachen = [
-  "fr",
-  "it",
-  "en"
-]
-grund = "fr, it, en werden nach Gorans Freigabe der deutschen Fassung übersetzt und vertont"
-
-[[film.luecke]]
-regel = "stimme_elevenlabs"
-sprachen = [
-  "fr",
-  "it",
-  "en"
-]
-grund = "Sprechertext fr, it, en wird nach Gorans Freigabe der deutschen Fassung übersetzt und vertont"
+# deutsche Fassung Handy und Desktop, Commits 4de7d1d und b047c9e, Länge 102 s (Entscheid 59a); fr, it, en nach den
+# Prüfungen ohne erneute Vorlage veröffentlicht am 2026-10-09 auf /hilfe (Skill produktvideos)
+vertont = 2026-10-09

@@ -19,7 +19,15 @@ npm run video                       # nimmt alle Szenen deutsch auf, Handy und D
 VIDEO_SPRACHE=fr npm run video      # dieselben Szenen auf Französisch (fr, it, en), Clips heissen szene-…-fr
 npm run video:film                  # Sprecher, Montage, alle Fassungen in allen vier Sprachen
 npm run video:film -- fr betrieb    # Teile: Sprachen de|fr|it|en, Filme privat|betrieb|social, oder sprecher
+VIDEO_SPRACHE=fr npx playwright test --project=video --project=video-desktop e2e/video/tutorial.video.ts
+node scripts/werbefilm.ts tutorial sprecher fr   # Tutorial: nur Sprecher erzeugen und wählen
+node scripts/werbefilm.ts tutorial fr            # Tutorial montieren, nach public/film-tutorial-fr*
 ```
+
+Tutorial: Sprechertexte `TUTORIAL` (de) und `TUTORIAL_FR`/`_IT`/`_EN` in `scripts/werbefilm.ts`, ein Eintrag je
+Teil; `sprechen:` ist eine abweichende Fassung nur für die Stimme. Die Seite `/hilfe` zeigt es über
+`TutorialVideo.vue` (nur MP4, VTT-Spur, Rahmen `#video`), die Checkliste «Einrichten» verweist darauf. Französisch:
+eleven_v3 verschluckte «Configurer» zwischen geschützten Leerzeichen; dann `sprechen:` mit normalen Leerzeichen.
 
 Die Aufnahme setzt die App-Sprache vor dem Laden (`localStorage.sprache`, wie nach `/fr/login`), nimmt Knopfnamen
 aus `src/texte/app/` und Musterdaten je Sprache (`DATEN` in `e2e/video/*.video.ts`); die Musterrechnung trägt
@@ -36,6 +44,7 @@ Danach liegen bereit (`<name>` ist `privat`, `betrieb`, in anderen Sprachen `pri
 | `public/film-<name>-poster.jpg`, `-desktop-poster.jpg` | Standbild vor dem Start |
 | `video-out/youtube-<name>.mp4` und `.srt` | YouTube 1920×1080 ohne Kästen, SRT als Untertitelspur hochladen |
 | `video-out/social-<name>.{mp4,webm}` | Kurzfassungen 1080×1920 (rund 20 s) für Social, Shorts und Anzeigen, Untertitel-Kästen eingebrannt |
+| `public/film-tutorial[-fr][-desktop].{mp4,vtt,srt}`, `-poster.jpg` | Tutorial für `/hilfe`, Untertitel zusätzlich als mov_text-Spur in der MP4 |
 
 `LandingVideo.vue` wählt den Film in der Sprache der Seite (`/fr/privathalter` → `film-privat-fr`) und hängt die
 VTT als `<track kind="subtitles" default>` an: Untertitel an, über den Untertitel-Knopf des Players abschaltbar

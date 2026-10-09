@@ -8,7 +8,8 @@
  *   node scripts/werbefilm.ts fr it              # nur diese Sprachen (mit Film-Wahl kombinierbar)
  *   node scripts/werbefilm.ts social             # nur die Kurzfassungen
  *   node scripts/werbefilm.ts sprecher           # nur Sprecher erzeugen und den besseren Durchlauf wählen
- *   node scripts/werbefilm.ts tutorial           # Tutorial vertont, Handy und Desktop, nach video-out/tutorial*
+ *   node scripts/werbefilm.ts tutorial [fr]      # Tutorial vertont, Handy und Desktop, nach public/film-tutorial*
+ *   node scripts/werbefilm.ts tutorial sprecher fr  # nur die Sprecher des Tutorials erzeugen und wählen
  *   node scripts/werbefilm.ts tutorial-stumm     # Tutorial ohne Ton zur Freigabe von Bild und Text
  *
  * Ergebnis (<name> ist privat oder betrieb, ausser Deutsch mit Sprachkürzel: privat-fr, src/lib/film-datei.ts):
@@ -227,7 +228,7 @@ const BETRIEB_TEXT: Record<Sprache, Text[]> = {
  * `quer`: Ausschnitt der Desktop-Aufnahme (App über die ganze Breite, Dialoge mittig), `klick`: Marke, an der ein
  * Klick-Geräusch kommt, `bogen`: Stelle (Anteil des Teils) für das Standbild der Szene im Kontaktbogen.
  */
-interface TutorialTeil { szene: number, clip: string, ab?: string, text: string, hoch?: Blick, quer?: Blick, klick?: string, bogen?: number }
+interface TutorialTeil { szene: number, clip: string, ab?: string, text: string, sprechen?: string, hoch?: Blick, quer?: Blick, klick?: string, bogen?: number }
 // Dialoge im Desktop-Layout: mittig, Felder in der unteren Hälfte
 const TUTORIAL_DIALOG_QUER: Blick = { x: 0.5, y: 0.6, s: 1.6 }
 const TUTORIAL: TutorialTeil[] = [
@@ -243,6 +244,63 @@ const TUTORIAL: TutorialTeil[] = [
   { szene: 5, clip: 'tutorial-5-hilfe-und-rueckmeldung', ab: 'uebersicht', text: '[warm] Noch Fragen? Im Menü findest du «Hilfe» und «Fehler melden oder Wunsch». Dort kannst du auch eine Sprachnachricht aufnehmen.', quer: { x: 0.36, y: 0.37, s: 1.4 }, bogen: 0.45 },
   { szene: 5, clip: 'tutorial-6-schlussbild', text: '', quer: TITEL_QUER },
 ]
+/**
+ * Sprechertexte fr, it, en (Übersetzung von Fable), ein Eintrag je Teil von TUTORIAL mit Text, in derselben
+ * Reihenfolge; Regie wie die deutschen Teile. Französisch mit geschütztem Leerzeichen in « » und vor ? ! :, für
+ * Stimme und Untertitel gleich. `sprechen`: abweichende Fassung nur für die Stimme (Untertitel bleiben bei `text`);
+ * eleven_v3 verschluckte «Configurer» zwischen geschützten Leerzeichen in drei Durchläufen, mit normalen nicht.
+ */
+interface TutorialText { text: string, sprechen?: string }
+const TUTORIAL_FR: TutorialText[] = [
+  { text: '[warm] Voici comment démarrer avec Wartungsheft, en quelques minutes. D’abord « Ajouter un véhicule ».' },
+  { text: '[warm] Le plus rapide, c’est « Photographier le permis de circulation » : l’app remplit la marque, le modèle et la plaque.' },
+  { text: '[warm] Tu peux aussi remplir les champs toi-même. Puis « Enregistrer ».' },
+  { text: '[enthusiastic] Maintenant l’étape la plus importante : la première facture du garage. Sur la page du véhicule, tu appuies sur « Photographier une facture » et tu photographies le document.' },
+  { text: '[warm] L’IA lit le garage, la date, le kilométrage, le montant et chaque travail. Tu vérifies rapidement, puis « Enregistrer ».' },
+  { text: '[warm] Chaque travail devient un entretien, et Wartungsheft calcule quand il sera à faire la prochaine fois.' },
+  { text: '[warm] La liste « Configurer » montre ce qui manque encore. À partir des travaux de la facture, Wartungsheft a déjà saisi les derniers entretiens. Restent le permis de circulation et le carnet d’entretien, tous deux facultatifs, tu peux le faire à tout moment.', sprechen: '[warm] La liste « Configurer » montre ce qui manque encore. À partir des travaux de la facture, Wartungsheft a déjà saisi les derniers entretiens. Restent le permis de circulation et le carnet d’entretien, tous deux facultatifs, tu peux le faire à tout moment.' },
+  { text: '[warm] Quand un travail est à faire, il apparaît dans l’aperçu, et Wartungsheft t’envoie un e-mail.' },
+  { text: '[warm] Une fois fait, tu appuies sur « Marquer comme fait ». La date et le kilométrage sont déjà remplis, il ne reste que « Enregistrer ».' },
+  { text: '[warm] Encore des questions ? Dans le menu, tu trouves « Aide » et « Signaler un problème ou un souhait ». Là, tu peux aussi enregistrer un message vocal.' },
+]
+const TUTORIAL_IT: TutorialText[] = [
+  { text: '[warm] Ecco come iniziare con Wartungsheft, in pochi minuti. Prima «Aggiungi veicolo».' },
+  { text: '[warm] Il modo più veloce è «Fotografa la licenza di circolazione»: l’app compila marca, modello e targa.' },
+  { text: '[warm] Puoi anche compilare tu i campi. Poi «Salva».' },
+  { text: '[enthusiastic] Ora il passo più importante: la prima fattura dell’officina. Nella pagina del veicolo tocchi «Fotografa una fattura» e fotografi il documento.' },
+  { text: '[warm] L’IA legge officina, data, chilometraggio, importo e i singoli lavori. Controlli brevemente, poi «Salva».' },
+  { text: '[warm] Ogni lavoro diventa una manutenzione, e Wartungsheft calcola quando sarà da fare la prossima volta.' },
+  { text: '[warm] La lista «Configura» mostra cosa manca ancora. Dai lavori sulla fattura Wartungsheft ha già registrato le ultime manutenzioni. Restano licenza di circolazione e libretto di manutenzione, entrambi facoltativi, puoi farlo in qualsiasi momento.' },
+  { text: '[warm] Quando un lavoro è in scadenza, appare nella panoramica, e Wartungsheft ti manda un’e-mail.' },
+  { text: '[warm] Una volta fatto, tocchi «Segna come fatto». Data e chilometraggio sono già compilati, resta solo «Salva».' },
+  { text: '[warm] Hai ancora domande? Nel menu trovi «Aiuto» e «Segnala un errore o un desiderio». Lì puoi anche registrare un messaggio vocale.' },
+]
+const TUTORIAL_EN: TutorialText[] = [
+  { text: '[warm] Here is how to get started with Wartungsheft, in a few minutes. First, “Add vehicle”.' },
+  { text: '[warm] The quickest way is “Photograph the registration document”: the app fills in the make, model and number plate.' },
+  { text: '[warm] You can also fill in the fields yourself. Then “Save”.' },
+  { text: '[enthusiastic] Now the most important step: the first garage invoice. On the vehicle page, tap “Photograph an invoice” and take a photo of the receipt.' },
+  { text: '[warm] The AI reads out the garage, date, mileage, amount and the individual jobs. Check briefly, then “Save”.' },
+  { text: '[warm] Each job becomes a maintenance entry, and Wartungsheft works out when it is next due.' },
+  { text: '[warm] The “Set up” checklist shows what is still missing. From the jobs on the invoice, Wartungsheft has already recorded the last maintenance. Still open are the registration document and the service book, both optional, you can add them any time.' },
+  { text: '[warm] When a job is due, it appears in the overview, and Wartungsheft sends you an email.' },
+  { text: '[warm] Once it is done, tap “Mark as done”. Date and mileage are already filled in, just “Save”.' },
+  { text: '[warm] Still have questions? In the menu you will find “Help” and “Report a problem or a wish”. There you can also record a voice message.' },
+]
+/** Teile des Tutorials in einer Sprache: Clips mit Sprachkürzel (tutorial-1-…-fr), Texte der Übersetzung */
+function tutorialTeile(sprache: Sprache): TutorialTeil[] {
+  const texte = { de: undefined, fr: TUTORIAL_FR, it: TUTORIAL_IT, en: TUTORIAL_EN }[sprache]
+  let k = 0
+  return TUTORIAL.map((t) => {
+    const uebersetzt = t.text && texte ? texte[k++]! : undefined
+    return { ...t, clip: filmName(t.clip, sprache), ...uebersetzt }
+  })
+}
+
+/** Text, den die Stimme spricht (meist gleich dem Untertitel) */
+function stimmText(t: TutorialTeil): string {
+  return t.sprechen ?? t.text
+}
 /** Stumme Fassung: geschätztes Sprechtempo statt Sprecheraufnahme */
 const WOERTER_PRO_SEKUNDE = 2.3
 /** Vertontes Tutorial: Luft nach dem Satz innerhalb einer Szene bzw. am Szenenende, Länge des Schlussbilds */
@@ -700,28 +758,29 @@ function tutorialMarken(clip: string): (name: string) => number {
  * etwas mehr), Untertitel an den Sprechpausen. Ton und Untertitel gelten für beide Formate; nur die Startstellen in
  * der Aufnahme kommen aus den Marken des jeweiligen Formats.
  */
-async function tutorialVertontPlanen(auswahl: Record<string, number>, format: Format): Promise<Geplant> {
+async function tutorialVertontPlanen(auswahl: Record<string, number>, format: Format, sprache: Sprache): Promise<Geplant> {
   const deps = sprecherDeps()
   const suffix = FORMATE[format].suffix
+  const teile = tutorialTeile(sprache)
   const stimmen: string[] = []
   const lagen: Cue[][] = []
   const dauern: number[] = []
-  for (const [i, t] of TUTORIAL.entries()) {
+  for (const [i, t] of teile.entries()) {
     if (!t.text) {
       dauern.push(TUTORIAL_SCHLUSS)
       continue
     }
-    const stimme = await sprechen(t.text, auswahl[t.text] ?? 1, deps, 'de')
+    const stimme = await sprechen(stimmText(t), auswahl[stimmText(t)] ?? 1, deps, sprache)
     const texte = saetze(t.text)
     const grenzen = satzGrenzen(texte, dauer(stimme), stillen(stimme))
-    const szenenende = TUTORIAL[i + 1]?.szene !== t.szene || !TUTORIAL[i + 1]?.text
+    const szenenende = teile[i + 1]?.szene !== t.szene || !teile[i + 1]?.text
     stimmen.push(stimme)
     lagen.push(grenzen.map((g, k) => ({ ...g, text: texte[k]! })))
     dauern.push(abschnittDauer(grenzen.at(-1)!.bis, 0, VORLAUF, szenenende ? TUTORIAL_NACHLAUF.szene : TUTORIAL_NACHLAUF.teil))
   }
-  const marken = TUTORIAL.map(t => t.ab ? tutorialMarken(`${t.clip}${suffix}`)(t.ab) : 0.3)
-  const inAufnahme = aufnahmeStarts(TUTORIAL.map((t, i) => ({ clip: t.clip, marke: marken[i]! })), dauern, BLENDE)
-  const abschnitte: Abschnitt[] = TUTORIAL.map((t, i) => {
+  const marken = teile.map(t => t.ab ? tutorialMarken(`${t.clip}${suffix}`)(t.ab) : 0.3)
+  const inAufnahme = aufnahmeStarts(teile.map((t, i) => ({ clip: t.clip, marke: marken[i]! })), dauern, BLENDE)
+  const abschnitte: Abschnitt[] = teile.map((t, i) => {
     // Klick-Geräusch an der Marke; slowClick tippt 0,8 s nach der Marke (der Ton kommt aus dem Handy-Plan)
     const klick = t.klick ? tutorialMarken(`${t.clip}${suffix}`)(t.klick) - inAufnahme[i]! + 0.8 : undefined
     return {
@@ -745,30 +804,31 @@ async function tutorialVertontPlanen(auswahl: Record<string, number>, format: Fo
 }
 
 /**
- * Vertontes Tutorial, Handy (video-out/tutorial.mp4) und Desktop (tutorial-desktop.mp4): Sprecher Andres, Musik
- * leise darunter, −16 LUFS, Untertitel als abschaltbare Spur und als VTT/SRT daneben (nie eingebrannt), Poster und
- * Kontaktbogen je Fassung. Nichts nach public/: erst nach Gorans Freigabe ausliefern.
+ * Vertontes Tutorial einer Sprache für /hilfe, Handy (public/film-tutorial[-fr].mp4) und Desktop
+ * (film-tutorial[-fr]-desktop.mp4): Sprecher der Sprache, Musik leise darunter, −16 LUFS, Untertitel als abschaltbare
+ * Spur und als VTT/SRT daneben (nie eingebrannt), Poster je Fassung; Kontaktbogen nach video-out/.
  */
-async function tutorialBauen(auswahl: Record<string, number>): Promise<void> {
-  const tmp = join(TMP, 'tutorial')
+async function tutorialBauen(auswahl: Record<string, number>, sprache: Sprache): Promise<void> {
+  const name = `film-${filmName('tutorial', sprache)}`
+  const tmp = join(TMP, name)
   rmSync(tmp, { recursive: true, force: true })
   mkdirSync(tmp, { recursive: true })
   const ton = join(tmp, 'ton.wav')
   for (const format of ['hoch', 'quer'] as const) {
-    const p = await tutorialVertontPlanen(auswahl, format)
+    const p = await tutorialVertontPlanen(auswahl, format, sprache)
     if (format === 'hoch')
       tonMischen(p, ton)
     const bild = join(tmp, `bild-${format}.mkv`)
     bildBauen(p, format, bild)
-    const ziel = join(OUT, `tutorial${FORMATE[format].suffix}`)
-    const fassung = vertonteFassung(bild, ton, ziel, p.cues)
+    const ziel = join(PUBLIC, `${name}${FORMATE[format].suffix}`)
+    const fassung = vertonteFassung(bild, ton, ziel, p.cues, 26, sprache)
     for (const [datei, inhalt] of Object.entries(fassung.dateien))
       writeFileSync(datei, inhalt)
     ffmpegX264(fassung.ffmpeg)
     // Poster: die Rechnung ist gelesen, Felder gefüllt
     poster(ziel, p.starts[4]! + 3)
     bericht(`${ziel}.mp4`)
-    tutorialKontaktbogen(p, `${ziel}.mp4`, format, `${ziel}-kontaktbogen.jpg`, tmp)
+    tutorialKontaktbogen(p, `${ziel}.mp4`, format, join(OUT, `${name}${FORMATE[format].suffix}-kontaktbogen.jpg`), tmp)
     console.log(`Länge ${p.laenge.toFixed(1)} s, Teile ${p.dauern.map(d => d.toFixed(1)).join(' ')}`)
   }
   rmSync(tmp, { recursive: true, force: true })
@@ -784,7 +844,8 @@ const filme = (sprachen.length ? sprachen : ALLE_SPRACHEN).map(sprache => ({
   privat: film(PRIVAT_BILD, PRIVAT_TEXT[sprache], sprache),
   betrieb: film(BETRIEB_BILD, BETRIEB_TEXT[sprache], sprache),
 }))
-const TUTORIAL_TEXTE = TUTORIAL.filter(t => t.text).map(t => ({ text: t.text, sprache: 'de' as Sprache }))
+const tutorialSprachen = sprachen.length ? sprachen : ALLE_SPRACHEN
+const TUTORIAL_TEXTE = tutorialSprachen.flatMap(sprache => tutorialTeile(sprache).filter(t => t.text).map(t => ({ text: stimmText(t), sprache })))
 // Stummes Tutorial ohne Sprecher, darum vor der Sprecherwahl (kein ElevenLabs-Aufruf); das vertonte nur mit seinen Texten
 const auswahl = wahl.includes('tutorial-stumm')
   ? {}
@@ -793,7 +854,11 @@ if (wahl.includes('tutorial-stumm')) {
   tutorialStummBauen()
 }
 else if (wahl.includes('tutorial')) {
-  await tutorialBauen(auswahl)
+  // `tutorial sprecher fr`: nur Sprecher erzeugen und wählen, ohne Montage
+  if (!wahl.includes('sprecher')) {
+    for (const sprache of tutorialSprachen)
+      await tutorialBauen(auswahl, sprache)
+  }
 }
 else if (!wahl.includes('sprecher')) {
   for (const f of filme) {

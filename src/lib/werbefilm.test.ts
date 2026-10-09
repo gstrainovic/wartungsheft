@@ -356,4 +356,11 @@ describe('vertonteFassung', () => {
       expect(zeiten(f.dateien[`${ziel}.srt`]!)).toEqual(zeiten(vttDatei))
     })
   })
+
+  // Player zeigen die Sprache der Spur im Menü: die französische Fassung darf nicht «Deutsch» heissen
+  it.each([['fr', 'fra'], ['it', 'ita'], ['en', 'eng']] as const)('kennzeichnet Ton und Untertitel der Fassung %s als %s', (sprache, code) => {
+    const a = vertonteFassung('/r/bild.mkv', '/r/ton.wav', `/r/video-out/tutorial-${sprache}`, cues, 26, sprache).ffmpeg.join(' ')
+    expect(a).toContain(`-metadata:s:s:0 language=${code}`)
+    expect(a).toContain(`-metadata:s:a:0 language=${code}`)
+  })
 })
