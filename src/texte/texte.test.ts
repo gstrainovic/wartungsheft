@@ -61,6 +61,22 @@ describe('übersetzte Seiten (src/texte/<seite>/<sprache>.vue)', () => {
     })
   }
 
+  it('datenschutz erklärt Herkunftsfrage und Feedback-Mails in jeder Sprache, mit gleicher Unterteilung', () => {
+    const TITEL = {
+      de: ['Herkunftsfrage bei der Anmeldung', 'Feedback-Mails während der Testzeit'],
+      fr: ['Question sur l\'origine lors de la connexion', 'E-mails de retour pendant la période d\'essai'],
+      it: ['Domanda sulla provenienza all\'accesso', 'E-mail di riscontro durante il periodo di prova'],
+      en: ['Origin question at sign-in', 'Feedback emails during the trial'],
+    }
+    const de = deutsch('DatenschutzPage.vue')
+    for (const [sprache, titel] of Object.entries(TITEL)) {
+      const html = sprache === 'de' ? de : UEBERSETZUNGEN[`./datenschutz/${sprache}.vue`]!
+      for (const t of titel)
+        expect(html, `datenschutz/${sprache}`).toMatch(new RegExp(`<h3>3\\.\\d ${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h3>`))
+      expect(zaehle(html, 'h3'), `datenschutz/${sprache} <h3>`).toBe(zaehle(de, 'h3'))
+    }
+  })
+
   it('rechtstexte nennen die deutsche Fassung als massgebend', () => {
     for (const ordner of ['agb', 'datenschutz', 'impressum']) {
       for (const sprache of PRAEFIXE)

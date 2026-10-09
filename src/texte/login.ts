@@ -19,6 +19,21 @@ const de = {
   anmelden: 'Anmelden',
   fehlerSenden: 'Code konnte nicht gesendet werden.',
   fehlerCode: 'Ungültiger Code.',
+  // Freiwillige Herkunftsfrage, nur auf unbekannten Geräten (src/lib/herkunft.ts); deutsche Optionen auch in der
+  // Meldung neuer Anmeldungen (services/signup-notice.ts)
+  herkunft: {
+    frage: 'Wie bist du auf Wartungsheft gestossen? (freiwillig)',
+    platzhalter: 'Bitte wählen',
+    optionen: {
+      google: 'Google-Suche',
+      anzeige: 'Anzeige',
+      empfehlung: 'Empfehlung',
+      verzeichnis: 'Verzeichnis oder Vergleichsportal',
+      social: 'Social Media',
+      anderes: 'Anderes',
+    },
+    anderesPlatzhalter: 'Wo genau?',
+  },
 }
 
 export default {
@@ -40,6 +55,19 @@ export default {
     anmelden: 'Se connecter',
     fehlerSenden: 'Le code n\'a pas pu être envoyé.',
     fehlerCode: 'Code non valable.',
+    herkunft: {
+      frage: 'Comment avez-vous découvert Wartungsheft ? (facultatif)',
+      platzhalter: 'Choisir',
+      optionen: {
+        google: 'Recherche Google',
+        anzeige: 'Annonce',
+        empfehlung: 'Recommandation',
+        verzeichnis: 'Annuaire ou comparateur',
+        social: 'Réseaux sociaux',
+        anderes: 'Autre',
+      },
+      anderesPlatzhalter: 'Où exactement ?',
+    },
   },
   it: {
     willkommen: 'Bentornato.',
@@ -58,6 +86,19 @@ export default {
     anmelden: 'Accedi',
     fehlerSenden: 'Impossibile inviare il codice.',
     fehlerCode: 'Codice non valido.',
+    herkunft: {
+      frage: 'Come hai scoperto Wartungsheft? (facoltativo)',
+      platzhalter: 'Scegli',
+      optionen: {
+        google: 'Ricerca Google',
+        anzeige: 'Annuncio',
+        empfehlung: 'Consiglio di qualcuno',
+        verzeichnis: 'Elenco o portale di confronto',
+        social: 'Social media',
+        anderes: 'Altro',
+      },
+      anderesPlatzhalter: 'Dove esattamente?',
+    },
   },
   en: {
     willkommen: 'Welcome back.',
@@ -76,5 +117,18 @@ export default {
     anmelden: 'Sign in',
     fehlerSenden: 'The code could not be sent.',
     fehlerCode: 'Invalid code.',
+    herkunft: {
+      frage: 'How did you find Wartungsheft? (optional)',
+      platzhalter: 'Please choose',
+      optionen: {
+        google: 'Google search',
+        anzeige: 'Advert',
+        empfehlung: 'Recommendation',
+        verzeichnis: 'Directory or comparison site',
+        social: 'Social media',
+        anderes: 'Other',
+      },
+      anderesPlatzhalter: 'Where exactly?',
+    },
   },
 } satisfies Record<Sprache, typeof de>

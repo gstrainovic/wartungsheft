@@ -51,6 +51,11 @@ export interface ReminderSetting {
   lastTrialNoticeKey?: string
   /** Zeitpunkt, zu dem die Anmeldung an den Betreiber gemeldet wurde (signup-notice.ts) */
   signupNoticeAt?: string
+  /** Antwort auf die freiwillige Herkunftsfrage der Anmeldung (src/lib/herkunft.ts) */
+  herkunft?: string
+  herkunftText?: string
+  /** Merker der Rückfragen an Testkonten (trial-feedback.ts), zuletzt gesendete */
+  lastFeedbackKey?: string
 }
 
 export interface DueEntry {

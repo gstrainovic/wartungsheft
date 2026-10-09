@@ -1,8 +1,10 @@
+import type { Herkunft } from '../lib/herkunft'
 import type { Sprache } from '../lib/sprache'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { getCurrentUserId } from '../composables/useAuth'
 import { appSprache, setAppSprache, spracheNachLaden } from '../lib/app-sprache'
+import { gemerkteHerkunft, herkunftUebernehmen, merkeHerkunft } from '../lib/herkunft'
 import { db, id, tx } from '../lib/instantdb'
 
 /**
@@ -18,6 +20,11 @@ export interface UserSettings {
   sprache?: Sprache
   lastReminderAt?: string
   lastReminderKey?: string
+  /** Antwort auf die Herkunftsfrage der Anmeldung (src/lib/herkunft.ts) */
+  herkunft?: Herkunft
+  herkunftText?: string
+  /** setzt der Server-Job, sobald die Anmeldung gemeldet ist */
+  signupNoticeAt?: string
   createdAt: string
   updatedAt: string
 }
@@ -26,7 +33,7 @@ export const useRemindersStore = defineStore('reminders', () => {
   const settings = ref<UserSettings | null>(null)
   const loaded = ref(false)
 
-  async function update(attrs: Partial<Pick<UserSettings, 'emailReminders' | 'sprache'>>): Promise<void> {
+  async function update(attrs: Partial<Pick<UserSettings, 'emailReminders' | 'sprache' | 'herkunft' | 'herkunftText'>>): Promise<void> {
     const now = new Date().toISOString()
     if (settings.value) {
       await db.transact([(tx.settings as any)[settings.value.id].update({ ...attrs, updatedAt: now })])
@@ -49,6 +56,14 @@ export const useRemindersStore = defineStore('reminders', () => {
       setAppSprache(anwenden)
     if (speichern)
       await update({ sprache: speichern })
+    // Antwort der Login-Seite: an ein neues Konto hängen, danach aus dem Browser entfernen
+    const antwort = gemerkteHerkunft()
+    if (antwort) {
+      const neu = herkunftUebernehmen(settings.value, antwort)
+      if (neu)
+        await update(neu)
+      merkeHerkunft(null)
+    }
   }
 
   const emailReminders = computed(() => settings.value?.emailReminders !== false)

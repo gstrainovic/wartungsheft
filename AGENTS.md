@@ -107,6 +107,9 @@ Pflicht. Modelle, Pipeline, Grenzen: Skill `mistral-limits`. Scan und Chat: Skil
 - Offline: ohne Verbindung wird der Beleg mit `scanPending` gespeichert (kein Tesseract, es lädt vom CDN),
   `useOfflineScanQueue` holt den Scan beim `online`-Ereignis nach und füllt nur leere Felder. Speicherwege dürfen
   keine Serverabfrage voraussetzen; `db.queryOnce` scheitert offline.
+- Herkunftsfrage der Anmeldung und Rückfrage-Mails an Testkonten (Tag 21 und 31, Schalter `TRIAL_FEEDBACK_MAILS`,
+  Standard aus): README «7. E-Mail-Erinnerungen». Texte der Rückfragen nur zusammen mit der Freigabe-Datei
+  `~/projects/find-jobs/freigaben/wartungsheft-feedback-mails.md` ändern.
 - Wortwahl in der App: «Rechnung» (nie «Beleg»), «Kontrollschild» und «Fahrgestellnummer» wie auf dem Schweizer
   Ausweis (nie «Kennzeichen», «FIN»). Formular «Neues Fahrzeug» belegt nichts vor: Baujahr und Kilometerstand 0 heisst
   unbekannt, der Ausweis-Scan füllt leere Felder. Löschen eines Fahrzeugs nur auf der Fahrzeugseite, nicht auf der Karte.

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import loginTexte from '../texte/login'
 import { buildSignupNotice } from './signup-notice'
 
 const now = new Date('2026-09-21T06:00:00.000Z')
@@ -35,6 +36,21 @@ describe('buildSignupNotice', () => {
       now,
     })
     expect(notice).toBeNull()
+  })
+
+  it('nennt die Antwort auf die Herkunftsfrage, auch Freitext und fehlende Antwort', () => {
+    const notice = buildSignupNotice({
+      users: [{ id: 'u1', email: 'a@b.ch' }, { id: 'u2', email: 'c@d.ch' }, { id: 'u3', email: 'e@f.ch' }],
+      settings: [
+        { creatorId: 'u1', herkunft: 'google' },
+        { creatorId: 'u2', herkunft: 'anderes', herkunftText: 'Garage Meier' },
+      ],
+      now,
+    })
+    const zeilen = notice!.text.split('\n')
+    expect(zeilen).toContain(`- a@b.ch (Herkunft: ${loginTexte.de.herkunft.optionen.google})`)
+    expect(zeilen).toContain(`- c@d.ch (Herkunft: ${loginTexte.de.herkunft.optionen.anderes}: «Garage Meier»)`)
+    expect(zeilen).toContain('- e@f.ch (Herkunft: keine Angabe)')
   })
 
   it('meldet Konten ohne E-Mail mit ihrer ID', () => {

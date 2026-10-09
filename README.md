@@ -332,8 +332,26 @@ Täglich um 07:00 UTC (`/etc/cron.d/wartungsheft-reminders`, Nutzer `debian`) l�
 - merkt sich in `settings` (`lastReminderKey`, `lastReminderAt`), was gesendet wurde: unveränderte Erinnerungen
   frühestens nach 30 Tagen erneut, neue oder andere Arbeiten sofort,
 - meldet neue Anmeldungen gebündelt in einer Mail an `info@wartungsheft.ch` (`SIGNUP_NOTICE_TO`,
-  `src/services/signup-notice.ts`); `$users` hat kein Erstelldatum, gemeldet ist, wer `settings.signupNoticeAt` trägt.
-  Mit `--only` entfällt die Meldung.
+  `src/services/signup-notice.ts`) samt Antwort auf die Herkunftsfrage; `$users` hat kein Erstelldatum, gemeldet ist,
+  wer `settings.signupNoticeAt` trägt. Mit `--only` entfällt die Meldung,
+- schickt Testkonten ohne Abo (Status `trial`) am Tag 21 Fragen zur Erfahrung und am Tag 31 die Frage «Was hätte dich
+  überzeugt?» (`src/services/trial-feedback.ts`, Texte `src/texte/app/feedback.ts`), persönlich als
+  `Goran Strainovic <info@wartungsheft.ch>` (`FEEDBACK_MAIL_FROM`), Antworten an `FEEDBACK_TO`; ein verpasster Lauf
+  wird zwei Tage nachgeholt, Merker `settings.lastFeedbackKey`. Versand nur mit `TRIAL_FEEDBACK_MAILS=on` in
+  `deploy/.env`, Standard aus: dann loggt der Job nur, wer fällig wäre, `--dry-run` zeigt die Texte.
+
+Herkunftsfrage: Die Login-Seite fragt auf unbekannten Geräten freiwillig «Wie bist du auf Wartungsheft gestossen?»
+(`src/lib/herkunft.ts`). Die Wahl liegt bis zur Anmeldung im `localStorage` und kommt danach an `settings.herkunft`
+(`google`, `anzeige`, `empfehlung`, `verzeichnis`, `social`, `anderes`) und `settings.herkunftText`, nur bei Konten,
+die noch nicht als Anmeldung gemeldet sind. Auszählen:
+
+```bash
+set -a; . /opt/auto-service/deploy/.env; set +a
+curl -s -X POST https://api.wartungsheft.ch/admin/query -H "Content-Type: application/json" \
+  -H "App-Id: $INSTANT_APP_ID" -H "Authorization: Bearer $INSTANT_ADMIN_TOKEN" \
+  -d '{"query":{"settings":{"$":{"fields":["herkunft","herkunftText"]}}}}' \
+  | python3 -c 'import sys,json,collections;d=json.load(sys.stdin);print(collections.Counter(s.get("herkunft","(keine)") for s in d["settings"]))'
+```
 
 Abschalten pro Nutzer in den Einstellungen («Erinnerungen»), Feld `settings.emailReminders = false`.
 Log: `/opt/auto-service/deploy/reminders.log`. Manuell:

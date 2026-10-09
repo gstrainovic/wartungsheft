@@ -1,7 +1,7 @@
 <template>
   <h1>Politique de confidentialité</h1>
   <p class="legal-updated">
-    État : septembre 2026
+    État : octobre 2026
   </p>
   <p class="legal-updated">
     Ceci est une traduction. Seule la version allemande fait foi :
@@ -75,13 +75,38 @@
     l'application, au plus deux ans.
   </p>
 
-  <h3>3.6 Données d'abonnement et de facturation (abonnement annuel entreprise)</h3>
+  <h3>3.6 Question sur l'origine lors de la connexion</h3>
+  <p>
+    Lors de la connexion sur un nouvel appareil, nous vous demandons, à titre facultatif, comment vous avez découvert
+    Wartungsheft (recherche Google, annonce, recommandation, annuaire, réseaux sociaux ou autre, avec un court texte
+    libre). La réponse choisie et l'éventuel texte libre sont enregistrés dans votre compte, dans notre base de données
+    sur notre propre serveur chez Infomaniak, en Suisse. La seule finalité est de savoir par quels canaux les gens
+    trouvent Wartungsheft, afin de placer la publicité et les inscriptions là où elles sont efficaces. La réponse n'est
+    pas communiquée à des tiers, ni utilisée pour du profilage ou pour vous adresser de la publicité. Jusqu'à la
+    connexion, votre choix n'est conservé que dans votre navigateur (localStorage) et il en est retiré après la
+    connexion. La réponse est supprimée avec votre compte, ou plus tôt sur demande à info@wartungsheft.ch.
+  </p>
+
+  <h3>3.7 E-mails de retour pendant la période d'essai</h3>
+  <p>
+    Pendant la période d'essai, nous vous envoyons au plus deux e-mails avec des questions sur votre expérience : le
+    21e jour, des questions sur ce qui vous a plu et ce qui a manqué, et le lendemain de la fin de la période d'essai,
+    une seule question si aucun abonnement n'a été commandé. Les comptes avec abonnement ne reçoivent pas ces e-mails.
+    L'envoi passe par Resend, comme pour les rappels (section 7). La réponse est facultative ; elle arrive à
+    info@wartungsheft.ch, n'est exploitée que pour améliorer l'application et est conservée, comme les retours depuis
+    l'application, au plus deux ans. Les indications facultatives telles que le métier, l'âge ou l'usage privé ou
+    professionnel ne sont traitées que si vous les envoyez de votre propre initiative. La base juridique est notre
+    intérêt légitime à améliorer l'offre. Vous pouvez désactiver ces e-mails dans les paramètres, rubrique « Rappels » ;
+    les e-mails de rappel sont alors désactivés eux aussi.
+  </p>
+
+  <h3>3.8 Données d'abonnement et de facturation (abonnement annuel entreprise)</h3>
   <ul>
     <li>Entreprise, personne de contact, adresse de facturation, e-mail de facturation, référence facultative</li>
     <li>Nombre de véhicules facturés, factures avec montant, référence de paiement et encaissement</li>
   </ul>
 
-  <h3>3.7 Données techniques</h3>
+  <h3>3.9 Données techniques</h3>
   <ul>
     <li>Adresse IP (journaux du serveur, supprimés automatiquement après 30 jours)</li>
     <li>Type et version du navigateur</li>
@@ -117,6 +142,16 @@
         <td>Données d'abonnement et de facturation</td>
         <td>Facturation, encaissement, renouvellement et résiliation de l'abonnement</td>
         <td>Exécution du contrat, obligation légale de conservation</td>
+      </tr>
+      <tr>
+        <td>Réponse sur l'origine</td>
+        <td>Savoir par quels canaux les utilisateurs trouvent Wartungsheft ; planification de la publicité et des inscriptions</td>
+        <td>Consentement (indication facultative)</td>
+      </tr>
+      <tr>
+        <td>Réponses aux e-mails de retour</td>
+        <td>Amélioration de l'application</td>
+        <td>Intérêt légitime</td>
       </tr>
       <tr>
         <td>Adresse IP</td>
@@ -175,6 +210,8 @@
     <li><strong>Données du compte :</strong> jusqu'à la suppression de votre compte</li>
     <li><strong>Données du véhicule et des factures :</strong> jusqu'à leur suppression par vous</li>
     <li><strong>Factures de l'abonnement :</strong> 10 ans (obligation de conservation, art. 958f CO)</li>
+    <li><strong>Réponse sur l'origine :</strong> jusqu'à la suppression de votre compte, plus tôt sur demande</li>
+    <li><strong>Réponses aux e-mails de retour :</strong> au plus deux ans</li>
     <li><strong>Journaux du serveur :</strong> 30 jours</li>
     <li><strong>Cache OCR :</strong> jusqu'à la suppression de la facture correspondante</li>
   </ul>

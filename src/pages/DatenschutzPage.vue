@@ -22,7 +22,7 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
     <main v-else class="legal-container legal-content">
       <h1>Datenschutzerklärung</h1>
       <p class="legal-updated">
-        Stand: September 2026
+        Stand: Oktober 2026
       </p>
 
       <h2>1. Verantwortliche Stelle</h2>
@@ -91,13 +91,38 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
         längstens zwei Jahre.
       </p>
 
-      <h3>3.6 Abo- und Rechnungsdaten (Jahresabo Betrieb)</h3>
+      <h3>3.6 Herkunftsfrage bei der Anmeldung</h3>
+      <p>
+        Bei der Anmeldung auf einem neuen Gerät fragen wir freiwillig, wie Sie auf Wartungsheft gestossen sind
+        (Google-Suche, Anzeige, Empfehlung, Verzeichnis, Social Media oder Anderes mit einem kurzen Freitext). Die
+        gewählte Antwort und ein allfälliger Freitext werden an Ihrem Konto gespeichert, in unserer Datenbank auf dem
+        eigenen Server bei Infomaniak in der Schweiz. Zweck ist einzig zu erkennen, über welche Wege Leute Wartungsheft
+        finden, damit wir Werbung und Einträge dort machen, wo sie wirken. Die Antwort wird nicht weitergegeben, nicht
+        für Profiling und nicht für Werbung an Sie verwendet. Bis zur Anmeldung liegt Ihre Wahl nur in Ihrem Browser
+        (localStorage) und wird nach der Anmeldung dort entfernt. Gelöscht wird die Antwort mit Ihrem Konto, auf
+        Anfrage an info@wartungsheft.ch auch vorher.
+      </p>
+
+      <h3>3.7 Feedback-Mails während der Testzeit</h3>
+      <p>
+        Während der Testzeit schicken wir Ihnen höchstens zwei Mails mit Fragen zu Ihrer Erfahrung: am 21. Tag mit
+        Fragen, was gefallen und was gefehlt hat, und am Tag nach Ende der Testzeit eine einzelne Frage, falls kein
+        Abo bestellt wurde. Konten mit Abo erhalten diese Mails nicht. Der Versand läuft wie bei den Erinnerungen über
+        Resend (Abschnitt 7). Eine Antwort ist freiwillig; sie geht an info@wartungsheft.ch, wird nur zur Verbesserung
+        der App ausgewertet und wie Rückmeldungen aus der App höchstens zwei Jahre aufbewahrt. Freiwillige Angaben wie
+        Beruf, Alter oder private beziehungsweise geschäftliche Nutzung bearbeiten wir nur, wenn Sie sie von sich aus
+        mitschicken. Rechtsgrundlage ist unser berechtigtes Interesse an der Verbesserung des Angebots. Sie können
+        diese Mails in den Einstellungen im Abschnitt «Erinnerungen» abschalten; damit sind auch die Erinnerungsmails
+        abgeschaltet.
+      </p>
+
+      <h3>3.8 Abo- und Rechnungsdaten (Jahresabo Betrieb)</h3>
       <ul>
         <li>Firma, Kontaktperson, Rechnungsadresse, Rechnungs-E-Mail, optionale Referenz</li>
         <li>Anzahl abgerechneter Fahrzeuge, Rechnungen mit Betrag, Zahlungsreferenz und Zahlungseingang</li>
       </ul>
 
-      <h3>3.7 Technische Daten</h3>
+      <h3>3.9 Technische Daten</h3>
       <ul>
         <li>IP-Adresse (Serverprotokolle, automatisch gelöscht nach 30 Tagen)</li>
         <li>Browser-Typ und -Version</li>
@@ -133,6 +158,16 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
             <td>Abo- und Rechnungsdaten</td>
             <td>Rechnungsstellung, Zahlungseingang, Verlängerung und Kündigung des Abos</td>
             <td>Vertragserfüllung, gesetzliche Aufbewahrungspflicht</td>
+          </tr>
+          <tr>
+            <td>Herkunftsantwort</td>
+            <td>Erkennen, über welche Wege Nutzer Wartungsheft finden; Planung von Werbung und Einträgen</td>
+            <td>Einwilligung (freiwillige Angabe)</td>
+          </tr>
+          <tr>
+            <td>Antworten auf Feedback-Mails</td>
+            <td>Verbesserung der App</td>
+            <td>Berechtigtes Interesse</td>
           </tr>
           <tr>
             <td>IP-Adresse</td>
@@ -192,6 +227,8 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
         <li><strong>Kontodaten:</strong> Bis zur Löschung Ihres Kontos</li>
         <li><strong>Fahrzeug-/Rechnungsdaten:</strong> Bis zur Löschung durch Sie</li>
         <li><strong>Rechnungen des Abos:</strong> 10 Jahre (Aufbewahrungspflicht, OR Art. 958f)</li>
+        <li><strong>Herkunftsantwort:</strong> Bis zur Löschung Ihres Kontos, auf Anfrage früher</li>
+        <li><strong>Antworten auf Feedback-Mails:</strong> Höchstens zwei Jahre</li>
         <li><strong>Server-Logs:</strong> 30 Tage</li>
         <li><strong>OCR-Cache:</strong> Bis zur Löschung der zugehörigen Rechnung</li>
       </ul>
