@@ -14,7 +14,7 @@ const props = defineProps<{ steps: SetupStep[] }>()
 
 const emit = defineEmits<{ action: [key: SetupStepKey], hide: [] }>()
 
-const { t } = useSprache(texte)
+const { t, pfad } = useSprache(texte)
 
 const next = computed(() => nextSetupStep(props.steps))
 const doneCount = computed(() => props.steps.filter(s => s.done).length)
@@ -43,6 +43,11 @@ const doneCount = computed(() => props.steps.filter(s => s.done).length)
         </div>
       </li>
     </ol>
+    <!-- Tutorial «So startest du» auf der Hilfe, in der Sprache der App (TutorialVideo.vue) -->
+    <RouterLink :to="{ path: pfad('/hilfe'), hash: '#video' }" class="setup-video">
+      <i class="pi pi-play-circle" aria-hidden="true" />
+      {{ t.video }}
+    </RouterLink>
   </section>
 </template>
 
@@ -52,6 +57,20 @@ const doneCount = computed(() => props.steps.filter(s => s.done).length)
   border-radius: 12px;
   padding: 0.75rem 1rem;
   margin: 0 0 1rem;
+}
+
+.setup-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--p-primary-color);
+  text-decoration: none;
+}
+
+.setup-video:hover {
+  text-decoration: underline;
 }
 
 .setup-header {

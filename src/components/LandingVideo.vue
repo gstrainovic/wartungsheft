@@ -12,24 +12,32 @@ import angebotTexte from '../texte/angebot'
 
 // Jede Sprache hat ihren eigenen Film (Sprecher, Untertitel und App-Oberfläche), Namen aus src/lib/film-datei.ts
 const props = withDefaults(defineProps<{
-  /** deutsche Datei unter public/, ohne Pfad; die Sprache der Seite wählt ihre Fassung */
+  /**
+   * deutsche Datei unter public/, ohne Pfad; die Sprache der Seite wählt ihre Fassung. Endet sie auf .mp4, gibt
+   * es nur die MP4 (Tutorial), sonst MP4 und WebM
+   */
   file?: string
-  /** ohne Angabe Überschrift und Satz der Startseite (src/texte/angebot.ts) */
+  /** ohne Angabe Überschrift und Satz der Startseite (src/texte/angebot.ts); leerer Satz blendet ihn aus */
   title?: string
   subtitle?: string
+  /** Zeile unter dem Film (Länge, Ton, Beispieldaten); ohne Angabe die der Werbefilme */
+  hinweis?: string
 }>(), {
   file: 'film-privat.webm',
 })
 
 const { t, sprache } = useSprache(angebotTexte)
 
+const nurMp4 = computed(() => props.file.endsWith('.mp4'))
+const datei = computed(() => props.file.replace(/\.mp4$/, '.webm'))
 // Auf dem Desktop die eigene Aufnahme im Desktop-Layout, am Handy die hochkant aufgenommene
 const quer = ref(false)
-const src = computed(() => filmQuelle(props.file, sprache.value, quer.value))
+const src = computed(() => filmQuelle(datei.value, sprache.value, quer.value))
 // MP4 zuerst: ältere iPhones und eingebettete Browser (Outlook) spielen kein WebM (VP9/Opus)
 const mp4 = computed(() => src.value.replace(/\.webm$/, '.mp4'))
 const poster = computed(() => src.value.replace(/\.webm$/, '-poster.jpg'))
-const untertitel = computed(() => filmUntertitel(props.file, sprache.value))
+const untertitel = computed(() => filmUntertitel(datei.value, sprache.value))
+const satz = computed(() => props.subtitle ?? t.value.film.text)
 const vorhanden = ref(false)
 const laeuft = ref(false)
 const video = ref<HTMLVideoElement | null>(null)
@@ -43,7 +51,7 @@ onMounted(async () => {
   })
   // Ohne Datei bleibt der Abschnitt weg statt kaputt zu wirken
   try {
-    const res = await fetch(src.value, { method: 'HEAD' })
+    const res = await fetch(nurMp4.value ? mp4.value : src.value, { method: 'HEAD' })
     vorhanden.value = res.ok && (res.headers.get('content-type') ?? '').startsWith('video')
   }
   catch {
@@ -79,8 +87,8 @@ function abspielen(): void {
   <section v-if="vorhanden" class="video-section" data-testid="landing-video">
     <div class="video-inner">
       <h2>{{ title ?? t.film.titel }}</h2>
-      <p class="video-subtitle">
-        {{ subtitle ?? t.film.text }}
+      <p v-if="satz" class="video-subtitle">
+        {{ satz }}
       </p>
       <div class="video-frame">
         <video
@@ -97,7 +105,7 @@ function abspielen(): void {
           @pause="laeuft = false"
         >
           <source :src="mp4" type="video/mp4">
-          <source :src="src" type="video/webm">
+          <source v-if="!nurMp4" :src="src" type="video/webm">
           <!-- Untertitel als Spur statt eingebrannt: an, über den Untertitel-Knopf des Players abschaltbar -->
           <track kind="subtitles" :srclang="sprache" :label="untertitelName(sprache)" :src="untertitel" default>
         </video>
@@ -106,7 +114,7 @@ function abspielen(): void {
         </button>
       </div>
       <p class="video-note">
-        {{ t.film.hinweis }}
+        {{ hinweis ?? t.film.hinweis }}
       </p>
     </div>
   </section>

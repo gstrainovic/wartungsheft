@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Frage } from '../hilfe'
+import TutorialVideo from '../../components/TutorialVideo.vue'
 
 defineProps<{ fragen: Frage[] }>()
 
@@ -13,6 +14,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> o registra un messaggio vocale nell'app alla voce
     «Segnala un errore o un desiderio». L'app parla italiano: la lingua si sceglie nelle impostazioni.
   </p>
+
+  <TutorialVideo />
 
   <h2>1. Registrare un veicolo</h2>
   <p>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Frage } from '../hilfe'
+import TutorialVideo from '../../components/TutorialVideo.vue'
 
 defineProps<{ fragen: Frage[] }>()
 
@@ -14,6 +15,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     sous « Signaler un problème ou un souhait ». L’application parle français : la langue se choisit dans les
     réglages.
   </p>
+
+  <TutorialVideo />
 
   <h2>1. Saisir un véhicule</h2>
   <p>

@@ -1,6 +1,6 @@
-import type { Locator, Page } from '@playwright/test'
 import { PAGE_META, SITE_URL } from '../src/lib/page-meta'
 import { expect, test } from './fixtures/test-fixtures'
+import { untertitelPruefen } from './fixtures/untertitel'
 
 // Events darf der Client nicht lesen, darum zählt der Test über die Admin-API
 async function countEvents(match: Record<string, string>) {
@@ -15,25 +15,6 @@ async function countEvents(match: Record<string, string>) {
   })
   const { events } = await res.json() as { events: Record<string, string>[] }
   return events.filter(e => Object.entries(match).every(([k, v]) => e[k] === v)).length
-}
-
-/**
- * Der Film trägt seine Untertitel als WebVTT-Spur in der Sprache der Seite, standardmässig an (Spur `showing`),
- * und die Datei kommt als text/vtt mit WEBVTT-Kopf an
- */
-async function untertitelPruefen(page: Page, video: Locator, src: string, sprache: string, name: string) {
-  const spur = video.locator('track')
-  await expect(spur).toHaveCount(1)
-  await expect(spur).toHaveAttribute('src', src)
-  await expect(spur).toHaveAttribute('kind', 'subtitles')
-  await expect(spur).toHaveAttribute('srclang', sprache)
-  await expect(spur).toHaveAttribute('label', name)
-  await expect(spur).toHaveAttribute('default', '')
-  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.textTracks[0]?.mode)).toBe('showing')
-  const res = await page.request.get(src)
-  expect(res.status()).toBe(200)
-  expect(res.headers()['content-type']).toMatch(/^text\/vtt/)
-  expect(await res.text()).toMatch(/^WEBVTT\n\n\d\d:\d\d:\d\d\.\d{3} --> /)
 }
 
 // Landing Pages für die Validierung (business-plan/09-validierung.md, M2):
