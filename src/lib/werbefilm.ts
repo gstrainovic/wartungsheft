@@ -208,6 +208,33 @@ export function stummeFassung(bild: string, ziel: string, cues: Cue[]): { ffmpeg
   }
 }
 
+/**
+ * Vertonte Fassung (Tutorial, Handy und Desktop): Bild H.264 High, Ton AAC, Untertitel nie eingebrannt, sondern als
+ * abschaltbare Spur (mov_text, deutsch) in der MP4 und als VTT und SRT daneben. `crf` hält die Datei unter 10 MB.
+ */
+export function vertonteFassung(bild: string, ton: string, ziel: string, cues: Cue[], crf = 26): { ffmpeg: string[], dateien: Record<string, string> } {
+  const srtDatei = `${ziel}.srt`
+  return {
+    ffmpeg: ['-i', bild, '-i', ton, '-i', srtDatei, '-map', '0:v', '-map', '1:a', '-map', '2:s', '-c:v', 'libx264', '-preset', 'slow', '-crf', String(crf), '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-c:s', 'mov_text', '-metadata:s:a:0', 'language=deu', '-metadata:s:s:0', 'language=deu', '-movflags', '+faststart', `${ziel}.mp4`],
+    dateien: { [`${ziel}.vtt`]: vtt(cues), [srtDatei]: srt(cues) },
+  }
+}
+
+/**
+ * Sekunde in der Aufnahme, ab der jeder Teil läuft (Tutorial: Teile ab Marken, Länge aus der Sprechdauer). Ein Teil
+ * beginnt an seiner Marke; spricht der vorige Teil desselben Clips darüber hinaus, setzt er nahtlos dort an, wo
+ * der vorige ohne Überblendung steht, damit kein Bild doppelt kommt.
+ */
+export function aufnahmeStarts(teile: { clip: string, marke: number }[], dauern: number[], blende: number): number[] {
+  const starts: number[] = []
+  teile.forEach((t, i) => {
+    const vorher = teile[i - 1]
+    const weiter = vorher?.clip === t.clip ? starts[i - 1]! + dauern[i - 1]! - blende : 0
+    starts.push(ms(Math.max(t.marke, weiter)))
+  })
+  return starts
+}
+
 /** Sprechstellen mit kurzer Pause dazwischen zusammenfassen, sonst hebt und senkt sich die Musik in jeder Atempause */
 export function sprechzeitenZusammenfassen(zeiten: Zeitraum[], luecke: number): Zeitraum[] {
   const sortiert = [...zeiten].sort((a, b) => a.von - b.von)
