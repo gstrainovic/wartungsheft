@@ -27,8 +27,8 @@ onMounted(async () => {
     showForm.value = true
 })
 
-// Nach dem Anlegen auf die Fahrzeugseite: dort führt die Einrichtungs-Checkliste durch Ausweis, Serviceheft,
-// letzte Wartungen und Rechnungen
+// Nach dem Anlegen auf die Fahrzeugseite: dort führt die Einrichtungs-Checkliste durch Rechnung, Ausweis,
+// Serviceheft und letzte Wartungen
 async function onSave(data: any) {
   const id = await store.add(data, 'formular')
   showForm.value = false

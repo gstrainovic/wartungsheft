@@ -17,7 +17,7 @@ import allgemein from './texte/app/allgemein'
 const router = useRouter()
 const route = useRoute()
 const drawer = ref(false)
-const { t } = useSprache(allgemein)
+const { t, pfad } = useSprache(allgemein)
 const chatOpen = ref(false)
 const feedbackOpen = ref(false)
 const { user, isLoading, signOut } = useAuth()
@@ -104,6 +104,10 @@ function handleSignOut() {
             <i class="pi pi-megaphone" />
             <span>{{ t.navigation.feedback }}</span>
           </a>
+          <RouterLink :to="pfad('/hilfe')" class="nav-item" @click="drawer = false">
+            <i class="pi pi-question-circle" />
+            <span>{{ t.navigation.hilfe }}</span>
+          </RouterLink>
           <hr class="nav-divider">
           <a class="nav-item nav-signout" href="#" @click.prevent="handleSignOut">
             <i class="pi pi-sign-out" />
