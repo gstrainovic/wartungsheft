@@ -1,18 +1,10 @@
 import type { Page } from '@playwright/test'
 import { test as base } from '@playwright/test'
+import { istIgnorierterFehler, viteAusfall } from './konsolenfehler'
 
 export interface TestOptions {
   simulateOffline: boolean
 }
-
-// Only unfixable third-party errors here — everything else must be fixed, not ignored.
-// Tesseract.js WASM runs in a Web Worker — its console.error can't be intercepted from JS.
-// The warning fires for images without DPI metadata (all browser-resized images).
-const IGNORED_ERRORS = [
-  /Invalid resolution.*dpi/,
-  // Bewusste 402-Antwort des AI-Proxys bei erreichtem Monatslimit (AP-002)
-  /status of 402 \(Payment Required\)/,
-]
 
 /**
  * Wartet, bis `window.__instantdb` da ist und die Verbindung zum Server steht (Status `authenticated`).
@@ -188,12 +180,6 @@ export async function clearInstantDB(page: Page) {
   await page.waitForTimeout(200)
 }
 
-function isIgnoredError(msg: string, offline: boolean): boolean {
-  if (offline)
-    return true // All console errors expected in offline mode
-  return IGNORED_ERRORS.some(pattern => pattern.test(msg))
-}
-
 export const test = base.extend<TestOptions>({
   simulateOffline: [false, { option: true }],
 
@@ -214,15 +200,22 @@ export const test = base.extend<TestOptions>({
     page.on('console', (msg) => {
       if (msg.type() === 'error') {
         const text = msg.text()
-        if (!isIgnoredError(text, simulateOffline))
+        if (!istIgnorierterFehler(text, simulateOffline, msg.location().url))
           consoleErrors.push(`[console.error] ${text}`)
       }
     })
 
     page.on('pageerror', (error) => {
       const text = error.message || String(error)
-      if (!isIgnoredError(text, simulateOffline))
+      if (!istIgnorierterFehler(text, simulateOffline))
         consoleErrors.push(`[pageerror] ${text}`)
+    })
+
+    // Fällt Vite weg, zeigt die Seite nur weiss: die Ursache auch offline klar nennen
+    page.on('requestfailed', (request) => {
+      const meldung = viteAusfall(request.url(), request.failure()?.errorText ?? '')
+      if (meldung)
+        consoleErrors.push(meldung)
     })
 
     await use(page)
