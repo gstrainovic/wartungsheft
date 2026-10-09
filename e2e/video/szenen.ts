@@ -35,7 +35,7 @@ interface Aufnahme {
 
 const aufnahmen = new WeakMap<Page, Aufnahme>()
 
-function clipName(testInfo: TestInfo): string {
+export function clipName(testInfo: TestInfo): string {
   const slug = testInfo.title
     .replace(/ä/g, 'ae')
     .replace(/ö/g, 'oe')
@@ -188,7 +188,8 @@ export async function slowClick(page: Page, selector: string | { click: () => Pr
 export interface VideoVehicle {
   make: string
   model: string
-  year: number
+  /** fehlt nach einem Ausweis-Scan ohne Baujahr (Tutorial: Checkliste «Fehlt noch») */
+  year?: number
   mileage: number
   licensePlate: string
   soldAt?: string

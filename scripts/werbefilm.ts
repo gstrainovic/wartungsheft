@@ -42,6 +42,8 @@ import {
   sprechzeitenZusammenfassen,
   srt,
   startInAufnahme,
+  stummeFassung,
+  stummeLage,
   untertitelSpur,
   vtt,
   wortfehler,
@@ -213,6 +215,29 @@ const BETRIEB_TEXT: Record<Sprache, Text[]> = {
     { sprechen: '[excited] 36 francs per vehicle per year. Try it free for 30 days!' },
   ],
 }
+
+/**
+ * Tutorial (Drehbuch video-scripts/tutorial-video-script.md), nur deutsch und hochkant, Clips aus
+ * e2e/video/tutorial.video.ts. Jede Szene ist in Teile mit eigenem Satz zerlegt; `ab` ist eine Marke der Aufnahme
+ * (marken.json), ein Teil läuft bis zur Marke des nächsten Teils im selben Clip. `bogen`: Stelle (Anteil des Teils)
+ * für das Standbild der Szene im Kontaktbogen.
+ */
+interface TutorialTeil { szene: number, clip: string, ab?: string, text: string, hoch?: Blick, bogen?: number }
+const TUTORIAL: TutorialTeil[] = [
+  { szene: 1, clip: 'tutorial-1-fahrzeug-anlegen', ab: 'uebersicht', text: '[warm] So startest du mit Wartungsheft, in ein paar Minuten. Zuerst «Fahrzeug hinzufügen».' },
+  { szene: 1, clip: 'tutorial-1-fahrzeug-anlegen', ab: 'formular', text: 'Am schnellsten geht es mit «Fahrzeugausweis fotografieren»: Die App füllt Marke, Modell und Kontrollschild aus.', bogen: 0.85 },
+  { szene: 1, clip: 'tutorial-1-fahrzeug-anlegen', ab: 'selbst', text: 'Du kannst die Felder auch selbst ausfüllen. Dann «Speichern».' },
+  { szene: 2, clip: 'tutorial-2-erste-werkstattrechnung', ab: 'checkliste', text: '[enthusiastic] Jetzt der wichtigste Schritt: die erste Werkstattrechnung. Auf der Fahrzeugseite tippst du auf «Rechnung fotografieren» und fotografierst den Beleg.', bogen: 0.2 },
+  { szene: 2, clip: 'tutorial-2-erste-werkstattrechnung', ab: 'gelesen', text: '[warm] Die KI liest Werkstatt, Datum, Kilometerstand, Betrag und die einzelnen Arbeiten heraus. Du prüfst kurz, dann «1 Rechnung speichern».' },
+  { szene: 2, clip: 'tutorial-2-erste-werkstattrechnung', ab: 'plan', text: 'Aus jeder Arbeit wird eine Wartung, und Wartungsheft rechnet aus, wann sie das nächste Mal fällig ist.' },
+  { szene: 3, clip: 'tutorial-3-checkliste-einrichten', ab: 'checkliste', text: '[warm] Die Checkliste «Einrichten» zeigt, was noch fehlt: Fahrzeugausweis, Serviceheft, letzte Wartungen. Jeder Schritt ist freiwillig, du kannst ihn später machen oder überspringen.', hoch: { x: 0.5, y: 0.5, s: 1.3 }, bogen: 0.3 },
+  { szene: 4, clip: 'tutorial-4-faelligkeit-und-erinnerung', ab: 'uebersicht', text: '[warm] Wird eine Arbeit fällig, steht sie in der Übersicht, und Wartungsheft schickt dir eine E-Mail.', bogen: 0.7 },
+  { szene: 4, clip: 'tutorial-4-faelligkeit-und-erinnerung', ab: 'erledigt', text: 'Ist sie gemacht, tippst du auf «Erledigt eintragen». Datum und Kilometerstand sind schon ausgefüllt, nur noch «Speichern».' },
+  { szene: 5, clip: 'tutorial-5-hilfe-und-rueckmeldung', ab: 'uebersicht', text: '[warm] Noch Fragen? Im Menü findest du «Hilfe» und «Fehler melden oder Wunsch». Dort kannst du auch eine Sprachnachricht aufnehmen.', bogen: 0.45 },
+  { szene: 5, clip: 'tutorial-6-schlussbild', text: '' },
+]
+/** Stumme Fassung: geschätztes Sprechtempo statt Sprecheraufnahme */
+const WOERTER_PRO_SEKUNDE = 2.3
 
 /** Bild und Text zusammen, die Clips mit dem Sprachkürzel der Aufnahme (szene-…-fr) */
 function film(bilder: Bild[], texte: Text[], sprache: Sprache): Abschnitt[] {
@@ -585,6 +610,62 @@ async function kurzfassungBauen(name: string, abschnitte: Abschnitt[], auswahl: 
   rmSync(tmp, { recursive: true, force: true })
 }
 
+/** Plan des stummen Tutorials: Teile ab ihren Marken, Länge aus Wortzahl oder Clip, Untertitel über die Szene verteilt */
+function tutorialPlanen(): Geplant {
+  const abschnitte: Abschnitt[] = []
+  const dauern: number[] = []
+  const lagen: Cue[][] = []
+  TUTORIAL.forEach((t, i) => {
+    const info = clipInfo(t.clip)
+    const marken = jsonLesen<Record<string, number>>(join(ROH, t.clip, 'marken.json'), {})
+    const marke = (name: string): number => {
+      if (marken[name] === undefined)
+        throw new Error(`Marke «${name}» fehlt in ${t.clip}/marken.json (Aufnahme e2e/video/tutorial.video.ts)`)
+      return marken[name]
+    }
+    const start = t.ab ? marke(t.ab) : 0.3
+    const naechster = TUTORIAL[i + 1]
+    const ende = naechster?.clip === t.clip && naechster.ab ? marke(naechster.ab) : info.laenge
+    const lage = stummeLage(t.text, ende - start, { woerterProSekunde: WOERTER_PRO_SEKUNDE, vorlauf: VORLAUF, nachlauf: NACHLAUF })
+    abschnitte.push({ clip: t.clip, start, minimum: 0, sprechen: t.text, ...(t.hoch ? { hoch: t.hoch } : {}) })
+    dauern.push(lage.dauer)
+    lagen.push(lage.saetze)
+  })
+  const { starts, laenge } = zeitplan(dauern, BLENDE)
+  const cues = untertitelSpur(lagen.map((saetze, i) => ({ start: starts[i]!, vorlauf: VORLAUF, saetze })), { nachhalten: 0.4, mindestens: 1.2 })
+  return { abschnitte, stimmen: [], dauern, starts, laenge, cues, sprechzeiten: [] }
+}
+
+/**
+ * Stumme Fassung des Tutorials zur Freigabe von Bild und Text: Sprechertext als abschaltbare Untertitelspur (nie
+ * eingebrannt), keine Tonspur, kein Sprecher (keine Credits). Dazu ein Kontaktbogen mit einem Standbild je Szene.
+ */
+function tutorialStummBauen(): void {
+  const tmp = join(TMP, 'tutorial-stumm')
+  rmSync(tmp, { recursive: true, force: true })
+  mkdirSync(tmp, { recursive: true })
+  const p = tutorialPlanen()
+  const bild = join(tmp, 'bild-hoch.mkv')
+  bildBauen(p, 'hoch', bild)
+  // Untertitel nie eingebrannt: abschaltbare Spur in der MP4, VTT und SRT daneben
+  const fassung = stummeFassung(bild, join(OUT, 'tutorial-stumm'), p.cues)
+  for (const [datei, inhalt] of Object.entries(fassung.dateien))
+    writeFileSync(datei, inhalt)
+  ffmpegX264(fassung.ffmpeg)
+  const ziel = join(OUT, 'tutorial-stumm.mp4')
+  bericht(ziel)
+  // Kontaktbogen: je Szene das Bild an der Stelle `bogen` ihres Teils, nebeneinander
+  const zeiten = TUTORIAL.flatMap((t, i) => t.bogen === undefined ? [] : [p.starts[i]! + p.dauern[i]! * t.bogen])
+  const bilder = zeiten.map((z, k) => {
+    const datei = join(tmp, `bogen-${k}.png`)
+    ffmpegMessen(['-v', 'error', '-y', '-ss', z.toFixed(2), '-i', ziel, '-frames:v', '1', '-vf', 'scale=432:768', datei])
+    return datei
+  })
+  ffmpegMessen(['-v', 'error', '-y', ...bilder.flatMap(b => ['-i', b]), '-filter_complex', `${bilder.map((_, k) => `[${k}:v]`).join('')}hstack=inputs=${bilder.length}`, '-q:v', '3', join(OUT, 'tutorial-stumm-kontaktbogen.jpg')])
+  console.log(`Kontaktbogen: Szenen bei ${zeiten.map(z => `${z.toFixed(1)} s`).join(', ')}`)
+  rmSync(tmp, { recursive: true, force: true })
+}
+
 const ALLE_SPRACHEN: Sprache[] = ['de', 'fr', 'it', 'en']
 const argumente = process.argv.slice(2)
 const sprachen = ALLE_SPRACHEN.filter(s => argumente.includes(s))
@@ -595,8 +676,12 @@ const filme = (sprachen.length ? sprachen : ALLE_SPRACHEN).map(sprache => ({
   privat: film(PRIVAT_BILD, PRIVAT_TEXT[sprache], sprache),
   betrieb: film(BETRIEB_BILD, BETRIEB_TEXT[sprache], sprache),
 }))
-const auswahl = await sprecherWaehlen(filme.flatMap(f => [...f.privat, ...f.betrieb].map(a => ({ text: a.sprechen, sprache: f.sprache }))))
-if (!wahl.includes('sprecher')) {
+// Tutorial nur stumm: ohne Sprecher, darum vor der Sprecherwahl (kein ElevenLabs-Aufruf)
+const auswahl = wahl.includes('tutorial') ? {} : await sprecherWaehlen(filme.flatMap(f => [...f.privat, ...f.betrieb].map(a => ({ text: a.sprechen, sprache: f.sprache }))))
+if (wahl.includes('tutorial')) {
+  tutorialStummBauen()
+}
+else if (!wahl.includes('sprecher')) {
   for (const f of filme) {
     if (alles || wahl.includes('privat'))
       await filmBauen(filmName('privat', f.sprache), f.privat, auswahl, f.sprache)
