@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import type { Herkunft } from '../lib/herkunft'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
-import { ref } from 'vue'
+import Select from 'primevue/select'
+import { computed, ref, watch } from 'vue'
 import AppLogo from '../components/AppLogo.vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import { useAuth } from '../composables/useAuth'
 import { useSprache } from '../composables/useSprache'
 import { setAppSprache } from '../lib/app-sprache'
+import { HERKUNFT_OPTIONEN, herkunftAusEingabe, merkeHerkunft } from '../lib/herkunft'
 import loginTexte from '../texte/login'
 
 const { t, pfad, sprache } = useSprache(loginTexte)
@@ -22,6 +25,12 @@ const code = ref('')
 const sentEmail = ref('')
 const loading = ref(false)
 const error = ref('')
+
+// Herkunftsfrage: gemerkt, sobald gewählt, damit sie auch den Weg über Google übersteht
+const herkunftWahl = ref<Herkunft | null>(null)
+const herkunftText = ref('')
+const herkunftOptionen = computed(() => HERKUNFT_OPTIONEN.map(value => ({ value, label: t.value.herkunft.optionen[value] })))
+watch([herkunftWahl, herkunftText], ([wahl, text]) => merkeHerkunft(herkunftAusEingabe(wahl, text)))
 
 async function handleSendCode() {
   error.value = ''
@@ -103,6 +112,30 @@ function handleBack() {
             :placeholder="t.email"
             required
             autofocus
+            fluid
+          />
+        </div>
+        <!-- Freiwillige Herkunftsfrage, nur auf unbekannten Geräten (src/lib/herkunft.ts) -->
+        <div v-if="!knownEmail" class="login-field login-herkunft">
+          <label for="herkunft-wahl">{{ t.herkunft.frage }}</label>
+          <Select
+            v-model="herkunftWahl"
+            input-id="herkunft-wahl"
+            data-testid="herkunft-wahl"
+            :options="herkunftOptionen"
+            option-label="label"
+            option-value="value"
+            :placeholder="t.herkunft.platzhalter"
+            show-clear
+            fluid
+          />
+          <InputText
+            v-if="herkunftWahl === 'anderes'"
+            v-model="herkunftText"
+            data-testid="herkunft-text"
+            :placeholder="t.herkunft.anderesPlatzhalter"
+            :aria-label="t.herkunft.anderesPlatzhalter"
+            maxlength="200"
             fluid
           />
         </div>
@@ -245,5 +278,16 @@ function handleBack() {
 
 .login-back {
   margin-top: 0.5rem;
+}
+
+.login-herkunft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login-herkunft label {
+  color: var(--p-text-muted-color);
+  font-size: 0.9rem;
 }
 </style>

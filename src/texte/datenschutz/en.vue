@@ -1,7 +1,7 @@
 <template>
   <h1>Privacy policy</h1>
   <p class="legal-updated">
-    Last updated: September 2026
+    Last updated: October 2026
   </p>
   <p class="legal-updated">
     This is a translation. Only the German version is legally binding:
@@ -73,13 +73,36 @@
     need it to improve the app, for no more than two years.
   </p>
 
-  <h3>3.6 Subscription and billing data (annual business subscription)</h3>
+  <h3>3.6 Origin question at sign-in</h3>
+  <p>
+    When you sign in on a new device, we ask you, optionally, how you found Wartungsheft (Google search, advert,
+    recommendation, directory, social media or other, with a short free text). The chosen answer and any free text are
+    stored with your account in our database on our own server at Infomaniak in Switzerland. The sole purpose is to
+    learn through which channels people find Wartungsheft, so that we place advertising and listings where they work.
+    The answer is not disclosed to third parties and is not used for profiling or for advertising to you. Until you
+    sign in, your choice is kept only in your browser (localStorage) and is removed from there after sign-in. The
+    answer is deleted together with your account, or earlier on request to info@wartungsheft.ch.
+  </p>
+
+  <h3>3.7 Feedback emails during the trial</h3>
+  <p>
+    During the trial we send you at most two emails with questions about your experience: on day 21, questions about
+    what you liked and what was missing, and on the day after the trial ends, a single question if no subscription was
+    ordered. Accounts with a subscription do not receive these emails. They are sent via Resend, like the reminders
+    (section 7). Replying is optional; replies go to info@wartungsheft.ch, are evaluated solely to improve the app and
+    are kept, like feedback from the app, for no more than two years. Optional details such as occupation, age or
+    private versus business use are processed only if you send them on your own initiative. The legal basis is our
+    legitimate interest in improving the service. You can switch these emails off in the settings under “Reminders”;
+    this also switches off the reminder emails.
+  </p>
+
+  <h3>3.8 Subscription and billing data (annual business subscription)</h3>
   <ul>
     <li>Company, contact person, billing address, billing email, optional reference</li>
     <li>Number of vehicles billed, invoices with amount, payment reference and receipt of payment</li>
   </ul>
 
-  <h3>3.7 Technical data</h3>
+  <h3>3.9 Technical data</h3>
   <ul>
     <li>IP address (server logs, automatically deleted after 30 days)</li>
     <li>Browser type and version</li>
@@ -115,6 +138,16 @@
         <td>Subscription and billing data</td>
         <td>Invoicing, receipt of payment, renewal and cancellation of the subscription</td>
         <td>Performance of contract, statutory retention obligation</td>
+      </tr>
+      <tr>
+        <td>Origin answer</td>
+        <td>Learning through which channels users find Wartungsheft; planning advertising and listings</td>
+        <td>Consent (optional information)</td>
+      </tr>
+      <tr>
+        <td>Replies to feedback emails</td>
+        <td>Improving the app</td>
+        <td>Legitimate interest</td>
       </tr>
       <tr>
         <td>IP address</td>
@@ -170,6 +203,8 @@
     <li><strong>Account data:</strong> until your account is deleted</li>
     <li><strong>Vehicle/invoice data:</strong> until deleted by you</li>
     <li><strong>Subscription invoices:</strong> 10 years (retention obligation, Art. 958f CO)</li>
+    <li><strong>Origin answer:</strong> until your account is deleted, earlier on request</li>
+    <li><strong>Replies to feedback emails:</strong> no more than two years</li>
     <li><strong>Server logs:</strong> 30 days</li>
     <li><strong>OCR cache:</strong> until the associated invoice is deleted</li>
   </ul>

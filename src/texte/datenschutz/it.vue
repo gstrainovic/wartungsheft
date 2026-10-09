@@ -1,7 +1,7 @@
 <template>
   <h1>Informativa sulla privacy</h1>
   <p class="legal-updated">
-    Stato: settembre 2026
+    Stato: ottobre 2026
   </p>
   <p class="legal-updated">
     Questa è una traduzione. Fa stato unicamente la versione tedesca:
@@ -74,13 +74,38 @@
     scrivere. Conserviamo le segnalazioni per il tempo necessario al miglioramento dell'app, al massimo due anni.
   </p>
 
-  <h3>3.6 Dati di abbonamento e fatturazione (abbonamento annuale azienda)</h3>
+  <h3>3.6 Domanda sulla provenienza all'accesso</h3>
+  <p>
+    All'accesso da un nuovo dispositivo ti chiediamo, in modo facoltativo, come hai scoperto Wartungsheft (ricerca
+    Google, annuncio, consiglio di qualcuno, elenco, social media oppure altro, con un breve testo libero). La risposta
+    scelta e l'eventuale testo libero vengono salvati nel tuo account, nella nostra banca dati sul nostro server presso
+    Infomaniak, in Svizzera. L'unico scopo è capire attraverso quali canali le persone trovano Wartungsheft, per fare
+    pubblicità e inserimenti là dove funzionano. La risposta non viene comunicata a terzi, né usata per profilazione o
+    per inviarti pubblicità. Fino all'accesso la tua scelta resta soltanto nel tuo browser (localStorage) e dopo
+    l'accesso viene rimossa da lì. La risposta viene cancellata insieme al tuo account, oppure prima su richiesta a
+    info@wartungsheft.ch.
+  </p>
+
+  <h3>3.7 E-mail di riscontro durante il periodo di prova</h3>
+  <p>
+    Durante il periodo di prova ti inviamo al massimo due e-mail con domande sulla tua esperienza: il 21° giorno con
+    domande su che cosa ti è piaciuto e che cosa è mancato, e il giorno dopo la fine del periodo di prova una sola
+    domanda, se non è stato ordinato alcun abbonamento. Gli account con abbonamento non ricevono queste e-mail. L'invio
+    avviene tramite Resend, come per i promemoria (sezione 7). La risposta è facoltativa; giunge a
+    info@wartungsheft.ch, viene valutata solo per migliorare l'app e conservata, come le segnalazioni dall'app, al
+    massimo due anni. Indicazioni facoltative come lavoro, età o uso privato oppure aziendale vengono trattate solo se
+    le invii di tua iniziativa. La base giuridica è il nostro interesse legittimo a migliorare l'offerta. Puoi
+    disattivare queste e-mail nelle impostazioni, sezione «Promemoria»; in tal caso vengono disattivate anche le e-mail
+    di promemoria.
+  </p>
+
+  <h3>3.8 Dati di abbonamento e fatturazione (abbonamento annuale azienda)</h3>
   <ul>
     <li>Azienda, persona di contatto, indirizzo di fatturazione, e-mail di fatturazione, riferimento facoltativo</li>
     <li>Numero di veicoli fatturati, fatture con importo, riferimento di pagamento e incasso</li>
   </ul>
 
-  <h3>3.7 Dati tecnici</h3>
+  <h3>3.9 Dati tecnici</h3>
   <ul>
     <li>Indirizzo IP (log del server, cancellati automaticamente dopo 30 giorni)</li>
     <li>Tipo e versione del browser</li>
@@ -116,6 +141,16 @@
         <td>Dati di abbonamento e fatturazione</td>
         <td>Fatturazione, incasso, rinnovo e disdetta dell'abbonamento</td>
         <td>Esecuzione del contratto, obbligo legale di conservazione</td>
+      </tr>
+      <tr>
+        <td>Risposta sulla provenienza</td>
+        <td>Capire attraverso quali canali gli utenti trovano Wartungsheft; pianificazione di pubblicità e inserimenti</td>
+        <td>Consenso (indicazione facoltativa)</td>
+      </tr>
+      <tr>
+        <td>Risposte alle e-mail di riscontro</td>
+        <td>Miglioramento dell'app</td>
+        <td>Interesse legittimo</td>
       </tr>
       <tr>
         <td>Indirizzo IP</td>
@@ -172,6 +207,8 @@
     <li><strong>Dati dell'account:</strong> fino alla cancellazione del tuo account</li>
     <li><strong>Dati di veicoli e fatture:</strong> fino alla cancellazione da parte tua</li>
     <li><strong>Fatture dell'abbonamento:</strong> 10 anni (obbligo di conservazione, art. 958f CO)</li>
+    <li><strong>Risposta sulla provenienza:</strong> fino alla cancellazione del tuo account, prima su richiesta</li>
+    <li><strong>Risposte alle e-mail di riscontro:</strong> al massimo due anni</li>
     <li><strong>Log del server:</strong> 30 giorni</li>
     <li><strong>Cache OCR:</strong> fino alla cancellazione della relativa fattura</li>
   </ul>
