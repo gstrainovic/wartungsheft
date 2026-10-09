@@ -82,6 +82,21 @@ export function startInAufnahme(a: { start: number, vorEnde?: number }, laenge: 
   return a.vorEnde === undefined ? a.start : ms(Math.max(0, laenge - a.vorEnde))
 }
 
+/**
+ * Stumme Fassung zur Freigabe (Bild und Text ohne Sprecher, keine Credits): Sprechdauer aus der Wortzahl geschätzt,
+ * die Szene nie kürzer als der Clip ab seinem Start (`verfuegbar`). Die Sätze verteilen sich nach Zeichenzahl über
+ * die Szene ohne Einsatz und Luft, Zeiten ab Einsatz wie bei `satzGrenzen`.
+ */
+export function stummeLage(text: string, verfuegbar: number, opt: { woerterProSekunde: number, vorlauf: number, nachlauf: number }): { dauer: number, saetze: Cue[] } {
+  const liste = saetze(text)
+  if (!liste.length)
+    return { dauer: ms(verfuegbar), saetze: [] }
+  const woerter = ohneRegie(text).split(' ').length
+  const dauer = abschnittDauer(woerter / opt.woerterProSekunde, verfuegbar, opt.vorlauf, opt.nachlauf)
+  const flaeche = dauer - opt.vorlauf - opt.nachlauf
+  return { dauer, saetze: satzGrenzen(liste, flaeche, []).map((g, i) => ({ ...g, text: liste[i]! })) }
+}
+
 /** Länge eines Abschnitts: Einsatz, Sprechdauer und Luft danach, nie kürzer als das Minimum */
 export function abschnittDauer(sprechdauer: number, minimum: number, vorlauf: number, nachlauf: number): number {
   return ms(Math.max(minimum, vorlauf + sprechdauer + nachlauf))
@@ -179,6 +194,18 @@ export function vtt(cues: Cue[]): string {
   const zeit = (s: number): string => srtZeit(s).replace(',', '.')
   const text = (t: string): string => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   return `WEBVTT\n\n${cues.map(c => `${zeit(c.von)} --> ${zeit(c.bis)}\n${text(c.text)}`).join('\n\n')}\n`
+}
+
+/**
+ * Stumme Fassung (Tutorial zur Freigabe): Untertitel nie eingebrannt, sondern als abschaltbare Spur (mov_text,
+ * deutsch) in der MP4 und als VTT und SRT daneben. Liefert die ffmpeg-Argumente (libx264) und die Textdateien.
+ */
+export function stummeFassung(bild: string, ziel: string, cues: Cue[]): { ffmpeg: string[], dateien: Record<string, string> } {
+  const srtDatei = `${ziel}.srt`
+  return {
+    ffmpeg: ['-i', bild, '-i', srtDatei, '-map', '0:v', '-map', '1:s', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:s', 'mov_text', '-metadata:s:s:0', 'language=deu', '-movflags', '+faststart', `${ziel}.mp4`],
+    dateien: { [`${ziel}.vtt`]: vtt(cues), [srtDatei]: srt(cues) },
+  }
 }
 
 /** Sprechstellen mit kurzer Pause dazwischen zusammenfassen, sonst hebt und senkt sich die Musik in jeder Atempause */

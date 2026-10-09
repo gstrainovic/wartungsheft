@@ -12,6 +12,8 @@ import {
   sprechzeitenZusammenfassen,
   srt,
   startInAufnahme,
+  stummeFassung,
+  stummeLage,
   untertitelSpur,
   vtt,
   wortfehler,
@@ -237,5 +239,62 @@ describe('effektZeiten', () => {
 
   it('ohne Effekte: keine', () => {
     expect(effektZeiten([{}, {}], [0, 5], [6, 6])).toEqual([])
+  })
+})
+
+describe('stummeLage', () => {
+  const opt = { woerterProSekunde: 2.3, vorlauf: 0.3, nachlauf: 1.2 }
+
+  it('kurzer Clip: die Szene dauert so lange, wie der Text zum Sprechen braucht (Wörter ohne Regie)', () => {
+    // 23 Wörter bei 2,3 Wörtern pro Sekunde: 10 s Sprechen, plus Einsatz und Luft
+    const text = `[warm] ${Array.from({ length: 23 }, () => 'Wort').join(' ')}.`
+    const lage = stummeLage(text, 4, opt)
+    expect(lage.dauer).toBe(11.5)
+    expect(lage.saetze).toEqual([{ von: 0, bis: 10, text: `${Array.from({ length: 23 }, () => 'Wort').join(' ')}.` }])
+  })
+
+  it('langer Clip: die Szene zeigt den ganzen Clip, die Sätze verteilen sich nach Länge über die Szene', () => {
+    const lage = stummeLage('[warm] Aaaa aaaa. [enthusiastic] Bbbb bbbb bbbb bbbb bbbb bbbb bbbb.', 21.5, opt)
+    expect(lage.dauer).toBe(21.5)
+    // Sprechfläche 20 s (ohne Einsatz und Luft), Grenze nach Zeichenzahl 10 : 35
+    expect(lage.saetze.map(s => s.text)).toEqual(['Aaaa aaaa.', 'Bbbb bbbb bbbb bbbb bbbb bbbb bbbb.'])
+    expect(lage.saetze[0]!.von).toBe(0)
+    expect(lage.saetze[0]!.bis).toBeCloseTo(20 * 10 / 45, 3)
+    expect(lage.saetze[1]!.bis).toBe(20)
+  })
+
+  it('ohne Text (Schlussbild): keine Untertitel, Länge des Clips', () => {
+    expect(stummeLage('', 3, opt)).toEqual({ dauer: 3, saetze: [] })
+  })
+})
+
+describe('stummeFassung', () => {
+  const cues = [
+    { von: 0.3, bis: 3.622, text: 'So startest du mit Wartungsheft, in ein paar Minuten.' },
+    { von: 3.672, bis: 5.917, text: 'Zuerst «Fahrzeug hinzufügen».' },
+  ]
+  const f = stummeFassung('/r/bild.mkv', '/r/video-out/tutorial-stumm', cues)
+
+  it('brennt keine Untertitel ein: kein Overlay, drawtext oder subtitles-Filter, Bild nur neu kodiert', () => {
+    expect(f.ffmpeg.join(' ')).not.toMatch(/overlay|drawtext|subtitles=|-filter_complex|-vf/)
+    expect(f.ffmpeg).toContain('-an')
+    expect(f.ffmpeg.at(-1)).toBe('/r/video-out/tutorial-stumm.mp4')
+  })
+
+  it('legt die Untertitel als abschaltbare Spur (mov_text, deutsch) in die MP4', () => {
+    const a = f.ffmpeg.join(' ')
+    expect(a).toContain('-i /r/video-out/tutorial-stumm.srt')
+    expect(a).toContain('-map 0:v -map 1:s')
+    expect(a).toContain('-c:s mov_text')
+    expect(a).toContain('-metadata:s:s:0 language=deu')
+  })
+
+  it('schreibt VTT und SRT daneben, mit denselben Zeiten', () => {
+    const vttDatei = f.dateien['/r/video-out/tutorial-stumm.vtt']!
+    const srtDatei = f.dateien['/r/video-out/tutorial-stumm.srt']!
+    const zeiten = (s: string) => [...s.matchAll(/(\d\d:\d\d:\d\d)[.,](\d{3})/g)].map(m => `${m[1]}.${m[2]}`)
+    expect(vttDatei.startsWith('WEBVTT')).toBe(true)
+    expect(zeiten(vttDatei)).toEqual(['00:00:00.300', '00:00:03.622', '00:00:03.672', '00:00:05.917'])
+    expect(zeiten(srtDatei)).toEqual(zeiten(vttDatei))
   })
 })
