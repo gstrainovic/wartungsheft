@@ -7,7 +7,8 @@ Rund 165 Wörter, etwa 75 Sekunden. Ton ruhig und erklärend, Du-Form wie die Ap
 einmal `[enthusiastic]`, keine Ausrufezeichen. Aufnahme wie die Werbefilme (Skill `werbefilm`): echte App,
 390 × 693, Musterdaten, Knöpfe vor dem Tipp in die Bildmitte rollen.
 
-Stand: Text von Goran gelesen; nächster Schritt stummer Film zur Freigabe (Skill `produktvideos`, «Reihenfolge»).
+Stand: Text und stummer Film von Goran freigegeben; nächster Schritt Vertonung zur Freigabe (Skill `produktvideos`,
+«Reihenfolge»).
 
 ## Szene 1: Fahrzeug anlegen (rund 15 s)
 
@@ -26,22 +27,23 @@ die Felder auch selbst ausfüllen. Dann «Speichern».
 (Zoom, Tipp). Dialog «Neue Rechnung», **«Rechnung fotografieren oder PDF wählen»**, Musterrechnung (Muster-Garage),
 «Rechnung wird ausgerichtet und gelesen …», dann füllen sich Werkstatt, Datum, Kilometerstand, Betrag und
 «Erkannte Positionen»; «Felder aus der Rechnung ausgefüllt. Bitte prüfen.», Schwenk über die Felder,
-**«1 Rechnung speichern»**. Danach Tab «Wartungsplan» mit «Zuletzt: …, bei … km» und nächstem Termin; Checkliste
-«1 von 4».
+**«Speichern»**. Danach Tab «Wartungsplan» mit «Zuletzt: …, bei … km» und nächstem Termin; Checkliste
+«2 von 4».
 
 **Sprecher:** [enthusiastic] Jetzt der wichtigste Schritt: die erste Werkstattrechnung. Auf der Fahrzeugseite
 tippst du auf «Rechnung fotografieren» und fotografierst den Beleg. [warm] Die KI liest Werkstatt, Datum,
-Kilometerstand, Betrag und die einzelnen Arbeiten heraus. Du prüfst kurz, dann «1 Rechnung speichern». Aus jeder
+Kilometerstand, Betrag und die einzelnen Arbeiten heraus. Du prüfst kurz, dann «Speichern». Aus jeder
 Arbeit wird eine Wartung, und Wartungsheft rechnet aus, wann sie das nächste Mal fällig ist.
 
 ## Szene 3: Checkliste «Einrichten» (rund 12 s)
 
-**Bild:** Zoom auf die Checkliste, «Rechnungen» abgehakt, nächster Schritt «Fahrzeugausweis» mit «Fehlt noch:
-Fahrgestellnummer, Baujahr», darunter **«Serviceheft fotografieren»** und **«Letzte Wartungen eintragen»**; Finger
-auf «Ausblenden», ohne zu tippen.
+**Bild:** Zoom auf die Checkliste «2 von 4», «Rechnungen» und «Letzte Wartungen» abgehakt, nächster Schritt
+«Fahrzeugausweis» mit «Fehlt noch: Fahrgestellnummer», darunter **«Serviceheft fotografieren»**; Finger auf
+«Ausblenden», ohne zu tippen.
 
-**Sprecher:** [warm] Die Checkliste «Einrichten» zeigt, was noch fehlt: Fahrzeugausweis, Serviceheft, letzte
-Wartungen. Jeder Schritt ist freiwillig, du kannst ihn später machen oder überspringen.
+**Sprecher:** [warm] Die Checkliste «Einrichten» zeigt, was noch fehlt. Aus den Arbeiten auf der Rechnung hat
+Wartungsheft die letzten Wartungen bereits eingetragen. Offen sind Fahrzeugausweis und Serviceheft, beides
+freiwillig, du kannst es jederzeit nachholen.
 
 ## Szene 4: Fälligkeit und Erinnerung (rund 15 s)
 
