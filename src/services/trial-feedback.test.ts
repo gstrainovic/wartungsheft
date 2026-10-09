@@ -34,6 +34,23 @@ describe('buildTrialFeedbackMails', () => {
     }
   })
 
+  it('siezt auf Französisch wie die App, in beiden Mails', () => {
+    for (const mail of ['tag21', 'tag31'] as const) {
+      const { betreff, text } = feedbackTexte.fr[mail]
+      const ganz = `${betreff}\n${text}`
+      // Wortgrenzen über Buchstaben statt \b, sonst gilt «êtes» als «tes»
+      expect(ganz, mail).not.toMatch(/(?<!\p{L})(tu|te|ton|ta|tes|toi|utilises)(?!\p{L})|(?<!\p{L})t'/iu)
+      expect(ganz, mail).toMatch(/\bvous\b/i)
+    }
+  })
+
+  it('nennt am Tag 31 keinen Tag des Testendes, weil die Mail bis zwei Tage später kommen kann', () => {
+    for (const sprache of ['de', 'fr', 'it', 'en'] as const) {
+      const { betreff, text } = feedbackTexte[sprache].tag31
+      expect(`${betreff}\n${text}`, sprache).not.toMatch(/\b(gestern|hier|ieri|yesterday)\b/i)
+    }
+  })
+
   it('fragt am Tag 31 nach dem, was überzeugt hätte', () => {
     const [mail] = mails(31)
     expect(mail!.subject).toBe(feedbackTexte.de.tag31.betreff)

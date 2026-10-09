@@ -338,7 +338,8 @@ Täglich um 07:00 UTC (`/etc/cron.d/wartungsheft-reminders`, Nutzer `debian`) l�
   überzeugt?» (`src/services/trial-feedback.ts`, Texte `src/texte/app/feedback.ts`), persönlich als
   `Goran Strainovic <info@wartungsheft.ch>` (`FEEDBACK_MAIL_FROM`), Antworten an `FEEDBACK_TO`; ein verpasster Lauf
   wird zwei Tage nachgeholt, Merker `settings.lastFeedbackKey`. Versand nur mit `TRIAL_FEEDBACK_MAILS=on` in
-  `deploy/.env`, Standard aus: dann loggt der Job nur, wer fällig wäre, `--dry-run` zeigt die Texte.
+  `deploy/.env`; auf der Instanz steht der Schalter auf `on`. Ohne Schalter (Standard aus) loggt der Job nur, wer
+  fällig wäre, `--dry-run` zeigt die Texte.
 
 Herkunftsfrage: Die Login-Seite fragt auf unbekannten Geräten freiwillig «Wie bist du auf Wartungsheft gestossen?»
 (`src/lib/herkunft.ts`). Die Wahl liegt bis zur Anmeldung im `localStorage` und kommt danach an `settings.herkunft`

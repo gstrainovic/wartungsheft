@@ -1,8 +1,8 @@
 import type { Sprache } from '../../lib/sprache'
 
 // Rückfragen an Testkonten im Namen von Goran (services/trial-feedback.ts, scripts/reminders.ts): Tag 21 der
-// Testzeit und Tag 31 ohne Abo. Antwort per Reply. Versand erst nach Gorans Freigabe (TRIAL_FEEDBACK_MAILS=on);
-// Freigabe-Datei find-jobs/freigaben/wartungsheft-feedback-mails.md, Änderungen dort und hier gleich halten.
+// Testzeit und Tag 31 ohne Abo. Antwort per Reply. Texte von Goran freigegeben, Versand mit TRIAL_FEEDBACK_MAILS=on;
+// Französisch siezt wie die App. Textänderungen nur nach Gorans Freigabe.
 const de = {
   tag21: {
     betreff: 'Wartungsheft: drei Wochen Testzeit, wie läuft es?',
@@ -36,7 +36,7 @@ const de = {
     text: [
       'Hallo',
       '',
-      'Deine Testzeit bei Wartungsheft ist seit gestern vorbei, danke fürs Ausprobieren. Eine Frage hätte ich noch: Was hätte dich überzeugt? Also was hätte Wartungsheft können oder anders machen müssen, damit sich ein Abo für dich lohnt?',
+      'Deine Testzeit bei Wartungsheft ist vorbei, danke fürs Ausprobieren. Eine Frage hätte ich noch: Was hätte dich überzeugt? Also was hätte Wartungsheft können oder anders machen müssen, damit sich ein Abo für dich lohnt?',
       '',
       'Ein Satz als Antwort genügt, einfach auf diese Mail antworten. Deine Daten bleiben, Lesen, Erfassen von Hand und die Exporte gehen weiter.',
       '',
@@ -58,19 +58,19 @@ export default {
       text: [
         'Bonjour',
         '',
-        'Je suis Goran. Je développe Wartungsheft moi-même et je lis chaque réponse personnellement. Tu utilises l\'application depuis trois semaines, d\'où trois questions :',
+        'Je suis Goran. Je développe Wartungsheft moi-même et je lis chaque réponse personnellement. Vous utilisez l\'application depuis trois semaines, d\'où trois questions :',
         '',
-        '1. Qu\'est-ce qui t\'a plu ?',
-        '2. Qu\'est-ce qui t\'a agacé ou manqué ? Sans ménagement, s\'il te plaît : c\'est la critique qui m\'aide le plus.',
-        '3. Recommanderais-tu Wartungsheft ?',
+        '1. Qu\'est-ce qui vous a plu ?',
+        '2. Qu\'est-ce qui vous a agacé ou manqué ? Sans ménagement, s\'il vous plaît : c\'est la critique qui m\'aide le plus.',
+        '3. Recommanderiez-vous Wartungsheft ?',
         '',
-        'Facultatif, si tu veux :',
-        '- Utilises-tu l\'application à titre privé ou professionnel ?',
-        '- Quel est ton métier ?',
-        '- Quel âge as-tu ?',
-        '- À quel point es-tu à l\'aise avec les applications et l\'informatique ?',
+        'Facultatif, si vous le souhaitez :',
+        '- Utilisez-vous l\'application à titre privé ou professionnel ?',
+        '- Quel est votre métier ?',
+        '- Quel âge avez-vous ?',
+        '- À quel point êtes-vous à l\'aise avec les applications et l\'informatique ?',
         '',
-        'Deux lignes suffisent, réponds simplement à cet e-mail.',
+        'Deux lignes suffisent, répondez simplement à cet e-mail.',
         '',
         'Merci et salutations',
         'Goran',
@@ -85,9 +85,9 @@ export default {
       text: [
         'Bonjour',
         '',
-        'Ta période d\'essai de Wartungsheft s\'est terminée hier, merci d\'avoir essayé. J\'aurais encore une question : qu\'aurait-il fallu pour te convaincre ? Autrement dit, qu\'est-ce que Wartungsheft aurait dû savoir faire ou faire autrement pour qu\'un abonnement en vaille la peine pour toi ?',
+        'Votre période d\'essai de Wartungsheft est terminée, merci d\'avoir essayé. J\'aurais encore une question : qu\'aurait-il fallu pour vous convaincre ? Autrement dit, qu\'est-ce que Wartungsheft aurait dû savoir faire ou faire autrement pour qu\'un abonnement en vaille la peine pour vous ?',
         '',
-        'Une phrase suffit, réponds simplement à cet e-mail. Tes données restent, la consultation, la saisie manuelle et les exports continuent de fonctionner.',
+        'Une phrase suffit, répondez simplement à cet e-mail. Vos données restent, la consultation, la saisie manuelle et les exports continuent de fonctionner.',
         '',
         'Salutations',
         'Goran',
@@ -131,7 +131,7 @@ export default {
       text: [
         'Ciao',
         '',
-        'Il tuo periodo di prova di Wartungsheft è terminato ieri, grazie per averlo provato. Avrei ancora una domanda: che cosa ci sarebbe voluto per convincerti? Cioè, che cosa avrebbe dovuto saper fare o fare diversamente Wartungsheft perché un abbonamento valesse la pena per te?',
+        'Il tuo periodo di prova di Wartungsheft è terminato, grazie per averlo provato. Avrei ancora una domanda: che cosa ci sarebbe voluto per convincerti? Cioè, che cosa avrebbe dovuto saper fare o fare diversamente Wartungsheft perché un abbonamento valesse la pena per te?',
         '',
         'Basta una frase, rispondi semplicemente a questa e-mail. I tuoi dati restano, lettura, registrazione manuale ed esportazioni continuano a funzionare.',
         '',
@@ -177,7 +177,7 @@ export default {
       text: [
         'Hello',
         '',
-        'Your Wartungsheft trial ended yesterday, thank you for trying it. One question remains: what would have convinced you? In other words, what would Wartungsheft have needed to do, or do differently, for a subscription to be worth it for you?',
+        'Your Wartungsheft trial has ended, thank you for trying it. One question remains: what would have convinced you? In other words, what would Wartungsheft have needed to do, or do differently, for a subscription to be worth it for you?',
         '',
         'One sentence is enough, just reply to this email. Your data stays, and reading, manual entry and exports keep working.',
         '',
