@@ -1,0 +1,91 @@
+1
+00:00:00,300 --> 00:00:05,670
+Here is how to get started with
+Wartungsheft, in a few minutes.
+
+2
+00:00:05,720 --> 00:00:07,187
+First, “Add vehicle”.
+
+3
+00:00:07,237 --> 00:00:16,763
+The quickest way is “Photograph the
+registration document”: the app fills in
+the make, model and number plate.
+
+4
+00:00:16,813 --> 00:00:20,142
+You can also fill in the fields yourself.
+
+5
+00:00:20,192 --> 00:00:21,392
+Then “Save”.
+
+6
+00:00:21,712 --> 00:00:26,349
+Now the most important step:
+the first garage invoice.
+
+7
+00:00:27,407 --> 00:00:32,966
+On the vehicle page, tap “Photograph an
+invoice” and take a photo of the receipt.
+
+8
+00:00:33,016 --> 00:00:39,727
+The AI reads out the garage, date,
+mileage, amount and the individual jobs.
+
+9
+00:00:39,777 --> 00:00:42,196
+Check briefly, then “Save”.
+
+10
+00:00:42,246 --> 00:00:48,615
+Each job becomes a maintenance entry, and
+Wartungsheft works out when it is next
+due.
+
+11
+00:00:49,065 --> 00:00:52,515
+The “Set up” checklist
+shows what is still missing.
+
+12
+00:00:52,895 --> 00:00:57,944
+From the jobs on the invoice, Wartungsheft
+has already recorded the last maintenance.
+
+13
+00:00:58,034 --> 00:01:04,956
+Still open are the registration document
+and the service book, both optional, you
+can add them any time.
+
+14
+00:01:05,406 --> 00:01:10,674
+When a job is due, it appears in the
+overview, and Wartungsheft sends you an
+email.
+
+15
+00:01:10,724 --> 00:01:14,057
+Once it is done, tap “Mark as done”.
+
+16
+00:01:14,890 --> 00:01:18,804
+Date and mileage are already
+filled in, just “Save”.
+
+17
+00:01:19,254 --> 00:01:20,831
+Still have questions?
+
+18
+00:01:21,212 --> 00:01:26,134
+In the menu you will find “Help”
+and “Report a problem or a wish”.
+
+19
+00:01:26,528 --> 00:01:29,450
+There you can also record a voice message.

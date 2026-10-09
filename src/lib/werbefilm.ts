@@ -3,6 +3,10 @@
  * Sprechdauern, Satzgrenzen aus den Pausen der Sprecheraufnahme, Untertitel-Spur und SRT, Musikpegel unter der
  * Stimme und die Wahl des besseren von zwei Sprecher-Durchläufen. Ohne Datei- und Prozesszugriff, damit testbar.
  */
+import type { Sprache } from './sprache.ts'
+
+/** Sprachkennung der Spuren in der MP4 (ISO 639-2), die Player im Untertitel- und Tonmenü zeigen */
+const ISO_639_2: Record<Sprache, string> = { de: 'deu', fr: 'fra', it: 'ita', en: 'eng' }
 
 export interface Zeitraum {
   von: number
@@ -210,12 +214,14 @@ export function stummeFassung(bild: string, ziel: string, cues: Cue[]): { ffmpeg
 
 /**
  * Vertonte Fassung (Tutorial, Handy und Desktop): Bild H.264 High, Ton AAC, Untertitel nie eingebrannt, sondern als
- * abschaltbare Spur (mov_text, deutsch) in der MP4 und als VTT und SRT daneben. `crf` hält die Datei unter 10 MB.
+ * abschaltbare Spur (mov_text, in der Sprache der Fassung) in der MP4 und als VTT und SRT daneben. `crf` hält die
+ * Datei unter 10 MB.
  */
-export function vertonteFassung(bild: string, ton: string, ziel: string, cues: Cue[], crf = 26): { ffmpeg: string[], dateien: Record<string, string> } {
+export function vertonteFassung(bild: string, ton: string, ziel: string, cues: Cue[], crf = 26, sprache: Sprache = 'de'): { ffmpeg: string[], dateien: Record<string, string> } {
   const srtDatei = `${ziel}.srt`
+  const code = ISO_639_2[sprache]
   return {
-    ffmpeg: ['-i', bild, '-i', ton, '-i', srtDatei, '-map', '0:v', '-map', '1:a', '-map', '2:s', '-c:v', 'libx264', '-preset', 'slow', '-crf', String(crf), '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-c:s', 'mov_text', '-metadata:s:a:0', 'language=deu', '-metadata:s:s:0', 'language=deu', '-movflags', '+faststart', `${ziel}.mp4`],
+    ffmpeg: ['-i', bild, '-i', ton, '-i', srtDatei, '-map', '0:v', '-map', '1:a', '-map', '2:s', '-c:v', 'libx264', '-preset', 'slow', '-crf', String(crf), '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-g', '60', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-c:s', 'mov_text', '-metadata:s:a:0', `language=${code}`, '-metadata:s:s:0', `language=${code}`, '-movflags', '+faststart', `${ziel}.mp4`],
     dateien: { [`${ziel}.vtt`]: vtt(cues), [srtDatei]: srt(cues) },
   }
 }
