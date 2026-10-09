@@ -1,0 +1,95 @@
+# Filme von Wartungsheft für die Regeln im User-Skill `produktvideos`, geprüft vom Paket ~/projects/produktvideo
+# (pytest-Plugin produktvideo.regeln):
+#   cd video-scripts && uv run --with pytest --with-editable ~/projects/produktvideo pytest produktvideo.toml
+# Handy-App: jede Fassung als Handy (hoch, App in Originalgrösse) und Desktop (quer, mit Zoom), Wahl per
+# Bildschirmbreite. Montage und Sprecher in scripts/werbefilm.ts und src/lib/sprecher.ts. Lücken stehen als
+# [[film.luecke]] mit Grund und laufen als xfail; eine behobene Lücke hier streichen.
+
+[[film]]
+name = "privat"
+seite = "wartungsheft-privat"
+art = "handy-app"
+formate = ["hoch", "quer"]
+sprachen = ["de", "fr", "it", "en"]
+oberflaechen = ["wartungsheft"]
+komposition = "../scripts/werbefilm.ts"
+bild = "PRIVAT_BILD"
+lesbar = [
+    { ziel = "szene-2-rechnung-fotografieren-felder-fuellen-sich", was = "Felder der fotografierten Rechnung" },
+    { ziel = "szene-3-faelligkeit-auf-dem-dashboard-und-erledigt-eintragen", was = "Fälligkeit in der Übersicht" },
+]
+sprecher = { auswahl = "sprecher-auswahl.json", ordner = "../video-out/sprecher", mindestens = 13 }
+
+[film.dateien]
+hoch = "../public/film-{name}{suffix}"
+quer = "../public/film-{name}{suffix}-desktop"
+untertitel = "../public/film-{name}{suffix}"
+
+[[film.luecke]]
+regel = "untertitel_srt"
+grund = "SRT für YouTube liegt nicht im Repo (Werbefilme liefern nur die VTT der Website nach public/)"
+
+[[film.luecke]]
+regel = "freigaben"
+grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fahrt), Freigabedaten nicht festgehalten"
+
+[[film]]
+name = "betrieb"
+seite = "wartungsheft-betrieb"
+art = "handy-app"
+formate = ["hoch", "quer"]
+sprachen = ["de", "fr", "it", "en"]
+oberflaechen = ["wartungsheft"]
+komposition = "../scripts/werbefilm.ts"
+bild = "BETRIEB_BILD"
+lesbar = [
+    { ziel = "szene-2-fuhrpark-auf-einen-blick-was-ist-faellig", was = "Fuhrpark mit Fälligkeiten" },
+    { ziel = "szene-3-rechnung-vom-fahrer-ein-foto-genuegt", was = "Felder der fotografierten Rechnung" },
+    { ziel = "szene-4-kosten-pro-fahrzeug-und-jahr-export-fuer-die-buchhaltung", was = "Kostentabelle je Fahrzeug" },
+]
+sprecher = { auswahl = "sprecher-auswahl.json", ordner = "../video-out/sprecher", mindestens = 13 }
+
+[film.dateien]
+hoch = "../public/film-{name}{suffix}"
+quer = "../public/film-{name}{suffix}-desktop"
+untertitel = "../public/film-{name}{suffix}"
+
+[[film.luecke]]
+regel = "untertitel_srt"
+grund = "SRT für YouTube liegt nicht im Repo (Werbefilme liefern nur die VTT der Website nach public/)"
+
+[[film.luecke]]
+regel = "freigaben"
+grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fahrt), Freigabedaten nicht festgehalten"
+
+[[film]]
+name = "tutorial"
+seite = "hilfe"
+art = "handy-app"
+formate = ["hoch", "quer"]
+sprachen = ["de", "fr", "it", "en"]
+oberflaechen = ["wartungsheft"]
+komposition = "../scripts/werbefilm.ts"
+bild = "TUTORIAL"
+lesbar = [{ ziel = "tutorial-2-erste-werkstattrechnung", was = "erste Werkstattrechnung fotografieren und prüfen" }]
+sprecher = { auswahl = "sprecher-auswahl.json", ordner = "../video-out/sprecher", texte = "TUTORIAL" }
+
+[film.dateien]
+hoch = "../video-out/{name}{suffix}"
+quer = "../video-out/{name}{suffix}-desktop"
+untertitel = "../video-out/{name}{suffix}"
+
+[film.freigaben]
+text = 2026-10-09
+stumm = 2026-10-09  # Commit b984bb5
+vertont = 2026-10-09  # deutsche Fassung Handy und Desktop, Commits 4de7d1d und b047c9e, Länge 102 s (Entscheid 59a)
+
+[[film.luecke]]
+regel = "video_vorhanden"
+sprachen = ["fr", "it", "en"]
+grund = "fr, it, en werden nach Gorans Freigabe der deutschen Fassung übersetzt und vertont"
+
+[[film.luecke]]
+regel = "stimme_elevenlabs"
+sprachen = ["fr", "it", "en"]
+grund = "Sprechertext fr, it, en wird nach Gorans Freigabe der deutschen Fassung übersetzt und vertont"
