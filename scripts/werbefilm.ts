@@ -1,6 +1,6 @@
 /**
  * Montiert die Werbefilme aus den Aufnahmen in video-out/roh/ (`npm run video`), mit Sprecher (ElevenLabs, eine
- * Stimme je Sprache, Rückfall Piper), Untertiteln (Website als WebVTT-Spur, Kurzfassungen als eingebrannte Kästen
+ * Stimme je Sprache, Piper nur als Entwurf mit SPRECHER_ENTWURF=1), Untertiteln (Website als WebVTT-Spur, Kurzfassungen als eingebrannte Kästen
  * im Stil der Plugin-Filme), Musik mit Absenkung unter der Stimme und Lautheit −16 LUFS. Skill `werbefilm`.
  *
  *   node scripts/werbefilm.ts                    # alles: Privat, Betrieb, Kurzfassungen in DE, FR, IT, EN
@@ -329,14 +329,17 @@ function jsonLesen<T>(pfad: string, standard: T): T {
  * Je Sprechertext zwei Durchläufe (eleven_v3 betont jedes Mal anders), messen, den besseren in
  * video-scripts/sprecher-auswahl.json festhalten. Liegt video-out/sprecher/whisper.json vor (Transkripte je Datei),
  * zählen falsch gehörte Wörter mit. Fehlt dort ein Transkript eines neuen Texts, bleibt die Wahl offen (erst
- * Spracherkennung laufen lassen, Skill `werbefilm`). Ohne ElevenLabs-Schlüssel spricht Piper, ein Durchlauf.
+ * Spracherkennung laufen lassen, Skill `werbefilm`). Ohne ElevenLabs-Schlüssel bricht der Sprecher ab, ausser als
+ * Entwurf mit SPRECHER_ENTWURF=1: dann spricht Piper, ein Durchlauf.
  */
 async function sprecherWaehlen(texte: { text: string, sprache: Sprache }[]): Promise<Record<string, number>> {
   const deps = sprecherDeps()
   const auswahl = jsonLesen<Record<string, number>>(AUSWAHL, {})
   const whisper = jsonLesen<Record<string, string>>(WHISPER, {})
   if (!deps.schluessel) {
-    console.warn('Kein ElevenLabs-Schlüssel (~/.config/elevenlabs/key): Piper spricht')
+    console.warn(deps.entwurf
+      ? 'Kein ElevenLabs-Schlüssel (~/.config/elevenlabs/key): Piper spricht als Entwurf (SPRECHER_ENTWURF=1), nicht ausliefern'
+      : 'Kein ElevenLabs-Schlüssel (~/.config/elevenlabs/key): der Sprecher bricht ab; Piper nur als Entwurf mit SPRECHER_ENTWURF=1')
     return {}
   }
   let geaendert = false
