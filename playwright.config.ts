@@ -1,9 +1,22 @@
+import { mkdirSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import process from 'node:process'
 import { defineConfig } from '@playwright/test'
 import { config } from 'dotenv'
+import { laufFreigeben, laufSperren } from './e2e/lauf-sperre'
 
 // .env-Werte auch dann verwenden, wenn die Shell dieselbe Variable exportiert (z.B. MISTRAL_API_KEY in ~/.bashrc)
 const envFile = config({ path: '.env' }).parsed ?? {}
+
+// Ein Lauf zur Zeit: alle teilen InstantDB und Testperson, parallele Läufe zerstören sich die Daten (e2e/lauf-sperre.ts).
+// Vor dem Start der Server, sonst nutzt der zweite Lauf die des ersten mit und verliert sie, wenn dieser endet.
+if (process.argv[2] === 'test' && !process.argv.includes('--list')) {
+  const sperre = join(homedir(), '.cache', 'wartungsheft-e2e.lock')
+  mkdirSync(join(homedir(), '.cache'), { recursive: true })
+  if (laufSperren({ datei: sperre }))
+    process.on('exit', () => laufFreigeben(sperre))
+}
 
 export default defineConfig({
   testDir: './e2e',

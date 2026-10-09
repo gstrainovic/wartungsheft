@@ -23,6 +23,10 @@ Führe Playwright E2E-Tests aus.
    Fehlt `local`: beenden und mit `VITE_INSTANTDB_MODE=local VITE_AI_PROXY_URL=http://localhost:8787 npm run dev:vite`
    neu starten. Nie Seeds oder Screenshots gegen einen Server unbekannten Modus.
 4. Testausgabe nie mit `tail`/`head` kürzen, die Fehlermeldungen stehen am Ende; voll lesen.
+5. Nur ein Lauf zur Zeit: alle Läufe teilen InstantDB und die Testperson `e2e-test-user`, ein zweiter Lauf löscht die
+   Seeds des ersten und verliert mitgenutzte Server, wenn der erste endet. `playwright.config.ts` nimmt darum beim Laden
+   die Sperre `~/.cache/wartungsheft-e2e.lock` (`e2e/lauf-sperre.ts`); ein zweiter `playwright test` meldet «Warte auf
+   E2E-Lauf PID …» und startet erst danach. Nach `kill -9` räumt der nächste Lauf die verwaiste Sperre selbst ab.
 
 ## E2E Testing
 
@@ -98,6 +102,10 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 - **Seeds über `db.transact` erst nach `waitForInstantDB(page)`** (Fixture): wartet auf `__instantdb` **und** Verbindungsstatus
   `authenticated`. Direkt nach `page.goto` ist die Verbindung noch `opened`, `transact` löst dann mit `enqueued` auf, und das
   nächste `page.goto` verliert die Mutation. Lokal mit Podman kaum sichtbar, über den SSH-Tunnel zur Dev-Instanz jeder zehnte Seed.
+- Im lokalen Modus ist die Testperson angemeldet, `/` leitet dann aufs Dashboard. Wer die Startseite wie ein Besucher
+  oder Crawler prüft, setzt per `addInitScript` `auth:localSignedOut=1` und entfernt `auth:knownEmail` (Vorlage: `landing-pages.spec.ts`)
+- Eine strict-mode-Verletzung (Locator trifft mehrere Elemente) wiederholt Playwright nicht, das Expect scheitert sofort.
+  Bei Zwischenzuständen (z. B. EUR-Zeile, bis der Kurs da ist) zuerst auf das Merkmal des Endzustands warten
 - PrimeVue icon-only buttons need CSS class selectors (.chat-fab), not getByRole
 - Nach «Fahrzeug speichern» steht die App auf der Fahrzeugseite (`waitForURL(/\/vehicles\/.+/)`), nicht mehr in der Liste;
   wer die Karte prüft, geht danach mit `page.goto('/vehicles')` zurück. Standard-Tab ist Wartungsplan, der Verlauf

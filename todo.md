@@ -40,8 +40,7 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
 - [ ] E2E-Suite klären: Im Offline-Projekt scheitern die Spracherkennungs-Tests DI-001 bis DI-003 und FB-003 nach den
       Grafik-Änderungen an `/anlagen` (Commit 4541264) reproduzierbar, auf dem Stand davor liefen sie grün; die
-      Grafiken selbst berühren sie nicht (verdächtig: Vitest-Vue-Plugin, `grafik.css`). PP-007 (`/` leitet im lokalen
-      Modus aufs Dashboard) scheitert nach abgebrochenen Läufen, vermutlich Reste in der lokalen Testdatenbank.
+      Grafiken selbst berühren sie nicht (verdächtig: Vitest-Vue-Plugin, `grafik.css`).
 - [ ] Fällt der Health-Workflow durch, ohne dass etwas kaputt ist (Wartungsfenster, kurzer Netzaussetzer), die
       Schwelle anheben: erst nach zwei Fehlläufen hintereinander mailen
 

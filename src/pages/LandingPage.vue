@@ -20,161 +20,164 @@ const { t, pfad } = useSprache(startTexte)
     <!-- Header -->
     <LandingHeader />
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="landing-container hero-inner">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1>{{ t.hero.titel }}</h1>
-            <p class="hero-subtitle">
-              {{ t.hero.text }}
-            </p>
-            <div class="hero-actions">
+    <!-- Hauptinhalt als Landmarke, wie auf den Angebotsseiten (HypothesisPage.vue): Screenreader und Crawler finden ihn -->
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="landing-container hero-inner">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <h1>{{ t.hero.titel }}</h1>
+              <p class="hero-subtitle">
+                {{ t.hero.text }}
+              </p>
+              <div class="hero-actions">
+                <Button
+                  :label="label"
+                  icon="pi pi-arrow-right"
+                  icon-pos="right"
+                  size="large"
+                  @click="go"
+                />
+              </div>
+            </div>
+            <DemoDueList class="hero-demo" />
+          </div>
+          <div class="hero-stats">
+            <div v-for="stat in t.hero.stats" :key="stat.titel" class="hero-stat">
+              <strong>{{ stat.titel }}</strong>
+              <span>{{ stat.text }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <LandingVideo />
+
+      <!-- Problem -->
+      <section class="section section-alt">
+        <div class="landing-container">
+          <h2>{{ t.problem.titel }}</h2>
+          <div class="problem-grid">
+            <div v-for="karte in t.problem.karten" :key="karte.icon" class="problem-card">
+              <i :class="`pi ${karte.icon}`" />
+              <h3>{{ karte.titel }}</h3>
+              <p>{{ karte.text }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section id="features" class="section">
+        <div class="landing-container">
+          <h2>{{ t.features.titel }}</h2>
+          <div class="features-grid">
+            <div v-for="karte in t.features.karten" :key="karte.icon" class="feature-card">
+              <div class="feature-icon">
+                <i :class="`pi ${karte.icon}`" />
+              </div>
+              <h3>{{ karte.titel }}</h3>
+              <p>{{ karte.text }}</p>
+              <DemoDueList v-if="karte.demo" compact />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how-it-works" class="section section-alt">
+        <div class="landing-container">
+          <h2>{{ t.ablauf.titel }}</h2>
+          <div class="steps">
+            <template v-for="(schritt, i) in t.ablauf.schritte" :key="schritt.titel">
+              <div v-if="i > 0" class="step-arrow">
+                <i class="pi pi-arrow-right" />
+              </div>
+              <div class="step">
+                <div class="step-number">
+                  {{ i + 1 }}
+                </div>
+                <h3>{{ schritt.titel }}</h3>
+                <p>{{ schritt.text }}</p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+
+      <!-- Für wen: die Preise stehen auf den zwei Angebotsseiten (Betrieb, Privathalter), hier nur der Weg dorthin -->
+      <section id="fuer-wen" class="section">
+        <div class="landing-container">
+          <h2>{{ t.fuerWen.titel }}</h2>
+          <p class="section-subtitle">
+            {{ t.fuerWen.text }}
+          </p>
+          <div class="pricing-grid pricing-grid-two">
+            <div class="pricing-card">
+              <h3>{{ t.fuerWen.betrieb.titel }}</h3>
+              <p class="audience-text">
+                {{ t.fuerWen.betrieb.text }}
+              </p>
+              <ul class="pricing-features">
+                <li v-for="punkt in t.fuerWen.betrieb.punkte" :key="punkt">
+                  <i class="pi pi-check" /> {{ punkt }}
+                </li>
+              </ul>
               <Button
-                :label="label"
+                :label="t.fuerWen.betrieb.knopf"
                 icon="pi pi-arrow-right"
                 icon-pos="right"
-                size="large"
-                @click="go"
+                fluid
+                @click="router.push(pfad('/betrieb'))"
+              />
+            </div>
+            <div class="pricing-card">
+              <h3>{{ t.fuerWen.privat.titel }}</h3>
+              <p class="audience-text">
+                {{ t.fuerWen.privat.text }}
+              </p>
+              <ul class="pricing-features">
+                <li v-for="punkt in t.fuerWen.privat.punkte" :key="punkt">
+                  <i class="pi pi-check" /> {{ punkt }}
+                </li>
+              </ul>
+              <Button
+                :label="t.fuerWen.privat.knopf"
+                icon="pi pi-arrow-right"
+                icon-pos="right"
+                outlined
+                fluid
+                @click="router.push(pfad('/privathalter'))"
               />
             </div>
           </div>
-          <DemoDueList class="hero-demo" />
         </div>
-        <div class="hero-stats">
-          <div v-for="stat in t.hero.stats" :key="stat.titel" class="hero-stat">
-            <strong>{{ stat.titel }}</strong>
-            <span>{{ stat.text }}</span>
-          </div>
+      </section>
+
+      <section id="preise" class="section section-alt">
+        <div class="landing-container">
+          <h2>{{ t.preise }}</h2>
+          <PriceTable />
         </div>
-      </div>
-    </section>
+      </section>
 
-    <LandingVideo />
-
-    <!-- Problem -->
-    <section class="section section-alt">
-      <div class="landing-container">
-        <h2>{{ t.problem.titel }}</h2>
-        <div class="problem-grid">
-          <div v-for="karte in t.problem.karten" :key="karte.icon" class="problem-card">
-            <i :class="`pi ${karte.icon}`" />
-            <h3>{{ karte.titel }}</h3>
-            <p>{{ karte.text }}</p>
-          </div>
+      <!-- CTA -->
+      <section class="section section-cta">
+        <div class="landing-container cta-inner">
+          <h2>{{ t.cta.titel }}</h2>
+          <p>{{ t.cta.text }}</p>
+          <Button
+            :label="label"
+            icon="pi pi-arrow-right"
+            icon-pos="right"
+            size="large"
+            severity="contrast"
+            @click="go"
+          />
         </div>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" class="section">
-      <div class="landing-container">
-        <h2>{{ t.features.titel }}</h2>
-        <div class="features-grid">
-          <div v-for="karte in t.features.karten" :key="karte.icon" class="feature-card">
-            <div class="feature-icon">
-              <i :class="`pi ${karte.icon}`" />
-            </div>
-            <h3>{{ karte.titel }}</h3>
-            <p>{{ karte.text }}</p>
-            <DemoDueList v-if="karte.demo" compact />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section id="how-it-works" class="section section-alt">
-      <div class="landing-container">
-        <h2>{{ t.ablauf.titel }}</h2>
-        <div class="steps">
-          <template v-for="(schritt, i) in t.ablauf.schritte" :key="schritt.titel">
-            <div v-if="i > 0" class="step-arrow">
-              <i class="pi pi-arrow-right" />
-            </div>
-            <div class="step">
-              <div class="step-number">
-                {{ i + 1 }}
-              </div>
-              <h3>{{ schritt.titel }}</h3>
-              <p>{{ schritt.text }}</p>
-            </div>
-          </template>
-        </div>
-      </div>
-    </section>
-
-    <!-- Für wen: die Preise stehen auf den zwei Angebotsseiten (Betrieb, Privathalter), hier nur der Weg dorthin -->
-    <section id="fuer-wen" class="section">
-      <div class="landing-container">
-        <h2>{{ t.fuerWen.titel }}</h2>
-        <p class="section-subtitle">
-          {{ t.fuerWen.text }}
-        </p>
-        <div class="pricing-grid pricing-grid-two">
-          <div class="pricing-card">
-            <h3>{{ t.fuerWen.betrieb.titel }}</h3>
-            <p class="audience-text">
-              {{ t.fuerWen.betrieb.text }}
-            </p>
-            <ul class="pricing-features">
-              <li v-for="punkt in t.fuerWen.betrieb.punkte" :key="punkt">
-                <i class="pi pi-check" /> {{ punkt }}
-              </li>
-            </ul>
-            <Button
-              :label="t.fuerWen.betrieb.knopf"
-              icon="pi pi-arrow-right"
-              icon-pos="right"
-              fluid
-              @click="router.push(pfad('/betrieb'))"
-            />
-          </div>
-          <div class="pricing-card">
-            <h3>{{ t.fuerWen.privat.titel }}</h3>
-            <p class="audience-text">
-              {{ t.fuerWen.privat.text }}
-            </p>
-            <ul class="pricing-features">
-              <li v-for="punkt in t.fuerWen.privat.punkte" :key="punkt">
-                <i class="pi pi-check" /> {{ punkt }}
-              </li>
-            </ul>
-            <Button
-              :label="t.fuerWen.privat.knopf"
-              icon="pi pi-arrow-right"
-              icon-pos="right"
-              outlined
-              fluid
-              @click="router.push(pfad('/privathalter'))"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="preise" class="section section-alt">
-      <div class="landing-container">
-        <h2>{{ t.preise }}</h2>
-        <PriceTable />
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section section-cta">
-      <div class="landing-container cta-inner">
-        <h2>{{ t.cta.titel }}</h2>
-        <p>{{ t.cta.text }}</p>
-        <Button
-          :label="label"
-          icon="pi pi-arrow-right"
-          icon-pos="right"
-          size="large"
-          severity="contrast"
-          @click="go"
-        />
-      </div>
-    </section>
+      </section>
+    </main>
 
     <!-- Footer -->
     <LandingFooter />

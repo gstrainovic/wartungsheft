@@ -54,8 +54,9 @@ test.describe('Sprachfassungen', () => {
   test('LANG-003: deutsche Seiten verlinken weiter ohne Präfix', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('html')).toHaveAttribute('lang', 'de-CH')
+    // lang setzt der Router schon vor dem Rendern der Seite; Links erst lesen, wenn die Seite steht
+    await expect.poll(() => interneLinks(page)).toContain('/betrieb')
     const links = await interneLinks(page)
-    expect(links).toContain('/betrieb')
     expect(links).toContain('/impressum')
     expect(links).toContain('/ratgeber')
     expect(links.filter(l => /^\/(?:fr|it|en)(?:\/|$|#)/.test(l))).toEqual([])
