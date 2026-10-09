@@ -42,8 +42,11 @@ dort und in `public/sitemap.xml`. Wortwahl nach Suchhäufigkeit in der Schweiz: 
 Gattungswort, nicht «Scheckheft»), «Werkstattrechnung» (nicht «Garagenrechnung», die sucht niemand).
 Für Suchmaschinen und KI-Antworten: `index.html` trägt `SoftwareApplication` mit beiden
 Preisen (aus `plans.ts` gespiegelt, bei Preisänderungen mitziehen), `public/robots.txt` erlaubt GPTBot,
-ClaudeBot, PerplexityBot und Google-Extended ausdrücklich und nennt die Sitemap, `public/sitemap.xml` führt die
-öffentlichen Seiten, `public/llms.txt` fasst Produkt, Preise, Grenzen und Seiten zusammen.
+OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, Applebot-Extended und CCBot
+ausdrücklich und nennt die Sitemap, `public/sitemap.xml` führt die öffentlichen Seiten, `public/llms.txt` fasst
+Produkt, Preise, Grenzen, Seiten und jeden Ratgeber-Artikel zusammen. `src/lib/ki-sichtbarkeit.test.ts` prüft das
+(Preise gegen `plans.ts`, jeder Artikel aus `content/ratgeber/` in `llms.txt`); ein neuer Ratgeber braucht eine
+Zeile im Abschnitt «Ratgeber» der `llms.txt`.
 AGB, Datenschutz und Impressum gehören in keinen Index (sie ziehen Abmahnanwälte an): nicht in Sitemap und
 `llms.txt`, Caddy schickt dort `X-Robots-Tag: noindex, nofollow`.
 Google Search Console: Domain-Property `wartungsheft.ch`, verifiziert per TXT-Eintrag im Infomaniak-Manager
