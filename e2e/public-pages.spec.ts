@@ -101,6 +101,12 @@ test.describe('Public Pages', () => {
   })
 
   test('PP-007: Startseite trägt die Beschreibung für Suchmaschinen und KI-Antworten', async ({ page }) => {
+    // Wie ein Crawler: abgemeldet und unbekanntes Gerät. Die lokale Testperson ist sonst angemeldet und landet
+    // auf dem Dashboard (PP-004), dessen Text «Serviceheft» nur enthält, wenn ein früherer Test ein Fahrzeug hinterliess.
+    await page.addInitScript(() => {
+      localStorage.setItem('auth:localSignedOut', '1')
+      localStorage.removeItem('auth:knownEmail')
+    })
     await page.goto('/')
     // Ein Satz, der die Frage «Was ist wartungsheft.ch?» beantwortet, sichtbar und als Metadaten
     await expect(page.getByRole('main').first()).toContainText(/Serviceheft/)

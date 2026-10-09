@@ -41,10 +41,12 @@ test.describe('Fuhrpark-Kosten und Währungsumrechnung', () => {
     await page.goto('/dashboard')
     const table = page.getByRole('table', { name: 'Kosten pro Fahrzeug und Jahr' })
     await expect(table).toBeVisible()
+    // Erst wenn der Kurs da ist: bis dahin steht die EUR-Rechnung in einer eigenen Zeile (Originalwährung), und die
+    // Zeilensuche unten träfe zwei Zeilen; Playwright wiederholt eine strict-mode-Verletzung nicht.
+    await expect(page.getByText(/1 Rechnung in EUR zum EZB-Kurs am Rechnungsdatum umgerechnet/)).toBeVisible()
     // Fiat 2026: 400 CHF + 100 EUR × 0.95 = 495.00
     await expect(table.getByRole('row').filter({ hasText: 'Fiat Ducato' }).filter({ hasText: '2026' })).toContainText('CHF 495.00')
     await expect(table.getByRole('row').filter({ hasText: 'VW Caddy' }).filter({ hasText: '2025' })).toContainText('CHF 250.00')
-    await expect(page.getByText(/1 Rechnung in EUR zum EZB-Kurs am Rechnungsdatum umgerechnet/)).toBeVisible()
     // Kachel «Gesamtkosten» rechnet ebenfalls um: 400 + 95 + 250 = 745.00, keine getrennte EUR-Summe mehr
     const stats = page.locator('.stats-grid')
     await expect(stats).toContainText('CHF 745.00')
