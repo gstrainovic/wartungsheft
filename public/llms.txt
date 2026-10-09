@@ -37,12 +37,21 @@ Server in der Schweiz. Das Auslesen der Rechnungen läuft über Mistral in Frank
 - [Für Privathalter](https://wartungsheft.ch/privathalter)
 - [Für Betriebe](https://wartungsheft.ch/betrieb)
 - [Hilfe: die neun Abläufe und häufige Fragen](https://wartungsheft.ch/hilfe)
-- [Ratgeber: Serviceheft führen, Occasion verkaufen, Historie wieder aufbauen](https://wartungsheft.ch/ratgeber)
+- [Ratgeber](https://wartungsheft.ch/ratgeber)
+
+## Ratgeber
+
+- [MFK-Aufgebot: Was geprüft wird, was es kostet und was bei verpasstem Termin passiert](https://wartungsheft.ch/ratgeber/mfk-aufgebot): Wann dein Auto zur MFK muss, was die Prüfstelle anschaut, welche Gebühren anfallen und warum ein ignoriertes Aufgebot den Fahrzeugausweis kosten kann.
+- [Occasion verkaufen: So hilft ein lückenloses Serviceheft beim Preis](https://wartungsheft.ch/ratgeber/occasion-verkaufen-serviceheft): Welche Unterlagen Käufer in der Schweiz sehen wollen, was «ab MFK» wirklich heisst und wie Rechnungen und Serviceheft den Kilometerstand belegen.
+- [Serviceheft oder Servicebuch verloren: So baust du die Historie wieder auf](https://wartungsheft.ch/ratgeber/serviceheft-verloren): Duplikat bei der Markengarage, digitales Serviceheft des Herstellers, Rechnungen und MFK-Berichte: So holst du die Wartungshistorie deines Autos in der Schweiz zurück.
+- [Auto-Wartungsplan: Welche Intervalle sind wirklich nötig?](https://wartungsheft.ch/ratgeber/wartungsintervalle): Service nach Zeit oder Kilometern, Bremsflüssigkeit, Zahnriemen, Reifen, Batterie: welche Intervalle gelten, was der Hersteller vorgibt und ob du in die freie Garage darfst.
+- [Was kostet ein Auto im Jahr in der Schweiz?](https://wartungsheft.ch/ratgeber/was-kostet-ein-auto): Laut TCS-Musterrechnung 2026 rund 11'100 Franken oder 74 Rappen pro Kilometer. Woraus sich die Kosten zusammensetzen und wie du deine eigenen ausrechnest.
+- [Werkstattrechnung verstehen: Was bedeuten die Positionen?](https://wartungsheft.ch/ratgeber/werkstattrechnung-verstehen): Arbeitswerte, Stundensatz, Material, Öl und MWST auf der Garagenrechnung erklärt, dazu deine Rechte bei Kostenvoranschlag, nicht bestellten Arbeiten und Mängeln.
 
 ## Andere Sprachen
 
-Dieselben Seiten gibt es auf Französisch, Italienisch und Englisch unter demselben Pfad mit Präfix. Die App
-selbst ist deutsch.
+Die Seiten und die App selbst gibt es auf Deutsch, Französisch, Italienisch und Englisch. Die Seiten liegen unter
+demselben Pfad mit Sprachpräfix.
 
 - [Français](https://wartungsheft.ch/fr)
 - [Italiano](https://wartungsheft.ch/it)

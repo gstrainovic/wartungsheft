@@ -38,4 +38,7 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://wartungsheft.ch/sitemap.xml
