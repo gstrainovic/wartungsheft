@@ -1,7 +1,7 @@
 /**
  * Sprecher der Werbefilme (Skill `werbefilm`, Abschnitt «Sprecher»): ElevenLabs mit einer Stimme je Sprache
- * (Deutsch Andres, Französisch Nathan, Italienisch Valentino, Englisch Adam Stone), Rückfall
- * Piper, wenn kein Schlüssel da ist. Jede Aufnahme landet unter einem Namen aus Text, Stimme und Durchlauf im
+ * (Deutsch Andres, Französisch Nathan, Italienisch Valentino, Englisch Adam Stone). Piper nur als ausdrücklicher
+ * Entwurf (SPRECHER_ENTWURF=1) ohne Schlüssel; sonst bricht der Sprecher ab, damit keine Gratis-Stimme ausgeliefert wird. Jede Aufnahme landet unter einem Namen aus Text, Stimme und Durchlauf im
  * Zwischenspeicher (`video-out/sprecher/`), damit ein Neubau keine Credits kostet. Datei- und Netzzugriff kommen
  * von aussen (`scripts/sprecher.ts`), damit die Logik ohne Netz testbar bleibt.
  */
@@ -63,8 +63,10 @@ export function piperText(text: string): string {
 export interface SprecherDeps {
   /** Zwischenspeicher, z. B. video-out/sprecher */
   ordner: string
-  /** ElevenLabs-Schlüssel aus ~/.config/elevenlabs/key; fehlt er, spricht Piper */
+  /** ElevenLabs-Schlüssel aus ~/.config/elevenlabs/key */
   schluessel?: string
+  /** Piper erlaubt, wenn der Schlüssel fehlt: nur für einen ausdrücklichen Entwurf, nie für eine Auslieferung */
+  entwurf?: boolean
   existiert: (pfad: string) => boolean
   schreiben: (pfad: string, daten: Uint8Array) => Promise<void>
   fetch: (url: string, init: { method: string, headers: Record<string, string>, body: string }) => Promise<Response>
@@ -74,6 +76,8 @@ export interface SprecherDeps {
 /** Pfad der Sprecheraufnahme für `text` (mit Regie) im Durchlauf `durchlauf`; erzeugt sie nur, wenn sie fehlt */
 export async function sprechen(text: string, durchlauf: number, d: SprecherDeps, sprache: Sprache = 'de'): Promise<string> {
   if (!d.schluessel) {
+    if (!d.entwurf)
+      throw new Error('Kein ElevenLabs-Schlüssel (~/.config/elevenlabs/key): Piper nur als Entwurf (SPRECHER_ENTWURF=1), nie in einer Auslieferung')
     const t = piperText(text)
     const pfad = `${d.ordner}/piper-${sprecherSchluessel(t, durchlauf)}.wav`
     if (!d.existiert(pfad))

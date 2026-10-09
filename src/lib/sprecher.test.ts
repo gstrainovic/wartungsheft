@@ -110,11 +110,24 @@ describe('sprechen', () => {
     expect(d.fetch).toHaveBeenCalledWith(expect.stringContaining('/lJylpTXX0sNdqq5EUv4M?'), expect.anything())
   })
 
-  it('fällt ohne Schlüssel auf Piper zurück (WAV)', async () => {
+  it('spricht ohne Schlüssel nicht mit Piper: keine Gratis-Stimme in einer Auslieferung (Skill produktvideos)', async () => {
     const { d } = deps({ schluessel: undefined })
+    await expect(sprechen('[excited] Hallo!', 1, d)).rejects.toThrow(/Piper nur als Entwurf/)
+    expect(d.piper).not.toHaveBeenCalled()
+    expect(d.fetch).not.toHaveBeenCalled()
+  })
+
+  it('nimmt Piper nur als ausdrücklichen Entwurf (WAV)', async () => {
+    const { d } = deps({ schluessel: undefined, entwurf: true })
     const pfad = await sprechen('[excited] Hallo!', 1, d)
     expect(pfad).toBe(`/cache/piper-${sprecherSchluessel('Hallo!', 1)}.wav`)
     expect(d.piper).toHaveBeenCalledWith('Hallo!', pfad)
     expect(d.fetch).not.toHaveBeenCalled()
+  })
+
+  it('bleibt bei ElevenLabs, auch wenn ein Entwurf erlaubt ist', async () => {
+    const { d } = deps({ entwurf: true })
+    expect(await sprechen('Hallo!', 1, d)).toBe(`/cache/${sprecherSchluessel('Hallo!', 1)}.mp3`)
+    expect(d.piper).not.toHaveBeenCalled()
   })
 })
