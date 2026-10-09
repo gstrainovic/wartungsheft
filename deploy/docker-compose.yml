@@ -10,6 +10,8 @@ services:
       context: ../../ai-proxy
       dockerfile: Dockerfile
     restart: unless-stopped
+    # tini als PID 1: Node als PID 1 ohne eigenen Handler ignoriert SIGTERM, sonst wartet jeder Neustart 10 s auf SIGKILL
+    init: true
     environment:
       PORT: 8787
       MISTRAL_API_KEY: ${MISTRAL_API_KEY}
