@@ -89,7 +89,7 @@ export default {
       titel: 'Vu en 40 secondes',
       text: 'De la photo de la facture du garage au carnet d’entretien pour la vente.',
       abspielen: 'Lire le film',
-      hinweis: 'Une bonne demi-minute, avec son et sous-titres. On y voit l’app avec des données d’exemple inventées.',
+      hinweis: 'Une bonne demi-minute, avec son et sous-titres. On y voit l’app avec des données d’exemple fictives.',
     },
   },
   it: {
