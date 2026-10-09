@@ -280,7 +280,7 @@ describe('stummeFassung', () => {
   it('brennt keine Untertitel ein: kein Overlay, drawtext oder subtitles-Filter, Bild nur neu kodiert', () => {
     expect(f.ffmpeg.join(' ')).not.toMatch(/overlay|drawtext|subtitles=|-filter_complex|-vf/)
     expect(f.ffmpeg).toContain('-an')
-    expect(f.ffmpeg.at(-1)).toBe('/r/video-out/tutorial-stumm.mp4')
+    expect(f.ffmpeg[f.ffmpeg.length - 1]).toBe('/r/video-out/tutorial-stumm.mp4')
   })
 
   it('legt die Untertitel als abschaltbare Spur (mov_text, deutsch) in die MP4', () => {
@@ -333,7 +333,7 @@ describe('vertonteFassung', () => {
 
     it('brennt keine Untertitel ein: kein Overlay, drawtext oder subtitles-Filter', () => {
       expect(a).not.toMatch(/overlay|drawtext|subtitles=|-filter_complex|-vf/)
-      expect(f.ffmpeg.at(-1)).toBe(`${ziel}.mp4`)
+      expect(f.ffmpeg[f.ffmpeg.length - 1]).toBe(`${ziel}.mp4`)
     })
 
     it('bild H.264 High mit faststart, Ton AAC, Untertitel als abschaltbare Spur (mov_text, deutsch)', () => {
