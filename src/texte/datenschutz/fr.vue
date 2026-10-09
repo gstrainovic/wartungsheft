@@ -89,9 +89,11 @@
 
   <h3>3.7 E-mails de retour pendant la période d'essai</h3>
   <p>
-    Pendant la période d'essai, nous vous envoyons au plus deux e-mails avec des questions sur votre expérience : le
-    21e jour, des questions sur ce qui vous a plu et ce qui a manqué, et le lendemain de la fin de la période d'essai,
-    une seule question si aucun abonnement n'a été commandé. Les comptes avec abonnement ne reçoivent pas ces e-mails.
+    Pendant la période d'essai, nous vous envoyons au plus trois e-mails : peu après l'inscription, un e-mail de
+    bienvenue avec les premiers pas qui, si vous n'avez pas indiqué lors de l'inscription comment vous nous avez
+    connus, contient la question de savoir comment vous avez découvert Wartungsheft ; le 21e jour, des questions sur
+    votre expérience, ce qui vous a plu et ce qui a manqué ; et le lendemain de la fin de la période d'essai, une
+    seule question si aucun abonnement n'a été commandé. Les comptes avec abonnement ne reçoivent pas ces e-mails.
     L'envoi passe par Resend, comme pour les rappels (section 7). La réponse est facultative ; elle arrive à
     info@wartungsheft.ch, n'est exploitée que pour améliorer l'application et est conservée, comme les retours depuis
     l'application, au plus deux ans. Les indications facultatives telles que le métier, l'âge ou l'usage privé ou

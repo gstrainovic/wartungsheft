@@ -86,9 +86,10 @@
 
   <h3>3.7 Feedback emails during the trial</h3>
   <p>
-    During the trial we send you at most two emails with questions about your experience: on day 21, questions about
-    what you liked and what was missing, and on the day after the trial ends, a single question if no subscription was
-    ordered. Accounts with a subscription do not receive these emails. They are sent via Resend, like the reminders
+    During the trial we send you at most three emails: shortly after sign-up, a welcome email with the first steps
+    which, if you did not state at sign-up how you heard about us, contains the question of how you found
+    Wartungsheft; on day 21, questions about your experience, what you liked and what was missing; and on the day
+    after the trial ends, a single question if no subscription was ordered. Accounts with a subscription do not receive these emails. They are sent via Resend, like the reminders
     (section 7). Replying is optional; replies go to info@wartungsheft.ch, are evaluated solely to improve the app and
     are kept, like feedback from the app, for no more than two years. Optional details such as occupation, age or
     private versus business use are processed only if you send them on your own initiative. The legal basis is our
