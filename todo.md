@@ -7,7 +7,8 @@ und Multiplikatoren, Forenbeiträge, alles, was zahlende Kunden bringt (Listen u
 
 ## Zuerst: mit echten Menschen testen
 
-Bisher hat niemand ausser dem Entwickler die App benutzt. Werbung bleibt pausiert (Google, Bing), bis die groben
+Bisher hat ein fremdes Konto die App benutzt (italienisch, Android): Fahrzeug per Formular angelegt, danach keine
+Rechnung und keine Wartung erfasst. Werbung bleibt pausiert (Google, Bing), bis die groben
 Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 
 ### Vom Nutzer
