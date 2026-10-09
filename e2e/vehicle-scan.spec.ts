@@ -58,8 +58,9 @@ test.describe('Fahrzeug per Fahrzeugausweis', () => {
     })
     await page.goto(`/vehicles/${id}`)
     // Checkliste: ohne Fahrgestellnummer ist der Ausweis offen, ihr Knopf öffnet das Formular mit Scan
+    // (den Hinweis «Fehlt noch» zeigt nur der nächste Schritt, geprüft in EF-007)
     const setup = page.getByTestId('setup-checklist')
-    await expect(setup.locator('[data-step="ausweis"]')).toContainText('Fehlt noch: Fahrgestellnummer')
+    await expect(setup.locator('[data-step="ausweis"]')).not.toHaveClass(/done/)
     await setup.getByRole('button', { name: 'Fahrzeugausweis fotografieren' }).click()
     const dialog = page.getByRole('dialog', { name: 'Fahrzeug bearbeiten' })
     await expect(dialog.getByLabel('Marke')).toHaveValue('VW')

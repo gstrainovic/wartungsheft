@@ -32,7 +32,13 @@ export function setupSteps({ vehicle, doneMaintenances, invoices }: SetupInput):
     !vehicle.year && t.felder.baujahr,
   ].filter(Boolean)
 
+  // Rechnung zuerst: dafür kommt man (Foto, KI liest). Steht der Ausweis vorne, endet der erste Besuch beim Fahrzeug
   return [
+    {
+      key: 'rechnungen',
+      ...t.rechnungen,
+      done: invoices > 0,
+    },
     {
       key: 'ausweis',
       label: t.ausweis.label,
@@ -49,11 +55,6 @@ export function setupSteps({ vehicle, doneMaintenances, invoices }: SetupInput):
       key: 'wartungen',
       ...t.wartungen,
       done: doneMaintenances > 0,
-    },
-    {
-      key: 'rechnungen',
-      ...t.rechnungen,
-      done: invoices > 0,
     },
   ]
 }

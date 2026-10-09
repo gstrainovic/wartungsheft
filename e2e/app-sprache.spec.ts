@@ -38,4 +38,20 @@ test.describe('App-Sprache', () => {
     await expect(page.getByRole('link', { name: 'Panoramica' })).toBeVisible()
     await expect(page.locator('html')).toHaveAttribute('lang', 'it-CH')
   })
+
+  test('AS-003: das Menü führt zur Hilfe', async ({ page }) => {
+    await page.goto('/dashboard')
+    await page.getByRole('button', { name: 'Menu' }).click()
+    await page.getByRole('link', { name: 'Hilfe' }).click()
+    await expect(page).toHaveURL(/\/hilfe$/)
+  })
+
+  test('AS-004: die Hilfe öffnet sich in der App-Sprache', async ({ page }) => {
+    await page.goto('/settings')
+    await page.getByTestId('sprache-wahl').getByText('Italiano').click()
+    await page.getByRole('button', { name: 'Menu' }).click()
+    await page.getByRole('link', { name: 'Aiuto' }).click()
+    await expect(page).toHaveURL(/\/it\/hilfe$/)
+    await expect(page.locator('html')).toHaveAttribute('lang', 'it-CH')
+  })
 })

@@ -50,9 +50,10 @@ test.describe('Einrichtung Fahrzeug', () => {
     await expect(page.getByRole('heading', { name: 'Skoda Octavia' })).toBeVisible()
     const setup = page.getByTestId('setup-checklist')
     await expect(setup).toBeVisible()
-    // Kaufvertrag oder Handeingabe: die Lücke bleibt sichtbar
-    await expect(setup.locator('[data-step="ausweis"]')).toContainText('Fehlt noch: Fahrgestellnummer')
-    // Der erste offene Schritt ist der Hauptknopf
+    // Hauptknopf ist die erste Rechnung: dafür kommt man; ein fremdes Konto hörte nach dem Fahrzeug auf, als der
+    // Ausweis vorne stand. Ausweis bleibt als leiser Knopf darunter
+    await expect(setup.locator('li.next')).toHaveAttribute('data-step', 'rechnungen')
+    await expect(setup.locator('li.next').getByRole('button', { name: 'Rechnung fotografieren' })).toBeVisible()
     await expect(setup.getByRole('button', { name: 'Fahrzeugausweis fotografieren' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Wartungsplan' })).toHaveAttribute('aria-selected', 'true')
     // Kein Dialog «Wann wurde zuletzt …?» mehr
@@ -112,6 +113,16 @@ test.describe('Einrichtung Fahrzeug', () => {
     await expect(plan.locator('.plan-item')).toHaveCount(1)
     await expect(plan.locator('.plan-item')).toContainText('Motoröl')
     await expect(plan.locator('.plan-item')).toContainText('20\'000 km / 24 Monate')
+  })
+
+  test('EF-007: nach der ersten Rechnung ist der Ausweis dran und nennt die Lücke', async ({ page }) => {
+    const id = await seedVehicle(page, { invoice: true })
+    await page.goto(`/vehicles/${id}`)
+    const setup = page.getByTestId('setup-checklist')
+    await expect(setup.locator('[data-step="rechnungen"]')).toHaveClass(/done/)
+    // Kaufvertrag oder Handeingabe: die Lücke bleibt sichtbar
+    await expect(setup.locator('li.next')).toHaveAttribute('data-step', 'ausweis')
+    await expect(setup.locator('li.next')).toContainText('Fehlt noch: Fahrgestellnummer')
   })
 
   test('EF-006: «Ausblenden» blendet die Checkliste für dieses Fahrzeug dauerhaft aus', async ({ page }) => {
