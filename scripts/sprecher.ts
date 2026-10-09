@@ -3,8 +3,8 @@
  *
  *   node scripts/sprecher.ts "[excited] 30 Tage gratis testen!" [durchlauf] [sprache]   # gibt den Pfad der MP3 aus
  *
- * ElevenLabs (Stimme Andres, eleven_v3) mit dem Schlüssel aus ~/.config/elevenlabs/key; ohne Schlüssel Piper mit
- * de_DE-thorsten-high (WAV). Ergebnis im Zwischenspeicher video-out/sprecher/, ein zweiter Aufruf kostet nichts.
+ * ElevenLabs (Stimme Andres, eleven_v3) mit dem Schlüssel aus ~/.config/elevenlabs/key; ohne Schlüssel bricht er ab,
+ * Piper (de_DE-thorsten-high, WAV) nur als ausdrücklicher Entwurf mit SPRECHER_ENTWURF=1. Ergebnis im Zwischenspeicher video-out/sprecher/, ein zweiter Aufruf kostet nichts.
  * Der Schlüssel wird nie ausgegeben.
  */
 import type { Sprache } from '../src/lib/sprache.ts'
@@ -26,6 +26,8 @@ export function sprecherDeps(): SprecherDeps {
   return {
     ordner: SPRECHER_ORDNER,
     schluessel: existsSync(SCHLUESSEL) ? readFileSync(SCHLUESSEL, 'utf8').trim() || undefined : undefined,
+    // Piper nur, wenn ausdrücklich ein Entwurf verlangt ist (Skill produktvideos: keine Gratis-Stimme ausliefern)
+    entwurf: process.env.SPRECHER_ENTWURF === '1',
     existiert: existsSync,
     schreiben: async (pfad, daten) => writeFileSync(pfad, daten),
     fetch: (url, init) => fetch(url, init),
