@@ -18,6 +18,13 @@ if (process.argv[2] === 'test' && !process.argv.includes('--list')) {
     process.on('exit', () => laufFreigeben(sperre))
 }
 
+// Mikrofon ohne Nachfrage und mit Testton, in online und offline gleich: Diktieren (dictation.spec.ts) und die
+// Sprachnachricht im Rückmeldungs-Dialog (feedback.spec.ts). Fehlt es, meldet die App «Kein Zugriff aufs Mikrofon».
+const kuenstlichesMikrofon = {
+  permissions: ['microphone'],
+  launchOptions: { args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] },
+}
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false, // Disabled to avoid test interference with shared InstantDB
@@ -69,9 +76,7 @@ export default defineConfig({
         baseURL: 'http://localhost:6060',
         screenshot: 'only-on-failure',
         simulateOffline: false,
-        // Mikrofon ohne Nachfrage und mit Testton: für den Rückmeldungs-Dialog (feedback.spec.ts)
-        permissions: ['microphone'],
-        launchOptions: { args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] },
+        ...kuenstlichesMikrofon,
       },
     },
     {
@@ -82,6 +87,7 @@ export default defineConfig({
         baseURL: 'http://localhost:6060',
         screenshot: 'only-on-failure',
         simulateOffline: true,
+        ...kuenstlichesMikrofon,
       },
       dependencies: ['online'],
     },
