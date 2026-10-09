@@ -3,12 +3,13 @@
 Bedienanleitung am Handy, kein Werbefilm. Ziel: Ein angemeldeter neuer Privathalter sieht, wie er ein Fahrzeug
 anlegt und vor allem die erste Werkstattrechnung fotografiert, damit er nicht nach dem Fahrzeug aufhört. Keine
 Anmeldeszene: Wer das Tutorial sieht (auf /hilfe und aus der Checkliste), ist schon angemeldet.
-Rund 165 Wörter, etwa 75 Sekunden. Ton ruhig und erklärend, Du-Form wie die App, Regie nur `[warm]` und
+Rund 190 Wörter, mit Andres rund 102 Sekunden. Ton ruhig und erklärend, Du-Form wie die App, Regie nur `[warm]` und
 einmal `[enthusiastic]`, keine Ausrufezeichen. Aufnahme wie die Werbefilme (Skill `werbefilm`): echte App,
 390 × 693, Musterdaten, Knöpfe vor dem Tipp in die Bildmitte rollen.
 
-Stand: Text und stummer Film von Goran freigegeben; nächster Schritt Vertonung zur Freigabe (Skill `produktvideos`,
-«Reihenfolge»).
+Stand: Text und stummer Film von Goran freigegeben; vertonte deutsche Fassung (Andres, rund 102 s, Handy
+`video-out/tutorial.mp4` und Desktop `tutorial-desktop.mp4`, `node scripts/werbefilm.ts tutorial`) liegt Goran zur
+Freigabe vor; fr, it, en erst danach (Skill `produktvideos`, «Reihenfolge»).
 
 ## Szene 1: Fahrzeug anlegen (rund 15 s)
 

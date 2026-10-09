@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   abschnittDauer,
+  aufnahmeStarts,
   ausschnitt,
   besterDurchlauf,
   durchlaeufe,
@@ -15,6 +16,7 @@ import {
   stummeFassung,
   stummeLage,
   untertitelSpur,
+  vertonteFassung,
   vtt,
   wortfehler,
   zeilenUmbruch,
@@ -296,5 +298,62 @@ describe('stummeFassung', () => {
     expect(vttDatei.startsWith('WEBVTT')).toBe(true)
     expect(zeiten(vttDatei)).toEqual(['00:00:00.300', '00:00:03.622', '00:00:03.672', '00:00:05.917'])
     expect(zeiten(srtDatei)).toEqual(zeiten(vttDatei))
+  })
+})
+
+describe('aufnahmeStarts', () => {
+  it('beginnt jeden Teil an seiner Marke, wenn der vorige Teil vorher endet (Rest der Aufnahme fällt weg)', () => {
+    const teile = [{ clip: 'a', marke: 0 }, { clip: 'a', marke: 10 }]
+    expect(aufnahmeStarts(teile, [6, 5], 0.45)).toEqual([0, 10])
+  })
+
+  it('läuft nahtlos weiter, wenn der vorige Teil über die nächste Marke hinaus spricht (kein Bild doppelt)', () => {
+    const teile = [{ clip: 'a', marke: 0 }, { clip: 'a', marke: 6.3 }, { clip: 'a', marke: 18.9 }]
+    // Teil 1 braucht 7 s: Teil 2 setzt an, wo Teil 1 ohne Überblendung steht (7 − 0,45)
+    expect(aufnahmeStarts(teile, [7, 9, 6], 0.45)).toEqual([0, 6.55, 18.9])
+  })
+
+  it('ein neuer Clip beginnt immer an seiner Marke', () => {
+    const teile = [{ clip: 'a', marke: 0 }, { clip: 'b', marke: 0 }]
+    expect(aufnahmeStarts(teile, [20, 5], 0.45)).toEqual([0, 0])
+  })
+})
+
+describe('vertonteFassung', () => {
+  const cues = [
+    { von: 0.3, bis: 3.622, text: 'So startest du mit Wartungsheft, in ein paar Minuten.' },
+    { von: 3.672, bis: 5.917, text: 'Zuerst «Fahrzeug hinzufügen».' },
+  ]
+
+  // Tutorial ohne eingebrannte Untertitel, Handy (tutorial) und Desktop (tutorial-desktop)
+  describe.each(['tutorial', 'tutorial-desktop'])('tutorial ohne eingebrannte Untertitel: %s', (name) => {
+    const ziel = `/r/video-out/${name}`
+    const f = vertonteFassung('/r/bild.mkv', '/r/ton.wav', ziel, cues)
+    const a = f.ffmpeg.join(' ')
+
+    it('brennt keine Untertitel ein: kein Overlay, drawtext oder subtitles-Filter', () => {
+      expect(a).not.toMatch(/overlay|drawtext|subtitles=|-filter_complex|-vf/)
+      expect(f.ffmpeg.at(-1)).toBe(`${ziel}.mp4`)
+    })
+
+    it('bild H.264 High mit faststart, Ton AAC, Untertitel als abschaltbare Spur (mov_text, deutsch)', () => {
+      expect(a).toContain(`-i /r/bild.mkv -i /r/ton.wav -i ${ziel}.srt`)
+      expect(a).toContain('-map 0:v -map 1:a -map 2:s')
+      expect(a).toContain('-c:v libx264')
+      expect(a).toContain('-profile:v high')
+      expect(a).toContain('-c:a aac')
+      expect(a).toContain('-c:s mov_text')
+      expect(a).toContain('-metadata:s:s:0 language=deu')
+      expect(a).toContain('-metadata:s:a:0 language=deu')
+      expect(a).toContain('-movflags +faststart')
+    })
+
+    it('schreibt VTT und SRT daneben, mit denselben Zeiten', () => {
+      const zeiten = (s: string) => [...s.matchAll(/(\d\d:\d\d:\d\d)[.,](\d{3})/g)].map(m => `${m[1]}.${m[2]}`)
+      const vttDatei = f.dateien[`${ziel}.vtt`]!
+      expect(vttDatei.startsWith('WEBVTT')).toBe(true)
+      expect(zeiten(vttDatei)).toEqual(['00:00:00.300', '00:00:03.622', '00:00:03.672', '00:00:05.917'])
+      expect(zeiten(f.dateien[`${ziel}.srt`]!)).toEqual(zeiten(vttDatei))
+    })
   })
 })

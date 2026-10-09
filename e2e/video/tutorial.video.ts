@@ -1,7 +1,7 @@
 /**
  * Clips für das Tutorial «So startest du mit Wartungsheft» (Drehbuch: video-scripts/tutorial-video-script.md).
- * Nur Handyformat: `npx playwright test --project=video e2e/video/tutorial.video.ts`, Montage der stummen Fassung
- * zur Freigabe mit `node scripts/werbefilm.ts tutorial`.
+ * Handy und Desktop: `npx playwright test --project=video --project=video-desktop e2e/video/tutorial.video.ts`,
+ * Montage mit `node scripts/werbefilm.ts tutorial` (vertont) bzw. `tutorial-stumm`.
  *
  * Neben den Bildern schreibt jede Szene `marken.json` (Sekunden ab Aufnahmebeginn, z. B. «Felder gefüllt»): die
  * Montage legt die Sätze des Sprechertexts auf diese Stellen, auch wenn der Scan je Lauf verschieden lang braucht.
@@ -294,18 +294,19 @@ test.describe('Tutorial', () => {
     await expect(setup).toBeVisible()
     await setup.evaluate(el => el.scrollIntoView({ block: 'center' }))
     await starten(page, testInfo)
+    // Reihenfolge wie der Sprechertext: was fehlt, schon eingetragene Wartungen, offene Schritte, freiwillig
     marke('checkliste')
-    await beat(page, 2)
+    await beat(page, 2.5)
+    // Die Rechnung hat schon Wartungen angelegt: «Letzte Wartungen» ist abgehakt, ohne Knopf
+    await setup.locator('[data-step="wartungen"]').hover()
+    await beat(page, 4.5)
     await setup.locator('[data-step="ausweis"]').hover()
     await beat(page, 2)
     await setup.getByRole('button', { name: 'Serviceheft fotografieren' }).hover()
-    await beat(page, 1.5)
-    // Die Rechnung hat schon Wartungen angelegt: «Letzte Wartungen» ist abgehakt, ohne Knopf
-    await setup.locator('[data-step="wartungen"]').hover()
-    await beat(page, 1.5)
+    await beat(page, 2)
     // Finger auf «Ausblenden», ohne zu tippen
     await setup.getByRole('button', { name: 'Ausblenden' }).hover()
-    await beat(page, 3)
+    await beat(page, 4)
   })
 
   test('Tutorial 4: Faelligkeit und Erinnerung', async ({ page }, testInfo) => {

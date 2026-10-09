@@ -50,5 +50,15 @@
   "[delighted] And Monday's question? It answers itself!": 1,
   "[excited] 36 francs per vehicle per year. Try it free for 30 days!": 1,
   "[excited] 25 francs par an. 30 jours d'essai gratuit, sur wartungsheft point c h\u00a0!": 1,
-  "[excited] 25 franchi all'anno. Prova gratis per 30 giorni, su wartungsheft punto ci acca!": 1
+  "[excited] 25 franchi all'anno. Prova gratis per 30 giorni, su wartungsheft punto ci acca!": 1,
+  "[warm] So startest du mit Wartungsheft, in ein paar Minuten. Zuerst «Fahrzeug hinzufügen».": 1,
+  "[warm] Am schnellsten geht es mit «Fahrzeugausweis fotografieren»: Die App füllt Marke, Modell und Kontrollschild aus.": 1,
+  "[warm] Du kannst die Felder auch selbst ausfüllen. Dann «Speichern».": 1,
+  "[enthusiastic] Jetzt der wichtigste Schritt: die erste Werkstattrechnung. Auf der Fahrzeugseite tippst du auf «Rechnung fotografieren» und fotografierst den Beleg.": 1,
+  "[warm] Die KI liest Werkstatt, Datum, Kilometerstand, Betrag und die einzelnen Arbeiten heraus. Du prüfst kurz, dann «Speichern».": 1,
+  "[warm] Aus jeder Arbeit wird eine Wartung, und Wartungsheft rechnet aus, wann sie das nächste Mal fällig ist.": 1,
+  "[warm] Die Checkliste «Einrichten» zeigt, was noch fehlt. Aus den Arbeiten auf der Rechnung hat Wartungsheft die letzten Wartungen bereits eingetragen. Offen sind Fahrzeugausweis und Serviceheft, beides freiwillig, du kannst es jederzeit nachholen.": 1,
+  "[warm] Wird eine Arbeit fällig, steht sie in der Übersicht, und Wartungsheft schickt dir eine E-Mail.": 1,
+  "[warm] Ist sie gemacht, tippst du auf «Erledigt eintragen». Datum und Kilometerstand sind schon ausgefüllt, nur noch «Speichern».": 1,
+  "[warm] Noch Fragen? Im Menü findest du «Hilfe» und «Fehler melden oder Wunsch». Dort kannst du auch eine Sprachnachricht aufnehmen.": 1
 }
