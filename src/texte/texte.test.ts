@@ -7,6 +7,7 @@ import layout from './layout'
 import login from './login'
 import preise from './preise'
 import start from './start'
+import tutorial from './tutorial'
 
 /** Form eines Textobjekts: Schlüssel, Arraylängen und Typen, ohne die Texte selbst */
 function form(value: unknown): unknown {
@@ -17,7 +18,7 @@ function form(value: unknown): unknown {
   return typeof value
 }
 
-const TEXTE = { angebot, anlagen, hilfe, layout, login, preise, start }
+const TEXTE = { angebot, anlagen, hilfe, layout, login, preise, start, tutorial }
 
 describe('texte der öffentlichen Seiten', () => {
   for (const [name, texte] of Object.entries(TEXTE)) {

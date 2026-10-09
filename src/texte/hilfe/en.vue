@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Frage } from '../hilfe'
+import TutorialVideo from '../../components/TutorialVideo.vue'
 
 defineProps<{ fragen: Frage[] }>()
 
@@ -13,6 +14,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> or record a voice message in the app under
     «Report a problem or a wish». The app speaks English: the language is chosen in the settings.
   </p>
+
+  <TutorialVideo />
 
   <h2>1. Add a vehicle</h2>
   <p>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
- * Hilfe in Textform statt Bedienvideos: ein Abschnitt je Kernablauf (CLAUDE.md «Abläufe prüfen, nicht nur
- * Seiten»), dazu die häufigen Fragen. Die Seite dient dreifach — Antwort im Postfach statt Erklärung von Hand,
+ * Hilfe in Textform: ein Abschnitt je Kernablauf (CLAUDE.md «Abläufe prüfen, nicht nur Seiten»), dazu die
+ * häufigen Fragen und oben das Tutorial «So startest du» als Video (TutorialVideo, Ziel des Verweises aus der
+ * Checkliste «Einrichten»). Die Seite dient dreifach — Antwort im Postfach statt Erklärung von Hand,
  * Text für Suchmaschinen und KI-Antworten (FAQPage weiter unten), und Prüfliste für uns.
  *
  * Wer einen Ablauf ändert, ändert hier mit. Steht ein Schritt nur hier und nicht in der App, ist das ein
@@ -11,6 +12,7 @@ import type { Frage } from '../texte/hilfe'
 import { computed, onBeforeUnmount, onMounted } from 'vue'
 import LandingFooter from '../components/LandingFooter.vue'
 import LandingHeader from '../components/LandingHeader.vue'
+import TutorialVideo from '../components/TutorialVideo.vue'
 import { useSprache } from '../composables/useSprache'
 import hilfeFragen from '../texte/hilfe'
 import HilfeEn from '../texte/hilfe/en.vue'
@@ -66,6 +68,8 @@ onBeforeUnmount(() => {
         <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> oder nimm in der App unter «Fehler melden
         oder Wunsch» eine Sprachnachricht auf.
       </p>
+
+      <TutorialVideo />
 
       <h2>1. Fahrzeug erfassen</h2>
       <p>

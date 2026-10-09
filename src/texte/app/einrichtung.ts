@@ -6,6 +6,8 @@ const de = {
   bereich: 'Einrichtung',
   zaehler: (fertig: number, alle: number) => `${fertig} von ${alle}`,
   ausblenden: 'Ausblenden',
+  /** Verweis auf das Tutorial auf der Hilfe (/hilfe#video) */
+  video: 'Video-Anleitung ansehen',
   felder: {
     kontrollschild: 'Kontrollschild',
     fahrgestellnummer: 'Fahrgestellnummer',
@@ -41,6 +43,7 @@ export default {
     bereich: 'Configuration',
     zaehler: (fertig: number, alle: number) => `${fertig} sur ${alle}`,
     ausblenden: 'Masquer',
+    video: 'Voir le tutoriel vidéo',
     felder: {
       kontrollschild: 'plaque',
       fahrgestellnummer: 'numéro de châssis',
@@ -73,6 +76,7 @@ export default {
     bereich: 'Configurazione',
     zaehler: (fertig: number, alle: number) => `${fertig} di ${alle}`,
     ausblenden: 'Nascondi',
+    video: 'Guarda il video tutorial',
     felder: {
       kontrollschild: 'targa',
       fahrgestellnummer: 'numero di telaio',
@@ -105,6 +109,7 @@ export default {
     bereich: 'Setup',
     zaehler: (fertig: number, alle: number) => `${fertig} of ${alle}`,
     ausblenden: 'Hide',
+    video: 'Watch the video guide',
     felder: {
       kontrollschild: 'number plate',
       fahrgestellnummer: 'chassis number',
