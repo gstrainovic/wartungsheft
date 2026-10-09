@@ -12,9 +12,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   </p>
   <p class="legal-meta">
     Questa è una traduzione. Fa fede unicamente la versione tedesca:
-    <router-link to="/agb">
-      Allgemeine Geschäftsbedingungen
-    </router-link>.
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    <router-link to="/agb">Allgemeine Geschäftsbedingungen</router-link>.
   </p>
 
   <h2>1. Fornitore e campo d'applicazione</h2>
@@ -129,9 +128,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> e ce ne occupiamo noi. Le fatture che ti abbiamo
     emesso le conserviamo per tutto il tempo richiesto dalla legge. Come trattiamo i dati personali è descritto
     nel documento
-    <router-link to="/it/datenschutz">
-      Informativa sulla privacy
-    </router-link>.
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    <router-link to="/it/datenschutz">Informativa sulla privacy</router-link>.
   </p>
 
   <h2>10. Obblighi nell'uso</h2>

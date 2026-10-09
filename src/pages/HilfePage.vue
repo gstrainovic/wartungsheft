@@ -154,9 +154,8 @@ onBeforeUnmount(() => {
         Rechtliches steht in den <router-link to="/agb">
           AGB
         </router-link> und in der
-        <router-link to="/datenschutz">
-          Datenschutzerklärung
-        </router-link>.
+        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+        <router-link to="/datenschutz">Datenschutzerklärung</router-link>.
       </p>
     </main>
 

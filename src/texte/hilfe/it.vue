@@ -100,8 +100,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     «Segnala un errore o un desiderio» nel menu registra un messaggio vocale.
     Gli aspetti legali si trovano nelle <router-link to="/it/agb">
       Condizioni generali (CG)
-    </router-link> e nell'<router-link to="/it/datenschutz">
-      Informativa sulla privacy
-    </router-link>.
+    </router-link> e
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    nell'<router-link to="/it/datenschutz">Informativa sulla privacy</router-link>.
   </p>
 </template>

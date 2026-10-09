@@ -12,9 +12,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   </p>
   <p class="legal-meta">
     This is a translation. Only the German version is legally binding:
-    <router-link to="/agb">
-      Allgemeine Geschäftsbedingungen
-    </router-link>.
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    <router-link to="/agb">Allgemeine Geschäftsbedingungen</router-link>.
   </p>
 
   <h2>1. Provider and scope</h2>
@@ -129,9 +128,8 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
     and receipts, immediately and permanently; or you write to
     <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> and we take care of it. We keep invoices we have
     issued to you for as long as the law requires. How we handle personal data is set out in the
-    <router-link to="/en/datenschutz">
-      privacy policy
-    </router-link>.
+    <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -- Zeilenumbruch im Link ergäbe ein Leerzeichen vor dem Punkt -->
+    <router-link to="/en/datenschutz">privacy policy</router-link>.
   </p>
 
   <h2>10. Obligations when using the service</h2>
