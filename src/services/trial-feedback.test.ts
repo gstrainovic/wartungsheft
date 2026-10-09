@@ -26,6 +26,14 @@ describe('buildTrialFeedbackMails', () => {
     expect(mail!.text).toBe(feedbackTexte.de.tag21.text)
   })
 
+  it('listet die freiwilligen Angaben untereinander, je Sprache vier Zeilen mit Strich', () => {
+    for (const sprache of ['de', 'fr', 'it', 'en'] as const) {
+      const zeilen = feedbackTexte[sprache].tag21.text.split('\n').filter(z => z.startsWith('- '))
+      expect(zeilen, sprache).toHaveLength(4)
+      for (const z of zeilen) expect(z.endsWith('?'), `${sprache}: ${z}`).toBe(true)
+    }
+  })
+
   it('fragt am Tag 31 nach dem, was überzeugt hätte', () => {
     const [mail] = mails(31)
     expect(mail!.subject).toBe(feedbackTexte.de.tag31.betreff)
