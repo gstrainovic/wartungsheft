@@ -17,7 +17,7 @@ Führe Playwright E2E-Tests aus.
 ## Voraussetzungen
 1. InstantDB Server muss laufen (nutze `/instantdb-start`)
 2. Dev-Server startet automatisch via Playwright
-3. Läuft schon ein Vite auf 5173, dessen Modus prüfen: Playwright nimmt ihn (`reuseExistingServer`), und ohne
+3. Läuft schon ein Vite auf 6060, dessen Modus prüfen: Playwright nimmt ihn (`reuseExistingServer`), und ohne
    `VITE_INSTANTDB_MODE=local` spricht er mit der Cloud (Seeds scheitern mit «Permission denied: not perms-pass?»).
    Prüfen: `for pid in $(pgrep -f bin/vite); do tr '\0' '\n' < /proc/$pid/environ | grep VITE_INSTANTDB_MODE; done`.
    Fehlt `local`: beenden und mit `VITE_INSTANTDB_MODE=local VITE_AI_PROXY_URL=http://localhost:8787 npm run dev:vite`
@@ -28,9 +28,8 @@ Führe Playwright E2E-Tests aus.
    die Sperre `~/.cache/wartungsheft-e2e.lock` (`e2e/lauf-sperre.ts`); ein zweiter `playwright test` meldet «Warte auf
    E2E-Lauf PID …» und startet erst danach. Nach `kill -9` räumt der nächste Lauf die verwaiste Sperre selbst ab.
    Die Sperre schützt nur vor anderen `playwright test`: Ein von Hand gestartetes Vite, das Playwright mitnutzt,
-   während des Laufs nicht beenden oder neu starten. Fällt Vite weg, ist die Seite im Projekt `offline` nur weiss
-   (dort werden alle Konsolenfehler ignoriert, z. B. GL-001 «Code senden» fehlt), online scheitert der Test an
-   `ERR_CONNECTION_REFUSED`.
+   während des Laufs nicht beenden oder neu starten. Fällt Vite weg, ist die Seite nur weiss; die Fixture meldet dann
+   in beiden Projekten «Vite-Server (localhost:6060) nicht erreichbar» bzw. «Failed to fetch dynamically imported module».
 
 ## E2E Testing
 
@@ -60,9 +59,7 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 | VF | Vehicle Flow | VF-001: add a vehicle |
 | DF | Delete Flow | DF-001: delete with dialog |
 | SR | Scan Redirect | SR-001: redirect to chat, SR-002: navigation |
-| VD | Vehicle Document | VD-001: Kaufvertrag |
 | CR | CRUD Operations | CR-001 bis CR-009 |
-| RF | Rotation Flow | RF-001: auto-rotate |
 | CF | Chat Flow | CF-001 bis CF-007 |
 | CU | Chat Upload | CU-001 bis CU-011 |
 | CM | Chat Maintenance | CM-001: add without invoice |
@@ -98,6 +95,15 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 | DI | Diktieren | DI-001 bis DI-003: Chat-Eingabe, Beschreibung im Wartungsformular, ganze Rechnung ansagen |
 | FB | Rückmeldung | FB-001 bis FB-003: Text senden, Adresse kopieren, Sprachnachricht |
 | TN | Testzeit-Hinweis | TN-001 bis TN-003: Hinweis in der letzten Woche, vorher still, ohne Kaufweg gar nicht |
+| GL | Google-Login | GL-001: Login-Seite bietet «Mit Google anmelden» und startet den OAuth-Flow beim Backend |
+| AS | App-Sprache | AS-001 bis AS-004: Sprache von der Login-Seite, Wahl in den Einstellungen, Hilfe in der App-Sprache |
+| BR | Branding | BR-001 bis BR-003: Name Wartungsheft in Titel, Kopf und Login, kein alter Name, gleiches Logo wie Favicon |
+| FC | Fuhrpark-Kosten | FC-001 bis FC-006: Kosten pro Fahrzeug und Jahr in der Heimwährung, EUR-Umrechnung, CSV und PDF über alle Fahrzeuge |
+| IS | Beleg-Scan | IS-001 bis IS-011: Foto oder PDF füllt das Rechnungsformular, Ausrichtung, Sammel-PDF, mehrere Fotos |
+| OS | Beleg ohne Verbindung | OS-001: offline gespeicherter Beleg wird nachgescannt, sobald Verbindung besteht |
+| RE | Bericht und Export | RE-001 bis RE-006: Kosten-Tab, CSV, PDF-Kostenbericht, Jahresabschluss als ZIP, Serviceheft für den Verkauf |
+| TV | Tutorial-Video | TV-001, TV-002: Tutorial auf /hilfe je Sprache, Checkliste «Einrichten» führt hin |
+| VS | Fahrzeug per Fahrzeugausweis | VS-001 bis VS-003: Ausweis-Foto füllt das Formular, Fehler lässt es bedienbar, ergänzt nur leere Felder |
 
 **Gesamt: 188 Tests pro Projekt** (+11 `@soft`) — nachzählen mit `npx playwright test --list --project=online --project=offline | tail -1`
 
@@ -125,8 +131,10 @@ Dies testet die Offline-First-Fähigkeit: Daten werden in IndexedDB gespeichert 
 - **Weiche KI-Tests** (prüfen nur, was das Modell sagt oder nicht sagt, ohne harten Endzustand): `test.describe(..., { tag: '@soft' }, ...)`. Laufen nur im Projekt `ai-soft` via `npm run test:e2e:soft`, nicht in online/offline
 - Chat-Test: Assertion auf Tool-Ergebnis muss `erledigt` einschließen (Fallback wenn Model keinen eigenen Text generiert)
 - **Chat-Nachrichten zählen:** immer `.chat-message:not(.chat-message-loading)` — die Lade-Blase trägt sonst `.chat-message` mit und der Test bestätigt, bevor die Antwort da ist (Race, führte zu doppelten Rückfragen)
-- Console-Error-Detection: Alle Tests failen automatisch bei unerwarteten console.error/pageerror (IGNORED_ERRORS in test-fixtures.ts)
-- Offline-Tests: Alle Console-Errors werden ignoriert (InstantDB WebSocket expected)
+- Console-Error-Detection: Alle Tests failen automatisch bei unerwarteten console.error/pageerror (Filter
+  `IGNORED_ERRORS` in `e2e/fixtures/konsolenfehler.ts`, Unit-Prüfung `konsolenfehler.test.ts` per `npx vitest run e2e/`)
+- Offline-Tests: Konsolenfehler werden ignoriert (blockiertes InstantDB auf 8888), ausser nicht ladbare Module und
+  abgelehnte Anfragen an Vite (6060)
 - **SPA-Navigation testen:** `page.goto()` macht Full-Page-Load (triggert `onMounted`). Für echte SPA-Navigation: User-Interaktionen (Klicks) statt goto verwenden. Vue `onMounted` läuft nur einmal → `watch(() => route.query)` für Query-Parameter-Reaktivität
 - `clearInstantDB()` löscht via Client-API (nicht SQL)
 - Screenshots bei Fehlern: `test-results/**/test-failed-*.png`
