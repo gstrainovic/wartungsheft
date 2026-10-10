@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
  * Jahresabo auf Rechnung bestellen, privat oder für einen Betrieb: Rechnungsadresse, Fahrzeugzahl (vorbelegt mit
- * den aktiven Fahrzeugen), Zustimmung zu Verlängerung und Kündigung. Der AI-Proxy legt das Abo an und schickt die
+ * den aktiven Fahrzeugen), Zustimmung zu den Bedingungen (Rechnung, verbindlich erst mit der Zahlung, Verlängerung
+ * als Angebot; abo-regeln.md). Der AI-Proxy legt das Abo an und schickt die
  * QR-Rechnung per Mail (ai-proxy `invoice-subscription.ts`), ohne IBAN den Auftrag an info@wartungsheft.ch, die
  * Rechnung von Hand zu schreiben (ai-proxy `invoice-request.ts`). Privat zahlt einen Preis fürs Konto, Betriebe pro
  * Fahrzeug und bekommen die Rechnung auf die Firma.

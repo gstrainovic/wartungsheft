@@ -85,36 +85,37 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   <h2>6. Invoice and payment</h2>
   <p>
     The subscription is invoiced one year in advance. The invoice is sent by email and is payable within 30 days.
-    After ordering, you can continue working immediately.
+    After ordering, you can continue working immediately, until the end of that period.
     If you order during the trial period, the paid year only begins at its end.
   </p>
   <p>
-    If an invoice remains unpaid after its due date and a reminder, we may block AI scan and chat until payment is
-    received. Your data remains readable and exportable.
+    The subscription only becomes binding with your payment. If you don't pay, you don't need to do anything: there
+    are no costs, and AI scan and chat stop at the end of the payment period. Your data remains readable and
+    exportable. If you pay later, they start again.
   </p>
 
-  <h2>7. Term, renewal and termination</h2>
+  <h2>7. Term and renewal</h2>
   <p>
-    The subscription runs for one year and renews automatically for a further year unless you cancel it.
-    The invoice for the next year is sent 30 days before expiry.
+    The paid year runs to its end and does not extend by itself. 30 days before expiry we send you the invoice for a
+    further year as an offer, based on the number of vehicles active at that time. If you pay it, the subscription
+    continues for one year; if you don't, you don't need to do anything, and AI scan and chat stop at the end of the
+    paid year. If you pay later, they switch on again.
   </p>
   <p>
-    You can cancel at any time up to the last day of the term, without notice period: in the app under
-    «Settings», «Cancel subscription», or by email to
-    <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. The subscription then continues until the end of
-    the paid year. An invoice for a year that has not yet begun is cancelled with the termination. There is no
-    pro rata refund for a year that has already started.
+    There is no button to stop the subscription and no notice period. If you don't want any further invoices, write
+    to <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>; we stop sending them and void any open invoices.
+    A year already paid runs to its end; there is no refund.
   </p>
   <p>
-    We may terminate the subscription with three months' notice to the end of the term, and immediately for good cause
-    (e.g. misuse or repeated late payment). If we discontinue Wartungsheft entirely, we refund amounts already paid
-    for the remaining term on a pro rata basis.
+    We may end the subscription with three months' notice to the end of the paid year, and immediately in case of
+    misuse. If we discontinue Wartungsheft entirely, we refund amounts already paid for the remaining term on a pro
+    rata basis.
   </p>
 
   <h2>8. Price changes</h2>
   <p>
-    We announce price changes by email at least 60 days before the next renewal. They apply from the following term.
-    If you do not agree, you cancel before expiry as described in section 7.
+    We announce price changes by email at least 60 days before the next renewal invoice. They apply from the following
+    term. If you do not agree, you simply don't pay that invoice (section 7).
   </p>
 
   <h2>9. Your data</h2>
@@ -157,10 +158,10 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
 
   <h2>13. Changes to these terms and conditions</h2>
   <p>
-    We notify changes by email at least 30 days before they take effect. If you do not agree, you may cancel the
-    subscription with effect from the date the changes take effect; we then refund amounts already paid for the
-    remaining term on a pro rata basis. If you continue to use Wartungsheft afterwards, the new terms and conditions
-    apply.
+    We notify changes by email at least 30 days before they take effect. If you do not agree, you may stop with
+    effect from the date the changes take effect (email to <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>);
+    we then refund amounts already paid for the remaining term on a pro rata basis. If you continue to use
+    Wartungsheft afterwards, the new terms and conditions apply.
   </p>
 
   <h2>14. Applicable law and place of jurisdiction</h2>

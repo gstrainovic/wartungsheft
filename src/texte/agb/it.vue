@@ -84,36 +84,37 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   <h2>6. Fattura e pagamento</h2>
   <p>
     L'abbonamento viene fatturato in anticipo per un anno. La fattura arriva via e-mail ed è pagabile entro 30 giorni.
-    Dopo l'ordinazione puoi continuare a lavorare subito.
+    Dopo l'ordinazione puoi continuare a lavorare subito, fino alla fine di questo termine.
     Se ordini durante il periodo di prova, l'anno pagato inizia solo al termine di quest'ultimo.
   </p>
   <p>
-    Se una fattura resta non pagata dopo la scadenza e un sollecito, possiamo bloccare la scansione con l'IA e la chat
-    fino al ricevimento del pagamento. I tuoi dati restano consultabili ed esportabili.
+    L'abbonamento diventa vincolante solo con il tuo pagamento. Se non paghi, non devi fare nulla: nessun costo, e la
+    scansione con l'IA e la chat si fermano alla scadenza del termine di pagamento. I tuoi dati restano consultabili
+    ed esportabili. Se paghi più tardi, ripartono.
   </p>
 
-  <h2>7. Durata, rinnovo e disdetta</h2>
+  <h2>7. Durata e rinnovo</h2>
   <p>
-    L'abbonamento dura un anno e si rinnova automaticamente per un ulteriore anno se non lo disdici.
-    La fattura per l'anno successivo arriva 30 giorni prima della scadenza.
+    L'anno pagato va fino alla sua fine e non si prolunga da sé. 30 giorni prima della scadenza ti inviamo la fattura
+    per un ulteriore anno, come offerta, in base al numero dei veicoli attivi in quel momento. Se la paghi,
+    l'abbonamento continua per un anno; se non la paghi, non devi fare nulla, e la scansione con l'IA e la chat si
+    fermano alla fine dell'anno pagato. Un pagamento tardivo le riattiva.
   </p>
   <p>
-    Puoi disdire in qualsiasi momento, fino all'ultimo giorno della durata senza termine di preavviso: nell'app sotto
-    «Impostazioni», «Disdici l'abbonamento», oppure via e-mail a
-    <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. L'abbonamento prosegue poi fino alla fine dell'anno
-    pagato. Una fattura per un anno non ancora iniziato viene stornata con la disdetta. Per un anno iniziato non è
-    previsto alcun rimborso pro rata.
+    Non c'è nessun pulsante per interrompere l'abbonamento e nessun termine da rispettare. Se non vuoi altre fatture,
+    scrivi a <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>; interrompiamo l'invio e annulliamo le
+    fatture aperte. Un anno già pagato va fino alla sua fine; non è previsto alcun rimborso.
   </p>
   <p>
-    Possiamo disdire l'abbonamento con un preavviso di tre mesi per la fine della durata, e con effetto immediato per
-    motivi gravi (p. es. abuso o ripetuti ritardi di pagamento). Se cessiamo completamente Wartungsheft, rimborsiamo
-    pro rata gli importi già pagati per la durata residua.
+    Possiamo porre fine all'abbonamento con un preavviso di tre mesi per la fine dell'anno pagato, e con effetto
+    immediato in caso di abuso. Se cessiamo completamente Wartungsheft, rimborsiamo pro rata gli importi già pagati
+    per la durata residua.
   </p>
 
   <h2>8. Modifiche di prezzo</h2>
   <p>
-    Annunciamo le modifiche di prezzo via e-mail almeno 60 giorni prima del prossimo rinnovo. Esse valgono a partire
-    dalla durata successiva. Se non sei d'accordo, disdici entro la scadenza, come descritto alla cifra 7.
+    Annunciamo le modifiche di prezzo via e-mail almeno 60 giorni prima della prossima fattura di rinnovo. Esse
+    valgono a partire dalla durata successiva. Se non sei d'accordo, semplicemente non paghi quella fattura (cifra 7).
   </p>
 
   <h2>9. I tuoi dati</h2>
@@ -158,8 +159,9 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   <h2>13. Modifiche delle presenti CG</h2>
   <p>
     Comunichiamo le modifiche via e-mail almeno 30 giorni prima della loro entrata in vigore. Se non sei d'accordo,
-    puoi disdire l'abbonamento per la data dell'entrata in vigore; in tal caso rimborsiamo pro rata gli importi già
-    pagati per la durata residua. Se continui a usare Wartungsheft in seguito, valgono le nuove CG.
+    puoi smettere alla data dell'entrata in vigore (e-mail a <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>);
+    in tal caso rimborsiamo pro rata gli importi già pagati per la durata residua. Se continui a usare Wartungsheft in
+    seguito, valgono le nuove CG.
   </p>
 
   <h2>14. Diritto applicabile e foro</h2>

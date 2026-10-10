@@ -57,7 +57,7 @@ test.describe('Public Pages', () => {
     }
   })
 
-  test('PP-005: AGB nennen Anbieter, Testzeit, Preise, Verlängerung und Kündigung', async ({ page }) => {
+  test('PP-005: AGB nennen Anbieter, Testzeit, Preise, Zahlung und Verlängerung als Angebot', async ({ page }) => {
     await page.goto('/impressum')
     await page.getByRole('contentinfo').getByRole('link', { name: 'AGB' }).click()
     await expect(page).toHaveURL(/\/agb$/)
@@ -65,10 +65,13 @@ test.describe('Public Pages', () => {
     const main = page.getByRole('main')
     await expect(main).toContainText('Goran Strainovic')
     await expect(main).toContainText('Bahnstrasse 9b, 9323 Steinach')
-    for (const heading of [/Testzeit/, /Preise/, /Rechnung und Zahlung/, /Laufzeit, Verlängerung und Kündigung/, /Haftung/, /Deine Daten/, /Anwendbares Recht/])
+    for (const heading of [/Testzeit/, /Preise/, /Rechnung und Zahlung/, /Laufzeit und Verlängerung/, /Haftung/, /Deine Daten/, /Anwendbares Recht/])
       await expect(page.getByRole('heading', { name: heading })).toBeVisible()
-    await expect(main).toContainText('verlängert sich automatisch um ein weiteres Jahr')
-    await expect(main).toContainText('bis zum letzten Tag der Laufzeit ohne Frist')
+    // Abo-Regeln (find-jobs/akquise/abo-regeln.md): verbindlich erst mit der Zahlung, Verlängerung als Angebot
+    await expect(main).toContainText('Verbindlich wird das Abo erst mit deiner Zahlung')
+    await expect(main).toContainText('verlängert sich nicht von selbst')
+    await expect(main).not.toContainText('Mahnung')
+    await expect(main).not.toContainText(/kündig/i)
     await expect(main).toContainText('CHF 36.00 pro Fahrzeug und Jahr')
     await expect(main).toContainText('CHF 25.00 im Jahr')
     await expect(page.getByRole('link', { name: 'Datenschutzerklärung' })).toHaveAttribute('href', '/datenschutz')
