@@ -195,7 +195,10 @@ pro Nutzer und Monat in InstantDB (`usage`) und setzt die Plan-Limits aus `@stra
 ### 4. Stripe (Kartenzahlung, optional, nicht eingerichtet)
 
 Bezahlt wird zuerst per QR-Rechnung für Schweizer Kunden (Abschnitt 8). Ob später Payrexx oder Stripe für
-Kartenzahlung dazukommt, ist offen. Der Proxy enthält eine Stripe-Anbindung, die erst mit diesen Schritten aktiv wird:
+Kartenzahlung dazukommt, ist offen. Karte höchstens als einmalige Zahlung pro Jahr, keine Kartenabos mit
+automatischer Abbuchung (`find-jobs/akquise/abo-regeln.md`): Die vorhandene Stripe-Anbindung im Proxy nutzt
+`mode: 'subscription'` und wird vor dem Einschalten auf eine einmalige Zahlung umgebaut. Sie wird erst mit diesen
+Schritten aktiv:
 
 1. `STRIPE_SECRET_KEY` setzen.
 2. Produkte in CHF anlegen: `privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr (Menge = Fahrzeuge) → Price-IDs in `STRIPE_PRICE_PRIVAT` / `STRIPE_PRICE_BETRIEB`.
@@ -373,20 +376,23 @@ docker compose --env-file .env --profile jobs run --rm reminders node /app/remin
 
 Betriebe bestellen in den Einstellungen («Jahresabo für Betrieb bestellen») mit Rechnungsadresse und Fahrzeugzahl.
 Der AI-Proxy legt das Abo an (Entität `subscriptions`, `billing: 'invoice'`), erzeugt die QR-Rechnung (pdfkit +
-swissqrbill, ohne MWST) und schickt sie über Resend an die Rechnungs-E-Mail, `info@wartungsheft.ch` in Bcc. Zugang
-sofort, zahlbar in 30 Tagen; das bezahlte Jahr beginnt nach der Testzeit. Kündigen in den Einstellungen bis zum
-Ablauf ohne Frist; eine offene Rechnung für ein noch nicht begonnenes Jahr wird dabei storniert. Voraussetzung:
+swissqrbill, ohne MWST) und schickt sie über Resend an die Rechnungs-E-Mail, `info@wartungsheft.ch` in Bcc.
+Verbindlich wird es erst mit der Zahlung (Regeln für alle Produkte: `find-jobs/akquise/abo-regeln.md`): Zugang nach
+der Bestellung bis zur Zahlungsfrist (30 Tage), danach nur mit bezahltem Jahr; das bezahlte Jahr beginnt nach der
+Testzeit, eine späte Zahlung schaltet wieder frei. Keine Rückzahlung, darum kein Kündigen in der App: Wer keine
+Rechnungen mehr will, schreibt an `info@wartungsheft.ch`, dann `stop <Referenz>` (unten). Voraussetzung:
 `INVOICE_*`, `RESEND_TOKEN` und `AI_PROXY_INTERNAL_TOKEN` in `deploy/.env` (Vorlage `.env.example`).
 
 Ohne `INVOICE_IBAN` (kein Geschäftskonto) läuft die Bestellung genauso, aber statt der QR-Rechnung an den Kunden geht
 an `INVOICE_EMAIL` bzw. `FEEDBACK_TO` die Mail «Wartungsheft: Rechnung schreiben» mit Nummer, SCOR-Referenz, Betrag,
 Fälligkeit und Rechnungsadresse. Die Rechnung dann von Hand mit dieser Nummer und Referenz schreiben und dem Kunden
-schicken; die Zahlung trägt `paid <Referenz>` ein. Kündigt der Kunde vor Beginn des Jahres, kommt «Rechnung
+schicken; die Zahlung trägt `paid <Referenz>` ein. Storniert `stop` eine offene Rechnung, kommt «Rechnung
 stornieren».
 
 Täglich läuft der Container `billing` (Profil `jobs`, Skript `deploy/billing.mjs` = Bündel von `scripts/billing.ts`):
-30 Tage vor Ablauf zählt er die aktiven Fahrzeuge und lässt den Proxy die Verlängerungsrechnung schicken
-(`/billing/renew`), danach listet er offene Rechnungen, überfällige markiert. Zahlungseingänge kommen als camt.054
+30 Tage vor Ablauf eines bezahlten Jahres zählt er die aktiven Fahrzeuge und lässt den Proxy die
+Verlängerungsrechnung schicken (`/billing/renew`); sie ist ein Angebot, nur wer sie zahlt, hat ein weiteres Jahr, und
+solange sie offen ist, folgt keine weitere. Danach listet er offene Rechnungen, überfällige markiert. Zahlungseingänge kommen als camt.054
 aus dem E-Banking (PostFinance, Detailavis der Gutschriften) oder einzeln über die Referenz:
 
 ```bash
@@ -397,6 +403,7 @@ $C camt /app/camt054.xml --dry-run       # camt.054 lesen, Zuordnung zeigen, nic
 $C camt /app/camt054.xml                 # passende Zahlungen buchen, Rest mit «PRÜFEN» melden
 $C paid RF31WH20260919DSKURD 2026-10-02  # Zahlung von Hand eintragen (Referenz oder Rechnungsnummer)
 $C renew --dry-run                       # zeigt fällige Verlängerungen, verschickt nichts
+$C stop RF31WH20260919DSKURD             # keine weiteren Rechnungen: offene storniert, bezahlte Zeit läuft zu Ende
 ```
 
 `camt` bucht nur, was eindeutig passt: Gutschrift mit bekannter Referenz, Betrag gleich dem Rechnungsbetrag,

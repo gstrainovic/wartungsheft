@@ -153,15 +153,6 @@ export function orderBusinessPlan(order: BusinessOrder): Promise<{ invoice: { nu
   return billingPost('/billing/order', { ...order, language: order.language ?? appSprache.value })
 }
 
-/** Kündigung auf Ende der Laufzeit; `voided` zählt stornierte Rechnungen (Kündigung vor Beginn des Jahres) */
-export function cancelBusinessPlan(): Promise<{ billing: BusinessBilling | null, voided: number }> {
-  return billingPost('/billing/cancel')
-}
-
-export function resumeBusinessPlan(): Promise<{ billing: BusinessBilling }> {
-  return billingPost('/billing/resume')
-}
-
 /** Kontolöschung beim Proxy: Verbrauch, Testzeit und Login; ein Abo mit Rechnungen bleibt gekündigt als Beleg */
 export function deleteAccount(): Promise<{ ok: true }> {
   return billingPost('/me/delete')

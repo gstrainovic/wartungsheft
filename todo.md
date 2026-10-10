@@ -91,14 +91,17 @@ Bei bestätigter Kleinbetriebs-Hypothese (H1):
 Bei bestätigter Privathalter-Hypothese (H2):
 - [ ] Jahresabo 25 CHF per QR-Rechnung an die angemeldeten Nutzer nach der Testzeit, Kanäle aus Kapitel 5
 
-Kartenzahlung, erst wenn die QR-Rechnung nicht mehr reicht (z. B. ein Kunde will monatlich per Karte zahlen; Abwägung und Preise in business-plan/04):
+Kartenzahlung, erst wenn die QR-Rechnung nicht mehr reicht; nur als einmalige Zahlung pro Jahr, keine Kartenabos mit
+automatischer Abbuchung (`~/projects/find-jobs/akquise/abo-regeln.md`; Abwägung und Preise in business-plan/04):
 - [ ] Kartenanbieter wählen (Payrexx oder Stripe)
 - [ ] Konto beim gewählten Anbieter anlegen, verifizieren, Testmodus, API-Key und Webhook-Secret notieren
-- [ ] ai-proxy: austauschbare Billing-Schnittstelle, gewählten Anbieter anbinden (bei Payrexx: Gateway mit subscriptionState, Webhook X-Webhook-Signature HMAC-SHA256 hex, Status active/overdue/failed/cancelled/in_notice, Kundenportal POST /AuthToken, Kündigen DELETE /Subscription/{id}); Tests gegen dokumentierte Payloads
-- [ ] App anbinden, Checkout und Kündigung im Testmodus durchspielen
+- [ ] ai-proxy: austauschbare Billing-Schnittstelle, gewählten Anbieter als einmalige Jahreszahlung anbinden (Stripe
+      Checkout ohne `mode: 'subscription'`, Payrexx Gateway ohne Abo); die Zahlung trägt das Jahr ein wie `paid`; Tests
+      gegen dokumentierte Payloads
+- [ ] App anbinden, Checkout im Testmodus durchspielen
 - [ ] Preise je Plan beim Anbieter hinterlegen (`privat` 25 CHF im Jahr, `betrieb` 36 CHF pro Fahrzeug und Jahr mit Menge)
 - [ ] Datenschutzerklärung: gewählten Anbieter ergänzen
-- [ ] Settings: "Abo verwalten"-Button (`POST /billing/portal`), nach Rückkehr vom Checkout Nutzung neu laden und Toast zeigen
+- [ ] Settings: nach Rückkehr vom Checkout Nutzung neu laden und Toast zeigen
 - [ ] Limit-Meldung im Chat mit Link zu den Einstellungen statt nur Text
 
 ## Geparkt

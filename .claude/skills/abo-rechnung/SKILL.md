@@ -4,9 +4,21 @@ description: >
   Abo, Testzeit, Kaufweg, Jahresabo auf QR-Rechnung, AGB, Konto löschen sowie Bank und Zahlungsabgleich (PostFinance, camt.054). Use when an trial.ts, trialNotice, OrderDialog, /billing/*, invoice-*.ts, scripts/billing.ts, AgbPage, account-delete.ts, camt.ts oder der PostFinance-Testplattform gearbeitet wird.
 ---
 
+## Regeln (Entscheide Goran, gelten für alle Produkte)
+Übersicht in `~/projects/find-jobs/akquise/abo-regeln.md`; weicht Code oder Text ab, wird die Stelle angepasst.
+- Verbindlich erst mit der Zahlung. Wer testet oder bestellt und nicht zahlt, muss nichts tun, keine Kosten; Scan
+  und Chat enden.
+- Nichts verlängert sich mit Zahlungspflicht: Die Verlängerungsrechnung ist ein Angebot, nur wer sie zahlt, hat ein
+  weiteres Jahr.
+- Keine Rückzahlung, darum kein Kündigen-Knopf: Wer keine Rechnungen mehr will, schreibt an info@wartungsheft.ch,
+  Goran stoppt mit `billing.mjs stop <Referenz>`.
+- Keine Mahnung und keine Sperre als Drohung; höchstens eine Erinnerung nach der Frist mit «müssen Sie nichts tun».
+
 ## Zahlungsweg
 - Zuerst QR-Rechnungen für Schweizer Kunden (Jahresabo auf Rechnung). Ob später Payrexx oder Stripe für Kartenzahlung
-  dazukommt, ist offen. ai-proxy `billing.ts` enthält eine optionale Stripe-Anbindung (README «4. Stripe»).
+  dazukommt, ist offen; Karte höchstens als einmalige Zahlung pro Jahr, kein Kartenabo (kein Stripe
+  `mode: 'subscription'`). ai-proxy `billing.ts` enthält eine optionale, nicht eingerichtete Stripe-Anbindung mit
+  Abo-Modus (README «4. Stripe»), die vor dem Einschalten umgebaut wird.
 
 ## Abo und Testzeit
 - Kein Gratis-Plan. Ohne Abo läuft eine Testzeit von 30 Tagen mit allen Funktionen und dem Kontingent des Privatplans
@@ -22,7 +34,7 @@ description: >
 - `/me/usage` meldet `ordering`, sobald der Proxy Rechnungen ausstellt. Mit `INVOICE_IBAN` erzeugt und verschickt er
   die QR-Rechnung selbst; ohne IBAN, aber mit Postfach (`INVOICE_EMAIL`, ersatzweise `FEEDBACK_TO`), legt er das Abo
   gleich an (Nummer, SCOR-Referenz) und schickt nur den Auftrag «Rechnung schreiben» an `info@wartungsheft.ch`
-  (ai-proxy `invoice-request.ts`, Antwort `manual: true`); Verlängerung und Storno ebenso.
+  (ai-proxy `invoice-request.ts`, Antwort `manual: true`); Verlängerung und Storno (`stop`) ebenso.
 - So läuft die Produktion, bis das Geschäftskonto da ist, und so laufen die E2E-Tests. Ohne beides zeigt die App weder
   Bestellknopf noch Testzeit-Hinweis.
 
@@ -30,10 +42,14 @@ description: >
 - `OrderDialog.vue` in den Einstellungen mit Umschalter Privat/Betrieb: privat ohne Firmenfeld, `Order.audience` steuert
   Pflichtfelder, Preis, Plan und die Texte auf Rechnung und Mail; die Zielgruppe steht am Abo und gilt bei jeder
   Verlängerung. Prüfung mit `parseOrder` aus `@strainovic/ai-proxy/invoice`, dieselbe wie im Proxy.
-- Proxy `/billing/order|cancel|resume` erzeugt die QR-Rechnung (Regeln in ai-proxy `invoice-subscription.ts`,
-  README «8. Jahresabo auf Rechnung»).
-- Täglicher Job `scripts/billing.ts` zählt Fahrzeuge und ruft `/billing/renew`, `paid <Referenz>` trägt Zahlungen ein;
-  beide internen Endpunkte nur mit `AI_PROXY_INTERNAL_TOKEN`.
+- Proxy `/billing/order` erzeugt die QR-Rechnung (Regeln in ai-proxy `invoice-subscription.ts`, README «8. Jahresabo
+  auf Rechnung»). Zugang (`effectiveSubscription`): Testzeit, nach der Bestellung bis zur Zahlungsfrist der offenen
+  Rechnung, sonst nur in einem bezahlten Jahr; eine offene Verlängerung verlängert den Zugang nicht, eine späte Zahlung
+  schaltet wieder frei (wie QR-Rechnung für HubSpot).
+- Täglicher Job `scripts/billing.ts` zählt Fahrzeuge und ruft `/billing/renew` (nur nach einem bezahlten Jahr,
+  `renewalDue`), `paid <Referenz>` trägt Zahlungen ein, `stop <Referenz>` ruft `/billing/stop` (offene Rechnungen
+  storniert, keine Verlängerung, bezahlte Zeit läuft zu Ende); die internen Endpunkte nur mit `AI_PROXY_INTERNAL_TOKEN`.
+- Die Einstellungen zeigen Abo und offene Rechnung, aber keinen Kündigen-Knopf (E2E `BO-001`).
 - Absender «Goran Strainovic, Strainovic IT» (Einzelfirma ohne Handelsregister, darum der Name des Inhabers), ohne MWST.
 - Frontend-Code aus dem ai-proxy läuft mit `lib` ES2020: kein `replaceAll`, kein `.at()`.
 
