@@ -36,6 +36,9 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       ergänzen, Proxy neu bauen, Testbestellung mit eigener Adresse, PDF gegen den SIX-Validator prüfen, danach stornieren
 - [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
       `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
+- [ ] Eine Erinnerung am letzten Tag der Zahlungsfrist (ai-proxy, wie `erinnerungFaellig` in qr-rechnung-hubspot):
+      «heute fällig … möchtest du weitermachen, zahle … sonst musst du nichts tun», je Rechnung nur einmal, nicht nach
+      `billing.mjs stop`; TDD, Text von Fable in vier Sprachen (`find-jobs/akquise/abo-regeln.md`)
 - [ ] Fahrzeuggrenze wirklich sperren, sobald ein Zahlungsweg existiert: `vehicleLimit` meldet heute nur, solange
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
 - [ ] Fällt der Health-Workflow durch, ohne dass etwas kaputt ist (Wartungsfenster, kurzer Netzaussetzer), die
