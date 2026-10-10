@@ -26,7 +26,7 @@ const de = {
   inbegriffen: [
     'Scannen ohne Limit im Alltag, Chat-Assistent, E-Mail-Erinnerungen',
     'Kosten pro Fahrzeug und Jahr für Excel, PDF-Dossier, Serviceheft für den Verkauf',
-    'Jahresrechnung, keine Grundgebühr, jederzeit kündbar, gleiche Funktionen für alle',
+    'Jahresrechnung, keine Grundgebühr, nichts verlängert sich von selbst, gleiche Funktionen für alle',
   ],
   demo: {
     beschreibung: 'Beispiel: Fälligkeiten eines Fahrzeugs',
@@ -66,7 +66,7 @@ export default {
     inbegriffen: [
       'Scans illimités au quotidien, assistant de chat, rappels par e-mail',
       'Coûts par véhicule et par an pour Excel, dossier PDF, carnet d’entretien pour la vente',
-      'Facture annuelle, sans taxe de base, résiliable à tout moment, mêmes fonctions pour tous',
+      'Facture annuelle, sans taxe de base, rien ne se prolonge tout seul, mêmes fonctions pour tous',
     ],
     demo: {
       beschreibung: 'Exemple : échéances d’un véhicule',
@@ -103,7 +103,7 @@ export default {
     inbegriffen: [
       'Scansioni senza limiti nell\'uso quotidiano, assistente chat, promemoria via e-mail',
       'Costi per veicolo e anno per Excel, dossier PDF, libretto di manutenzione per la vendita',
-      'Fattura annuale, senza tassa di base, disdicibile in ogni momento, stesse funzioni per tutti',
+      'Fattura annuale, senza tassa di base, niente si prolunga da solo, stesse funzioni per tutti',
     ],
     demo: {
       beschreibung: 'Esempio: scadenze di un veicolo',
@@ -140,7 +140,7 @@ export default {
     inbegriffen: [
       'Unlimited scanning in everyday use, chat assistant, email reminders',
       'Costs per vehicle and year for Excel, PDF dossier, service book for selling',
-      'Annual invoice, no base fee, cancel any time, the same features for everyone',
+      'Annual invoice, no base fee, nothing extends by itself, the same features for everyone',
     ],
     demo: {
       beschreibung: 'Example: due dates of a vehicle',

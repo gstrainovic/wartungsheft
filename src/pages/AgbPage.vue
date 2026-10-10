@@ -32,7 +32,7 @@ const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
     <main v-else class="legal-container legal-content">
       <h1>Allgemeine Geschäftsbedingungen</h1>
       <p class="legal-meta">
-        Stand: 22. September 2026
+        Stand: 10. Oktober 2026
       </p>
 
       <h2>1. Anbieter und Geltungsbereich</h2>

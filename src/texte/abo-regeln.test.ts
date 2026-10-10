@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { SPRACHEN } from '../lib/sprache'
 import bestellung from './app/bestellung'
 import einstellungen from './app/einstellungen'
+import preise from './preise'
 
 /**
  * Abo-Regeln (find-jobs/akquise/abo-regeln.md) in Bestelldialog, Einstellungen und AGB: verbindlich erst mit der
@@ -62,6 +63,12 @@ describe('abo-regeln in den Texten', () => {
       keineVerbote(t.laeuftBis('X'), code, 'einstellungen.laeuftBis')
       keineVerbote(t.gekuendigtBis('X'), code, 'einstellungen.gekuendigtBis')
       expect(t.gekuendigtBis('X')).toMatch(KEINE_WEITEREN_RECHNUNGEN[code])
+    })
+
+    it(`${code}: Preisseite verspricht kein Kündigen und keine Verlängerung von selbst`, () => {
+      const t = preise[code]
+      keineVerbote(t.inbegriffen.join('\n'), code, 'preise.inbegriffen')
+      keineVerbote([t.privatIntro(5), t.betriebMonat('X'), t.testzeit].join('\n'), code, 'preise')
     })
 
     it(`${code}: AGB sagen «ohne Zahlung nichts tun», ohne Kündigen, Mahnung, Sperre oder Verlängerung von selbst`, () => {

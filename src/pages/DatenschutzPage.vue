@@ -157,7 +157,7 @@ const UEBERSETZUNG = { fr: DatenschutzFr, it: DatenschutzIt, en: DatenschutzEn }
           </tr>
           <tr>
             <td>Abo- und Rechnungsdaten</td>
-            <td>Rechnungsstellung, Zahlungseingang, Verlängerung und Kündigung des Abos</td>
+            <td>Rechnungsstellung, Zahlungseingang, Rechnungen und Verlängerungsangebote des Abos</td>
             <td>Vertragserfüllung, gesetzliche Aufbewahrungspflicht</td>
           </tr>
           <tr>
