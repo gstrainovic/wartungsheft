@@ -14,6 +14,12 @@ function ordered(userId: string, today: string, vehicles = 2): Subscription {
   return result.sub
 }
 
+/** Bestellt und die erste Rechnung bezahlt: erst danach kommt eine Verlängerungsrechnung */
+function paid(userId: string, today: string, vehicles = 2): Subscription {
+  const sub = ordered(userId, today, vehicles)
+  return markInvoicePaid(sub, sub.invoices![0]!.reference, today)
+}
+
 const vehicles = [
   { creatorId: 'u1', soldAt: null },
   { creatorId: 'u1', soldAt: null },
@@ -24,19 +30,24 @@ const vehicles = [
 
 describe('dueRenewals', () => {
   it('fällige Abos mit der Zahl der aktiven Fahrzeuge des Nutzers', () => {
-    const entries = [{ userId: 'u1', sub: ordered('u1', '2026-09-19') }]
+    const entries = [{ userId: 'u1', sub: paid('u1', '2026-09-19') }]
     // drei aktiv, das verkaufte zählt nicht
     expect(dueRenewals(entries, vehicles, '2027-08-20')).toEqual([{ userId: 'u1', company: 'Muster AG', vehicles: 3 }])
   })
 
-  it('lässt nicht fällige und gekündigte Abos aus', () => {
-    const canceled = { ...ordered('u2', '2026-09-19'), cancelAtPeriodEnd: true }
-    const entries = [{ userId: 'u1', sub: ordered('u1', '2026-12-01') }, { userId: 'u2', sub: canceled }]
+  it('lässt nicht fällige und gestoppte Abos aus', () => {
+    const stopped = { ...paid('u2', '2026-09-19'), cancelAtPeriodEnd: true }
+    const entries = [{ userId: 'u1', sub: paid('u1', '2026-12-01') }, { userId: 'u2', sub: stopped }]
+    expect(dueRenewals(entries, vehicles, '2027-08-20')).toEqual([])
+  })
+
+  it('lässt Abos mit unbezahlter Rechnung aus: keine Folge-Rechnung ohne Zahlung', () => {
+    const entries = [{ userId: 'u1', sub: ordered('u1', '2026-09-19') }]
     expect(dueRenewals(entries, vehicles, '2027-08-20')).toEqual([])
   })
 
   it('ohne aktive Fahrzeuge wird ein Fahrzeug abgerechnet', () => {
-    const entries = [{ userId: 'u3', sub: ordered('u3', '2026-09-19') }]
+    const entries = [{ userId: 'u3', sub: paid('u3', '2026-09-19') }]
     expect(dueRenewals(entries, vehicles, '2027-08-20')[0]!.vehicles).toBe(1)
   })
 })

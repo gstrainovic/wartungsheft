@@ -6,6 +6,8 @@
  *   node billing.mjs open                 offene Rechnungen, überfällige markiert
  *   node billing.mjs paid <Referenz> [JJJJ-MM-TT]   Zahlung eintragen (Referenz oder Rechnungsnummer aus dem Kontoauszug)
  *   node billing.mjs camt <datei.xml> [--dry-run]  camt.054 aus dem E-Banking einlesen und passende Zahlungen buchen
+ *   node billing.mjs stop <Referenz>      keine weiteren Rechnungen, wenn der Kunde das schreibt (eine seiner Rechnungen
+ *                                         als Schlüssel): offene Rechnungen storniert, bezahlte Zeit läuft zu Ende
  *
  * Läuft auf der Instanz als Container (deploy/docker-compose.yml, Dienst `billing`, Profil `jobs`), gebündelt mit
  * `npm run build:billing` nach deploy/billing.mjs. Umgebung: INSTANT_API_URI, INSTANT_APP_ID, INSTANT_ADMIN_TOKEN,
@@ -140,7 +142,18 @@ async function main(): Promise<void> {
     return
   }
 
-  throw new Error(`Unbekannter Befehl ${command}: renew, open, paid oder camt`)
+  if (command === 'stop') {
+    const [key] = args
+    if (!key)
+      throw new Error('Aufruf: billing.mjs stop <Referenz oder Rechnungsnummer>')
+    const { entries } = await load(false)
+    const userId = findInvoiceOwner(entries, key)
+    const { voided } = await proxy('/billing/stop', userId, {})
+    log(`Keine weiteren Rechnungen für ${userId}: ${voided} offene Rechnung(en) storniert, bezahlte Zeit läuft zu Ende`)
+    return
+  }
+
+  throw new Error(`Unbekannter Befehl ${command}: renew, open, paid, camt oder stop`)
 }
 
 main().catch((err) => {

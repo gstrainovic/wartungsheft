@@ -14,8 +14,10 @@ Produktgrenze (business-plan/03-produkt.md «Abgrenzung»): Serviceheft mit Rech
 keine Buchhaltung, keine Übernahme-Checklisten, keine Fahrer-Fahrzeug-Zuordnung oder Rollen, kein Aufpreis für Betriebe.
 Zwei Preislisten, gleiche Funktionen: Privat 25 CHF im Jahr bis 5 Fahrzeuge, Betrieb 36 CHF pro Fahrzeug und Jahr
 mit Rechnung auf die Firma (`plans.ts`: `yearlyPriceChf(n, audience)`, Pläne `free`, `privat`, `betrieb`).
-Bezahlt wird zuerst per QR-Rechnung für Schweizer Kunden; ob später Payrexx oder Stripe für Karten dazukommt, ist offen
-(Skill `abo-rechnung`).
+Bezahlt wird zuerst per QR-Rechnung für Schweizer Kunden; ob später Payrexx oder Stripe für Karten dazukommt, ist offen,
+Karte höchstens als einmalige Zahlung pro Jahr. Abo-Regeln (verbindlich erst mit der Zahlung, Verlängerung als
+Angebot, kein Kündigen-Knopf, keine Rückzahlung): `~/projects/find-jobs/akquise/abo-regeln.md`, Umsetzung im Skill
+`abo-rechnung`.
 
 ## Arbeitsweise
 - Text-, Style- und Marketing-Änderungen einer Runde erst sammeln, dann einmal Lint und die betroffenen Specs (oder wenn Goran «testen» sagt); nicht nach jeder kleinen Änderung. Deploy nur auf Aufforderung.

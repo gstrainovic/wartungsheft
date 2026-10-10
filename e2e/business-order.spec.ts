@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test'
 import { clearInstantDB, expect, test, waitForInstantDB } from './fixtures/test-fixtures'
 
 // Jahresabo auf Rechnung, privat oder für einen Betrieb: Bestellung in den Einstellungen mit Rechnungsadresse,
-// Fahrzeugzahl vorbelegt mit den aktiven Fahrzeugen, Rechnung zahlbar in 30 Tagen, kündbar bis zum Ablauf.
+// Fahrzeugzahl vorbelegt mit den aktiven Fahrzeugen, Rechnung zahlbar in 30 Tagen, kein Kündigen in der App.
 // Der lokale Proxy läuft wie die Produktion ohne IBAN und ohne RESEND_TOKEN: Rechnung von Hand, der Auftrag an
 // info@wartungsheft.ch wird nur protokolliert.
 
@@ -25,7 +25,7 @@ test.describe('Jahresabo auf Rechnung', () => {
     await clearInstantDB(page)
   })
 
-  test('BO-001: Betrieb bestellt mit Rechnungsadresse, sieht Rechnung und kann kündigen', async ({ page }) => {
+  test('BO-001: Betrieb bestellt mit Rechnungsadresse, sieht Rechnung, kein Kündigen-Knopf', async ({ page }) => {
     await seedVehicles(page)
     await page.goto('/settings')
     const card = page.locator('.settings-card', { hasText: 'Abo & Nutzung' })
@@ -69,12 +69,10 @@ test.describe('Jahresabo auf Rechnung', () => {
     await expect(status).toContainText('verlängert sich automatisch')
     await expect(card.getByRole('button', { name: 'Jahresabo bestellen' })).toHaveCount(0)
 
-    // Bestellt während der Testzeit: das bezahlte Jahr hat noch nicht begonnen, Kündigung storniert die Rechnung
-    // (Kündigung auf Ende einer laufenden Laufzeit prüfen die Unit-Tests im ai-proxy)
-    await status.getByRole('button', { name: 'Abo kündigen' }).click()
-    await expect(page.getByText('Die Rechnung ist storniert, du musst nichts bezahlen.')).toBeVisible()
-    await expect(status).toHaveCount(0)
-    await expect(card.getByRole('button', { name: 'Jahresabo bestellen' })).toBeVisible()
+    // Kein Kündigen-Knopf: erst die Zahlung bindet, wer nicht zahlt, muss nichts tun; keine weiteren Rechnungen
+    // stoppt der Betreiber auf Wunsch (billing.mjs stop, find-jobs/akquise/abo-regeln.md)
+    await expect(status.getByRole('button')).toHaveCount(0)
+    await expect(card.getByRole('button', { name: /kündig/i })).toHaveCount(0)
   })
 
   test('BO-002: fehlerhafte Angaben zeigt das Formular am Feld', async ({ page }) => {

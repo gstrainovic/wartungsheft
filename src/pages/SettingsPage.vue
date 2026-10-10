@@ -21,7 +21,7 @@ import { db, tx } from '../lib/instantdb'
 import { formatCurrency, formatDate, formatMonth, formatNumber } from '../lib/locale'
 import { SPRACHEN } from '../lib/sprache'
 import { deleteWholeAccount } from '../services/account-delete'
-import { cancelBusinessPlan, fetchUsage, resumeBusinessPlan, startCheckout } from '../services/ai-access'
+import { fetchUsage, startCheckout } from '../services/ai-access'
 import { exportDatabase, importDatabase } from '../services/db-export'
 import { activeVehicles } from '../services/vehicle-status'
 import { useRemindersStore } from '../stores/reminders'
@@ -106,10 +106,10 @@ const usage = ref<UsageInfo | null>(null)
 const usageError = ref('')
 const checkoutBusy = ref<string | null>(null)
 
-// Jahresabo auf Rechnung (privat oder Betrieb): bestellen, Stand, kündigen (ai-proxy invoice-subscription.ts)
+// Jahresabo auf Rechnung (privat oder Betrieb): bestellen und Stand (ai-proxy invoice-subscription.ts). Kein Kündigen:
+// erst die Zahlung bindet; keine weiteren Rechnungen stoppt der Betreiber auf Wunsch (find-jobs/akquise/abo-regeln.md)
 const vehiclesStore = useVehiclesStore()
 const orderOpen = ref(false)
-const businessBusy = ref(false)
 const business = computed(() => usage.value?.billing ?? null)
 const activeVehicleCount = computed(() => activeVehicles(vehiclesStore.vehicles).length)
 // Bestellen, sobald der Proxy Rechnungen ausstellt: mit IBAN als QR-Rechnung, ohne von Hand (Auftrag per Mail)
@@ -125,32 +125,6 @@ function onOrdered(result: { number: string, mailed: boolean, manual: boolean })
     life: 6000,
   })
   refreshUsage()
-}
-
-async function changeBusinessPlan(action: 'cancel' | 'resume'): Promise<void> {
-  businessBusy.value = true
-  try {
-    if (action === 'cancel') {
-      // Vor Beginn des bezahlten Jahres storniert die Kündigung die Rechnung, die Testzeit läuft weiter
-      const { voided } = await cancelBusinessPlan()
-      toast.add({
-        severity: 'info',
-        summary: t.value.abo.gekuendigt,
-        detail: voided ? t.value.abo.storniert : t.value.abo.bisEnde,
-        life: 6000,
-      })
-    }
-    else {
-      await resumeBusinessPlan()
-    }
-    await refreshUsage()
-  }
-  catch (e) {
-    toast.add({ severity: 'warn', summary: (e as Error).message, life: 5000 })
-  }
-  finally {
-    businessBusy.value = false
-  }
 }
 
 /** Letzter Tag der bezahlten Laufzeit (periodEnd ist exklusiv) */
@@ -445,23 +419,6 @@ const currencyOptions = HOME_CURRENCIES.map(c => ({ label: c, value: c }))
               {{ t.abo.offeneRechnung(business.openInvoice.number, formatCurrency(business.openInvoice.amount), formatDate(business.openInvoice.dueAt)) }}
               <a :href="`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.abo.mailBetreff(business.openInvoice.number))}`">{{ CONTACT_EMAIL }}</a>.
             </div>
-            <Button
-              v-if="business.cancelAtPeriodEnd"
-              :label="t.abo.kuendigungZuruecknehmen"
-              size="small"
-              outlined
-              :loading="businessBusy"
-              @click="changeBusinessPlan('resume')"
-            />
-            <Button
-              v-else
-              :label="t.abo.kuendigen"
-              size="small"
-              severity="secondary"
-              outlined
-              :loading="businessBusy"
-              @click="changeBusinessPlan('cancel')"
-            />
           </div>
           <div v-else-if="canOrderBusiness" class="business-order">
             <div>
