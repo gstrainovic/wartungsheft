@@ -1,7 +1,9 @@
 <script setup lang="ts">
 /**
- * Allgemeine Geschäftsbedingungen. Die Regeln zu Testzeit, Abo, Verlängerung und Kündigung spiegeln den Code:
- * ai-proxy `trial.ts` und `invoice-subscription.ts`, Preise aus `plans.ts`. Wer dort etwas ändert, passt hier an.
+ * Allgemeine Geschäftsbedingungen. Die Regeln zu Testzeit, Abo und Verlängerung spiegeln den Code: ai-proxy
+ * `trial.ts` und `invoice-subscription.ts`, Preise aus `plans.ts`, Abo-Regeln aus find-jobs/akquise/abo-regeln.md
+ * (verbindlich erst mit der Zahlung, Verlängerung als Angebot, kein Kündigen, keine Mahnung; Test
+ * src/texte/abo-regeln.test.ts). Wer dort etwas ändert, passt hier an.
  * Du-Form wie überall in der App, auch für Betriebe. Die Übersetzungen (src/texte/agb/*.vue) gehen im selben
  * Commit mit, die deutsche Fassung ist massgebend.
  */
@@ -102,35 +104,37 @@ const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
       <h2>6. Rechnung und Zahlung</h2>
       <p>
         Das Abo wird im Voraus für ein Jahr in Rechnung gestellt. Die Rechnung kommt per E-Mail und ist innert 30 Tagen
-        zahlbar. Nach der Bestellung kannst du sofort weiterarbeiten.
+        zahlbar. Nach der Bestellung kannst du sofort weiterarbeiten, bis zum Ende dieser Frist.
         Bestellst du während der Testzeit, beginnt das bezahlte Jahr erst an deren Ende.
       </p>
       <p>
-        Bleibt eine Rechnung nach Fälligkeit und einer Mahnung unbezahlt, können wir KI-Scan und Chat sperren, bis
-        die Zahlung eingeht. Deine Daten bleiben lesbar und exportierbar.
+        Verbindlich wird das Abo erst mit deiner Zahlung. Zahlst du nicht, musst du nichts tun: Es entstehen keine
+        Kosten, und KI-Scan und Chat enden mit der Zahlungsfrist. Deine Daten bleiben lesbar und exportierbar. Zahlst
+        du später, geht es wieder los.
       </p>
 
-      <h2>7. Laufzeit, Verlängerung und Kündigung</h2>
+      <h2>7. Laufzeit und Verlängerung</h2>
       <p>
-        Das Abo läuft ein Jahr und verlängert sich automatisch um ein weiteres Jahr, wenn du es nicht kündigst.
-        Die Rechnung für das nächste Jahr kommt 30 Tage vor Ablauf.
+        Das bezahlte Jahr läuft zu Ende und verlängert sich nicht von selbst. 30 Tage vor Ablauf schicken wir dir die
+        Rechnung für ein weiteres Jahr als Angebot, nach der Zahl der dann aktiven Fahrzeuge. Zahlst du sie, läuft das
+        Abo ein Jahr weiter; zahlst du nicht, musst du nichts tun, und KI-Scan und Chat enden mit dem bezahlten Jahr.
+        Eine späte Zahlung schaltet sie wieder frei.
       </p>
       <p>
-        Du kannst jederzeit kündigen, bis zum letzten Tag der Laufzeit ohne Frist: in der App unter Einstellungen
-        («Abo kündigen») oder per E-Mail an <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. Das Abo
-        läuft dann bis zum Ende des bezahlten Jahres weiter. Eine Rechnung für ein Jahr, das noch nicht begonnen hat,
-        wird mit der Kündigung storniert. Für ein angebrochenes Jahr gibt es keine anteilige Rückerstattung.
+        Einen Knopf zum Abbestellen gibt es nicht, und du brauchst keine Frist. Willst du keine weiteren Rechnungen,
+        schreib an <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>; wir stoppen den Versand und
+        stornieren offene Rechnungen. Ein bereits bezahltes Jahr läuft zu Ende, eine Rückzahlung gibt es nicht.
       </p>
       <p>
-        Wir können das Abo mit einer Frist von drei Monaten auf das Ende der Laufzeit kündigen, aus wichtigem Grund
-        (z. B. Missbrauch oder wiederholter Zahlungsverzug) sofort. Stellen wir Wartungsheft ganz ein, erstatten wir
-        bereits bezahlte Beträge für die restliche Laufzeit anteilig zurück.
+        Wir können das Abo mit einer Frist von drei Monaten auf das Ende des bezahlten Jahres beenden, bei Missbrauch
+        sofort. Stellen wir Wartungsheft ganz ein, erstatten wir bereits bezahlte Beträge für die restliche Laufzeit
+        anteilig zurück.
       </p>
 
       <h2>8. Preisänderungen</h2>
       <p>
-        Preisänderungen kündigen wir mindestens 60 Tage vor der nächsten Verlängerung per E-Mail an. Sie gelten ab der
-        folgenden Laufzeit. Bist du nicht einverstanden, kündigst du bis zum Ablauf, wie in Ziffer 7 beschrieben.
+        Preisänderungen teilen wir mindestens 60 Tage vor der nächsten Verlängerungsrechnung per E-Mail mit. Sie gelten
+        ab der folgenden Laufzeit. Bist du nicht einverstanden, zahlst du diese Rechnung einfach nicht (Ziffer 7).
       </p>
 
       <h2>9. Deine Daten</h2>
@@ -159,7 +163,7 @@ const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
       <p>
         Wir sorgen für einen möglichst unterbrechungsfreien Betrieb, können ihn aber nicht garantieren. Wartungen,
         Störungen bei Dritten (Hosting, E-Mail, KI-Anbieter) oder höhere Gewalt können die App vorübergehend
-        einschränken. Grössere geplante Unterbrüche kündigen wir wenn möglich vorher an.
+        einschränken. Grössere geplante Unterbrüche sagen wir wenn möglich vorher an.
       </p>
 
       <h2>12. Haftung</h2>
@@ -174,8 +178,9 @@ const UEBERSETZUNG = { fr: AgbFr, it: AgbIt, en: AgbEn }
       <h2>13. Änderungen dieser AGB</h2>
       <p>
         Änderungen teilen wir mindestens 30 Tage vor Inkrafttreten per E-Mail mit. Bist du nicht einverstanden, kannst
-        du das Abo auf das Inkrafttreten hin kündigen; bereits bezahlte Beträge für die restliche Laufzeit erstatten wir
-        dann anteilig zurück. Nutzt du Wartungsheft danach weiter, gelten die neuen AGB.
+        du auf das Inkrafttreten hin aufhören (Mail an <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>);
+        bereits bezahlte Beträge für die restliche Laufzeit erstatten wir dann anteilig zurück. Nutzt du Wartungsheft
+        danach weiter, gelten die neuen AGB.
       </p>
 
       <h2>14. Anwendbares Recht und Gerichtsstand</h2>

@@ -52,11 +52,12 @@ test.describe('Jahresabo auf Rechnung', () => {
     await expect(dialog.getByRole('link', { name: 'AGB' })).toHaveAttribute('target', '_blank')
 
     // Ohne Zustimmung keine Bestellung
-    await dialog.getByRole('button', { name: 'Kostenpflichtig bestellen' }).click()
+    await dialog.getByRole('button', { name: 'Rechnung anfordern' }).click()
     await expect(dialog.getByText('Bitte den Bedingungen zustimmen.')).toBeVisible()
 
-    await dialog.getByLabel(/verlängert sich jährlich/).check()
-    await dialog.getByRole('button', { name: 'Kostenpflichtig bestellen' }).click()
+    // Bedingungen nach abo-regeln.md: verbindlich erst mit der Zahlung, wer nicht zahlt, muss nichts tun
+    await dialog.getByLabel(/zahlst du nicht, musst du nichts tun/).check()
+    await dialog.getByRole('button', { name: 'Rechnung anfordern' }).click()
     await expect(dialog).not.toBeVisible()
     // Ohne IBAN schreibt der Betreiber die Rechnung von Hand: kein Versprechen einer QR-Rechnung, die schon unterwegs ist
     await expect(page.getByText('Die Rechnung kommt in den nächsten Tagen per Mail.', { exact: false })).toBeVisible()
@@ -66,7 +67,7 @@ test.describe('Jahresabo auf Rechnung', () => {
     await expect(status).toContainText('Muster Sanitär AG')
     await expect(status).toContainText('3 Fahrzeuge')
     await expect(status).toContainText(/Rechnung WH-\d{8}-[0-9A-Z]{6} über CHF 108\.00, zahlbar bis \d{2}\.\d{2}\.\d{4}/)
-    await expect(status).toContainText('verlängert sich automatisch')
+    await expect(status).toContainText('Nichts verlängert sich von selbst')
     await expect(card.getByRole('button', { name: 'Jahresabo bestellen' })).toHaveCount(0)
 
     // Kein Kündigen-Knopf: erst die Zahlung bindet, wer nicht zahlt, muss nichts tun; keine weiteren Rechnungen
@@ -87,8 +88,8 @@ test.describe('Jahresabo auf Rechnung', () => {
     await dialog.getByLabel('PLZ').fill('90')
     await dialog.getByLabel('Ort').fill('St. Gallen')
     await dialog.getByLabel('E-Mail für die Rechnung').fill('buchhaltung@muster.ch')
-    await dialog.getByLabel(/verlängert sich jährlich/).check()
-    await dialog.getByRole('button', { name: 'Kostenpflichtig bestellen' }).click()
+    await dialog.getByLabel(/zahlst du nicht, musst du nichts tun/).check()
+    await dialog.getByRole('button', { name: 'Rechnung anfordern' }).click()
     await expect(dialog.getByText('PLZ mit vier Ziffern angeben.')).toBeVisible()
     await expect(dialog).toBeVisible()
   })
@@ -109,8 +110,8 @@ test.describe('Jahresabo auf Rechnung', () => {
     await dialog.getByLabel('PLZ').fill('9000')
     await dialog.getByLabel('Ort').fill('St. Gallen')
     await dialog.getByLabel('E-Mail für die Rechnung').fill('anna@beispiel.ch')
-    await dialog.getByLabel(/verlängert sich jährlich/).check()
-    await dialog.getByRole('button', { name: 'Kostenpflichtig bestellen' }).click()
+    await dialog.getByLabel(/zahlst du nicht, musst du nichts tun/).check()
+    await dialog.getByRole('button', { name: 'Rechnung anfordern' }).click()
     await expect(dialog).not.toBeVisible()
 
     const status = card.getByTestId('business-subscription')

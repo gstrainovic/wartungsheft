@@ -87,37 +87,38 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   <h2>6. Facture et paiement</h2>
   <p>
     L’abonnement est facturé d’avance pour une année. La facture est envoyée par e-mail et est payable dans les
-    30 jours. Après la commande, vous pouvez continuer à travailler immédiatement.
+    30 jours. Après la commande, vous pouvez continuer à travailler immédiatement, jusqu’à la fin de ce délai.
     Si vous commandez pendant la période d’essai, l’année payée ne commence qu’à la fin de celle-ci.
   </p>
   <p>
-    Si une facture reste impayée après son échéance et un rappel, nous pouvons bloquer le scan par IA et le chat
-    jusqu’à réception du paiement. Vos données restent consultables et exportables.
+    L’abonnement ne devient ferme qu’avec votre paiement. Si vous ne payez pas, vous n’avez rien à faire : aucun
+    frais, et le scan par IA et le chat s’arrêtent à la fin du délai de paiement. Vos données restent consultables
+    et exportables. Si vous payez plus tard, ils reprennent.
   </p>
 
-  <h2>7. Durée, renouvellement et résiliation</h2>
+  <h2>7. Durée et renouvellement</h2>
   <p>
-    L’abonnement dure un an et se renouvelle automatiquement pour une année supplémentaire si vous ne le résiliez
-    pas. La facture pour l’année suivante est envoyée 30 jours avant l’échéance.
+    L’année payée va jusqu’à son terme et ne se prolonge pas d’elle-même. 30 jours avant l’échéance, nous vous
+    envoyons la facture pour une année supplémentaire, à titre d’offre, selon le nombre de véhicules alors actifs.
+    Si vous la payez, l’abonnement continue pour un an ; sinon, vous n’avez rien à faire, et le scan par IA et le
+    chat s’arrêtent à la fin de l’année payée. Un paiement tardif les réactive.
   </p>
   <p>
-    Vous pouvez résilier à tout moment, sans délai, jusqu’au dernier jour de la durée : dans l’application sous
-    « Réglages », « Résilier l’abonnement », ou par e-mail à
-    <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>. L’abonnement continue alors jusqu’à la fin de
-    l’année payée. Une facture pour une année qui n’a pas encore commencé est annulée avec la résiliation. Aucun
-    remboursement au prorata n’est accordé pour une année entamée.
+    Il n’y a ni bouton pour arrêter l’abonnement ni délai à respecter. Si vous ne voulez plus de factures, écrivez à
+    <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a> ; nous arrêtons l’envoi et annulons les factures
+    ouvertes. Une année déjà payée va jusqu’à son terme ; il n’y a pas de remboursement.
   </p>
   <p>
-    Nous pouvons résilier l’abonnement moyennant un préavis de trois mois pour la fin de la durée, et avec effet
-    immédiat pour de justes motifs (p. ex. abus ou retards de paiement répétés). Si nous cessons complètement
-    l’exploitation de Wartungsheft, nous remboursons au prorata les montants déjà payés pour la durée restante.
+    Nous pouvons mettre fin à l’abonnement moyennant un préavis de trois mois pour la fin de l’année payée, et avec
+    effet immédiat en cas d’abus. Si nous cessons complètement l’exploitation de Wartungsheft, nous remboursons au
+    prorata les montants déjà payés pour la durée restante.
   </p>
 
   <h2>8. Modifications de prix</h2>
   <p>
-    Nous annonçons les modifications de prix par e-mail au moins 60 jours avant le prochain renouvellement. Elles
-    s’appliquent à partir de la durée suivante. Si vous n’êtes pas d’accord, vous résiliez jusqu’à l’échéance, comme
-    décrit au chiffre 7.
+    Nous annonçons les modifications de prix par e-mail au moins 60 jours avant la prochaine facture de
+    renouvellement. Elles s’appliquent à partir de la durée suivante. Si vous n’êtes pas d’accord, vous ne payez
+    simplement pas cette facture (chiffre 7).
   </p>
 
   <h2>9. Vos données</h2>
@@ -165,9 +166,10 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
   <h2>13. Modifications des présentes CG</h2>
   <p>
     Nous communiquons les modifications par e-mail au moins 30 jours avant leur entrée en vigueur. Si vous n’êtes pas
-    d’accord, vous pouvez résilier l’abonnement pour la date d’entrée en vigueur ; nous remboursons alors au prorata
-    les montants déjà payés pour la durée restante. Si vous continuez à utiliser Wartungsheft par la suite, les
-    nouvelles CG s’appliquent.
+    d’accord, vous pouvez arrêter pour la date d’entrée en vigueur (e-mail à
+    <a :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>) ; nous remboursons alors au prorata les montants
+    déjà payés pour la durée restante. Si vous continuez à utiliser Wartungsheft par la suite, les nouvelles CG
+    s’appliquent.
   </p>
 
   <h2>14. Droit applicable et for</h2>
