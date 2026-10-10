@@ -8,7 +8,7 @@ const CONTACT_EMAIL = 'info@wartungsheft.ch'
 <template>
   <h1>Condizioni generali</h1>
   <p class="legal-meta">
-    Versione del 22 settembre 2026
+    Versione del 10 ottobre 2026
   </p>
   <p class="legal-meta">
     Questa è una traduzione. Fa fede unicamente la versione tedesca:

@@ -142,7 +142,7 @@
       </tr>
       <tr>
         <td>Données d’abonnement et de facturation</td>
-        <td>Facturation, encaissement, renouvellement et résiliation de l’abonnement</td>
+        <td>Facturation, encaissement, factures et offres de prolongation de l’abonnement</td>
         <td>Exécution du contrat, obligation légale de conservation</td>
       </tr>
       <tr>

@@ -137,7 +137,7 @@
       </tr>
       <tr>
         <td>Subscription and billing data</td>
-        <td>Invoicing, receipt of payment, renewal and cancellation of the subscription</td>
+        <td>Invoicing, receipt of payment, invoices and renewal offers for the subscription</td>
         <td>Performance of contract, statutory retention obligation</td>
       </tr>
       <tr>

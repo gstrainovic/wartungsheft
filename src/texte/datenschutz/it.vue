@@ -141,7 +141,7 @@
       </tr>
       <tr>
         <td>Dati di abbonamento e fatturazione</td>
-        <td>Fatturazione, incasso, rinnovo e disdetta dell'abbonamento</td>
+        <td>Fatturazione, incasso, fatture e offerte di proroga dell'abbonamento</td>
         <td>Esecuzione del contratto, obbligo legale di conservazione</td>
       </tr>
       <tr>
