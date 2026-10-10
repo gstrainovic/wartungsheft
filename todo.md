@@ -36,6 +36,9 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       ergänzen, Proxy neu bauen, Testbestellung mit eigener Adresse, PDF gegen den SIX-Validator prüfen, danach stornieren
 - [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
       `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
+- [ ] Am Tag 23 der Testzeit einmal nach der Rechnungsadresse fragen (Hinweis in der App, dazu eine Mail); wer sie
+      einträgt, bekommt sofort die erste Rechnung wie heute bei der Bestellung, wer nichts tut, dessen Test endet ohne
+      Kosten (Entscheid 17b, `find-jobs/akquise/abo-regeln.md`); TDD, Text von Fable in vier Sprachen
 - [ ] Eine Erinnerung am letzten Tag der Zahlungsfrist (ai-proxy, wie `erinnerungFaellig` in qr-rechnung-hubspot):
       «heute fällig … möchtest du weitermachen, zahle … sonst musst du nichts tun», je Rechnung nur einmal, nicht nach
       `billing.mjs stop`; TDD, Text von Fable in vier Sprachen (`find-jobs/akquise/abo-regeln.md`)
