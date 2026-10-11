@@ -71,7 +71,9 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       `/ratgeber/wartungsintervalle` «Gecrawlt – zurzeit nicht indexiert», für `/ratgeber/serviceheft-verloren`
       «Gefunden – zurzeit nicht indexiert»; die englische und italienische Fassung bekommen dagegen Impressionen.
       Kanonisch und hreflang stimmen, der Text hat rund 1000 Wörter. Ursache klären (Vermutung: junge Domain, deutsche
-      Seiten gegen starke Konkurrenz zu dünn oder zu ähnlich), bevor weitere deutsche Ratgeber geschrieben werden
+      Seiten gegen starke Konkurrenz zu dünn oder zu ähnlich), bevor weitere deutsche Ratgeber geschrieben werden.
+      Entscheid Goran, ab 14.10. (nach dem Reset des Wochenlimits): je Ratgeber Text mit den Top-Treffern bei Google
+      vergleichen, nachbessern und in der Search Console «Indexierung beantragen» (geht nur in der Oberfläche)
 - [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
       `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage.md` (Thema «serviceheft auto pdf»,
       Platz 10). Danach Entwurf aus der Recherche mit Mistral oder lokal Qwen3 statt Claude, Claude nur prüft und baut ein
