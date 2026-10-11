@@ -1,9 +1,8 @@
 # todo.md
 
-- [ ] **Service-Worker-Update deployen** (Freigabe Goran): Fix in `src/main.ts` (registerSW lädt neu, Update-Prüfung beim
-      Zurückkehren), `npm run test:sw` grün. Wirkt erst ab dem zweiten Deploy mit dem Fix: Browser mit dem heutigen
-      Stand holen den Fix noch auf alte Weise (zweite Navigation). Nach dem Folgedeploy in einem Browser mit
-      installiertem Stand prüfen, dass schon die erste Navigation den neuen Stand zeigt.
+- [ ] **Beim nächsten Deploy Service-Worker-Update prüfen:** Der Fix (registerSW lädt neu, Update-Prüfung beim
+      Zurückkehren) ist seit 11.10. live. In einem Browser mit installiertem Stand prüfen, dass schon die erste
+      Navigation nach dem Deploy den neuen Stand zeigt.
 Reihenfolge, nicht Themen. Erst produktiv verkaufen (Bestellung und Rechnung für Betriebe), dann messen
 (business-plan/09-validierung.md), dann alles andere. Direktansprache ist erlaubt: E-Mails an Betriebe, Verbände
 und Multiplikatoren, Forenbeiträge, alles, was zahlende Kunden bringt (Listen und Versand in `~/projects/wartungsplan`).
