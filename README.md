@@ -352,8 +352,8 @@ Täglich um 07:00 UTC (`/etc/cron.d/wartungsheft-reminders`, Nutzer `debian`) l�
   Willkommensmail mit den ersten Schritten (`src/services/welcome-mail.ts`, Texte `src/texte/app/willkommen.ts`),
   ebenfalls als `FEEDBACK_MAIL_FROM` mit Antworten an `FEEDBACK_TO`; fehlt am Konto `settings.herkunft`, fragt eine
   zusätzliche Zeile, wie es auf Wartungsheft gestossen ist. Ein verpasster Lauf wird bis Tag 7 nachgeholt, einmal pro
-  Konto, Merker `settings.welcomeMailAt`. Versand nur mit `WELCOME_MAILS=on` in `deploy/.env` (Standard aus, bis
-  Goran die Texte freigibt); sonst loggt der Job nur, wer fällig wäre.
+  Konto, Merker `settings.welcomeMailAt`. Versand nur mit `WELCOME_MAILS=on` in `deploy/.env` (Standard aus, auf
+  dem Server an); sonst loggt der Job nur, wer fällig wäre.
 
 Herkunftsfrage: Die Login-Seite fragt auf unbekannten Geräten freiwillig «Wie bist du auf Wartungsheft gestossen?»
 (`src/lib/herkunft.ts`). Die Wahl liegt bis zur Anmeldung im `localStorage` und kommt danach an `settings.herkunft`
