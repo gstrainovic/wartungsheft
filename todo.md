@@ -76,7 +76,8 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       vergleichen, nachbessern und in der Search Console «Indexierung beantragen» (geht nur in der Oberfläche)
 - [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
       `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage.md` (Thema «serviceheft auto pdf»,
-      Platz 10). Danach Entwurf aus der Recherche mit Mistral oder lokal Qwen3 statt Claude, Claude nur prüft und baut ein
+      Platz 10). Mistral-Guthaben bleibt für Interessenten reserviert. Offene Frage 3: neue Themen zuerst auf FR, IT
+      und EN (DE erst nach Klärung des Index), Entwurf mit Haiku oder lokal (Qwen3-4B wie in `../zid`)
 - [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
       210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
       `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
