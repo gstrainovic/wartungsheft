@@ -47,8 +47,6 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
-- [ ] **Tutorial-Video mit Sprecher** (Entscheid 43b, 60–90 s, Anmelden, Fahrzeug, erste Rechnung, Checkliste,
-      Fälligkeit) auf `/hilfe` und aus der Checkliste verlinkt; Reihenfolge der Freigaben im Skill `produktvideos`.
 - [ ] **Alle Filme auf YouTube**, sobald Goran die deutschen Fassungen auf wartungsheft.ch durchgesehen hat (nur zum
       Gefundenwerden, kein Link von den Seiten): `video-out/youtube-<name>.mp4` mit SRT je Sprache, die vier alten
       deutschen Fassungen vom 30.09. ersetzen.
