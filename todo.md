@@ -73,7 +73,8 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       Kanonisch und hreflang stimmen, der Text hat rund 1000 Wörter. Ursache klären (Vermutung: junge Domain, deutsche
       Seiten gegen starke Konkurrenz zu dünn oder zu ähnlich), bevor weitere deutsche Ratgeber geschrieben werden.
       Entscheid Goran, ab 14.10. (nach dem Reset des Wochenlimits): je Ratgeber Text mit den Top-Treffern bei Google
-      vergleichen, nachbessern und in der Search Console «Indexierung beantragen» (geht nur in der Oberfläche)
+      vergleichen und nachbessern. Vom Nutzer, sofort: in der Search Console (URL-Prüfung) für die drei URLs
+      «Indexierung beantragen»; nach dem Nachbessern erneut
 - [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
       `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage{,-fr,-it}.md` (Thema «serviceheft auto
       pdf», Platz 10). Ab 14.10.: Ratgeber auf FR, IT und EN (DE erst nach Klärung des Index), Entwurf durch einen
