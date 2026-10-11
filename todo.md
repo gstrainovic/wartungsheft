@@ -28,12 +28,11 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 ### Vom Nutzer
 - [ ] Auslöser für den nächsten Punkt ist die erste Anmeldung (Mail «Wartungsheft: neue Anmeldung» an
       info@wartungsheft.ch, täglich 07:00 UTC)
-- [ ] Geschäftskonto mit QR-IBAN und camt.054 eröffnen: `../business/geschaeftskonten-vergleich.md`. IBAN danach in
-      die `.env` des AI-Proxys auf der Instanz, nicht ins Repo
+- [ ] Geschäftskonto mit QR-IBAN und camt.054 eröffnen: `../business/geschaeftskonten-vergleich.md`. Bis dahin stellt
+      der Proxy QR-Rechnungen auf Gorans Swissquote-IBAN (SCOR-Referenz); danach `INVOICE_IBAN` in der `.env` des
+      AI-Proxys auf der Instanz tauschen, nicht ins Repo. Beide Konten gehören Goran, Kunden brauchen keinen Hinweis.
 
 ### Von Claude
-- [ ] QR-Rechnung einschalten, sobald die IBAN da ist: `deploy/.env` um `INVOICE_IBAN` und die übrigen `INVOICE_*`
-      ergänzen, Proxy neu bauen, Testbestellung mit eigener Adresse, PDF gegen den SIX-Validator prüfen, danach stornieren
 - [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
       `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
 - [ ] Fahrzeuggrenze wirklich sperren, sobald ein Zahlungsweg existiert: `vehicleLimit` meldet heute nur, solange
