@@ -34,6 +34,8 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] Geschäftskonto mit QR-IBAN und camt.054 eröffnen: `../business/geschaeftskonten-vergleich.md`. Bis dahin stellt
       der Proxy QR-Rechnungen auf Gorans Swissquote-IBAN (SCOR-Referenz); danach `INVOICE_IBAN` in der `.env` des
       AI-Proxys auf der Instanz tauschen, nicht ins Repo. Beide Konten gehören Goran, Kunden brauchen keinen Hinweis.
+- [ ] Muster-QR-Rechnung (Swissquote-IBAN, SCOR-Referenz) vor der ersten echten Bestellung mit der Banking-App
+      scannen: Betrag, Referenz und Empfänger müssen stimmen (bisher nicht mit einem Bankprogramm geprüft)
 
 ### Von Claude
 - [ ] Sobald das Geschäftskonto camt.054 liefert: Zahlungseingänge regelmässig mit `billing.mjs camt <datei.xml>`
