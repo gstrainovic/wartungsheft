@@ -41,6 +41,13 @@ grund = "SRT für YouTube liegt nicht im Repo (Werbefilme liefern nur die VTT de
 regel = "freigaben"
 grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fahrt), Freigabedaten nicht festgehalten"
 
+# YouTube-Kanal strainovic-it je Sprache (Abgleich: produktvideo youtube): titel, beschreibung, tags vom Texter,
+# id und sha256 der hochgeladenen Desktop-MP4 schreibt `produktvideo youtube --hochladen`; die Prüfsumme des
+# Uploads vom 30.09. ist unbekannt, darum gilt er als veraltet und wird ersetzt
+[film.youtube.de]
+id = "gVyuTsk_LrI"
+sha256 = "unbekannt (Upload vom 30.09.)"
+
 [[film]]
 name = "betrieb"
 seite = "wartungsheft-betrieb"
@@ -77,6 +84,11 @@ grund = "SRT für YouTube liegt nicht im Repo (Werbefilme liefern nur die VTT de
 [[film.luecke]]
 regel = "freigaben"
 grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fahrt), Freigabedaten nicht festgehalten"
+
+# YouTube wie beim Film privat; der Upload vom 30.09. gilt als veraltet und wird ersetzt
+[film.youtube.de]
+id = "CypEsJgVRC8"
+sha256 = "unbekannt (Upload vom 30.09.)"
 
 [[film]]
 name = "tutorial"
