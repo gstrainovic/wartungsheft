@@ -33,8 +33,8 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       AI-Proxys auf der Instanz tauschen, nicht ins Repo. Beide Konten gehören Goran, Kunden brauchen keinen Hinweis.
 
 ### Von Claude
-- [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
-      `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
+- [ ] Sobald das Geschäftskonto camt.054 liefert: Zahlungseingänge regelmässig mit `billing.mjs camt <datei.xml>`
+      buchen (Abruf der Datei und Platz im Tagescheck festlegen)
 - [ ] Fahrzeuggrenze wirklich sperren, sobald ein Zahlungsweg existiert: `vehicleLimit` meldet heute nur, solange
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
 - [ ] Fällt der Health-Workflow durch, ohne dass etwas kaputt ist (Wartungsfenster, kurzer Netzaussetzer), die
