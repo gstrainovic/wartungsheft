@@ -67,6 +67,14 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 
 - [ ] Einträge in Schweizer Verzeichnissen (`business-plan/verzeichnisse.md`): Nutzer meldet sich je
       Plattform an, Claude füllt das Formular aus den fertigen Texten und sendet nach Freigabe ab
+- [ ] **Deutsche Ratgeber nicht im Index:** `gsc inspect` meldet für `/ratgeber/mfk-aufgebot` und
+      `/ratgeber/wartungsintervalle` «Gecrawlt – zurzeit nicht indexiert», für `/ratgeber/serviceheft-verloren`
+      «Gefunden – zurzeit nicht indexiert»; die englische und italienische Fassung bekommen dagegen Impressionen.
+      Kanonisch und hreflang stimmen, der Text hat rund 1000 Wörter. Ursache klären (Vermutung: junge Domain, deutsche
+      Seiten gegen starke Konkurrenz zu dünn oder zu ähnlich), bevor weitere deutsche Ratgeber geschrieben werden
+- [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
+      `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage.md` (Thema «serviceheft auto pdf»,
+      Platz 10). Danach Entwurf aus der Recherche mit Mistral oder lokal Qwen3 statt Claude, Claude nur prüft und baut ein
 - [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
       210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
       `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
