@@ -17,7 +17,7 @@ describe('trialNotice', () => {
 
   it('warnt in der letzten Woche mit Restzeit und Datum', () => {
     expect(trialNotice({ active: true, daysLeft: NOTICE_DAYS_LEFT, endsAt: '2026-10-01' }))
-      .toBe('Testzeit läuft noch 7 Tage, bis 01.10.2026. Danach brauchen Scannen und Chat ein Abo.')
+      .toBe('Testzeit läuft noch 7 Tage, bis 01.10.2026. Weitermachen: Rechnungsadresse in den Einstellungen eintragen. Sonst nichts zu tun, keine Kosten.')
     expect(trialNotice({ active: true, daysLeft: 1, endsAt: '2026-10-01' })).toContain('noch 1 Tag,')
   })
 
@@ -30,7 +30,7 @@ describe('trialNotice', () => {
     setAppSprache('en')
     try {
       expect(trialNotice({ active: true, daysLeft: 1, endsAt: '2026-10-01' }))
-        .toBe('Trial ends in 1 day, on 01/10/2026. After that, scanning and chat need a subscription.')
+        .toBe('Trial ends in 1 day, on 01/10/2026. To continue, enter your billing address in Settings. Otherwise nothing to do, no costs.')
     }
     finally {
       setAppSprache('de')
@@ -48,17 +48,36 @@ describe('buildTrialReminders', () => {
     expect(mail!.email).toBe('a@b.ch')
   })
 
+  it('fragt nach der Rechnungsadresse und sagt: erste Rechnung sofort, wer nichts tut, hat keine Kosten (17b)', () => {
+    const [mail] = buildTrialReminders({ users, subscriptions: [subAt(7, now)], settings: [], now, trialDays: TRIAL_DAYS })
+    expect(mail!.text).toContain('Rechnungsadresse')
+    expect(mail!.text).toContain('erste Rechnung sofort')
+    expect(mail!.text).toContain('musst du nichts tun')
+    expect(mail!.text).toContain('endet die Testzeit ohne Kosten')
+    for (const sprache of ['fr', 'it', 'en'] as const) {
+      const [m] = buildTrialReminders({ users, subscriptions: [subAt(7, now)], settings: [{ creatorId: 'u1', sprache }], now, trialDays: TRIAL_DAYS })
+      expect(m!.text).toMatch({ fr: /tu n’as rien à faire/, it: /non devi fare nulla/, en: /you don't need to do anything/ }[sprache])
+    }
+  })
+
   it('schreibt in der Sprache am Benutzer', () => {
     const settings = [{ creatorId: 'u1', sprache: 'it' as const }]
     const [mail] = buildTrialReminders({ users, subscriptions: [subAt(7, now)], settings, now, trialDays: TRIAL_DAYS })
-    expect(mail!.subject).toBe('Wartungsheft: il periodo di prova termina il 27.09.2026')
+    expect(mail!.subject).toBe('Wartungsheft: il periodo di prova termina il 27.09.2026, vuoi continuare?')
     expect(mail!.text).toContain('Ciao')
     expect(mail!.text).toContain('25 franchi')
     expect(mail!.text).not.toContain('Testzeit')
   })
 
+  it('holt einen verpassten Lauf zwei Tage lang nach und nennt die echte Restzeit', () => {
+    for (const daysLeft of [6, 5]) {
+      const [mail] = buildTrialReminders({ users, subscriptions: [subAt(daysLeft, now)], settings: [], now, trialDays: TRIAL_DAYS })
+      expect(mail!.text).toContain(`noch ${daysLeft} Tage`)
+    }
+  })
+
   it('nicht früher und nicht später', () => {
-    for (const daysLeft of [8, 6, 1, 0]) {
+    for (const daysLeft of [8, 4, 1, 0]) {
       expect(buildTrialReminders({ users, subscriptions: [subAt(daysLeft, now)], settings: [], now, trialDays: TRIAL_DAYS })).toEqual([])
     }
   })

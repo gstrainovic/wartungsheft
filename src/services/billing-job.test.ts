@@ -2,7 +2,7 @@ import type { CamtCredit } from '@strainovic/ai-proxy/camt'
 import type { Subscription } from '@strainovic/ai-proxy/stores/types'
 import { markInvoicePaid, orderSubscription } from '@strainovic/ai-proxy/invoice-subscription'
 import { describe, expect, it } from 'vitest'
-import { dueRenewals, findInvoiceOwner, matchCredits, openInvoiceReport } from './billing-job'
+import { dueReminders, dueRenewals, findInvoiceOwner, matchCredits, openInvoiceReport } from './billing-job'
 
 const IBAN = 'CH93 0076 2011 6238 5295 7'
 const address = { company: 'Muster AG', contact: 'Petra Muster', street: 'Hauptstrasse 12', zip: '9000', city: 'St. Gallen', email: 'b@muster.ch' }
@@ -49,6 +49,22 @@ describe('dueRenewals', () => {
   it('ohne aktive Fahrzeuge wird ein Fahrzeug abgerechnet', () => {
     const entries = [{ userId: 'u3', sub: paid('u3', '2026-09-19') }]
     expect(dueRenewals(entries, vehicles, '2027-08-20')[0]!.vehicles).toBe(1)
+  })
+})
+
+describe('dueReminders', () => {
+  it('nur offene Rechnungen, die heute fällig sind und noch keine Erinnerung hatten', () => {
+    // Bestellung am 19.09.2026, zahlbar bis 19.10.2026
+    const open = ordered('u1', '2026-09-19')
+    const reminded = { ...open, invoices: open.invoices!.map(i => ({ ...i, remindedAt: '2026-10-19' })) }
+    const entries = [
+      { userId: 'u1', sub: open },
+      { userId: 'u2', sub: paid('u2', '2026-09-19') },
+      { userId: 'u3', sub: reminded },
+    ]
+    expect(dueReminders(entries, '2026-10-18')).toEqual([])
+    expect(dueReminders(entries, '2026-10-19')).toEqual([{ userId: 'u1', company: 'Muster AG', number: open.invoices![0]!.number }])
+    expect(dueReminders(entries, '2026-10-20')).toEqual([])
   })
 })
 

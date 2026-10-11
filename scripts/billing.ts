@@ -2,7 +2,8 @@
  * Abo-Job für Betriebe mit Jahresrechnung. Liest Abos (`subscriptions` mit billing = invoice) und Fahrzeuge über die
  * Admin-API von InstantDB; Rechnungen erzeugt und verschickt der AI-Proxy über seine internen Endpunkte.
  *
- *   node billing.mjs renew [--dry-run]    fällige Verlängerungen (30 Tage vor Ablauf) auslösen, danach offene Rechnungen
+ *   node billing.mjs renew [--dry-run]    fällige Verlängerungen (30 Tage vor Ablauf) und Erinnerungen (am Fälligkeitstag)
+ *                                         auslösen, danach offene Rechnungen
  *   node billing.mjs open                 offene Rechnungen, überfällige markiert
  *   node billing.mjs paid <Referenz> [JJJJ-MM-TT]   Zahlung eintragen (Referenz oder Rechnungsnummer aus dem Kontoauszug)
  *   node billing.mjs camt <datei.xml> [--dry-run]  camt.054 aus dem E-Banking einlesen und passende Zahlungen buchen
@@ -17,7 +18,7 @@ import type { InvoiceEntry } from '../src/services/billing-job'
 import { readFileSync } from 'node:fs'
 import process from 'node:process'
 import { parseCamt054 } from '@strainovic/ai-proxy/camt'
-import { dueRenewals, findInvoiceOwner, matchCredits, openInvoiceReport } from '../src/services/billing-job'
+import { dueReminders, dueRenewals, findInvoiceOwner, matchCredits, openInvoiceReport } from '../src/services/billing-job'
 
 const API = process.env.INSTANT_API_URI ?? ''
 const APP_ID = process.env.INSTANT_APP_ID ?? ''
@@ -91,6 +92,15 @@ async function main(): Promise<void> {
       }
       const { invoice, mailed } = await proxy('/billing/renew', d.userId, { vehicles: d.vehicles })
       log(`${d.company}: Rechnung ${invoice.number} über CHF ${invoice.amount.toFixed(2)}${mailed ? '' : ', Mail FEHLGESCHLAGEN'}`)
+    }
+    // Eine Erinnerung am Fälligkeitstag jeder offenen Rechnung
+    for (const r of dueReminders((await load(false)).entries, today)) {
+      if (dryRun) {
+        log(`[dry-run] ${r.company} (${r.userId}): Erinnerung an Rechnung ${r.number}, heute fällig`)
+        continue
+      }
+      const { mailed } = await proxy('/billing/remind', r.userId, {})
+      log(`${r.company}: Erinnerung an Rechnung ${r.number}${mailed ? '' : ', Mail FEHLGESCHLAGEN'}`)
     }
     printOpen((await load(false)).entries)
     return
