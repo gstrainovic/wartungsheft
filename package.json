@@ -21,6 +21,7 @@
     "video:film": "node scripts/werbefilm.ts",
     "test:e2e:soft": "playwright test --project=ai-soft",
     "test:e2e:ui": "playwright test --ui",
+    "test:sw": "playwright test -c e2e-sw/playwright.config.ts",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "dev:proxy": "node --env-file-if-exists=.env node_modules/@strainovic/ai-proxy/src/node.ts"

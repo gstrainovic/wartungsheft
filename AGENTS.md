@@ -45,6 +45,7 @@ npm run test:e2e     # Playwright E2E (loads .env via dotenv)
 npm run test:e2e:ui  # Playwright UI mode
 npm run test:e2e:soft # Weiche KI-Tests (@soft), nicht Teil der Standard-Suite
 npm run test:unit    # Vitest: src/**/*.test.ts (die AI-Proxy-Tests liegen im Repo ~/projects/ai-proxy)
+npm run test:sw      # Service-Worker-Update über zwei Produktions-Builds (e2e-sw/); nach Änderungen an PWA-Konfiguration oder registerSW
 npm run dev:proxy    # AI-Proxy lokal aus node_modules/@strainovic/ai-proxy (liest .env, Port 8787)
 
 Dev-Instanz `wartungsheft-dev` (InstantDB per SSH-Tunnel, `ssh debian@195.15.207.253`) schaltet sich nach 2 h

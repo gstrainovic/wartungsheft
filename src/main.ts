@@ -4,6 +4,7 @@ import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
+import { registerSW } from 'virtual:pwa-register'
 import { createApp, watch } from 'vue'
 import App from './App.vue'
 import { appSprache } from './lib/app-sprache'
@@ -56,3 +57,15 @@ router.afterEach((to) => {
 app.mount('#app')
 // Vorgerenderter Inhalt ist jetzt ersetzt (src/lib/prerender.ts), die Seite darf wieder sichtbar sein
 void router.isReady().then(() => document.documentElement.classList.remove('prerender-hidden'))
+
+// Service Worker (registerType autoUpdate): übernimmt ein neuer Stand, lädt registerSW die Seite neu, sonst bliebe die
+// alte App bis zur übernächsten Navigation stehen. Eine offen gelassene App sucht beim Zurückkehren nach Updates.
+registerSW({
+  immediate: true,
+  onRegisteredSW(_url, registration) {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible')
+        void registration?.update()
+    })
+  },
+})
