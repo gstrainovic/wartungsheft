@@ -36,9 +36,6 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       ergänzen, Proxy neu bauen, Testbestellung mit eigener Adresse, PDF gegen den SIX-Validator prüfen, danach stornieren
 - [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
       `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
-- [ ] Tag-23-Mail und Hinweis in der App führen ins Leere: Auf der Instanz fehlen alle `INVOICE_*`, darum meldet
-      `/me/usage` kein `ordering` und die Einstellungen zeigen keine Bestellung. Entscheid Goran offen: `INVOICE_EMAIL`
-      setzen (Rechnung von Hand) oder Mail und Hinweis bis zum Geschäftskonto abschalten.
 - [ ] Frage nach der Rechnungsadresse (Tag 23) und Erinnerung am Fälligkeitstag deployen, sobald Goran die deutschen
       Texte freigibt (`testzeit` und `hinweis.laeuft` in `src/texte/app/erinnerung.ts`, `reminder*` in
       `../ai-proxy/src/invoice-texts.ts`): App, `reminders.mjs`, `billing.mjs` und Proxy
