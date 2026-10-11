@@ -67,6 +67,14 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 
 - [ ] Einträge in Schweizer Verzeichnissen (`business-plan/verzeichnisse.md`): Nutzer meldet sich je
       Plattform an, Claude füllt das Formular aus den fertigen Texten und sendet nach Freigabe ab
+- [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
+      210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
+      `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
+      Seiten) zu Termin, Verschieben, Kosten je Kanton und Checkliste, in allen vier Sprachen
+- [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
+      90 Tagen. Steht schon im Titel der Startseite; Ratgeber «Serviceheft verloren» und «Occasion verkaufen» intern
+      auf die Startseite mit Ankertext «Servicebuch» verlinken und die Platzierung nach vier Wochen mit
+      `gsc queries --days 28` prüfen
 
 ### Messen, nebenbei
 - [ ] Wöchentlich Zahlen ziehen (Caddy-Log, `events`, Anmeldungen, Bestellungen, Postfach, README Abschnitt 6) und in
