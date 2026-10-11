@@ -36,9 +36,6 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       ergänzen, Proxy neu bauen, Testbestellung mit eigener Adresse, PDF gegen den SIX-Validator prüfen, danach stornieren
 - [ ] Tagescheck um `billing.mjs open` ergänzen: überfällige Rechnungen melden, Zahlungseingänge mit
       `camt <datei.xml>` aus dem heruntergeladenen camt.054 buchen
-- [ ] Frage nach der Rechnungsadresse (Tag 23) und Erinnerung am Fälligkeitstag deployen, sobald Goran die deutschen
-      Texte freigibt (`testzeit` und `hinweis.laeuft` in `src/texte/app/erinnerung.ts`, `reminder*` in
-      `../ai-proxy/src/invoice-texts.ts`): App, `reminders.mjs`, `billing.mjs` und Proxy
 - [ ] Fahrzeuggrenze wirklich sperren, sobald ein Zahlungsweg existiert: `vehicleLimit` meldet heute nur, solange
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
 - [ ] Fällt der Health-Workflow durch, ohne dass etwas kaputt ist (Wartungsfenster, kurzer Netzaussetzer), die
