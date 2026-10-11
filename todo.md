@@ -80,6 +80,9 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       Haiku-Subagenten aus der Recherche, Claude prüft Fakten und Ton. Mistral-Guthaben bleibt für Interessenten.
       Mehrwert gegen die Konkurrenz (französische und italienische PDF-Vorlagen ohne Schweizbezug): eigene
       Vorlage als PDF mit Schweizer Begriffen (MFK/expertise/collaudo)
+- [ ] Offene Frage 6: übersetzte Ratgeber-URLs (`/fr/ratgeber/carnet-entretien` statt deutschem Slug). Heute ist der
+      Dateiname der Slug und verbindet die Sprachfassungen (`vite.config.ts`, `ratgeberPlugin`); übersetzte Slugs
+      brauchen einen eigenen Schlüssel je Artikel, bestehende URLs eine 301-Weiterleitung
 - [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
       210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
       `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
