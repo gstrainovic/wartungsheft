@@ -6,7 +6,7 @@
 import type { CamtCredit } from '@strainovic/ai-proxy/camt'
 import type { InvoiceRecord } from '@strainovic/ai-proxy/invoice'
 import type { Subscription } from '@strainovic/ai-proxy/stores/types'
-import { markInvoicePaid, openInvoices, renewalDue } from '@strainovic/ai-proxy/invoice-subscription'
+import { markInvoicePaid, openInvoices, reminderDue, renewalDue } from '@strainovic/ai-proxy/invoice-subscription'
 import { activeVehicles } from './vehicle-status'
 
 export interface InvoiceEntry {
@@ -26,6 +26,14 @@ export function dueRenewals(entries: InvoiceEntry[], vehicles: OwnedVehicle[], t
       const own = vehicles.filter(v => v.creatorId === e.userId).map(v => ({ make: '', model: '', soldAt: v.soldAt }))
       return { userId: e.userId, company: e.sub.billingAddress?.company ?? '', vehicles: Math.max(1, activeVehicles(own, today).length) }
     })
+}
+
+/** Wer heute die eine Erinnerung am Fälligkeitstag bekommt (`/billing/remind`); die Regel steht im AI-Proxy */
+export function dueReminders(entries: InvoiceEntry[], today: string): { userId: string, company: string, number: string }[] {
+  return entries.flatMap((e) => {
+    const invoice = reminderDue(e.sub, today)
+    return invoice ? [{ userId: e.userId, company: e.sub.billingAddress?.company ?? '', number: invoice.number }] : []
+  })
 }
 
 export function openInvoiceReport(entries: InvoiceEntry[], today: string): { userId: string, company: string, email: string, invoice: InvoiceRecord, overdue: boolean }[] {

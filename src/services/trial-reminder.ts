@@ -12,6 +12,8 @@ import { APP_URL, mailSprache } from './reminders'
 
 /** Ab so vielen verbleibenden Tagen weist die App auf das Abo hin (Tag 23 von 30) */
 export const NOTICE_DAYS_LEFT = 7
+/** Ein verpasster Lauf (Server aus, Fehler) wird so viele Tage lang nachgeholt */
+export const NOTICE_NACHHOLEN_TAGE = 2
 
 export interface TrialInfo {
   active: boolean
@@ -58,7 +60,8 @@ export function trialDaysLeft(trialStartedAt: string, now: Date, trialDays: numb
 }
 
 /**
- * Eine Mail pro Nutzer, dessen Testzeit in sieben Tagen endet. Wer schon bestellt hat (Status nicht mehr `trial`)
+ * Eine Mail pro Nutzer, dessen Testzeit in sieben Tagen endet: sie fragt einmal nach der Rechnungsadresse (Entscheid
+ * 17b, find-jobs/akquise/abo-regeln.md); wer nichts tut, dessen Test endet ohne Kosten. Wer schon bestellt hat (Status nicht mehr `trial`)
  * oder die Mail bereits bekommen hat, wird übersprungen; Erinnerungen abbestellen schaltet auch diese Mail ab.
  */
 export function buildTrialReminders(input: {
@@ -82,7 +85,7 @@ export function buildTrialReminders(input: {
     if (!sub?.trialStartedAt || sub.status !== 'trial')
       continue
     const daysLeft = trialDaysLeft(sub.trialStartedAt, now, trialDays)
-    if (daysLeft !== NOTICE_DAYS_LEFT)
+    if (daysLeft > NOTICE_DAYS_LEFT || daysLeft < NOTICE_DAYS_LEFT - NOTICE_NACHHOLEN_TAGE)
       continue
     const key = `trial:${sub.trialStartedAt}`
     if (byUser.get(user.id)?.lastTrialNoticeKey === key)
@@ -99,7 +102,7 @@ export function buildTrialReminders(input: {
       text: [
         t.hallo,
         '',
-        t.testzeit.laeuft(NOTICE_DAYS_LEFT, datum),
+        t.testzeit.laeuft(daysLeft, datum),
         '',
         t.testzeit.danach,
         '',

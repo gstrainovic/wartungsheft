@@ -337,6 +337,11 @@ Täglich um 07:00 UTC (`/etc/cron.d/wartungsheft-reminders`, Nutzer `debian`) l�
 - meldet neue Anmeldungen gebündelt in einer Mail an `info@wartungsheft.ch` (`SIGNUP_NOTICE_TO`,
   `src/services/signup-notice.ts`) samt Antwort auf die Herkunftsfrage; `$users` hat kein Erstelldatum, gemeldet ist,
   wer `settings.signupNoticeAt` trägt. Mit `--only` entfällt die Meldung,
+- fragt Testkonten ohne Abo sieben Tage vor Ende der Testzeit (Tag 23) einmal nach der Rechnungsadresse
+  (`src/services/trial-reminder.ts`, Texte `testzeit` in `src/texte/app/erinnerung.ts`, Entscheid 17b in
+  `find-jobs/akquise/abo-regeln.md`): wer sie in den Einstellungen einträgt, bekommt sofort die erste Rechnung, wer
+  nichts tut, dessen Test endet ohne Kosten. Ein verpasster Lauf wird zwei Tage nachgeholt, Merker
+  `settings.lastTrialNoticeKey`; die App zeigt ab sieben Resttagen denselben Hinweis,
 - schickt Testkonten ohne Abo (Status `trial`) am Tag 21 Fragen zur Erfahrung und am Tag 31 die Frage «Was hätte dich
   überzeugt?» (`src/services/trial-feedback.ts`, Texte `src/texte/app/feedback.ts`), persönlich als
   `Goran Strainovic <info@wartungsheft.ch>` (`FEEDBACK_MAIL_FROM`), Antworten an `FEEDBACK_TO`; ein verpasster Lauf
@@ -392,7 +397,10 @@ stornieren».
 Täglich läuft der Container `billing` (Profil `jobs`, Skript `deploy/billing.mjs` = Bündel von `scripts/billing.ts`):
 30 Tage vor Ablauf eines bezahlten Jahres zählt er die aktiven Fahrzeuge und lässt den Proxy die
 Verlängerungsrechnung schicken (`/billing/renew`); sie ist ein Angebot, nur wer sie zahlt, hat ein weiteres Jahr, und
-solange sie offen ist, folgt keine weitere. Danach listet er offene Rechnungen, überfällige markiert. Zahlungseingänge kommen als camt.054
+solange sie offen ist, folgt keine weitere. Am Fälligkeitstag einer offenen Rechnung (letzter Tag mit Zugang) schickt
+der Proxy einmal eine Erinnerung mit dem PDF (`/billing/remind`, Merker `remindedAt` an der Rechnung): heute fällig,
+wer weitermachen will, zahlt, sonst nichts tun; keine Mahnung, nach `stop` keine. Danach listet er offene Rechnungen,
+überfällige markiert. Zahlungseingänge kommen als camt.054
 aus dem E-Banking (PostFinance, Detailavis der Gutschriften) oder einzeln über die Referenz:
 
 ```bash

@@ -19,15 +19,15 @@ const de = {
     hinweis: 'Die Intervalle sind Standardwerte, solange kein Serviceheft hinterlegt ist. Erledigte Arbeiten trägst du im\nWartungsheft ein, dann verschwindet die Erinnerung.',
   },
   testzeit: {
-    betreff: (datum: string) => `Wartungsheft: Testzeit endet am ${datum}`,
-    laeuft: (tage: number, datum: string) => `deine Testzeit läuft noch ${tage} Tage, bis zum ${datum}.`,
-    danach: 'Danach brauchen der Beleg-Scan und der Chat ein Abo. Alles andere bleibt: deine Fahrzeuge, Rechnungen und\nWartungen bleiben lesbar, Erfassen von Hand und die Exporte funktionieren weiter.',
-    bestellen: 'Abo bestellen:',
-    preise: 'Privat kostet Wartungsheft 25 Franken im Jahr für bis zu fünf Fahrzeuge, Betriebe zahlen 36 Franken pro\nFahrzeug und Jahr und bekommen die Rechnung auf die Firma. Die Rechnung kommt per Mail, zahlbar in 30 Tagen.',
+    betreff: (datum: string) => `Wartungsheft: Testzeit endet am ${datum}, möchtest du weitermachen?`,
+    laeuft: (tage: number, datum: string) => `deine Testzeit läuft noch ${tage} Tage, bis zum ${datum}. Möchtest du danach mit Beleg-Scan und Chat weitermachen,\nbrauchen wir nur deine Rechnungsadresse.`,
+    danach: 'Trägst du sie ein, kommt die erste Rechnung sofort per Mail, zahlbar in 30 Tagen. Das bezahlte Jahr beginnt erst nach\nder Testzeit, und verbindlich wird das Abo erst mit der Zahlung: Zahlst du nicht, musst du nichts tun.\n\nTust du nichts, endet die Testzeit ohne Kosten. Deine Fahrzeuge, Rechnungen und Wartungen bleiben lesbar, Erfassen\nvon Hand und Exporte gehen weiter. Nur Beleg-Scan und Chat brauchen dann ein Abo.',
+    bestellen: 'Rechnungsadresse eintragen (Einstellungen, Jahresabo bestellen):',
+    preise: 'Privat kostet Wartungsheft 25 Franken im Jahr für bis zu fünf Fahrzeuge, Betriebe zahlen 36 Franken pro\nFahrzeug und Jahr und bekommen die Rechnung auf die Firma.',
   },
   hinweis: {
     vorbei: 'Testzeit vorbei: Scannen und Chat brauchen ein Abo. Erfassen von Hand, Lesen und Exporte bleiben frei.',
-    laeuft: (tage: number, datum: string) => `Testzeit läuft ${tage === 1 ? 'noch 1 Tag' : `noch ${tage} Tage`}, bis ${datum}. Danach brauchen Scannen und Chat ein Abo.`,
+    laeuft: (tage: number, datum: string) => `Testzeit läuft ${tage === 1 ? 'noch 1 Tag' : `noch ${tage} Tage`}, bis ${datum}. Weitermachen: Rechnungsadresse in den Einstellungen eintragen. Sonst nichts zu tun, keine Kosten.`,
   },
 }
 
@@ -50,15 +50,15 @@ export default {
       hinweis: 'Les intervalles sont des valeurs standard tant qu’aucun carnet d’entretien n’est enregistré. Saisis les travaux effectués dans Wartungsheft, le rappel disparaît alors.',
     },
     testzeit: {
-      betreff: (datum: string) => `Wartungsheft : la période d’essai se termine le ${datum}`,
-      laeuft: (tage: number, datum: string) => `ta période d’essai dure encore ${tage} jours, jusqu’au ${datum}.`,
-      danach: 'Ensuite, le scan des factures et le chat nécessitent un abonnement. Tout le reste demeure : tes véhicules, factures et entretiens restent lisibles, la saisie manuelle et les exports continuent de fonctionner.',
-      bestellen: 'Commander l’abonnement :',
-      preise: 'Pour les particuliers, Wartungsheft coûte 25 francs par an pour jusqu’à cinq véhicules ; les entreprises paient 36 francs par véhicule et par an et reçoivent la facture au nom de l’entreprise. La facture arrive par e-mail, payable à 30 jours.',
+      betreff: (datum: string) => `Wartungsheft : la période d’essai se termine le ${datum}, tu veux continuer ?`,
+      laeuft: (tage: number, datum: string) => `ta période d’essai dure encore ${tage} jours, jusqu’au ${datum}. Si tu veux continuer ensuite avec le scan des factures et le chat, il nous faut seulement ton adresse de facturation.`,
+      danach: 'Si tu la saisis, la première facture arrive tout de suite par e-mail, payable à 30 jours. L’année payée ne commence qu’après la période d’essai, et l’abonnement ne devient ferme qu’avec le paiement : si tu ne paies pas, tu n’as rien à faire.\n\nSi tu ne fais rien, la période d’essai se termine sans frais. Tes véhicules, factures et entretiens restent lisibles, la saisie manuelle et les exports continuent. Seuls le scan des factures et le chat nécessitent alors un abonnement.',
+      bestellen: 'Saisir l’adresse de facturation (Réglages, Commander l’abonnement annuel) :',
+      preise: 'Pour les particuliers, Wartungsheft coûte 25 francs par an pour jusqu’à cinq véhicules ; les entreprises paient 36 francs par véhicule et par an et reçoivent la facture au nom de l’entreprise.',
     },
     hinweis: {
       vorbei: 'Période d’essai terminée : le scan et le chat nécessitent un abonnement. La saisie manuelle, la consultation et les exports restent gratuits.',
-      laeuft: (tage: number, datum: string) => `Période d’essai : encore ${tage === 1 ? '1 jour' : `${tage} jours`}, jusqu’au ${datum}. Ensuite, le scan et le chat nécessitent un abonnement.`,
+      laeuft: (tage: number, datum: string) => `Période d’essai : encore ${tage === 1 ? '1 jour' : `${tage} jours`}, jusqu’au ${datum}. Pour continuer, saisis ton adresse de facturation dans les Réglages. Sinon, rien à faire, aucun frais.`,
     },
   },
   it: {
@@ -78,15 +78,15 @@ export default {
       hinweis: 'Gli intervalli sono valori standard finché non è registrato un libretto di manutenzione. Registra in Wartungsheft i lavori eseguiti e il promemoria sparisce.',
     },
     testzeit: {
-      betreff: (datum: string) => `Wartungsheft: il periodo di prova termina il ${datum}`,
-      laeuft: (tage: number, datum: string) => `il tuo periodo di prova dura ancora ${tage} giorni, fino al ${datum}.`,
-      danach: 'Dopo, la scansione delle fatture e la chat richiedono un abbonamento. Tutto il resto rimane: i tuoi veicoli, le fatture e le manutenzioni restano leggibili, la registrazione manuale e le esportazioni continuano a funzionare.',
-      bestellen: 'Ordina l\'abbonamento:',
-      preise: 'Per i privati Wartungsheft costa 25 franchi all\'anno per un massimo di cinque veicoli; le aziende pagano 36 franchi per veicolo e anno e ricevono la fattura intestata alla ditta. La fattura arriva per e-mail, pagabile entro 30 giorni.',
+      betreff: (datum: string) => `Wartungsheft: il periodo di prova termina il ${datum}, vuoi continuare?`,
+      laeuft: (tage: number, datum: string) => `il tuo periodo di prova dura ancora ${tage} giorni, fino al ${datum}. Se poi vuoi continuare con la scansione delle fatture e la chat, ci serve solo il tuo indirizzo di fatturazione.`,
+      danach: 'Se lo inserisci, la prima fattura arriva subito per e-mail, pagabile entro 30 giorni. L\'anno a pagamento inizia solo dopo il periodo di prova e l\'abbonamento diventa vincolante solo con il pagamento: se non paghi, non devi fare nulla.\n\nSe non fai nulla, il periodo di prova termina senza costi. I tuoi veicoli, le fatture e le manutenzioni restano leggibili, la registrazione manuale e le esportazioni continuano. Solo la scansione delle fatture e la chat richiedono poi un abbonamento.',
+      bestellen: 'Inserisci l\'indirizzo di fatturazione (Impostazioni, Ordina l\'abbonamento annuale):',
+      preise: 'Per i privati Wartungsheft costa 25 franchi all\'anno per un massimo di cinque veicoli; le aziende pagano 36 franchi per veicolo e anno e ricevono la fattura intestata alla ditta.',
     },
     hinweis: {
       vorbei: 'Periodo di prova terminato: scansione e chat richiedono un abbonamento. Registrazione manuale, lettura ed esportazioni restano gratuite.',
-      laeuft: (tage: number, datum: string) => `Periodo di prova: ancora ${tage === 1 ? '1 giorno' : `${tage} giorni`}, fino al ${datum}. Dopo, scansione e chat richiedono un abbonamento.`,
+      laeuft: (tage: number, datum: string) => `Periodo di prova: ancora ${tage === 1 ? '1 giorno' : `${tage} giorni`}, fino al ${datum}. Per continuare, inserisci l'indirizzo di fatturazione nelle Impostazioni. Altrimenti nulla da fare, nessun costo.`,
     },
   },
   en: {
@@ -106,15 +106,15 @@ export default {
       hinweis: 'The intervals are standard values as long as no service book is stored. Record completed jobs in Wartungsheft and the reminder disappears.',
     },
     testzeit: {
-      betreff: (datum: string) => `Wartungsheft: your trial ends on ${datum}`,
-      laeuft: (tage: number, datum: string) => `your trial runs for another ${tage} days, until ${datum}.`,
-      danach: 'After that, the invoice scan and the chat need a subscription. Everything else stays: your vehicles, invoices and maintenance records remain readable, manual entry and exports keep working.',
-      bestellen: 'Order a subscription:',
-      preise: 'For private users Wartungsheft costs 25 francs a year for up to five vehicles; businesses pay 36 francs per vehicle and year and receive the invoice in the company\'s name. The invoice comes by email, payable within 30 days.',
+      betreff: (datum: string) => `Wartungsheft: your trial ends on ${datum}, would you like to continue?`,
+      laeuft: (tage: number, datum: string) => `your trial runs for another ${tage} days, until ${datum}. If you'd like to keep using the invoice scan and chat afterwards, all we need is your billing address.`,
+      danach: 'Once you enter it, the first invoice comes straight away by email, payable within 30 days. The paid year only starts after the trial, and the subscription only becomes binding with payment: if you don\'t pay, you don\'t need to do anything.\n\nIf you do nothing, the trial ends at no cost. Your vehicles, invoices and maintenance records remain readable, manual entry and exports keep working. Only the invoice scan and the chat then need a subscription.',
+      bestellen: 'Enter your billing address (Settings, Order annual subscription):',
+      preise: 'For private users Wartungsheft costs 25 francs a year for up to five vehicles; businesses pay 36 francs per vehicle and year and receive the invoice in the company\'s name.',
     },
     hinweis: {
       vorbei: 'Trial over: scanning and chat need a subscription. Manual entry, reading and exports stay free.',
-      laeuft: (tage: number, datum: string) => `Trial ends in ${tage === 1 ? '1 day' : `${tage} days`}, on ${datum}. After that, scanning and chat need a subscription.`,
+      laeuft: (tage: number, datum: string) => `Trial ends in ${tage === 1 ? '1 day' : `${tage} days`}, on ${datum}. To continue, enter your billing address in Settings. Otherwise nothing to do, no costs.`,
     },
   },
 } satisfies Record<Sprache, typeof de>
