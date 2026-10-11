@@ -77,6 +77,8 @@ export default defineConfig({
     ratgeberPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Registrierung in src/main.ts (registerSW), nicht über das eingefügte registerSW.js ohne Neuladen
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'Wartungsheft',
@@ -91,6 +93,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Ausdrücklich: ohne injectRegister lässt das Plugin clientsClaim weg, der neue Worker übernähme offene Seiten nicht
+        clientsClaim: true,
+        skipWaiting: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         // Ratgeber sind eigene HTML-Seiten, nicht die App: der Service Worker darf sie nicht durch index.html ersetzen
         navigateFallbackDenylist: [new RegExp(`^(/(${PRAEFIXE.join('|')}))?/ratgeber(/|$)`)],
