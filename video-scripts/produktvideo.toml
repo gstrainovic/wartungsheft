@@ -47,6 +47,56 @@ grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fah
 [film.youtube.de]
 id = "gVyuTsk_LrI"
 sha256 = "unbekannt (Upload vom 30.09.)"
+titel = "Serviceheft digital fürs Auto: Wartungsheft – Rechnung fotografieren, Service und MFK"
+beschreibung = """Serviceheft digital fürs Auto: Werkstattrechnung fotografieren, und Wartungsheft liest Werkstatt, Datum, Betrag und Kilometerstand aus und legt sie im Serviceheft ab. Es sagt dir, was als Nächstes fällig ist (Öl, Bremsen, Zahnriemen, MFK), erinnert dich per E-Mail, und beim Verkauf der Occasion liegt das vollständige Serviceheft als PDF bereit.
+
+Für Privathalter in der Schweiz: Servicebuch, Wartungsintervalle und MFK-Termine an einem Ort, statt Papierheft im Handschuhfach und Rechnungen in der Schublade.
+
+30 Tage gratis testen, danach 25 Franken im Jahr: https://wartungsheft.ch
+Für Betriebe mit Fuhrpark: https://wartungsheft.ch/betrieb
+
+Strainovic IT, Steinach SG
+#Serviceheft #Wartungsheft #Auto #MFK #Schweiz"""
+tags = ["Serviceheft digital", "Serviceheft Auto", "Serviceheft App", "Servicebuch Auto", "Wartungsheft Auto", "Wartungsintervalle", "Werkstattrechnung", "MFK", "Occasion verkaufen", "Autoservice", "Schweiz"]
+
+[film.youtube.fr]
+titel = "Carnet d’entretien numérique pour la voiture : Wartungsheft, facture du garage en photo"
+beschreibung = """Carnet d’entretien numérique pour la voiture : photographiez la facture du garage, et Wartungsheft lit le garage, la date, le montant et le kilométrage et les classe dans le carnet d’entretien. L’app vous dit ce qui est dû ensuite (huile, freins, courroie de distribution, expertise), vous rappelle par e-mail, et au moment de vendre, le carnet d’entretien complet est prêt en PDF.
+
+Pour les particuliers en Suisse : l’historique d’entretien et l’expertise au même endroit, plutôt que le carnet dans la boîte à gants et les factures dans le tiroir.
+
+30 jours d’essai gratuit, puis 25 CHF par an : https://wartungsheft.ch/fr
+Pour les entreprises avec un parc de véhicules : https://wartungsheft.ch/fr/betrieb
+
+Strainovic IT, Steinach SG
+#Wartungsheft #carnetdentretien #voiture #expertise #Suisse"""
+tags = ["carnet d’entretien numérique", "carnet d’entretien voiture", "carnet d’entretien app", "carnet de service", "entretien voiture", "facture garage", "expertise voiture", "historique d’entretien", "vendre sa voiture", "Wartungsheft", "Suisse"]
+
+[film.youtube.it]
+titel = "Libretto di manutenzione digitale per l’auto: Wartungsheft, fattura dell’officina in foto"
+beschreibung = """Libretto di manutenzione digitale per l’auto: fotografa la fattura dell’officina, e Wartungsheft legge officina, data, importo e chilometraggio e li archivia nel libretto di manutenzione. L’app ti dice cosa scade dopo (olio, freni, cinghia di distribuzione, collaudo), ti avvisa via e-mail, e quando vendi il libretto di manutenzione completo è pronto in PDF.
+
+Per i privati in Svizzera: storico della manutenzione e collaudo in un unico posto, invece del libretto nel cruscotto e delle fatture nel cassetto.
+
+Prova gratis per 30 giorni, poi 25 CHF all’anno: https://wartungsheft.ch/it
+Per le aziende con un parco veicoli: https://wartungsheft.ch/it/betrieb
+
+Strainovic IT, Steinach SG
+#Wartungsheft #librettodimanutenzione #auto #collaudo #Svizzera"""
+tags = ["libretto di manutenzione digitale", "libretto di manutenzione auto", "libretto di manutenzione app", "libretto di servizio", "manutenzione auto", "fattura officina", "collaudo auto", "storico manutenzione", "vendere l’auto", "Wartungsheft", "Svizzera"]
+
+[film.youtube.en]
+titel = "Digital car service book: Wartungsheft – photograph the garage invoice, servicing and MFK"
+beschreibung = """Digital service book for your car: photograph the garage invoice, and Wartungsheft reads out the garage, date, amount and mileage and files them in the service book. The app tells you what is due next (oil, brakes, timing belt, MFK inspection), reminds you by email, and when you sell, the complete service book is ready as a PDF.
+
+For private car owners in Switzerland: service history and MFK inspection in one place, instead of a paper book in the glovebox and invoices in the drawer.
+
+Try it free for 30 days, then CHF 25 a year: https://wartungsheft.ch/en
+For businesses with a fleet: https://wartungsheft.ch/en/betrieb
+
+Strainovic IT, Steinach SG
+#servicebook #Wartungsheft #car #MFK #Switzerland"""
+tags = ["digital service book", "car service book", "service book app", "car maintenance app", "service history", "garage invoice", "MFK inspection", "maintenance reminder", "selling your car", "Wartungsheft", "Switzerland"]
 
 [[film]]
 name = "betrieb"
@@ -89,6 +139,56 @@ grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fah
 [film.youtube.de]
 id = "CypEsJgVRC8"
 sha256 = "unbekannt (Upload vom 30.09.)"
+titel = "Fuhrpark verwalten für KMU: Wartungsheft – Serviceheft für alle Firmenfahrzeuge"
+beschreibung = """Fuhrpark verwalten für KMU: Der Fahrer fotografiert die Werkstattrechnung, und Wartungsheft ordnet Werkstatt, Datum, Betrag und Kilometerstand dem richtigen Fahrzeug zu. Service, Reifen und MFK pro Fahrzeug auf einen Blick, Erinnerung per E-Mail, Kosten pro Fahrzeug und Jahr für den Treuhänder auf Knopfdruck.
+
+Für Betriebe in der Schweiz mit mehreren Firmenfahrzeugen: Flottenverwaltung ohne Excel und Aktenordner, ohne Telematik-Kasten und ohne Grundgebühr.
+
+30 Tage gratis mit der ganzen Flotte, danach 36 Franken pro Fahrzeug und Jahr: https://wartungsheft.ch/betrieb
+Für Privathalter: https://wartungsheft.ch
+
+Strainovic IT, Steinach SG
+#Fuhrpark #Flottenmanagement #Wartungsheft #KMU #Schweiz"""
+tags = ["Fuhrpark verwalten", "Fuhrparkverwaltung", "Fuhrpark KMU", "Fuhrpark Software", "Flottenmanagement", "Firmenfahrzeuge", "Serviceheft Firmenfahrzeug", "Werkstattrechnung", "Service Fahrzeug", "MFK", "Wartungsheft", "Schweiz"]
+
+[film.youtube.fr]
+titel = "Gestion de flotte pour PME : Wartungsheft, carnet d’entretien pour chaque véhicule"
+beschreibung = """Gestion de flotte pour PME : le chauffeur photographie la facture du garage, et Wartungsheft attribue le garage, la date, le montant et le kilométrage au bon véhicule. Service, pneus et expertise par véhicule en un coup d’œil, rappel par e-mail, coûts par véhicule et par an pour la fiduciaire en un clic.
+
+Pour les entreprises en Suisse avec plusieurs véhicules : un carnet d’entretien pour tous les véhicules de l’entreprise, sans Excel ni classeurs, sans boîtier télématique et sans taxe de base.
+
+30 jours gratuits avec toute la flotte, puis 36 CHF par véhicule et par an : https://wartungsheft.ch/fr/betrieb
+Pour les particuliers : https://wartungsheft.ch/fr
+
+Strainovic IT, Steinach SG
+#gestiondeflotte #parcdevehicules #Wartungsheft #PME #Suisse"""
+tags = ["gestion de flotte", "gestion parc de véhicules", "parc de véhicules PME", "logiciel gestion de flotte", "véhicules d’entreprise", "carnet d’entretien véhicule", "facture garage", "expertise véhicule", "coûts par véhicule", "Wartungsheft", "Suisse"]
+
+[film.youtube.it]
+titel = "Gestione parco veicoli per PMI: Wartungsheft, libretto per ogni veicolo aziendale"
+beschreibung = """Gestione parco veicoli per PMI: l’autista fotografa la fattura dell’officina, e Wartungsheft assegna officina, data, importo e chilometraggio al veicolo giusto. Servizio, pneumatici e collaudo per veicolo a colpo d’occhio, promemoria via e-mail, costi per veicolo e anno per il fiduciario con un clic.
+
+Per le aziende in Svizzera con più veicoli: un libretto di manutenzione per tutti i veicoli aziendali, senza Excel né classificatori, senza scatola telematica e senza tassa di base.
+
+30 giorni gratis con tutta la flotta, poi 36 CHF per veicolo all’anno: https://wartungsheft.ch/it/betrieb
+Per i privati: https://wartungsheft.ch/it
+
+Strainovic IT, Steinach SG
+#gestioneflotta #parcoveicoli #Wartungsheft #PMI #Svizzera"""
+tags = ["gestione parco veicoli", "gestione flotta", "parco veicoli PMI", "software gestione flotta", "veicoli aziendali", "libretto di manutenzione veicolo", "fattura officina", "collaudo veicolo", "costi per veicolo", "Wartungsheft", "Svizzera"]
+
+[film.youtube.en]
+titel = "Fleet management for SMEs: Wartungsheft – a service book for every company vehicle"
+beschreibung = """Fleet management for SMEs: the driver photographs the garage invoice, and Wartungsheft assigns the garage, date, amount and mileage to the right vehicle. Servicing, tyres and MFK per vehicle at a glance, email reminders, and costs per vehicle and year for your accountant at the push of a button.
+
+For businesses in Switzerland with several vehicles: one service book for all company vehicles, without Excel or binders, without a telematics box and without a base fee.
+
+Free for 30 days with the whole fleet, then CHF 36 per vehicle and year: https://wartungsheft.ch/en/betrieb
+For private car owners: https://wartungsheft.ch/en
+
+Strainovic IT, Steinach SG
+#fleetmanagement #companycars #Wartungsheft #SME #Switzerland"""
+tags = ["fleet management", "fleet management software", "fleet app", "company vehicles", "small business fleet", "vehicle service book", "garage invoice", "MFK inspection", "costs per vehicle", "Wartungsheft", "Switzerland"]
 
 [[film]]
 name = "tutorial"
@@ -121,3 +221,56 @@ stumm = 2026-10-09 # Commit b984bb5
 # deutsche Fassung Handy und Desktop, Commits 4de7d1d und b047c9e, Länge 102 s (Entscheid 59a); fr, it, en nach den
 # Prüfungen ohne erneute Vorlage veröffentlicht am 2026-10-09 auf /hilfe (Skill produktvideos)
 vertont = 2026-10-09
+
+[film.youtube.de]
+titel = "Serviceheft digital führen: So startest du mit Wartungsheft (Anleitung)"
+beschreibung = """Serviceheft digital führen, Schritt für Schritt: Fahrzeug hinzufügen, am schnellsten mit dem fotografierten Fahrzeugausweis, dann die erste Werkstattrechnung fotografieren. Die KI liest Werkstatt, Datum, Kilometerstand, Betrag und die einzelnen Arbeiten heraus, und Wartungsheft rechnet aus, wann jede Arbeit das nächste Mal fällig ist.
+
+Das Video zeigt ausserdem die Checkliste «Einrichten», die Erinnerung per E-Mail, «Erledigt eintragen» und wo im Menü «Hilfe» und «Fehler melden oder Wunsch» stehen.
+
+Hilfe und Anleitung: https://wartungsheft.ch/hilfe
+Noch kein Konto? 30 Tage gratis testen: https://wartungsheft.ch
+
+Strainovic IT, Steinach SG
+#Serviceheft #Wartungsheft #Anleitung #Auto #Schweiz"""
+tags = ["Serviceheft digital", "Wartungsheft Anleitung", "Wartungsheft App", "Serviceheft App", "Servicebuch Auto", "Werkstattrechnung fotografieren", "Fahrzeugausweis fotografieren", "Wartungsintervalle", "Service Erinnerung", "MFK", "Tutorial", "Schweiz"]
+
+[film.youtube.fr]
+titel = "Carnet d’entretien numérique : démarrer avec Wartungsheft (tutoriel)"
+beschreibung = """Tenir un carnet d’entretien numérique, pas à pas : ajouter un véhicule, le plus rapidement en photographiant le permis de circulation, puis photographier la première facture du garage. L’IA lit le garage, la date, le kilométrage, le montant et chaque travail, et Wartungsheft calcule quand chaque travail sera à faire la prochaine fois.
+
+La vidéo montre aussi la liste « Configurer », le rappel par e-mail, « Marquer comme fait » et où trouver « Aide » et « Signaler un problème ou un souhait » dans le menu.
+
+Aide et guide : https://wartungsheft.ch/fr/hilfe
+Pas encore de compte ? 30 jours d’essai gratuit : https://wartungsheft.ch/fr
+
+Strainovic IT, Steinach SG
+#Wartungsheft #carnetdentretien #tutoriel #voiture #Suisse"""
+tags = ["carnet d’entretien numérique", "Wartungsheft tutoriel", "Wartungsheft app", "carnet d’entretien app", "carnet d’entretien voiture", "photographier facture garage", "permis de circulation", "intervalles d’entretien", "rappel entretien", "expertise", "tutoriel", "Suisse"]
+
+[film.youtube.it]
+titel = "Libretto di manutenzione digitale: come iniziare con Wartungsheft (tutorial)"
+beschreibung = """Tenere il libretto di manutenzione digitale, passo dopo passo: aggiungi un veicolo, il modo più veloce è fotografare la licenza di circolazione, poi fotografa la prima fattura dell’officina. L’IA legge officina, data, chilometraggio, importo e i singoli lavori, e Wartungsheft calcola quando ogni lavoro sarà da fare la prossima volta.
+
+Il video mostra anche la lista «Configura», il promemoria via e-mail, «Segna come fatto» e dove trovi «Aiuto» e «Segnala un errore o un desiderio» nel menu.
+
+Aiuto e guida: https://wartungsheft.ch/it/hilfe
+Non hai ancora un account? Prova gratis per 30 giorni: https://wartungsheft.ch/it
+
+Strainovic IT, Steinach SG
+#Wartungsheft #librettodimanutenzione #tutorial #auto #Svizzera"""
+tags = ["libretto di manutenzione digitale", "Wartungsheft tutorial", "Wartungsheft app", "libretto di manutenzione app", "libretto di manutenzione auto", "fotografare fattura officina", "licenza di circolazione", "intervalli di manutenzione", "promemoria manutenzione", "collaudo", "tutorial", "Svizzera"]
+
+[film.youtube.en]
+titel = "Digital service book: getting started with Wartungsheft (tutorial)"
+beschreibung = """Keep a digital service book, step by step: add a vehicle, quickest by photographing the registration document, then photograph the first garage invoice. The AI reads out the garage, date, mileage, amount and the individual jobs, and Wartungsheft works out when each job is next due.
+
+The video also shows the “Set up” checklist, the email reminder, “Mark as done” and where to find “Help” and “Report a problem or a wish” in the menu.
+
+Help and guide: https://wartungsheft.ch/en/hilfe
+No account yet? Try it free for 30 days: https://wartungsheft.ch/en
+
+Strainovic IT, Steinach SG
+#servicebook #Wartungsheft #tutorial #car #Switzerland"""
+tags = ["digital service book", "Wartungsheft tutorial", "Wartungsheft app", "service book app", "car service book", "photograph garage invoice", "registration document", "maintenance intervals", "service reminder", "MFK inspection", "tutorial", "Switzerland"]
+
