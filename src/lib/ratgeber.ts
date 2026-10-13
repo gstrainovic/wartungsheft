@@ -2,6 +2,9 @@
  * Ratgeber-Artikel als fertiges HTML: Markdown aus `content/ratgeber/<adresse>.md` wird beim Build zu
  * `dist/ratgeber/<adresse>/index.html` (Vite-Plugin in `vite.config.ts`), Übersetzungen aus
  * `content/ratgeber/<fr|it|en>/<adresse>.md` zu `dist/<fr|it|en>/ratgeber/<adresse>/index.html` (src/lib/sprache.ts).
+ * Adresse je Sprache: `slug` im Artikelkopf, sonst der Dateiname – neue Übersetzungen dürfen so eine eigene
+ * Adresse haben (`/fr/ratgeber/carnet-entretien`); die Sprachfassungen verbindet `key` im Kopf (Standard: Dateiname),
+ * nicht mehr der Dateiname selbst. Bestehende Adressen bleiben unverändert.
  * Anders als die App-Seiten brauchen diese Seiten kein JavaScript, damit Suchmaschinen und KI-Crawler den ganzen
  * Text lesen. Bewusst ohne Browser- und Vite-Abhängigkeit, `vite.config.ts` importiert die Datei.
  */
@@ -12,7 +15,10 @@ import { SITE_URL } from './page-meta.ts'
 import { mitSprache, SPRACHEN, sprachTag } from './sprache.ts'
 
 export interface Article {
+  /** Adresse dieser Fassung (`slug` im Kopf, sonst Dateiname) */
   slug: string
+  /** Schlüssel, der die Sprachfassungen verbindet (`key` im Kopf, sonst Dateiname) */
+  key: string
   sprache: Sprache
   title: string
   description: string
@@ -82,7 +88,15 @@ export function parseArticle(slug: string, source: string, sprache: Sprache = 'd
     if (!head[key])
       throw new Error(`Ratgeber ${sprache}/${slug}: ${key} fehlt im Kopf`)
   }
-  return { slug, sprache, title: head.title!, description: head.description!, date: head.date!, body: (match?.[2] ?? '').trim() }
+  return {
+    slug: head.slug ?? slug,
+    key: head.key ?? head.slug ?? slug,
+    sprache,
+    title: head.title!,
+    description: head.description!,
+    date: head.date!,
+    body: (match?.[2] ?? '').trim(),
+  }
 }
 
 function escape(value: string): string {
@@ -170,8 +184,8 @@ function articlePath(sprache: Sprache, slug: string): string {
   return mitSprache(sprache, `/ratgeber/${slug}`)
 }
 
-/** `fassungen`: Sprachen, in denen es den Artikel gibt (für hreflang und die Sprachwahl) */
-export function renderArticlePage(article: Article, fassungen: Sprache[] = [article.sprache]): string {
+/** `verwandte`: alle Fassungen des Artikels, jede mit eigener Adresse (für hreflang und die Sprachwahl) */
+export function renderArticlePage(article: Article, verwandte: Article[] = [article]): string {
   const t = TEXTE[article.sprache]
   const path = articlePath(article.sprache, article.slug)
   const content = `      <article>
@@ -188,7 +202,10 @@ ${marked.parse(article.body, { async: false })}
     title: `${article.title} | Wartungsheft`,
     description: article.description,
     path,
-    fassungen: SPRACHEN.filter(s => fassungen.includes(s.code)).map(s => ({ sprache: s.code, path: articlePath(s.code, article.slug) })),
+    fassungen: SPRACHEN.flatMap((s) => {
+      const fassung = verwandte.find(a => a.sprache === s.code)
+      return fassung ? [{ sprache: s.code, path: articlePath(s.code, fassung.slug) }] : []
+    }),
     content,
     jsonLd: {
       '@context': 'https://schema.org',

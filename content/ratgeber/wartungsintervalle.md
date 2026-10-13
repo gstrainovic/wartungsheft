@@ -50,8 +50,6 @@ Hier die **empfohlenen Intervalle** für typische Wartungsarbeiten – **immer d
 
 | Teil | Intervall | Wichtig | Quelle |
 |------|-----------|---------|--------|
-| **Zahnriemen** | 60'000–240'000 km oder 5–10 Jahre | **Zwingend einhalten!** Reißt der Riemen, ist oft der **Motor hinüber** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/zahnriemenwechsel/) |
-|------|-----------|---------|--------|
 | **Zahnriemen** | 60'000–240'000 km **oder** 5–10 Jahre | **Zwingend einhalten!** Reißt der Riemen, ist oft der **Motor hinüber** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/zahnriemenwechsel/) |
 | **Steuerkette** | Meist lebenslang | Bei Geräuschen (Klappern) sofort prüfen! | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/steuerkette/) |
 | **Keilriemen** | 60'000–100'000 km | Treibt Nebenaggregate (Lichtmaschine, Servolenkung) an | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/keilriemen/) |
@@ -130,7 +128,7 @@ Die Kosten variieren je nach Fahrzeugtyp, Werkstatt und Umfang. Hier eine **Übe
 |-------------|---------------|-----------|--------|
 | **Kleiner Service** (Grundüberprüfung + Ölwechsel) | 130–350 | Alle 15'000–30'000 km oder jährlich | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
 | **Grosser Service** (umfassende Wartung + Inspektion) | 400–800 | Nach Herstellervorgabe | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **MFK-Prüfung** | ~60 | Erstmals nach 5 Jahren, dann alle 2–3 Jahre | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+| **MFK-Prüfung** | ~60 | Erstprüfung nach 5–6 Jahren, dann nach 3 Jahren und **alle 2 Jahre** | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
 
 **📌 Wichtig:** Die MFK prüft nur die **Mindest-Sicherheit**, während ein Service mit Inspektion den **Fahrzeugwert erhält** und **proaktiv Mängel sucht**.
 
@@ -172,8 +170,7 @@ Einige Hersteller haben **eigene Wartungsphilosophien**:
 | Hersteller | Intervalltyp | Beispiel | Quelle |
 |------------|--------------|----------|--------|
 | **Opel** | Feste Intervalle | Alle **30'000 km oder 1 Jahr** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
-| **Audi** | Flexible Intervalle | Innerhalb **2 Jahren bis max. 30'000 km** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
-| **Audi** | Feste Intervalle | **Jährlich alle 15'000 km** (Ölservice) oder **alle 30'000 km/2 Jahre** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
+| **Audi** | Flexible Intervalle | Innerhalb **2 Jahren bis max. 30'000 km**; beim Ölservice zusätzlich jährlich oder alle 15'000 km | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
 
 ---
 

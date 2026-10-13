@@ -1,97 +1,236 @@
 ---
 title: MFK inspection notice: checks, costs and missed dates
-description: When your car is due for the MFK, what gets checked, what it costs and why ignoring the notice can cost you your vehicle registration document.
-date: 2026-09-23
+description: The MFK inspection in Switzerland: intervals under VTS Art. 33, fees by canton, postponing the appointment, preparation checklist, typical defects and the consequences of ignoring the notice. Swiss facts with sources.
+date: 2026-10-13
 ---
 
 At some point the letter arrives: the notice for the periodic vehicle inspection, in Switzerland usually called the
-MFK (Motorfahrzeugkontrolle). Here you will find when it comes, how to prepare and what happens if you ignore it.
+MFK (Motorfahrzeugkontrolle). Here you will find when your car is due, what the inspection station looks at, what
+the fees are in your canton – and why ignoring the notice can cost you your vehicle registration document.
 
-## When does my car have to go for its MFK inspection?
+---
 
-The intervals are set out in Art. 33 of the Ordinance on the Technical Requirements for Road Vehicles (VTS).
-Passenger cars, motorcycles and trailers over 0.75 tonnes must be inspected for the first time five, but no later
-than six years after first registration, then after three years and every two years after that
-([VTS Art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33)). Vans and motorhomes start
-sooner: first inspection after four years.
+## 📅 When does my car have to go for its MFK inspection?
 
-The notice is sent to you in writing by your cantonal road traffic office (Strassenverkehrsamt, the authority that
-registers vehicles and licenses drivers)
-([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)). You can,
-however, have your vehicle inspected voluntarily earlier at any time. A change of owner does not change the date,
-by the way, unless the vehicle is more than ten years old
-([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)).
+The intervals are set out in Art. 33 of the Ordinance on the Technical Requirements for Road Vehicles (VTS). For
+most private owners these deadlines apply:
 
-## What gets checked?
+| Vehicle type | First inspection | Then | Source |
+|--------------|------------------|------|--------|
+| Passenger cars, motorcycles, trailers over 0.75 tonnes | 5–6 years after first registration | After 3 years, then **every 2 years** | [VTS Art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Vans, motorhomes | 4 years after first registration | Then every 2 years | [VTS Art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Older vehicles (over 10 years) | — | **New inspection** on change of owner | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
 
-According to the VTS, the inspection covers: identification of the vehicle, brakes, steering, visibility, lighting
-and electrical system, chassis, axles, wheels, tyres and suspension, as well as exhaust emissions. The canton of
-St. Gallen also explicitly lists bodywork, load-bearing parts and corrosion
-([sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html)).
+**Important:**
+- The **notice** is sent to you **in writing** by your cantonal road traffic office (Strassenverkehrsamt, the
+  authority that registers vehicles and licenses drivers)
+  ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)). In some
+  cantons you can also book the appointment **online**, for example in
+  [Zurich](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) and
+  [Basel-Stadt](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung).
+- You can have your vehicle inspected **voluntarily earlier, at any time** – for example before a sale, so you can
+  advertise it as “inspected”.
+- A **change of owner does not change the date**, unless the vehicle is more than ten years old.
+- Inspections take place at the **cantonal road traffic office**, at licensed **private inspection stations** or,
+  in the cantons of Aargau, Bern, Neuchâtel, Solothurn, St. Gallen, Ticino and Zurich, also at the **TCS technical
+  centres** ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)).
 
-The canton of Zurich requires you to present the car at operating temperature and clean; if it is very dirty, the
-inspection cannot be completed
-([zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html)). Older cars,
-roughly from model years 1976 to 2006, without a recognised OBD system also need the exhaust maintenance document.
-You do not have to present the car yourself: another person or your garage may do it for you.
+---
 
-## What does the MFK inspection cost?
+## 🔍 What gets checked?
 
-According to ch.ch, you should expect around 60 francs. Examples from the cantonal fee schedules:
+According to the VTS, the inspection covers these areas:
 
-- **Bern:** CHF 60 for a passenger car, motorcycle and trailer up to 3.5 t, a partial re-inspection after a
-  complaint CHF 30 ([Bern fee schedule](https://www.svsa.sid.be.ch/content/dam/svsa_sid/dokumente/de/gebuehrentarife/svsa-gebuehren-fzp-d.pdf)).
-- **Aargau:** Fr. 58 for a passenger car
-  ([ag.ch](https://www.ag.ch/de/verwaltung/dvi/strassenverkehr/steuern-gebuehren/gebuehren/fahrzeug)).
-- **Zurich:** CHF 30 per inspection unit, a garage confirmation after defects CHF 20
-  ([Zurich fee order 2026](https://www.zh.ch/content/dam/zhweb/bilder-dokumente/organisation/sicherheitsdirektion/strassenverkehrsamt/organisation/ueber-uns-grundlagen/Geb%C3%BChrenverf%C3%BCgung,%20g%C3%BCltig%20ab%201.%20Januar%202026.pdf)).
+| Area | What is checked | Typical defects |
+|------|-----------------|-----------------|
+| **Identification** | Vehicle documents, rating plates, chassis number | Missing or incorrect documents |
+| **Brakes** | Braking performance, brake pads, brake fluid | Worn pads, leaking lines |
+| **Steering** | Play, function, condition | Excessive play, defective parts |
+| **Visibility** | Glass, mirrors, windscreen wipers | Cracks, damage, defective wipers |
+| **Lighting and electrics** | All lights, indicators, hazard lights, battery | Blown bulbs, incorrect adjustment |
+| **Chassis and axles** | Frame, suspension, shock absorbers | Rust, corrosion, loose parts |
+| **Wheels and tyres** | Tread depth, tyre pressure, condition | Insufficient tread (under 1.6 mm), damage |
+| **Exhaust emissions** | Emission values, OBD system | Emissions too high, defective OBD |
 
-In the cantons of Aargau, Bern, Neuchâtel, Solothurn, St. Gallen, Ticino and Zurich, the TCS technical centres also
-carry out inspections on behalf of the office (TCS). Solothurn charges a processing fee of CHF 20 for this
-([so.ch](https://so.ch/verwaltung/bau-und-justizdepartement/motorfahrzeugkontrolle/fahrzeuge/fahrzeugpruefungen/periodische-fahrzeugpruefung/)).
+**Cantonal additions:**
+- **St. Gallen:** also explicitly checks **bodywork, load-bearing parts and corrosion**
+  ([sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html)).
+- **Zurich:** requires you to present the car **at operating temperature and clean**; if it is very dirty, the
+  inspection **cannot be completed**
+  ([zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html)).
+- **Older cars (roughly model years 1976 to 2006):** without a **recognised OBD system** they also need the
+  **exhaust maintenance document**.
 
-## Postponing the appointment
+**💡 Tip:** you do not have to present the car yourself. Another person or your garage may do it for you.
 
-The rules vary by canton:
+---
 
-- **St. Gallen:** by no more than 30 days, at the latest five working days before the appointment; re-inspections
-  cannot be postponed ([sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html)).
-- **Basel-Stadt and Basel-Landschaft:** online and free of charge, within three months of the first notice
-  ([bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung)).
-- **Obwalden and Nidwalden:** at least seven days in advance, online only once
-  ([vsz.ch](https://www.vsz.ch/strassenverkehr/fahrzeug/fahrzeugpruefung)).
+## 💰 What does the MFK inspection cost? Fees by canton
 
-## What happens if I ignore the notice?
+Fees vary by canton and vehicle type. Here is an overview of the **current tariffs** (as of 2026):
 
-Then it gets expensive. Anyone who fails to comply with the notice without sufficient reason has their vehicle
-registration document (Fahrzeugausweis) withdrawn (Art. 106 VZV). In 2024 the Administrative Court of Solothurn
-upheld such a case: the owner did not turn up, the office summoned him again and then withdrew the vehicle
-registration document and number plates with immediate effect
-([Judgment VWBES.2024.5](https://entscheidsuche.ch/dok/SO_Omni/SO_VG_001_VWBES-2024-5_2024-04-15.html)).
+| Canton | Passenger car | Motorcycle | Re-inspection | Source |
+|--------|---------------|------------|---------------|--------|
+| **Bern** | CHF 60 | CHF 60 | CHF 30 | [Bern fee schedule 2026](https://www.svsa.sid.be.ch/content/dam/svsa_sid/dokumente/de/gebuehrentarife/svsa-gebuehren-fzp-d.pdf) |
+| **Aargau** | CHF 58 | — | — | [ag.ch](https://www.ag.ch/de/verwaltung/dvi/strassenverkehr/steuern-gebuehren/gebuehren/fahrzeug) |
+| **Zurich** | CHF 30 **per inspection unit** | — | Garage confirmation: CHF 20 | [Zurich fee order 2026](https://www.zh.ch/content/dam/zhweb/bilder-dokumente/organisation/sicherheitsdirektion/strassenverkehrsamt/organisation/ueber-uns-grundlagen/Geb%C3%BChrenverf%C3%BCgung,%20g%C3%BCltig%20ab%201.%20Januar%202026.pdf) |
+| **St. Gallen** | CHF 55 | — | — | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Basel-Stadt / Basel-Landschaft** | CHF 55 | — | — | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+| **Solothurn** | CHF 55 (+ CHF 20 processing fee at the TCS) | — | — | [so.ch](https://so.ch/verwaltung/bau-und-justizdepartement/motorfahrzeugkontrolle/fahrzeuge/fahrzeugpruefungen/periodische-fahrzeugpruefung/) |
 
-Even a single missed appointment costs money: in Zurich, not turning up is charged at CHF 30 per inspection unit,
-a withdrawal order at CHF 60 and the collection of the plates by the police at CHF 180. In Obwalden and Nidwalden
-the inspection fee is also due if you do not turn up.
+**Additional fees at a glance:**
 
-And even if the notice never arrives, for example because of an inspection backlog at the office, you as the owner
-remain responsible for the condition of your vehicle
+| Type of defect | Cost (approx.) | Example |
+|----------------|----------------|---------|
+| **Re-inspection** | CHF 30–60 | After complaints |
+| **Garage confirmation** | CHF 20 | St. Gallen |
+| **Non-attendance fee** | CHF 30–180 | For not turning up |
+| **Withdrawal order** | CHF 60 | When driving is prohibited |
+
+**Good to know:**
+- In the cantons of Aargau, Bern, Neuchâtel, Solothurn, St. Gallen, Ticino and Zurich, the **TCS technical centres**
+  also carry out inspections on behalf of the office.
+- **TCS members** often pay reduced prices for voluntary inspections.
+
+---
+
+## ⏳ Postponing the appointment
+
+The rules are **cantonal**. The most important ones:
+
+| Canton | Maximum postponement | Deadline for the request | Online? | Source |
+|--------|----------------------|--------------------------|---------|--------|
+| **St. Gallen** | 30 days | At least 5 working days before the appointment | ❌ | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Basel-Stadt / Basel-Landschaft** | 3 months | Within 3 months of the first notice | ✅ free of charge | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+| **Zurich** | 3 months | Online or in writing | ✅ | [zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) |
+| **Obwalden / Nidwalden** | — | At least 7 days in advance | ✅ (only once) | [vsz.ch](https://www.vsz.ch/strassenverkehr/fahrzeug/fahrzeugpruefung) |
+
+**How to do it, step by step:**
+1. **Online:** if your canton offers it (e.g. Zurich, Basel)
+2. **By phone:** call the cantonal road traffic office
+3. **In writing:** by email or letter to the office
+4. **Wait for confirmation:** you receive a new confirmed appointment
+
+**⚠️ Important:**
+- An appointment **cannot simply be cancelled** – always ask for a **postponement**, never ignore the notice.
+- Submit the request **before** the original appointment; some cantons require a **valid reason** (holiday,
+  illness).
+- The postponement itself is usually **free of charge**.
+- Always give the **notice number**; your garage can also request the postponement **on your behalf**.
+- **Re-inspections** cannot be postponed in many cantons (e.g. St. Gallen).
+
+---
+
+## ⚠️ What happens if I ignore the notice?
+
+**In short: it gets expensive – and you lose your registration.**
+
+### 📜 Legal consequences
+- The **vehicle registration document is withdrawn** (Art. 106 VZV) if you fail to appear **without sufficient
+  reason**.
+- **A real case:** in 2024 the Administrative Court of Solothurn upheld such a case: the owner did not turn up, the
+  office summoned him again and then withdrew the **vehicle registration document and number plates with immediate
+  effect** ([Judgment VWBES.2024.5](https://entscheidsuche.ch/dok/SO_Omni/SO_VG_001_VWBES-2024-5_2024-04-15.html)).
+
+### 💸 Costs of a missed appointment
+| Canton | Non-attendance fee | Withdrawal order | Plates seized (police) | Source |
+|--------|--------------------|------------------|------------------------|--------|
+| **Zurich** | CHF 30 per inspection unit | CHF 60 | CHF 180 | [zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) |
+| **Obwalden / Nidwalden** | Inspection fee due | — | — | [vsz.ch](https://www.vsz.ch/strassenverkehr/fahrzeug/fahrzeugpruefung) |
+
+**⚠️ Important:** even if the notice **never arrives**, for example because of an inspection backlog at the
+office, you as the owner remain responsible for the condition of your vehicle
 ([TCS via Nau](https://www.nau.ch/ort/st-gallen/32000-fahrzeuge-im-mfk-prufruckstand-tcs-besorgt-67016613)).
 
-## How to prepare
+---
 
-- **Service beforehand:** ch.ch recommends taking the car to the garage before the inspection.
-- **Pre-test:** The TCS MFK pre-test costs from CHF 60 for members, depending on the location
+## ✅ MFK preparation: checklist
+
+### 🔧 Two weeks before the inspection
+- [ ] **Have the service done:** take the car to the garage to check **brakes, lighting and tyres** – ideally
+  together with the next service
+  ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
+- [ ] **Pre-test:** the TCS MFK pre-test costs from CHF 60 for members and covers the typical defects
   ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/mfk-vortest.php)).
-- **Typical defects:** According to the TCS Bern section, the most frequent complaints concern lighting, running
-  gear and tyres; around 15 per cent of vehicles fail
-  ([Nau](https://www.nau.ch/news/hintergrund/was-fahrzeughaltende-zur-mfk-wissen-mussen-67132242)). You can check
-  the lights and tyres yourself beforehand.
+- [ ] **Prepare documents:** vehicle registration document, insurance policy, if applicable the exhaust
+  maintenance document (older cars without OBD), recent inspection reports.
 
-## And if defects are found?
+### 🚗 The day before the inspection
+- [ ] **Wash the car:** in Zurich and other cantons, heavy dirt can lead to the **inspection being refused**.
+- [ ] **Test all lights:** headlamps, indicators, brake lights, tail lights, hazard lights.
+- [ ] **Check the tyre pressure** (cold tyres) and the **tread depth:** minimum **1.6 mm**, recommended **3 mm**.
+- [ ] **Clean glass and mirrors**, check the wiper blades.
 
-Then a re-inspection follows, normally within 30 days, and you have to arrange the appointment yourself. For
-minor defects, some cantons accept that a garage fixes them and reports this to the office (ch.ch). In
-St. Gallen this is called the repair confirmation procedure and takes place within 14 days.
+### 🎯 On the day
+- [ ] Present the car **at operating temperature** (mandatory in Zurich!).
+- [ ] **Arrive on time** (5–10 minutes early), with all documents.
 
-Keep the inspection report: it records the mileage and proves, when you sell, that your odometer is correct.
-More on this in the guide [Selling a used car](/en/ratgeber/occasion-verkaufen-serviceheft).
+---
+
+## 🔧 Typical defects: check them yourself
+
+According to the TCS Bern section, around **15 % of vehicles fail** the MFK
+([Nau](https://www.nau.ch/news/hintergrund/was-fahrzeughaltende-zur-mfk-wissen-mussen-67132242)). The most
+frequent complaints:
+
+| Area | Frequency | Check it yourself | Repair cost (approx.) |
+|------|-----------|-------------------|-----------------------|
+| **Lighting** | ⭐⭐⭐⭐⭐ | Do all the lights work? | CHF 10–50 |
+| **Tyres** | ⭐⭐⭐⭐ | Tread ≥ 1.6 mm? Cracks? | CHF 50–200 per tyre |
+| **Brakes** | ⭐⭐⭐ | Even braking? Squealing? | CHF 100–400 |
+| **Running gear** | ⭐⭐⭐ | Clunking noises? Wheel bearing play? | CHF 200–800 |
+| **Glass** | ⭐⭐ | Cracks? Vision obstructed? | CHF 100–300 |
+| **Exhaust** | ⭐⭐ | Smoke? Warning light? | CHF 100–500 |
+
+**How to avoid defects:**
+- **Lighting:** test all lights **every month**
+- **Tyres:** check tread and condition **before every change of season**
+- **Brakes:** have them checked **every year** by a garage
+- **Glass:** have cracks repaired **immediately**
+
+---
+
+## 🔄 And if defects are found?
+
+1. **Re-inspection:** normally repair and present the vehicle again **within 30 days** – you have to arrange the
+   appointment yourself.
+2. **Minor defects:** in some cantons (e.g. St. Gallen) a **garage confirmation** that the defects have been fixed
+   is enough. In **St. Gallen** this is called the **repair confirmation procedure** and takes place within
+   **14 days** (ch.ch).
+3. **Keep the inspection report:** it records the **mileage** and proves, when you sell, that your odometer is
+   correct.
+
+---
+
+## 🏛️ News 2026 and cantonal peculiarities
+
+| Canton | News | Details | Source |
+|--------|------|---------|--------|
+| **Basel-Stadt** | **Extended opening hours** from 01.06.2026 | Goal: spread counter visits better, reduce waiting times | [bs.ch](https://www.bs.ch/medienmitteilungen/jsd/2026-neue-oeffnungszeiten-bei-der-motorfahrzeugkontrolle-basel-stadt) |
+| **Basel-Landschaft** | **Live waiting times** | For the Füllinsdorf and Münchenstein sites | [baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle) |
+| **Basel-Landschaft** | **Online booking** | Only for the Füllinsdorf site, not Münchenstein | [baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle/fahrzeugzulassung/terminbuchung-fahrzeugwesen) |
+| **Itingen (BL)** | **New inspection station MFP** from 01.07.2026 | Sägeweg 15 | [AGVS beider Basel](https://www.agvsbsbl.ch/de/dienstleistungen/mfk-agvs-beider-basel/) |
+
+**Online services by canton:**
+
+| Canton | Online booking | Live waiting times | Source |
+|--------|----------------|--------------------|--------|
+| **Basel-Stadt** | ✅ | ✅ | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+| **Basel-Landschaft** | ✅ (Füllinsdorf only) | ✅ | [baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle) |
+| **Zurich** | ✅ | ❌ | [zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) |
+| **St. Gallen** | ❌ | ❌ | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Aargau** | ❌ | ❌ | [ag.ch](https://www.ag.ch/de/verwaltung/dvi/strassenverkehr/steuern-gebuehren/gebuehren/fahrzeug) |
+
+The **Basel-Landschaft inspection authority** is a department of the **Security Directorate (SID)**; together with
+the **Basel-Stadt authority** it runs the joint **vehicle inspection station (MFP) in Münchenstein** for technical
+re-inspections and practical driving tests
+([baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle)).
+
+---
+
+## 📚 More information
+- [MFK in brief (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
+- [TCS: Motorfahrzeugkontrolle](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)
+- [VTS Art. 33 (legal text)](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33)
+
+More in the guide [Selling a used car: how a complete service book pushes the price](/en/ratgeber/occasion-verkaufen-serviceheft).

@@ -70,19 +70,6 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 - [ ] **Deutsche Ratgeber indexieren:** Nach dem Deploy in der Search Console (URL-Prüfung) für
       `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und `/ratgeber/serviceheft-verloren` erneut
       «Indexierung beantragen» und `gsc coverage` beobachten
-- [x] **Ratgeber billig schreiben:** Servicebuch-Vorlage in vier Sprachen online, inkl. eigener PDF-Vorlage mit
-      Schweizer Begriffen (MFK/expertise/collaudo), erzeugt mit `scripts/servicebuch-pdf.mjs`, verlinkt aus den
-      Artikeln. Offen: Goran prüft `content/recherche/serviceheft-vorlage{,-fr,-it}.md` (Thema «serviceheft auto pdf»,
-      Platz 10) und die PDF-Vorlage. Mehr neue Artikel ab dem nächsten Schritt aus derselben Recherche-Pipeline
-- [x] **Übersetzte Ratgeber-URLs für neue Artikel:** umgesetzt13.10. – `key` und `slug` im Artikelkopf verbinden und
-      adressieren die Fassungen (`src/lib/ratgeber.ts`, `vite.config.ts`, Tests in `ratgeber.test.ts` und
-      `texte.test.ts`); bestehende URLs unverändert, neue Artikel können `/fr/ratgeber/<eigener-slug>` bekommen
-- [x] **MFK-Ratgeber ausbauen:** Abschnitte zu Termin, Verschieben, Kosten je Kanton, Vorbereitung und Checkliste
-      in `mfk-aufgebot` konsolidiert und in allen vier Sprachen publiziert (zusammen mit dem Nachbessern)
-- [ ] **Liegenschafts-Ratgeber einordnen:** `content/entwuerfe/prueffristen-lift-heizung-brandmelder.md` und
-      `content/entwuerfe/wartungsplan-liegenschaften-dokumentation.md` behandeln Gebäudeanlagen. Das widerspricht
-      der Produktgrenze «Serviceheft mit Rechnungen, pro Fahrzeug». Empfehlung: Entwürfe nicht in den Wartungsheft-
-      Ratgeber übernehmen; vor einer Bearbeitung klären, ob Goran den Produktumfang ändern will.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
       «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit

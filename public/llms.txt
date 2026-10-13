@@ -47,6 +47,7 @@ Server in der Schweiz. Das Auslesen der Rechnungen läuft über Mistral in Frank
 - [Auto-Wartungsplan: Welche Intervalle sind wirklich nötig?](https://wartungsheft.ch/ratgeber/wartungsintervalle): Service nach Zeit oder Kilometern, Bremsflüssigkeit, Zahnriemen, Reifen, Batterie: welche Intervalle gelten, was der Hersteller vorgibt und ob du in die freie Garage darfst.
 - [Was kostet ein Auto im Jahr in der Schweiz?](https://wartungsheft.ch/ratgeber/was-kostet-ein-auto): Laut TCS-Musterrechnung 2026 rund 11'100 Franken oder 74 Rappen pro Kilometer. Woraus sich die Kosten zusammensetzen und wie du deine eigenen ausrechnest.
 - [Werkstattrechnung verstehen: Was bedeuten die Positionen?](https://wartungsheft.ch/ratgeber/werkstattrechnung-verstehen): Arbeitswerte, Stundensatz, Material, Öl und MWST auf der Garagenrechnung erklärt, dazu deine Rechte bei Kostenvoranschlag, nicht bestellten Arbeiten und Mängeln.
+- [Servicebuch-Vorlage: Kostenloses PDF für die Schweiz](https://wartungsheft.ch/ratgeber/servicebuch-vorlage): Ausdruckbare Servicebuch-Vorlage im A4-Format mit Schweizer Begriffen (MFK, Serviceintervallen, Kilometerstand), dazu Schritt für Schritt rekonstruierte Wartungshistorie.
 
 ## Andere Sprachen
 

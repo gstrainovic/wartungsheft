@@ -89,17 +89,15 @@ https://upkeeppapers.com/fr/sheets/vehicules/carnet-entretien-vehicule/
 
 Carnet d'entretien gratuit à imprimer pour voiture et utilitaire : historique complet avec kilométrage, garage, factures et fiche technique.
 
- 
-
- Une page. Choisissez le format de papier : les deux versions ont exactement la même mise en page, aucune n'est réduite pour tenir. 
+ Une page. Choisissez le format de papier : les deux versions ont exactement la même mise en page, aucune n'est réduite pour tenir.
 
 À imprimer et remplir à la main
 
- A4 45 kB Lettre US 45 kB 
+ A4 45 kB Lettre US 45 kB
 
 À remplir à l'écran, puis enregistrer
 
- A4 90 kB Lettre US 89 kB 
+ A4 90 kB Lettre US 89 kB
 
  Les versions à remplir comportent de vrais champs de formulaire : ouvrez-les dans n'importe quel lecteur de PDF, saisissez vos informations et enregistrez. Aide à l'impression.
 ...
@@ -133,11 +131,11 @@ Remplissez cette page une seule fois. Reportez les périodicités indiquées dan
 | Périodicité d'entretien préconisée | Tous les ... km | ou tous les ... mois |
 | Assurance | Compagnie et numéro de contrat : ... Téléphone en cas de sinistre : ... | |
 
-À garder avec ce carnet 
-Les factures d'entretien et de réparation, les rapports de contrôle technique, la notice du véhicule. Une ligne de ce 
+À garder avec ce carnet
+Les factures d'entretien et de réparation, les rapports de contrôle technique, la notice du véhicule. Une ligne de ce
 carnet vaut ce que vaut la facture qui l'accompagne.
 ...
-Colonne 7 : c'est le numéro de facture qui transforme une ligne en preuve. Ne la laissez pas vide. 
+Colonne 7 : c'est le numéro de facture qui transforme une ligne en preuve. Ne la laissez pas vide.
 Besoin de lignes supplémentaires ? Réimprimez cette page et numérotez-la à la main.
 ...
 se transmet au prochain
@@ -264,21 +262,21 @@ Aucun délai de plainte (poursuite d'office). Une dénonciation reste possible �
 ## Carnet d'entretien voiture : Guide complet 2026 (obligations, contenu, solutions digitales)
 https://www.odopass.fr/blog/carnet-entretien-voiture-guide-obligations-contenu-solutions-digitales
 
-> Pour un véhicule d'occasion, la situation est différente. Contrairement aux idées reçues, aucune obligation légale n'impose au vendeur de remettre le carnet d'entretien à l'acheteur. Aucune amende, aucune sanction pénale. 
+> Pour un véhicule d'occasion, la situation est différente. Contrairement aux idées reçues, aucune obligation légale n'impose au vendeur de remettre le carnet d'entretien à l'acheteur. Aucune amende, aucune sanction pénale.
 
 C'est précisément pour cette raison que tant de voitures changent de mains sans historique documenté — et que ceux qui prennent la peine de tout conserver se démarquent vraiment.
 ...
-Un véhicule sans carnet d'entretien ni factures perd entre 10 et 20 % de sa valeur sur le marché de l'occasion, selon Le Blog Auto. 
+Un véhicule sans carnet d'entretien ni factures perd entre 10 et 20 % de sa valeur sur le marché de l'occasion, selon Le Blog Auto.
 
 Les acheteurs méfiants face à un historique opaque négocient plus fermement — ou passent leur chemin. Sur une voiture affichée à 15 000 €, cette décote représente entre 1 500 et 3 000 € perdus.
 
-Sur un véhicule encore sous garantie constructeur, l'absence de preuves d'entretien régulier peut entraîner un refus de prise en charge. 
+Sur un véhicule encore sous garantie constructeur, l'absence de preuves d'entretien régulier peut entraîner un refus de prise en charge.
 
 Les interventions sous garantie représentent souvent plusieurs milliers d'euros d'économies — autant ne pas les compromettre par manque d'organisation.
 ...
 marques comme Renault
 ...
-Mais le papier a ses limites. Il peut se perdre, se détériorer, être difficile à lire après quelques années. 
+Mais le papier a ses limites. Il peut se perdre, se détériorer, être difficile à lire après quelques années.
 
 Il ne se sauvegarde pas, ne s'envoie pas facilement à un acheteur, et ne vous prévient jamais d'une révision imminente.
 ...
@@ -307,7 +305,7 @@ intervention. C'est la règle d'or ... rappel à chaque éché ... la saisie se 
 ...
 ### Comment transmettre le carnet lors d'une vente ?
 
-Avec un carnet papier, vous remettez le document original accompagné des factures importantes. 
+Avec un carnet papier, vous remettez le document original accompagné des factures importantes.
 
 Avec Odopass, vous générez un rapport PDF complet en quelques clics et l'envoyez directement à l'acheteur. Le transfert de propriété dans l'application assure ensuite la continuité du suivi pour le nouveau propriétaire.
 ...

@@ -56,7 +56,8 @@ function ratgeberPlugin(): Plugin {
       })
       for (const article of articles) {
         const target = join(outDir, mitSprache(article.sprache, `/ratgeber/${article.slug}`))
-        const fassungen = articles.filter(a => a.slug === article.slug).map(a => a.sprache)
+        // Sprachfassungen über `key` im Artikelkopf verbunden, jede mit eigenem `slug`
+        const fassungen = articles.filter(a => a.key === article.key)
         mkdirSync(target, { recursive: true })
         writeFileSync(join(target, 'index.html'), renderArticlePage(article, fassungen))
       }

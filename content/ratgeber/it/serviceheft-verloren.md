@@ -1,77 +1,189 @@
 ---
-title: Libretto di manutenzione perso: ricostruire lo storico
-description: Duplicato dal garage della marca, libretto digitale del costruttore, fatture e rapporti di collaudo: così recuperi in Svizzera lo storico della tua auto.
-date: 2026-09-23
+title: Libretto di manutenzione o libretto service perso: così ricostruisci la storia
+description: Duplicato dall'officina del marchio, libretto digitale del costruttore, fatture e rapporti di collaudo: così ricostruisci la storia di manutenzione della tua auto in Svizzera. Istruzioni passo passo con lista di controllo.
+date: 2026-10-13
 ---
 
-Il libretto di manutenzione, spesso chiamato anche libretto di servizio, non c'è più: perso nel trasloco, mai
-consegnato dal proprietario precedente o dimenticato nel cassetto portaoggetti di un'auto venduta. È una
-seccatura, perché alla vendita e per le pretese di garanzia conta la prova della manutenzione. La buona notizia:
-una grande parte dello storico di solito si può ricostruire.
-
-## 1. Il libretto è già digitale?
-
-Oltre una dozzina di marche hanno sostituito il libretto stampato con un libretto di manutenzione digitale. Le
-registrazioni si trovano allora presso il costruttore, e puoi chiederne un estratto in qualsiasi momento
+Il **libretto di manutenzione** (detto anche libretto service) è sparito: perso durante un trasloco, mai consegnato dal precedente proprietario o dimenticato nel cruscotto di un'auto venduta. È fastidioso, perché **alla vendita** e in caso di **reclami di garanzia** conta la prova della manutenzione. **La buona notizia:** gran parte della storia si può generalmente **ricostruire**. **⚠️ Importante:** un libretto senza lacune può aumentare il prezzo di vendita del **5–10 %** – senza prova ti manca questo argomento
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
-Chiedi prima a un garage della marca. Alcuni esempi:
+Qui trovi come procedere, passo passo.
 
-- **Mercedes-Benz:** il Digital Service Booklet salva le manutenzioni in una banca dati centrale, se serve il
-  garage stampa un rapporto di servizio. È obbligatorio per la maggior parte delle automobili prodotte da metà 2008
-  ([Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb)).
-- **Gruppo VW (AMAG):** in caso di garanzia le condizioni di garanzia richiedono il piano di servizio completo,
-  digitale o su carta
-  ([AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf)).
-  Il garage della marca può dirti cosa c'è nel piano digitale.
-- **Toyota:** lo storico dei servizi compare nell'app MyToyota non appena i Connected Services sono attivati
-  ([Toyota Svizzera](https://de.toyota.ch/owners/faq-connected-services)).
-- **Mazda:** Mazda tiene il libretto digitale dal 2005, un'app gratuita mostra lo storico di manutenzione
-  ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+---
 
-Anche i garage indipendenti possono consultare i libretti digitali di molte marche. In Svizzera questo è possibile
-ad esempio tramite il TecRMI Service Book di Hostettler Autotechnik, che copre 23 marche; una consultazione costa al
-garage CHF 5.50 IVA esclusa
+## 🔍 Passo 1: il libretto è già digitale?
+
+Più di una dozzina di marchi hanno sostituito il libretto stampato con un **libretto digitale**. Le registrazioni sono allora presso il costruttore e puoi chiederne un estratto in qualsiasi momento
+([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+
+### 📱 Libretti digitali per marchio
+
+| Marchio | Digitale dal | Come consultarlo? | Costo | Fonte |
+|---------|--------------|-------------------|-------|-------|
+| **Mercedes-Benz** | Seconda metà del 2008 | Chiedere all'officina del marchio | Di solito gratuito | [Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb) |
+| **Gruppo VW (AMAG)** | Anni 2010 | Officina del marchio o portale online | Di solito gratuito | [AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf) |
+| **Toyota** | 2015 e oltre | App MyToyota (con Connected Services) | Gratuito | [Toyota Svizzera](https://de.toyota.ch/owners/faq-connected-services) |
+| **Mazda** | 2005 | App gratuita | Gratuito | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php) |
+| **BMW** | 2018 e oltre | ConnectedDrive, app BMW | Gratuito | [BMW Svizzera](https://www.bmw.ch/de/owners/connecteddrive/connecteddrive-services.html) |
+| **Audi** | 2017 e oltre | Portale myAudi | Gratuito | [Audi Svizzera](https://www.audi.ch/ch/de/owners/connected-services/audi-connect.html) |
+| **Opel** | 2019 e oltre | Opel Connect, app myOpel | Gratuito | [Opel Svizzera](https://www.opel.ch/owners/myopel/myopel-app.html) |
+
+**💡 Suggerimento per le officine indipendenti:** in Svizzera le **officine indipendenti** possono consultare i libretti digitali di molte marchie tramite il **TecRMI Service Book** di Hostettler Autotechnik. Il sistema copre **23 marchie**; una consultazione costa all'officina **CHF 5,50 più IVA**
 ([Autotechnik](https://www.autotechnik.ch/de/dienstleistungen/digitales-serviceheft/)).
 
-## 2. Duplicato dal garage della marca
+---
 
-Se la tua marca usa ancora un libretto stampato, ordini un duplicato ufficiale presso la rappresentanza della
-marca. Secondo un servizio di SRF «Espresso» costa circa 30 franchi, e su richiesta i garage riportano
-gratuitamente i propri lavori
-([SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)).
-Il prezzo attuale te lo dice il garage. Una semplice copia del vecchio libretto, secondo la stessa fonte, non ha
-alcun valore.
+## 📋 Passo 2: duplicato dall'officina del marchio
 
-Poi passa con il duplicato da ogni garage che ha fatto la manutenzione dell'auto e fai riportare le registrazioni.
+Se il tuo marchio usa ancora un **libretto stampato**, chiedi un **duplicato ufficiale** alla **rappresentanza del marchio**.
 
-## 3. Raccogliere le fatture
+### 💰 Costo e procedimento
 
-Ogni fattura dell'officina indica data, lavori e di solito il chilometraggio. Così prova una manutenzione, anche se
-manca il timbro. Cerca:
+| Passo | Cosa fare? | Costo | Durata | Fonte |
+|-------|------------|-------|--------|-------|
+| 1. **Contattare l'officina** | Chiedere il duplicato all'officina del marchio | **circa CHF 30** (secondo Espresso della SRF) | 1–2 settimane | [SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich) |
+| 2. **Trasferire le registrazioni** | Passare in ogni officina che ha mantenuto l'auto | Di solito gratuito | 1–2 giorni per officina | [SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich) |
 
-- nei tuoi documenti e nelle e-mail (molti garage mandano le fatture in PDF),
-- presso i garage che hanno fatto la manutenzione dell'auto: hanno le fatture nel loro software d'officina e possono
-  stamparne copie,
-- presso il proprietario precedente, se hai comprato l'auto usata.
+**⚠️ Importante:** una **semplice copia del vecchio libretto non ha valore** – deve essere un **duplicato ufficiale** del marchio!
 
-## 4. Rapporti di collaudo
+---
 
-I rapporti di collaudo registrano il chilometraggio
-([Streetlife](https://www.streetlife.ch/artikel/tacho-bschiss-jede-dritte-occasion-ist-manipuliert)). Insieme alle
-fatture ne risulta una serie di chilometraggi che mostra che il contachilometri è giusto. Se non hai più l'ultimo
-rapporto, chiedi alla Sezione della circolazione del tuo cantone; le informazioni oltre a quelle della licenza di
-circolazione vanno di regola chieste per iscritto e sono a pagamento
-([Cantone Lucerna](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre)).
+## 🧾 Passo 3: raccogliere le fatture
 
-## 5. Se non si trova più nulla
+Ogni **fattura dell'officina** riporta data, lavori eseguiti e nella maggior parte dei casi il **chilometraggio**. Così prova una manutenzione – **anche senza timbro**.
 
-Se lo storico non si può ricostruire, resta una prova indipendente dello stato. Il test d'occasione del TCS
-controlla l'auto per circa 90 minuti e documenta il risultato in un rapporto
-([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)). Non sostituisce il
-libretto, ma dà all'acquirente qualcosa di concreto in mano.
+### 📍 Dove trovare le fatture?
 
-E d'ora in poi: tieni il libretto in modo che non possa più andare perso. Conserva ogni fattura e fotografala
-subito dopo il servizio.
+Prima di chiamare chi che sia, **controlla i tuoi documenti**. Ti serve tutto ciò che prova **data, chilometraggio e officina**:
 
-Vuoi vendere la tua auto? Continua a leggere:
-[Auto d'occasione: un libretto completo aiuta il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft).
+| Fonte | Cosa fare? | Probabilità di successo |
+|-------|------------|-------------------------|
+| **I tuoi documenti** | Cercare tra carte, e-mail, storage cloud | ⭐⭐⭐⭐ |
+| **Officine** | Contattare tutte le officine che hanno mantenuto l'auto | ⭐⭐⭐⭐ |
+| **Precedente proprietario** | Se comprata d'occasione: contattare il venditore | ⭐⭐ |
+| **Archivi digitali** | Controllare i portali clienti delle marchie | ⭐⭐⭐ |
+| **Estratti bancari** | Cercare il nome delle officine degli ultimi 5 anni | ⭐⭐ |
+| **Rapporti di collaudo** | Presso la Sezione della circolazione: chilometraggio alla data del controllo | ⭐⭐⭐⭐ |
+| **Ricevute di cambio pneumatici** | Prova una manutenzione regolare | ⭐⭐ |
+
+**💡 Suggerimento:** **ordina tutto cronologicamente** in una cartella (digitale o cartaceo). Per ogni registrazione: **data, chilometraggio, officina, lavoro eseguito**.
+
+**💡 Suggerimento:** molte officine conservano le fatture **10 anni o più** nel loro software di officina e possono stamparne copie o inviarle per e-mail.
+
+---
+
+## 📄 Passo 4: ottenere i rapporti di collaudo
+
+I **rapporti di collaudo (MFK)** riportano il **chilometraggio del contachilometri**. Insieme alle fatture si ottiene così una **storia del chilometraggio senza lacune**.
+
+### 📋 Come ottenere i rapporti di collaudo
+
+| Fonte | Cosa fare? | Costo | Durata | Fonte |
+|-------|------------|-------|--------|-------|
+| **I tuoi documenti** | Cercare tra le carte | Gratuito | Immediato | — |
+| **Sezione della circolazione** | Richiesta scritta | **A pagamento** | 1–2 settimane | [Cantone Lucerna](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre) |
+| **TCS (se controllato dal TCS)** | Chiedere alla sezione del TCS | Di solito gratuito per i soci | 1–2 giorni | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
+
+**💡 Importante:** le informazioni **oltre il libretto di circolazione** vanno di norma richieste **per iscritto** all'ufficio e sono a pagamento.
+
+---
+
+## 🚗 Passo 5: quando non si trova più nulla
+
+Se la storia **non può essere ricostruita**, resta una **prova indipendente dello stato del veicolo**. I quattro passi sopra (documenti ordinati, officine contattate, libretto ricreato) ti hanno già portato fin qui; ora si tratta di trovare un sostituto solido.
+
+### 📌 Particolarità svizzere
+
+**⚠️ Importante:** in Svizzera **non esiste un ufficio centrale** che rilascia un nuovo libretto di manutenzione:
+- **Sezione della circolazione:** **non tiene alcuna storia** di manutenzione
+- **Costruttore:** salva solo le **registrazioni ufficiali delle officine del marchio** (se mai)
+- **Officine indipendenti:** hanno i dati **localmente nel software** (di solito 5–10 anni)
+
+**💡 Suggerimento:** ogni officina in Svizzera tiene una **scheda cliente** – con il tuo **numero di telaio** o la **VIN** puoi richiedere una **copia della storia di service**. Presso le **officine del marchio** (BMW ASE, service digitale VW, ecc.) va spesso **subito** in stampa; presso le officine indipendenti contatta **1–3 giorni**.
+
+### 🔍 Opzioni per la prova
+
+| Metodo | Cosa viene controllato? | Costo | Durata | Utilità per la vendita | Fonte |
+|--------|-------------------------|-------|--------|------------------------|-------|
+| **Test d'occasione TCS** | Controllo di circa 90 minuti, rapporto completo | **CHF 150–200** | 1–2 giorni | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php) |
+| **DEKRA/GTÜ (veicoli importati)** | Controllo completo con rapporto | **CHF 200–300** | 1 giorno | ⭐⭐⭐⭐ | — |
+| **Controllo dell'officina** | Controllo di base con rapporto breve | **CHF 80–150** | 1 giorno | ⭐⭐⭐ | — |
+
+**⚠️ Importante:** un **controllo non sostituisce il libretto di manutenzione**, ma dà a un acquirente **qualcosa di solido**.
+
+---
+
+## ✅ Lista di controllo: ricostruire la storia
+
+### 📌 Fase 1: misure immediate
+- [ ] **Controllare i libretti digitali** (app del marchio, portale online, TecRMI tramite l'officina)
+- [ ] **Esaminare tutti i tuoi documenti** (cartella, e-mail, cloud)
+- [ ] **Contattare l'officina del marchio per il duplicato** (costo: circa CHF 30)
+
+### 📌 Fase 2: raccogliere le fatture
+- [ ] **Elencare tutte le officine** che hanno mantenuto l'auto
+- [ ] **Chiamare ogni officina** e chiedere copie delle fatture
+- [ ] **Contattare il precedente proprietario** (se comprata d'occasione)
+
+### 📌 Fase 3: documenti ufficiali
+- [ ] **Ottenere i rapporti di collaudo** di tutti gli anni disponibili
+- [ ] **Controllare il libretto di circolazione** per le annotazioni
+- [ ] **Controllare le polizze assicurative** per indicazioni di manutenzione
+
+### 📌 Fase 4: soluzioni di ripiego
+- [ ] **Fare fare un test d'occasione TCS** (CHF 150–200)
+- [ ] **Valutare le alternative** (DEKRA, GTÜ, controllo dell'officina)
+
+---
+
+## 💡 Suggerimenti per vendere senza libretto
+
+Anche senza libretto completo puoi aumentare il valore della tua auto:
+
+| Misura | Effetto | Costo |
+|--------|---------|-------|
+| **Test d'occasione TCS** | Prova uno stato conforme alla sicurezza stradale | CHF 150–200 |
+| **Servizio recente** | « Dopo il servizio » / « dopo il collaudo » aumenta il prezzo | CHF 50–200 |
+| **Presentare le fatture** | Mostra la tua attenzione alla manutenzione | — |
+| **Fornire i rapporti di collaudo** | Prova il chilometraggio | — |
+| **Offrire una garanzia** | Impegno personale (p. ex. « garanzia 3 mesi ») | — |
+
+**💡 Suggerimento del TCS:** un **libretto di manutenzione senza lacune** può aumentare il prezzo di vendita del **5–10 %**
+([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+
+---
+
+## 📱 Da qui in avanti in digitale: Wartungsheft
+
+Dal giorno in cui ti accorgi della perdita, inizia **parallelamente un libretto digitale** – nell'app **Wartungsheft** (wartungsheft.ch). Ecco come:
+
+| Passo | Cosa fa l'app |
+|-------|---------------|
+| **1. Registrare le registrazioni ricostruite** | Data, chilometraggio e lavori inseriti a mano – i passi 1–4 sopra diventano un libretto pulito |
+| **2. Dal prossimo servizio, con la foto** | Fotografa la fattura dell'officina, l'app legge officina, data, importo e lavori e li registra nel libretto |
+| **3. Scadenze sempre in vista** | Piano di manutenzione con promemoria via e-mail prima del servizio e del collaudo |
+| **4. Alla vendita** | Esporta il libretto di manutenzione in PDF e allegalo all'acquirente |
+
+**💡 Suggerimento:** inserisci prima le **registrazioni ricostruite**, poi da ogni servizio successivo ogni manutenzione **direttamente con la foto**. Puoi provare Wartungsheft gratis per 30 giorni – il pulsante sotto questo articolo ti porta all'accesso.
+
+**⚠️ Importante:** i **rapporti di collaudo (MFK)** provano il chilometraggio e la sicurezza stradale, ma non dicono ** nulla sullo stato tecnico** del motore (cambio olio, cinghia di distribuzione). Un libretto di manutenzione resta quindi **indispensabile come complemento**.
+
+---
+
+## ⚠️ Importante: da qui in avanti senza lacune!
+
+Per **non perdere mai più** il tuo libretto di manutenzione:
+
+- [ ] **Scansionare o fotografare ogni fattura** subito
+- [ ] Creare un **backup digitale** nel cloud (Google Drive, Dropbox)
+- [ ] Tenere il **libretto sempre nello stesso posto** (p. ex. il cruscotto)
+- [ ] Dopo ogni servizio, **verificare la registrazione**
+- [ ] **Annotare il chilometraggio dopo ogni servizio** (utile per le trattative di vendita)
+
+---
+
+## 📚 Per saperne di più
+- [TCS: libretto di manutenzione elettronico](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [TCS: il libretto alla vendita](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [SRF Espresso: libretto di manutenzione perduto](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
+
+Maggiori dettagli nella guida [Vendere un'auto d'occasione: come un libretto senza lacune migliora il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft).
