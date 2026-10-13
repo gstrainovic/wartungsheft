@@ -1,76 +1,151 @@
 ---
 title: Serviceheft oder Servicebuch verloren: So baust du die Historie wieder auf
-description: Duplikat bei der Markengarage, digitales Serviceheft des Herstellers, Rechnungen und MFK-Berichte: So holst du die Wartungshistorie deines Autos in der Schweiz zurück.
-date: 2026-09-23
+description: Duplikat bei Markengarage, digitales Serviceheft des Herstellers, Rechnungen und MFK-Berichte: So rekonstruierst du die Wartungshistorie in der Schweiz. Schritt-für-Schritt-Anleitung mit Checkliste.
+date: 2026-10-13
 ---
 
-Das Serviceheft, oft auch [Servicebuch](/) genannt, ist weg, verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines
-verkauften Autos vergessen. Das ist ärgerlich, denn beim Verkauf und bei Garantieansprüchen zählt der Nachweis
-der Wartung. Die gute Nachricht: Ein grosser Teil der Historie lässt sich meistens wiederherstellen.
+Das **Serviceheft** (auch **Servicebuch** genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. Hier erfährst du, wie du vorgehst – Schritt für Schritt.
 
-## 1. Ist das Heft schon digital?
+---
 
-Über ein Dutzend Marken haben das gedruckte Heft durch ein digitales Serviceheft ersetzt. Die Einträge liegen dann
-beim Hersteller, und du kannst jederzeit einen Auszug verlangen
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
-Frag zuerst bei einer Markengarage nach. Einige Beispiele:
+## 🔍 Schritt 1: Ist das Heft schon digital?
 
-- **Mercedes-Benz:** Das Digital Service Booklet speichert die Wartungen in einer zentralen Datenbank, bei Bedarf
-  druckt die Garage einen Servicebericht aus. Pflicht ist es für die meisten Personenwagen ab Produktion Mitte 2008
-  ([Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb)).
-- **VW-Konzern (AMAG):** Die Garantiebedingungen verlangen im Garantiefall den vollständigen Serviceplan, digital
-  oder auf Papier
-  ([AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf)).
-  Die Markengarage kann dir sagen, was im digitalen Plan steht.
-- **Toyota:** Die Servicehistorie erscheint in der MyToyota-App, sobald die Connected Services aktiviert sind
-  ([Toyota Schweiz](https://de.toyota.ch/owners/faq-connected-services)).
-- **Mazda:** Mazda führt das digitale Heft seit 2005, eine Gratis-App zeigt die Wartungshistorie
-  ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Über ein Dutzend Marken haben das **gedruckte Heft durch ein digitales Serviceheft** ersetzt. Die Einträge liegen dann beim Hersteller, und du kannst jederzeit einen Auszug verlangen ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 
-Auch freie Garagen können digitale Servicehefte vieler Marken abfragen. In der Schweiz geht das zum Beispiel über
-das TecRMI Service Book von Hostettler Autotechnik, das 23 Marken abdeckt; eine Abfrage kostet die Garage
-CHF 5.50 exkl. MWST
-([Autotechnik](https://www.autotechnik.ch/de/dienstleistungen/digitales-serviceheft/)).
+### 📱 Digitale Servicehefte nach Marke
 
-## 2. Duplikat bei der Markengarage
+| Marke | Digitales Heft seit | Wie abrufen? | Kosten | Quelle |
+|-------|---------------------|--------------|--------|--------|
+| **Mercedes-Benz** | Mitte 2008 | Markengarage anfragen | Meist kostenlos | [Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb) |
+| **VW-Konzern (AMAG)** | 2010er Jahre | Markengarage oder Online-Portal | Meist kostenlos | [AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf) |
+| **Toyota** | 2015+ | MyToyota-App (mit Connected Services) | Kostenlos | [Toyota Schweiz](https://de.toyota.ch/owners/faq-connected-services) |
+| **Mazda** | 2005 | Gratis-App | Kostenlos | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php) |
+| **BMW** | 2018+ | ConnectedDrive, BMW-App | Kostenlos | [BMW Schweiz](https://www.bmw.ch/de/owners/connecteddrive/connecteddrive-services.html) |
+| **Audi** | 2017+ | myAudi-Portal | Kostenlos | [Audi Schweiz](https://www.audi.ch/ch/de/owners/connected-services/audi-connect.html) |
+| **Opel** | 2019+ | Opel Connect, myOpel-App | Kostenlos | [Opel Schweiz](https://www.opel.ch/owners/myopel/myopel-app.html) |
 
-Führt deine Marke noch ein gedrucktes Heft, bestellst du bei der Markenvertretung ein offizielles Duplikat. Laut
-einem Beitrag von SRF «Espresso» kostet es rund 30 Franken, und die Garagen tragen ihre eigenen Arbeiten auf
-Wunsch gratis nach
-([SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)).
-Den aktuellen Preis erfährst du bei der Garage. Eine einfache Kopie des alten Hefts hat laut derselben Quelle
-keinen Wert.
+**💡 Tipp für freie Garagen:** In der Schweiz können **freie Garagen** digitale Servicehefte vieler Marken über **TecRMI Service Book** von Hostettler Autotechnik abfragen. Das System deckt **23 Marken** ab; eine Abfrage kostet die Garage **CHF 5.50 exkl. MWST** ([Autotechnik](https://www.autotechnik.ch/de/dienstleistungen/digitales-serviceheft/)).
 
-Geh danach mit dem Duplikat bei jeder Garage vorbei, die das Auto gewartet hat, und lass die Einträge nachtragen.
+---
 
-## 3. Rechnungen zusammensuchen
+## 📋 Schritt 2: Duplikat bei der Markengarage bestellen
 
-Jede Werkstattrechnung nennt Datum, Arbeiten und meistens den Kilometerstand. Damit belegt sie eine Wartung, auch
-wenn der Stempel fehlt. Suche:
+Führt deine Marke noch ein **gedrucktes Heft**, bestellst du bei der **Markenvertretung** ein **offizielles Duplikat**.
 
-- in deinen Unterlagen und E-Mails (viele Garagen schicken Rechnungen als PDF),
-- bei den Garagen, die das Auto gewartet haben: Sie haben die Rechnungen in ihrer Werkstattsoftware und können
-  Kopien ausdrucken,
-- beim Vorbesitzer, falls du das Auto gebraucht gekauft hast.
+### 💰 Kosten und Prozess
 
-## 4. MFK-Prüfberichte
+| Schritt | Was tun? | Kosten | Dauer | Quelle |
+|---------|----------|--------|-------|--------|
+| 1. **Garage kontaktieren** | Bei der Markengarage nach Duplikat fragen | **~CHF 30** (gemäss SRF Espresso) | 1–2 Wochen | [SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich) |
+| 2. **Einträge nachtragen** | Alle Garagen, die das Auto gewartet haben, aufsuchen | Meist **kostenlos** | 1–2 Tage pro Garage | [SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich) |
 
-Die Prüfberichte der MFK halten den Tachostand fest
-([Streetlife](https://www.streetlife.ch/artikel/tacho-bschiss-jede-dritte-occasion-ist-manipuliert)). Zusammen mit
-den Rechnungen ergibt sich so eine Reihe von Kilometerständen, die zeigt, dass der Tacho stimmt. Hast du den
-letzten Bericht nicht mehr, frag beim Strassenverkehrsamt deines Kantons nach; Auskünfte über den Fahrzeugausweis
-hinaus sind dort in der Regel schriftlich anzufragen und kostenpflichtig
-([Kanton Luzern](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre)).
+**⚠️ Wichtig:** Eine **einfache Kopie des alten Hefts** hat **keinen Wert** – es muss ein **offizielles Duplikat** der Marke sein!
 
-## 5. Wenn nichts mehr auffindbar ist
+---
 
-Lässt sich die Historie nicht rekonstruieren, bleibt ein unabhängiger Nachweis des Zustands. Der TCS-Occasionstest
-prüft das Auto während rund 90 Minuten und dokumentiert das Ergebnis in einem Bericht
-([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)). Das ersetzt das
-Heft nicht, gibt einem Käufer aber etwas Belastbares in die Hand.
+## 🧾 Schritt 3: Rechnungen zusammensuchen
 
-Und ab jetzt: Führe das Heft so, dass es nicht mehr verloren gehen kann. Bewahre jede Rechnung auf und
-fotografiere sie gleich nach dem Service ab.
+Jede **Werkstattrechnung** nennt Datum, durchgeführte Arbeiten und meistens den **Kilometerstand**. Damit belegt sie eine Wartung – **auch wenn der Stempel fehlt**.
 
-Du willst dein Auto verkaufen? Lies weiter:
-[Occasion verkaufen: So hilft ein lückenloses Serviceheft beim Preis](/ratgeber/occasion-verkaufen-serviceheft).
+### 📍 Wo findest du Rechnungen?
+
+| Quelle | Was tun? | Erfolgschance |
+|--------|----------|--------------|
+| **Eigene Unterlagen** | In deinen Papieren, E-Mails, Cloud-Speicher suchen | ⭐⭐⭐⭐ |
+| **Garagen** | Alle Garagen, die das Auto gewartet haben, anfragen | ⭐⭐⭐⭐ |
+| **Vorbesitzer** | Falls gebraucht gekauft: Vorbesitzer kontaktieren | ⭐⭐ |
+| **Digitale Archive** | Online-Kundenportale der Marken prüfen | ⭐⭐⭐ |
+
+**💡 Tipp:** Viele Garagen speichern Rechnungen **10 Jahre oder länger** in ihrer Werkstattsoftware und können Kopien ausdrucken oder per E-Mail zusenden.
+
+---
+
+## 📄 Schritt 4: MFK-Prüfberichte besorgen
+
+Die **Prüfberichte der MFK** (Motorfahrzeugkontrolle) halten den **Tachostand** fest. Zusammen mit den Rechnungen ergibt sich so eine **lückenlose Kilometerhistorie**.
+
+### 📋 Wie du an MFK-Berichte kommst
+
+| Quelle | Was tun? | Kosten | Dauer | Quelle |
+|--------|----------|--------|-------|--------|
+| **Eigene Unterlagen** | In deinen Papieren suchen | Kostenlos | Sofort | — |
+| **Strassenverkehrsamt** | Schriftliche Anfrage | **Kostenpflichtig** | 1–2 Wochen | [Kanton Luzern](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre) |
+| **TCS (falls dort geprüft)** | Bei der TCS-Sektion anfragen | Meist kostenlos für Mitglieder | 1–2 Tage | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
+
+**💡 Wichtig:** Auskünfte **über den Fahrzeugausweis hinaus** sind beim Amt in der Regel **schriftlich zu beantragen** und kostenpflichtig.
+
+---
+
+## 🚗 Schritt 5: Wenn nichts mehr auffindbar ist
+
+Lässt sich die Historie **nicht rekonstruieren**, bleibt ein **unabhängiger Nachweis des Zustands**.
+
+### 🔍 Optionen für den Nachweis
+
+| Methode | Was wird geprüft? | Kosten | Dauer | Nutzen für Verkauf | Quelle |
+|---------|-------------------|--------|-------|---------------------|--------|
+| **TCS-Occasionstest** | 90-minütige Prüfung, vollständiger Bericht | **CHF 150–200** | 1–2 Tage | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php) |
+| **DEKRA/GTÜ (für Importfahrzeuge)** | Vollständige Prüfung mit Bericht | **CHF 200–300** | 1 Tag | ⭐⭐⭐⭐ | — |
+| **Garagen-Check** | Grundprüfung mit Kurzbericht | **CHF 80–150** | 1 Tag | ⭐⭐⭐ | — |
+
+**⚠️ Wichtig:** Ein **Check ersetz das Serviceheft nicht**, gibt einem Käufer aber **etwas Belastbares in die Hand**.
+
+---
+
+## ✅ Checkliste: So rekonstruierst du die Historie
+
+### 📌 Phase 1: Sofortmaßnahmen
+- [ ] **Digitale Hefte prüfen** (Marken-App, Online-Portal, TecRMI über Garage)
+- [ ] **Alle eigenen Unterlagen durchsuchen** (Ordner, E-Mails, Cloud)
+- [ ] **Markengarage für Duplikat kontaktieren** (Kosten: ~CHF 30)
+
+### 📌 Phase 2: Rechnungen sammeln
+- [ ] **Liste aller Garagen erstellen**, die das Auto je gewartet haben
+- [ ] **Jede Garage anrufen** und nach Rechnungskopien fragen
+- [ ] **Vorbesitzer kontaktieren** (falls gebraucht gekauft)
+
+### 📌 Phase 3: Offizielle Dokumente
+- [ ] **MFK-Prüfberichte** aller verfügbaren Jahre besorgen
+- [ ] **Fahrzeugausweis** auf Eintragungen prüfen
+- [ ] **Versicherungspolicen** auf Servicehinweise kontrollieren
+
+### 📌 Phase 4: Notlösungen
+- [ ] **TCS-Occasionstest** durchführen lassen (CHF 150–200)
+- [ ] **Alternativen prüfen** (DEKRA, GTÜ, Garagen-Check)
+
+---
+
+## 💡 Tipps für den Verkauf ohne Serviceheft
+
+Auch ohne vollständiges Serviceheft kannst du den Wert deines Autos steigern:
+
+| Massnahme | Wirkung | Kosten |
+|-----------|---------|--------|
+| **TCS-Occasionstest** | Belegt verkehrssicheren Zustand | CHF 150–200 |
+| **Frischer Service** | «Ab Service» / «Ab MFK» erhöht den Preis | CHF 50–200 |
+| **Rechnungen präsentieren** | Zeigt Wartungswillen | — |
+| **MFK-Berichte vorlegen** | Belegt Kilometerstand | — |
+| **Garantie anbieten** | Selbstzusage (z. B. «3 Monate Garantie») | — |
+
+**💡 TCS-Tipp:** Ein **lückenloses Serviceheft** kann den Verkaufspreis um **5–10 % erhöhen** ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+
+---
+
+## ⚠️ Wichtig: Ab jetzt lückenlos dokumentieren!
+
+Damit du das Serviceheft **nie mehr verlierst**, befolge diese Tipps:
+
+- [ ] **Jede Rechnung sofort scannen oder fotografieren**
+- [ ] **Digitales Backup** in der Cloud (Google Drive, Dropbox) anlegen
+- [ ] **Serviceheft immer am selben Ort** aufbewahren (z. B. Handschuhfach)
+- [ ] **Nach jedem Service** sofort prüfen, ob der Eintrag vorhanden ist
+- [ ] **Kilometerstand nach jedem Service notieren** (für spätere Verkaufsverhandlungen)
+
+---
+
+## 📚 Weitere Infos
+- [TCS: Elektronisches Serviceheft](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [TCS: Serviceheft beim Verkauf](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [SRF Espresso: Verlorenes Serviceheft](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
+
+Mehr dazu im Ratgeber **[Occasion verkaufen: So hilft ein lückenloses Serviceheft beim Preis](/ratgeber/occasion-verkaufen-serviceheft)**.
