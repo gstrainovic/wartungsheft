@@ -50,6 +50,8 @@ Hier die **empfohlenen Intervalle** für typische Wartungsarbeiten – **immer d
 
 | Teil | Intervall | Wichtig | Quelle |
 |------|-----------|---------|--------|
+| **Zahnriemen** | 60'000–240'000 km oder 5–10 Jahre | **Zwingend einhalten!** Reißt der Riemen, ist oft der **Motor hinüber** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/zahnriemenwechsel/) |
+|------|-----------|---------|--------|
 | **Zahnriemen** | 60'000–240'000 km **oder** 5–10 Jahre | **Zwingend einhalten!** Reißt der Riemen, ist oft der **Motor hinüber** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/zahnriemenwechsel/) |
 | **Steuerkette** | Meist lebenslang | Bei Geräuschen (Klappern) sofort prüfen! | [ADAC](https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/steuerkette/) |
 | **Keilriemen** | 60'000–100'000 km | Treibt Nebenaggregate (Lichtmaschine, Servolenkung) an | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/keilriemen/) |
@@ -115,6 +117,63 @@ Auch wenn du in eine **freie Garage** darfst, gelten folgende Bedingungen:
 | **Andere Marken** | Ähnliche Regelungen – **im Zweifel Herstellervorgaben einhalten** | — |
 
 **💡 TCS-Empfehlung:** In den **ersten Jahren** das Auto **beim Markenvertreter** warten lassen – besonders, wenn du **Zusatzleistungen** wie Mobilitätsgarantie nutzen möchtest ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+
+---
+
+## 💰 Servicekosten in der Schweiz (Stand 2026)
+
+Die Kosten variieren je nach Fahrzeugtyp, Werkstatt und Umfang. Hier eine **Übersicht der Durchschnittspreise** in der Schweiz:
+
+### 📊 Kosten nach Service-Art
+
+| Service-Art | Kosten (CHF) | Intervall | Quelle |
+|-------------|---------------|-----------|--------|
+| **Kleiner Service** (Grundüberprüfung + Ölwechsel) | 130–350 | Alle 15'000–30'000 km oder jährlich | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+| **Grosser Service** (umfassende Wartung + Inspektion) | 400–800 | Nach Herstellervorgabe | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+| **MFK-Prüfung** | ~60 | Erstmals nach 5 Jahren, dann alle 2–3 Jahre | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+
+**📌 Wichtig:** Die MFK prüft nur die **Mindest-Sicherheit**, während ein Service mit Inspektion den **Fahrzeugwert erhält** und **proaktiv Mängel sucht**.
+
+### 📈 Kosten nach Fahrzeugalter
+
+Die Wartungskosten steigen mit dem Fahrzeugalter. Hier eine **Prognose** für die Schweiz:
+
+| Fahrzeugalter | MFK-Intervall | Typische Defekte | Geschätzte Zusatzkosten (CHF/Jahr) | Quelle |
+|---------------|---------------|------------------|-----------------------------------|--------|
+| **0–5 Jahre** | Keine MFK nötig | Batterie, Start-Stopp-System | 200–500 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+| **5–8 Jahre** | Erste MFK nach 5 Jahren, dann alle 3 Jahre | Erste Verschleissteile (Bremsen, Reifen) | 500–1'000 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+| **8+ Jahre** | Alle 2 Jahre | Kupplung, Turbo, Rost, Fahrwerk | 1'000–3'000+ | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+
+**💡 Tipp:** Systematische Inspektion ist eine **finanzielle Strategie** – sie verhindert teure Folgeschäden durch Früherkennung.
+
+---
+
+## 🏔️ Schweizer Besonderheiten: Einfluss der Topografie
+
+Die Schweiz ist mit ihrer Berglandschaft **kein durchschnittliches Einsatzgebiet** für Fahrzeuge. Wer regelmässig in den Bergen unterwegs ist, viel im **Stadtverkehr mit Stop-and-Go** fährt oder als **Vielfahrer** hohe Kilometerleistungen erbringt, unterzieht sein Fahrzeug einer **überdurchschnittlichen Belastung**.
+
+### 🔄 Anpassung der Wartungsintervalle
+
+| Fahrprofil | Empfohlene Anpassung | Begründung |
+|------------|----------------------|------------|
+| **Bergfahrten (häufig)** | **Kürzere Intervalle** für Ölwechsel, Bremsen, Fahrwerk | Höhere Belastung durch Kurven, Steigungen, Bremsen |
+| **Stadtverkehr (Stop-and-Go)** | **Häufiger Ölwechsel** (alle 10'000–15'000 km) | Motor läuft länger unter Last, höhere Temperaturen |
+| **Vielfahrer (> 15'000 km/Jahr)** | **Kürzere Intervalle** für Öl, Reifen, Zahnriemen | Längere Laufzeit, höhere Belastung |
+| **Normalfahrer (< 15'000 km/Jahr)** | **Jährlicher Service** reicht meist | Standard-Intervalle des Herstellers einhalten |
+
+**⚠️ Wichtig:** Die **Standard-Wartungspläne** der Hersteller sind auf durchschnittliche Nutzung ausgelegt. In der Schweiz mit ihrer Topografie und den spezifischen Belastungen sind **kürzere Intervalle** oft notwendig.
+
+---
+
+## 🔧 Herstellerspezifische Intervalle
+
+Einige Hersteller haben **eigene Wartungsphilosophien**:
+
+| Hersteller | Intervalltyp | Beispiel | Quelle |
+|------------|--------------|----------|--------|
+| **Opel** | Feste Intervalle | Alle **30'000 km oder 1 Jahr** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
+| **Audi** | Flexible Intervalle | Innerhalb **2 Jahren bis max. 30'000 km** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
+| **Audi** | Feste Intervalle | **Jährlich alle 15'000 km** (Ölservice) oder **alle 30'000 km/2 Jahre** | [ADAC](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/oelwechsel/) |
 
 ---
 
