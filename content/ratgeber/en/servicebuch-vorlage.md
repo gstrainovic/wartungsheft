@@ -1,6 +1,6 @@
 ---
-title: "Service Book Template: Free PDF to Print for Switzerland"
-description: "Free printable service book template PDF for Switzerland with MFK, service intervals, mileage tracking. Download, print, and reconstruct your vehicle history without original booklet."
+title: "Servicebuch-Vorlage: Kostenloses PDF für die Schweiz (Service Book Template)"
+description: "Free printable service book template PDF for Switzerland with MFK, service intervals, mileage tracking. Download, print, and reconstruct your vehicle history."
 date: 2026-10-13
 ---
 
