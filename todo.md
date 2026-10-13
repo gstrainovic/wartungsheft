@@ -70,11 +70,13 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 - [ ] **Deutsche Ratgeber nicht im Index:** `gsc inspect` meldet für `/ratgeber/mfk-aufgebot` und
       `/ratgeber/wartungsintervalle` «Gecrawlt – zurzeit nicht indexiert», für `/ratgeber/serviceheft-verloren`
       «Gefunden – zurzeit nicht indexiert»; die englische und italienische Fassung bekommen dagegen Impressionen.
-      Kanonisch und hreflang stimmen, der Text hat rund 1000 Wörter. Ursache klären (Vermutung: junge Domain, deutsche
-      Seiten gegen starke Konkurrenz zu dünn oder zu ähnlich), bevor weitere deutsche Ratgeber geschrieben werden.
-      Entscheid Goran, ab 14.10. (nach dem Reset des Wochenlimits): je Ratgeber Text mit den Top-Treffern bei Google
-      vergleichen und nachbessern. Vom Nutzer, sofort: in der Search Console (URL-Prüfung) für die drei URLs
-      «Indexierung beantragen»; nach dem Nachbessern erneut
+      Kanonisch und hreflang stimmen; die Texte haben 560 bis 690 Wörter. Vermutung: junge Domain, deutsche Seiten
+      gegen starke Konkurrenz zu dünn oder zu ähnlich. Nächster Schritt ab 14.10., 13 Uhr (Reset des Wochenlimits für
+      Fable und Opus): je Ratgeber (DE plus en, fr, it) nachbessern, Recherche der Top-Treffer liegt in
+      `content/recherche/{mfk-aufgebot,wartungsintervalle,serviceheft-verloren}.md`; Auftrag je Artikel an einen
+      Fable-Agenten: mehr eigener Nutzen (Tabellen, Checklisten, Schweizer Bezug), Fakten nur mit Quelle, URL
+      bleibt. Danach Lint, Specs, Deploy und in der Search Console (URL-Prüfung) für die drei URLs «Indexierung
+      beantragen»
 - [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
       `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage{,-fr,-it}.md` (Thema «serviceheft auto
       pdf», Platz 10). Ab 14.10.: Ratgeber auf FR, IT und EN (DE erst nach Klärung des Index), Entwurf durch einen
@@ -87,10 +89,11 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 - [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
       210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
       `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
-      Seiten) zu Termin, Verschieben, Kosten je Kanton und Checkliste, in allen vier Sprachen
+      Seiten) zu Termin, Verschieben, Kosten je Kanton und Checkliste, in allen vier Sprachen; zusammen mit dem
+      Nachbessern von `mfk-aufgebot` (Punkt «Deutsche Ratgeber nicht im Index»)
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
-      90 Tagen. Steht schon im Titel der Startseite; Ratgeber «Serviceheft verloren» und «Occasion verkaufen» intern
-      auf die Startseite mit Ankertext «Servicebuch» verlinken und die Platzierung nach vier Wochen mit
+      90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
+      «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
       `gsc queries --days 28` prüfen
 
 ### Messen, nebenbei
