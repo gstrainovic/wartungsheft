@@ -277,6 +277,45 @@ Laut **TCS Sektion Bern** fallen etwa **15 % aller Fahrzeuge** durch die MFK. Di
 
 ---
 
+## 🏛️ Aktuelle Neuigkeiten und kantonale Besonderheiten
+
+### 📅 Neue Regelungen und Öffnungszeiten 2026
+
+**Basel-Landschaft (MFK BL):**
+- Die MFK BL ist eine Dienststelle der **Sicherheitsdirektion (SID)** und zuständig für:
+  - Ausstellen von Fahrzeugausweisen
+  - Ausgabe von Kontrollschildern
+  - Erteilung von Lernfahr- und Führerausweisen
+  - Erhebung der Motorfahrzeugsteuern
+- Zusammen mit der **MFK Basel-Stadt (MFK BS)** betreibt die MFK BL die gemeinsame **Motorfahrzeug-Prüfstation (MFP) in Münchenstein** für technische Nachprüfungen und Führerprüfungen.
+
+| Kanton | Neuigkeit | Details | Quelle |
+|--------|-----------|---------|--------|
+| **Basel-Stadt** | **Erweiterte Öffnungszeiten** ab 01.06.2026 | Ziel: Schalterfrequenzen besser verteilen, Wartezeiten reduzieren | [bs.ch](https://www.bs.ch/medienmitteilungen/jsd/2026-neue-oeffnungszeiten-bei-der-motorfahrzeugkontrolle-basel-stadt) |
+| **Basel-Landschaft** | **Live-Anzeige der Wartezeiten** | Für Standorte Füllinsdorf und Münchenstein | [baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle) |
+| **Basel-Landschaft** | **Online-Terminreservation Füllinsdorf** | Nur für Standort Füllinsdorf, nicht Münchenstein | [baselland.ch/terminbuchung](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle/fahrzeugzulassung/terminbuchung-fahrzeugwesen) |
+| **Itingen (BL)** | **Neue Prüfstelle MFP** ab 01.07.2026 | Sägeweg 15 | [AGVS Sektion beider Basel](https://www.agvsbsbl.ch/de/dienstleistungen/mfk-agvs-beider-basel/) |
+
+### 💡 Online-Dienstleistungen pro Kanton
+
+| Kanton | Online-Terminbuchung | Live-Wartezeiten | Quelle |
+|--------|----------------------|------------------|--------|
+| **Basel-Stadt** | ✅ | ✅ | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+| **Basel-Landschaft** | ✅ (nur Füllinsdorf) | ✅ | [baselland.ch](https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle) |
+| **Zürich** | ✅ | ❌ | [zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) |
+| **St. Gallen** | ❌ | ❌ | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Aargau** | ❌ | ❌ | [ag.ch](https://www.ag.ch/de/verwaltung/dvi/strassenverkehr/steuern-gebuehren/gebuehren/fahrzeug) |
+
+**📌 Wichtig zur Terminverschiebung:**
+- **Maximale Frist:** Meist **3 Monate** ab Erhalt des Aufgebots
+- **Antragsfrist:** **Spätestens 1 Woche vor** dem ursprünglichen Termin
+- **Nachprüfungen:** Lassen sich in den meisten Kantonen **nicht verschieben**
+- **Online-Formular:** In Kantonen mit Online-Dienstleistung kannst du die Verschiebung **bequem von zu Hause** aus vornehmen
+- **Erforderlich:** Immer die **Nummer des Aufgebots** angeben
+- **Garagenantrag:** Auch deine Garage kann den Termin **in deinem Namen verschieben** – ebenfalls mit der Aufgebotsnummer
+
+---
+
 ## 📚 Weitere Infos
 - [MFK allgemein (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
 - [TCS: Motorfahrzeugkontrolle](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)
