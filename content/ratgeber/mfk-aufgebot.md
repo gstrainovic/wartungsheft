@@ -141,6 +141,142 @@ Laut **TCS Sektion Bern** fallen etwa **15 % der Fahrzeuge** durch. Die häufigs
 
 ---
 
+## 🔍 MFK-Termin: Alles Wichtige auf einen Blick
+
+### 📅 Wie bekomme ich meinen MFK-Termin?
+
+- **Automatisch:** Das Strassenverkehrsamt deines Kantons schickt dir das **Aufgebot schriftlich** zu.
+- **Manuell:** In einigen Kantonen kannst du den Termin **online buchen** (z. B. [Zürich](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html), [Basel](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung)).
+- **Freiwillige Prüfung:** Du kannst dein Fahrzeug **jederzeit** zur Prüfung vorführen, auch ohne Aufgebot.
+
+### ⏰ Wann kommt das erste Aufgebot?
+
+| Fahrzeugtyp | Erstprüfung |
+|-------------|--------------|
+| Personenwagen | **5–6 Jahre** nach erster Inverkehrsetzung |
+| Motorräder | **5–6 Jahre** nach erster Inverkehrsetzung |
+| Anhänger > 0,75 t | **5–6 Jahre** nach erster Inverkehrsetzung |
+| Lieferwagen, Wohnmobile | **4 Jahre** nach erster Inverkehrsetzung |
+
+### 📍 Wo kann ich die MFK durchführen lassen?
+
+- **Strassenverkehrsamt** deines Kantons
+- **Technische Zentren des TCS** (in den Kantonen Aargau, Bern, Neuenburg, Solothurn, St. Gallen, Tessin, Zürich)
+- **Private Prüfstationen** mit kantonaler Bewilligung
+
+---
+
+## 💰 MFK-Kosten: Gebühren im Detail
+
+### 📊 Preise pro Kanton (Stand 2026)
+
+| Kanton | Personenwagen | Motorrad | Nachkontrolle | Quelle |
+|--------|----------------|---------|---------------|--------|
+| **Bern** | CHF 60 | CHF 60 | CHF 30 | [Gebührentarif Bern](https://www.svsa.sid.be.ch/content/dam/svsa_sid/dokumente/de/gebuehrentarife/svsa-gebuehren-fzp-d.pdf) |
+| **Aargau** | CHF 58 | — | — | [ag.ch](https://www.ag.ch/de/verwaltung/dvi/strassenverkehr/steuern-gebuehren/gebuehren/fahrzeug) |
+| **Zürich** | CHF 30 **pro Prüfeinheit** | — | CHF 20 (Garagenbestätigung) | [Gebührenverfügung Zürich](https://www.zh.ch/content/dam/zhweb/bilder-dokumente/organisation/sicherheitsdirektion/strassenverkehrsamt/organisation/ueber-uns-grundlagen/Geb%C3%BChrenverf%C3%BCgung,%20g%C3%BCltig%20ab%201.%20Januar%202026.pdf) |
+| **St. Gallen** | CHF 55 | — | — | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Basel-Stadt / Basel-Landschaft** | CHF 55 | — | — | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+
+**💡 Spartipp:** TCS-Mitglieder erhalten bei freiwilligen Prüfungen oft **Rabatt**.
+
+### 💸 Zusätzliche Kosten bei Mängeln
+
+| Mangelart | Kosten (ca.) | Beispiel |
+|-----------|-------------|----------|
+| **Nachkontrolle** | CHF 30–60 | Bei Beanstandungen |
+| **Garagenbestätigung** | CHF 20 | St. Gallen |
+| **Fernbleiben-Gebühr** | CHF 30–180 | Bei Nichterscheinen |
+| **Entzugsverfügung** | CHF 60 | Bei Fahrverbots-Verfügung |
+
+---
+
+## 📅 MFK-Termin verschieben: So geht's
+
+### 🔄 Verschiebung ist kantonal geregelt
+
+| Kanton | Maximale Verschiebung | Frist für Antrag | Online möglich? | Quelle |
+|--------|----------------------|------------------|----------------|--------|
+| **St. Gallen** | 30 Tage | 5 Arbeitstage vor Termin | ❌ | [sg.ch](https://www.sg.ch/verkehr/strassenverkehr/pruefungstermine0/termin-fahrzeugpruefung.html) |
+| **Basel-Stadt / Basel-Landschaft** | 3 Monate | Innerhalb von 3 Monaten | ✅ | [bs.ch](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung) |
+| **Zürich** | 3 Monate | Online oder schriftlich | ✅ | [zh.ch](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) |
+| **Obwalden / Nidwalden** | — | 7 Tage vorher | ✅ (nur 1x) | [vsz.ch](https://www.vsz.ch/strassenverkehr/fahrzeug/fahrzeugpruefung) |
+
+### ⚠️ Wichtig beim Verschieben
+
+- **Nachprüfungen** lassen sich **nicht verschieben** (z. B. in St. Gallen)
+- **Frist einhalten:** Antrag **vor** dem ursprünglichen Termin stellen
+- **Begründung:** In einigen Kantonen muss ein **triftiger Grund** (Urlaub, Krankheit) vorliegen
+- **Kosten:** Die Verschiebung selbst ist meist **kostenlos**
+
+### 📞 Termin verschieben – Schritt für Schritt
+
+1. **Online:** Falls dein Kanton dies anbietet (z. B. Zürich, Basel)
+2. **Telefonisch:** beim Strassenverkehrsamt anrufen
+3. **Schriftlich:** Per E-Mail oder Brief an das Amt
+4. **Bestätigung abwarten:** Du erhältst eine neue Terminbestätigung
+
+---
+
+## 📋 MFK-Vorbereitung: Die ultimative Checkliste
+
+### 🔧 2 Wochen vor der Prüfung
+
+- [ ] **Service durchführen lassen** (Ölwechsel, Filter, Bremsen prüfen)
+- [ ] **MFK-Vortest** beim TCS machen (ab CHF 60 für Mitglieder)
+- [ ] **Dokumente bereitlegen:**
+  - [ ] Fahrzeugausweis
+  - [ ] Versicherungspolice
+  - [ ] Abgaswartungsdokument (bei älteren Autos ohne OBD)
+  - [ ] Letzte MFK-Prüfberichte
+
+### 🚗 1 Tag vor der Prüfung
+
+- [ ] **Auto waschen** (in Zürich und anderen Kantonen Pflicht!)
+- [ ] **Auto betriebswarm machen** (wichtig für Bremsen- und Abgastest)
+- [ ] **Alle Lichter testen:**
+  - [ ] Scheinwerfer
+  - [ ] Blinker
+  - [ ] Bremslicht
+  - [ ] Rücklicht
+  - [ ] Warnblinker
+- [ ] **Reifendruck prüfen** (am kalten Reifen messen)
+- [ ] **Profiltiefe kontrollieren** (Minimum 1,6 mm, empfohlen 3 mm)
+- [ ] **Scheiben und Spiegel reinigen**
+- [ ] **Wischerblätter prüfen** (defekte Blätter wechseln)
+
+### 🎯 Am Prüfungstag
+
+- [ ] **Pünktlich erscheinen** (5–10 Minuten vor Termin)
+- [ ] **Alle Dokumente mitbringen**
+- [ ] **Auto in gutem Zustand vorführen**
+
+---
+
+## 📋 MFK-Checkliste: Typische Mängel selbst prüfen
+
+Laut **TCS Sektion Bern** fallen etwa **15 % aller Fahrzeuge** durch die MFK. Die häufigsten Beanstandungen:
+
+### 🔴 Häufige Durchfallgründe
+
+| Bereich | Häufigkeit | Selbstprüfung | Reparaturkosten (ca.) |
+|---------|------------|---------------|---------------------|
+| **Beleuchtung** | ⭐⭐⭐⭐⭐ | Alle Lichter funktionieren? | CHF 10–50 |
+| **Reifen** | ⭐⭐⭐⭐ | Profiltiefe ≥ 1,6 mm? Risse? | CHF 50–200 pro Reifen |
+| **Bremsen** | ⭐⭐⭐ | Bremswirkung gleichmässig? Quietschen? | CHF 100–400 |
+| **Fahrwerk** | ⭐⭐⭐ | Klappern beim Fahren? | CHF 200–800 |
+| **Scheiben** | ⭐⭐ | Risse? Sicht behindert? | CHF 100–300 |
+| **Abgase** | ⭐⭐ | Rauchentwicklung? Warnleuchte? | CHF 100–500 |
+
+### ✅ So vermeidest du Mängel
+
+- **Beleuchtung:** **Monatlich** alle Lichter testen
+- **Reifen:** **Vor jedem Saisonwechsel** Profiltiefe und Zustand prüfen
+- **Bremsen:** **Jährlich** in der Werkstatt prüfen lassen
+- **Scheiben:** **Risse sofort** reparieren lassen
+
+---
+
 ## 📚 Weitere Infos
 - [MFK allgemein (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
 - [TCS: Motorfahrzeugkontrolle](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)
