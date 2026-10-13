@@ -1,6 +1,6 @@
 ---
-title: "Carnet d'entretien voiture : modèle PDF gratuit à imprimer pour la Suisse"
-description: "Modèle de carnet d'entretien voiture PDF pour la Suisse avec MFK, service, kilométrage. Téléchargez gratuitement, imprimez, et reconstituez l'historique de votre véhicule sans carnet original."
+title: "Servicebuch-Vorlage: Kostenloses PDF für die Schweiz (Carnet d'entretien modèle)"
+description: "Modèle de carnet d'entretien voiture PDF pour la Suisse avec MFK, service, kilométrage. Téléchargez gratuitement, imprimez, et reconstituez l'historique de votre véhicule."
 date: 2026-10-13
 ---
 
