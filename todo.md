@@ -51,9 +51,8 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
-- [ ] **Alle Filme auf YouTube**, sobald Goran die deutschen Fassungen auf wartungsheft.ch durchgesehen hat (nur zum
-      Gefundenwerden, kein Link von den Seiten): `video-out/youtube-<name>.mp4` mit SRT je Sprache, die vier alten
-      deutschen Fassungen vom 30.09. ersetzen.
+- [x] **Alle Filme auf YouTube**, nach Gorans Freigabe der deutschen Fassungen: 13.10.2026 alle Fassungen der Seiten
+      abgeglichen, zwei fehlende Tutorialfassungen (IT und EN) hochgeladen; alle Videos laut Abgleich aktuell.
 - [ ] Sprechertexte FR, IT, EN von Muttersprachlern prüfen lassen (`video-scripts/sprechertexte.md`, letzter
       Abschnitt); geänderte Sätze kosten neue Credits, das ElevenLabs-Abo läuft bis 04.11.2026
 - [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-<name>.mp4` (je rund 20 Sekunden, 1080×1920) beim

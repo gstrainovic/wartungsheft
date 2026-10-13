@@ -45,8 +45,8 @@ grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fah
 # id und sha256 der hochgeladenen Desktop-MP4 schreibt `produktvideo youtube --hochladen`; die Prüfsumme des
 # Uploads vom 30.09. ist unbekannt, darum gilt er als veraltet und wird ersetzt
 [film.youtube.de]
-id = "gVyuTsk_LrI"
-sha256 = "unbekannt (Upload vom 30.09.)"
+id = "xU9psbHrStM"
+sha256 = "5f57cd6260709eb0ac4a4f619660372c628446679fa9f137cea73254e7651a62"
 titel = "Serviceheft digital fürs Auto: Wartungsheft – Rechnung fotografieren, Service und MFK"
 beschreibung = """Serviceheft digital fürs Auto: Werkstattrechnung fotografieren, und Wartungsheft liest Werkstatt, Datum, Betrag und Kilometerstand aus und legt sie im Serviceheft ab. Es sagt dir, was als Nächstes fällig ist (Öl, Bremsen, Zahnriemen, MFK), erinnert dich per E-Mail, und beim Verkauf der Occasion liegt das vollständige Serviceheft als PDF bereit.
 
@@ -57,7 +57,19 @@ Für Betriebe mit Fuhrpark: https://wartungsheft.ch/betrieb
 
 Strainovic IT, Steinach SG
 #Serviceheft #Wartungsheft #Auto #MFK #Schweiz"""
-tags = ["Serviceheft digital", "Serviceheft Auto", "Serviceheft App", "Servicebuch Auto", "Wartungsheft Auto", "Wartungsintervalle", "Werkstattrechnung", "MFK", "Occasion verkaufen", "Autoservice", "Schweiz"]
+tags = [
+  "Serviceheft digital",
+  "Serviceheft Auto",
+  "Serviceheft App",
+  "Servicebuch Auto",
+  "Wartungsheft Auto",
+  "Wartungsintervalle",
+  "Werkstattrechnung",
+  "MFK",
+  "Occasion verkaufen",
+  "Autoservice",
+  "Schweiz"
+]
 
 [film.youtube.fr]
 titel = "Carnet d’entretien numérique pour la voiture : Wartungsheft, facture du garage en photo"
@@ -70,7 +82,21 @@ Pour les entreprises avec un parc de véhicules : https://wartungsheft.ch/fr/bet
 
 Strainovic IT, Steinach SG
 #Wartungsheft #carnetdentretien #voiture #expertise #Suisse"""
-tags = ["carnet d’entretien numérique", "carnet d’entretien voiture", "carnet d’entretien app", "carnet de service", "entretien voiture", "facture garage", "expertise voiture", "historique d’entretien", "vendre sa voiture", "Wartungsheft", "Suisse"]
+tags = [
+  "carnet d’entretien numérique",
+  "carnet d’entretien voiture",
+  "carnet d’entretien app",
+  "carnet de service",
+  "entretien voiture",
+  "facture garage",
+  "expertise voiture",
+  "historique d’entretien",
+  "vendre sa voiture",
+  "Wartungsheft",
+  "Suisse"
+]
+id = "Q2jG10hUnXM"
+sha256 = "c031c10eccaccfabce68f503a433d57f40876c24ef887b0784fafa60dfe53aa9"
 
 [film.youtube.it]
 titel = "Libretto di manutenzione digitale per l’auto: Wartungsheft, fattura dell’officina in foto"
@@ -83,7 +109,21 @@ Per le aziende con un parco veicoli: https://wartungsheft.ch/it/betrieb
 
 Strainovic IT, Steinach SG
 #Wartungsheft #librettodimanutenzione #auto #collaudo #Svizzera"""
-tags = ["libretto di manutenzione digitale", "libretto di manutenzione auto", "libretto di manutenzione app", "libretto di servizio", "manutenzione auto", "fattura officina", "collaudo auto", "storico manutenzione", "vendere l’auto", "Wartungsheft", "Svizzera"]
+tags = [
+  "libretto di manutenzione digitale",
+  "libretto di manutenzione auto",
+  "libretto di manutenzione app",
+  "libretto di servizio",
+  "manutenzione auto",
+  "fattura officina",
+  "collaudo auto",
+  "storico manutenzione",
+  "vendere l’auto",
+  "Wartungsheft",
+  "Svizzera"
+]
+id = "-bT8MXnQD_U"
+sha256 = "33407b46c9403170dea5c0af72f6a009880ce465697f6ca20d194b72b90ae3f9"
 
 [film.youtube.en]
 titel = "Digital car service book: Wartungsheft – photograph the garage invoice, servicing and MFK"
@@ -96,7 +136,21 @@ For businesses with a fleet: https://wartungsheft.ch/en/betrieb
 
 Strainovic IT, Steinach SG
 #servicebook #Wartungsheft #car #MFK #Switzerland"""
-tags = ["digital service book", "car service book", "service book app", "car maintenance app", "service history", "garage invoice", "MFK inspection", "maintenance reminder", "selling your car", "Wartungsheft", "Switzerland"]
+tags = [
+  "digital service book",
+  "car service book",
+  "service book app",
+  "car maintenance app",
+  "service history",
+  "garage invoice",
+  "MFK inspection",
+  "maintenance reminder",
+  "selling your car",
+  "Wartungsheft",
+  "Switzerland"
+]
+id = "6jP0selDUpM"
+sha256 = "85cf94196448d315e603316ae53b70df52443b667ddf5f2dbf04be3921015e7f"
 
 [[film]]
 name = "betrieb"
@@ -137,8 +191,8 @@ grund = "Abnahme laut produktvideos-stand.md offen (Fassung mit Effekten und Fah
 
 # YouTube wie beim Film privat; der Upload vom 30.09. gilt als veraltet und wird ersetzt
 [film.youtube.de]
-id = "CypEsJgVRC8"
-sha256 = "unbekannt (Upload vom 30.09.)"
+id = "CP7nhuRUrdM"
+sha256 = "0a2ff41d40ad61f75ad6e5ca3b40a1e6eb41ea410fc49fd7dfe965fd80bff0bc"
 titel = "Fuhrpark verwalten für KMU: Wartungsheft – Serviceheft für alle Firmenfahrzeuge"
 beschreibung = """Fuhrpark verwalten für KMU: Der Fahrer fotografiert die Werkstattrechnung, und Wartungsheft ordnet Werkstatt, Datum, Betrag und Kilometerstand dem richtigen Fahrzeug zu. Service, Reifen und MFK pro Fahrzeug auf einen Blick, Erinnerung per E-Mail, Kosten pro Fahrzeug und Jahr für den Treuhänder auf Knopfdruck.
 
@@ -149,7 +203,20 @@ Für Privathalter: https://wartungsheft.ch
 
 Strainovic IT, Steinach SG
 #Fuhrpark #Flottenmanagement #Wartungsheft #KMU #Schweiz"""
-tags = ["Fuhrpark verwalten", "Fuhrparkverwaltung", "Fuhrpark KMU", "Fuhrpark Software", "Flottenmanagement", "Firmenfahrzeuge", "Serviceheft Firmenfahrzeug", "Werkstattrechnung", "Service Fahrzeug", "MFK", "Wartungsheft", "Schweiz"]
+tags = [
+  "Fuhrpark verwalten",
+  "Fuhrparkverwaltung",
+  "Fuhrpark KMU",
+  "Fuhrpark Software",
+  "Flottenmanagement",
+  "Firmenfahrzeuge",
+  "Serviceheft Firmenfahrzeug",
+  "Werkstattrechnung",
+  "Service Fahrzeug",
+  "MFK",
+  "Wartungsheft",
+  "Schweiz"
+]
 
 [film.youtube.fr]
 titel = "Gestion de flotte pour PME : Wartungsheft, carnet d’entretien pour chaque véhicule"
@@ -162,7 +229,21 @@ Pour les particuliers : https://wartungsheft.ch/fr
 
 Strainovic IT, Steinach SG
 #gestiondeflotte #parcdevehicules #Wartungsheft #PME #Suisse"""
-tags = ["gestion de flotte", "gestion parc de véhicules", "parc de véhicules PME", "logiciel gestion de flotte", "véhicules d’entreprise", "carnet d’entretien véhicule", "facture garage", "expertise véhicule", "coûts par véhicule", "Wartungsheft", "Suisse"]
+tags = [
+  "gestion de flotte",
+  "gestion parc de véhicules",
+  "parc de véhicules PME",
+  "logiciel gestion de flotte",
+  "véhicules d’entreprise",
+  "carnet d’entretien véhicule",
+  "facture garage",
+  "expertise véhicule",
+  "coûts par véhicule",
+  "Wartungsheft",
+  "Suisse"
+]
+id = "Hz7Ej1vPjHc"
+sha256 = "c248baeb3a862f20ade19bf16bc842ce855515cb7d46f3af0a56ae3d1a438d40"
 
 [film.youtube.it]
 titel = "Gestione parco veicoli per PMI: Wartungsheft, libretto per ogni veicolo aziendale"
@@ -175,7 +256,21 @@ Per i privati: https://wartungsheft.ch/it
 
 Strainovic IT, Steinach SG
 #gestioneflotta #parcoveicoli #Wartungsheft #PMI #Svizzera"""
-tags = ["gestione parco veicoli", "gestione flotta", "parco veicoli PMI", "software gestione flotta", "veicoli aziendali", "libretto di manutenzione veicolo", "fattura officina", "collaudo veicolo", "costi per veicolo", "Wartungsheft", "Svizzera"]
+tags = [
+  "gestione parco veicoli",
+  "gestione flotta",
+  "parco veicoli PMI",
+  "software gestione flotta",
+  "veicoli aziendali",
+  "libretto di manutenzione veicolo",
+  "fattura officina",
+  "collaudo veicolo",
+  "costi per veicolo",
+  "Wartungsheft",
+  "Svizzera"
+]
+id = "lypgyNVBI1I"
+sha256 = "a6f7222861d7ff0a2c31f0c0a4988f617ccebf911363739c50e5f6134fcdb88a"
 
 [film.youtube.en]
 titel = "Fleet management for SMEs: Wartungsheft – a service book for every company vehicle"
@@ -188,7 +283,21 @@ For private car owners: https://wartungsheft.ch/en
 
 Strainovic IT, Steinach SG
 #fleetmanagement #companycars #Wartungsheft #SME #Switzerland"""
-tags = ["fleet management", "fleet management software", "fleet app", "company vehicles", "small business fleet", "vehicle service book", "garage invoice", "MFK inspection", "costs per vehicle", "Wartungsheft", "Switzerland"]
+tags = [
+  "fleet management",
+  "fleet management software",
+  "fleet app",
+  "company vehicles",
+  "small business fleet",
+  "vehicle service book",
+  "garage invoice",
+  "MFK inspection",
+  "costs per vehicle",
+  "Wartungsheft",
+  "Switzerland"
+]
+id = "jcys3cy8rm0"
+sha256 = "ae45601b90e58439c45a432c71a3ced3925919e2cd1ae90a582ba1b365d17c2b"
 
 [[film]]
 name = "tutorial"
@@ -233,7 +342,22 @@ Noch kein Konto? 30 Tage gratis testen: https://wartungsheft.ch
 
 Strainovic IT, Steinach SG
 #Serviceheft #Wartungsheft #Anleitung #Auto #Schweiz"""
-tags = ["Serviceheft digital", "Wartungsheft Anleitung", "Wartungsheft App", "Serviceheft App", "Servicebuch Auto", "Werkstattrechnung fotografieren", "Fahrzeugausweis fotografieren", "Wartungsintervalle", "Service Erinnerung", "MFK", "Tutorial", "Schweiz"]
+tags = [
+  "Serviceheft digital",
+  "Wartungsheft Anleitung",
+  "Wartungsheft App",
+  "Serviceheft App",
+  "Servicebuch Auto",
+  "Werkstattrechnung fotografieren",
+  "Fahrzeugausweis fotografieren",
+  "Wartungsintervalle",
+  "Service Erinnerung",
+  "MFK",
+  "Tutorial",
+  "Schweiz"
+]
+id = "rfDpUx8Qxno"
+sha256 = "dfa4ce508a7adb6f5dcf1e1f5e5eb4d42f01ca0f1410cbff4662560a516ff86e"
 
 [film.youtube.fr]
 titel = "Carnet d’entretien numérique : démarrer avec Wartungsheft (tutoriel)"
@@ -246,7 +370,22 @@ Pas encore de compte ? 30 jours d’essai gratuit : https://wartungsheft.ch/fr
 
 Strainovic IT, Steinach SG
 #Wartungsheft #carnetdentretien #tutoriel #voiture #Suisse"""
-tags = ["carnet d’entretien numérique", "Wartungsheft tutoriel", "Wartungsheft app", "carnet d’entretien app", "carnet d’entretien voiture", "photographier facture garage", "permis de circulation", "intervalles d’entretien", "rappel entretien", "expertise", "tutoriel", "Suisse"]
+tags = [
+  "carnet d’entretien numérique",
+  "Wartungsheft tutoriel",
+  "Wartungsheft app",
+  "carnet d’entretien app",
+  "carnet d’entretien voiture",
+  "photographier facture garage",
+  "permis de circulation",
+  "intervalles d’entretien",
+  "rappel entretien",
+  "expertise",
+  "tutoriel",
+  "Suisse"
+]
+id = "QHfHZI3J19g"
+sha256 = "0162bd500819c15fa2199cf8b1123c487dfd925187a0ec805cc60d99b2e2afab"
 
 [film.youtube.it]
 titel = "Libretto di manutenzione digitale: come iniziare con Wartungsheft (tutorial)"
@@ -259,7 +398,22 @@ Non hai ancora un account? Prova gratis per 30 giorni: https://wartungsheft.ch/i
 
 Strainovic IT, Steinach SG
 #Wartungsheft #librettodimanutenzione #tutorial #auto #Svizzera"""
-tags = ["libretto di manutenzione digitale", "Wartungsheft tutorial", "Wartungsheft app", "libretto di manutenzione app", "libretto di manutenzione auto", "fotografare fattura officina", "licenza di circolazione", "intervalli di manutenzione", "promemoria manutenzione", "collaudo", "tutorial", "Svizzera"]
+tags = [
+  "libretto di manutenzione digitale",
+  "Wartungsheft tutorial",
+  "Wartungsheft app",
+  "libretto di manutenzione app",
+  "libretto di manutenzione auto",
+  "fotografare fattura officina",
+  "licenza di circolazione",
+  "intervalli di manutenzione",
+  "promemoria manutenzione",
+  "collaudo",
+  "tutorial",
+  "Svizzera"
+]
+id = "mNnsHHin0lQ"
+sha256 = "54c8515581f7ec282d0bba987cdb8c1160441b013acde448a3e4c1901321d412"
 
 [film.youtube.en]
 titel = "Digital service book: getting started with Wartungsheft (tutorial)"
@@ -272,5 +426,19 @@ No account yet? Try it free for 30 days: https://wartungsheft.ch/en
 
 Strainovic IT, Steinach SG
 #servicebook #Wartungsheft #tutorial #car #Switzerland"""
-tags = ["digital service book", "Wartungsheft tutorial", "Wartungsheft app", "service book app", "car service book", "photograph garage invoice", "registration document", "maintenance intervals", "service reminder", "MFK inspection", "tutorial", "Switzerland"]
-
+tags = [
+  "digital service book",
+  "Wartungsheft tutorial",
+  "Wartungsheft app",
+  "service book app",
+  "car service book",
+  "photograph garage invoice",
+  "registration document",
+  "maintenance intervals",
+  "service reminder",
+  "MFK inspection",
+  "tutorial",
+  "Switzerland"
+]
+id = "mUzo_hetmyc"
+sha256 = "e15bb64ac0f38c16cbadab0350dcde9c5f97820c432be2ca4450d41862039bf5"
