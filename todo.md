@@ -67,30 +67,22 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 
 - [ ] Einträge in Schweizer Verzeichnissen (`business-plan/verzeichnisse.md`): Nutzer meldet sich je
       Plattform an, Claude füllt das Formular aus den fertigen Texten und sendet nach Freigabe ab
-- [ ] **Deutsche Ratgeber nicht im Index:** `gsc inspect` meldet für `/ratgeber/mfk-aufgebot` und
-      `/ratgeber/wartungsintervalle` «Gecrawlt – zurzeit nicht indexiert», für `/ratgeber/serviceheft-verloren`
-      «Gefunden – zurzeit nicht indexiert»; die englische und italienische Fassung bekommen dagegen Impressionen.
-      Kanonisch und hreflang stimmen; die Texte haben 560 bis 690 Wörter. Vermutung: junge Domain, deutsche Seiten
-      gegen starke Konkurrenz zu dünn oder zu ähnlich. Nächster Schritt ab 14.10., 13 Uhr (Reset des Wochenlimits für
-      Fable und Opus): je Ratgeber (DE plus en, fr, it) nachbessern, Recherche der Top-Treffer liegt in
-      `content/recherche/{mfk-aufgebot,wartungsintervalle,serviceheft-verloren}.md`; Auftrag je Artikel an einen
-      Fable-Agenten: mehr eigener Nutzen (Tabellen, Checklisten, Schweizer Bezug), Fakten nur mit Quelle, URL
-      bleibt. Danach Lint, Specs, Deploy und in der Search Console (URL-Prüfung) für die drei URLs «Indexierung
-      beantragen»
-- [ ] **Ratgeber billig schreiben:** `scripts/exa-recherche.py SLUG "Anfrage" …` speichert Exa-Ausschnitte in
-      `content/recherche/`. Goran prüft `content/recherche/serviceheft-vorlage{,-fr,-it}.md` (Thema «serviceheft auto
-      pdf», Platz 10). Ab 14.10.: Ratgeber auf FR, IT und EN (DE erst nach Klärung des Index), Entwurf durch einen
-      Haiku-Subagenten aus der Recherche, Claude prüft Fakten und Ton. Mistral-Guthaben bleibt für Interessenten.
-      Mehrwert gegen die Konkurrenz (französische und italienische PDF-Vorlagen ohne Schweizbezug): eigene
-      Vorlage als PDF mit Schweizer Begriffen (MFK/expertise/collaudo)
-- [ ] **Übersetzte Ratgeber-URLs für neue Artikel** (ab 14.10., vor dem ersten neuen FR/IT/EN-Ratgeber): Slug je
-      Sprache (`/fr/ratgeber/carnet-entretien`), Sprachfassungen über einen eigenen Schlüssel statt den Dateinamen
-      verbinden (`vite.config.ts`, `ratgeberPlugin`, Sitemap, hreflang). Bestehende URLs bleiben unverändert
-- [ ] **MFK-Ratgeber ausbauen** (Keyword-Planer, Schweiz Deutsch, Suchen/Monat, alle Wettbewerb tief): «mfk termin»
-      210, «mfk kosten» 170, «mfk verschieben» 110, «mfk vorbereitung» 110, «mfk checkliste» 50. Heute steht
-      `content/ratgeber/mfk-aufgebot.md` für «mfk kosten» und «mfk check» auf Platz 58 bis 78. Abschnitte (oder eigene
-      Seiten) zu Termin, Verschieben, Kosten je Kanton und Checkliste, in allen vier Sprachen; zusammen mit dem
-      Nachbessern von `mfk-aufgebot` (Punkt «Deutsche Ratgeber nicht im Index»)
+- [ ] **Deutsche Ratgeber indexieren:** Nach dem Deploy in der Search Console (URL-Prüfung) für
+      `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und `/ratgeber/serviceheft-verloren` erneut
+      «Indexierung beantragen» und `gsc coverage` beobachten
+- [x] **Ratgeber billig schreiben:** Servicebuch-Vorlage in vier Sprachen online, inkl. eigener PDF-Vorlage mit
+      Schweizer Begriffen (MFK/expertise/collaudo), erzeugt mit `scripts/servicebuch-pdf.mjs`, verlinkt aus den
+      Artikeln. Offen: Goran prüft `content/recherche/serviceheft-vorlage{,-fr,-it}.md` (Thema «serviceheft auto pdf»,
+      Platz 10) und die PDF-Vorlage. Mehr neue Artikel ab dem nächsten Schritt aus derselben Recherche-Pipeline
+- [x] **Übersetzte Ratgeber-URLs für neue Artikel:** umgesetzt13.10. – `key` und `slug` im Artikelkopf verbinden und
+      adressieren die Fassungen (`src/lib/ratgeber.ts`, `vite.config.ts`, Tests in `ratgeber.test.ts` und
+      `texte.test.ts`); bestehende URLs unverändert, neue Artikel können `/fr/ratgeber/<eigener-slug>` bekommen
+- [x] **MFK-Ratgeber ausbauen:** Abschnitte zu Termin, Verschieben, Kosten je Kanton, Vorbereitung und Checkliste
+      in `mfk-aufgebot` konsolidiert und in allen vier Sprachen publiziert (zusammen mit dem Nachbessern)
+- [ ] **Liegenschafts-Ratgeber einordnen:** `content/entwuerfe/prueffristen-lift-heizung-brandmelder.md` und
+      `content/entwuerfe/wartungsplan-liegenschaften-dokumentation.md` behandeln Gebäudeanlagen. Das widerspricht
+      der Produktgrenze «Serviceheft mit Rechnungen, pro Fahrzeug». Empfehlung: Entwürfe nicht in den Wartungsheft-
+      Ratgeber übernehmen; vor einer Bearbeitung klären, ob Goran den Produktumfang ändern will.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
       «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
