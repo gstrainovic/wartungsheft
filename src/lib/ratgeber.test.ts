@@ -95,7 +95,7 @@ describe('sitemapWithArticles', () => {
 describe('übersetzte Artikel', () => {
   const de = parseArticle('serviceheft-verloren', SOURCE)
   const fr = parseArticle('serviceheft-verloren', SOURCE_FR, 'fr')
-  const html = renderArticlePage(fr, ['de', 'fr'])
+  const html = renderArticlePage(fr, [de, fr])
 
   it('tragen Sprache, eigene Adresse und Verweise auf die vorhandenen Fassungen', () => {
     expect(fr.sprache).toBe('fr')
@@ -123,7 +123,7 @@ describe('übersetzte Artikel', () => {
 
   it('behaupten nicht, die App sei nur deutsch (es gibt sie auf Französisch, Italienisch und Englisch)', () => {
     for (const [sprache, deutsch] of [['fr', /allemand/i], ['it', /tedesco/i], ['en', /german/i]] as const)
-      expect(renderArticlePage(parseArticle('serviceheft-verloren', SOURCE_FR, sprache), [sprache]), sprache).not.toMatch(deutsch)
+      expect(renderArticlePage(parseArticle('serviceheft-verloren', SOURCE_FR, sprache)), sprache).not.toMatch(deutsch)
   })
 
   it('haben eine eigene Übersicht', () => {
@@ -132,5 +132,34 @@ describe('übersetzte Artikel', () => {
     expect(index).toContain('<link rel="canonical" href="https://wartungsheft.ch/fr/ratgeber" />')
     expect(index).toContain('href="/fr/ratgeber/serviceheft-verloren"')
     expect(index).toContain('<link rel="alternate" hreflang="en" href="https://wartungsheft.ch/en/ratgeber" />')
+  })
+})
+
+describe('eigene Adresse je Sprache (key und slug im Artikelkopf)', () => {
+  const de = parseArticle('serviceheft-verloren', SOURCE)
+  const fr = parseArticle('carnet-entretien', SOURCE_FR.replace('date: 2026-09-23', 'date: 2026-09-23\nkey: serviceheft-verloren\nslug: carnet-entretien'), 'fr')
+
+  it('schlüsselt über key, adresst über slug', () => {
+    expect(fr.key).toBe('serviceheft-verloren')
+    expect(fr.slug).toBe('carnet-entretien')
+    // Ohne Kopf bleiben Dateiname als Schlüssel und Adresse
+    const ohneKopf = parseArticle('mfk-aufgebot', SOURCE)
+    expect(ohneKopf.key).toBe('mfk-aufgebot')
+    expect(ohneKopf.slug).toBe('mfk-aufgebot')
+  })
+
+  it('trägt canonical, hreflang und Sprachwahl mit der Adresse jeder Fassung', () => {
+    const html = renderArticlePage(fr, [de, fr])
+    expect(html).toContain('<link rel="canonical" href="https://wartungsheft.ch/fr/ratgeber/carnet-entretien" />')
+    expect(html).toContain('<link rel="alternate" hreflang="de-CH" href="https://wartungsheft.ch/ratgeber/serviceheft-verloren" />')
+    expect(html).toContain('<link rel="alternate" hreflang="fr-CH" href="https://wartungsheft.ch/fr/ratgeber/carnet-entretien" />')
+    expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://wartungsheft.ch/ratgeber/serviceheft-verloren" />')
+    expect(html).toContain('<a class="lang" href="/ratgeber/serviceheft-verloren"')
+  })
+
+  it('führt beide Adressen in der Sitemap', () => {
+    const out = sitemapWithArticles('<urlset>\n</urlset>\n', [de, fr])
+    expect(out).toContain('<loc>https://wartungsheft.ch/ratgeber/serviceheft-verloren</loc>')
+    expect(out).toContain('<loc>https://wartungsheft.ch/fr/ratgeber/carnet-entretien</loc>')
   })
 })

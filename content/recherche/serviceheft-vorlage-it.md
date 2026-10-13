@@ -87,47 +87,47 @@ Conservate con cura questo documento e presentatelo al Concessionario/Centro di 
 ...
 e per elimin
 ...
-’elevato ... qualitativo del Suo veicolo ... eseguire la manutenzione programmata (vedi oltre) 
-avvalendosi della rete dei Riparatori Autorizzati SUZUKI, il cui elenco è disponibile sul sito: www.suzuki.it . 
-MANUTENZIONE PERIODICA 
-Nel Manuale di Uso e Manutenzione consegnatoLe assieme al veicolo troverà tutte le raccomandazioni che Suzuki prescrive 
-relativamente ai controlli periodici e alla manutenzione periodica. 
-Le consigliamo pertanto di attenersi scrupolosamente a queste raccomandazioni al fine di assicurare le migliori prestazioni 
-del Suo veicolo. 
-Troverà, nello stesso manuale, le istruzioni per il corretto uso del veicolo, tutti i dettagli sul suo funzionamento generale, le 
-regolazioni stagionali, l’utilizzo in condizioni severe, i controlli e le procedure per l’eventuale guida in fuori strada. 
-Qualora venisse per qualche motivo sostituita la batteria litio, La invitiamo a rivolgersi alla Rete dei Concessionari e Riparatori 
-Autorizzati Suzuki, per espletare le pratiche relative al corretto smaltimento. 
-GARANZIA E LA RETE DI CONCESSIONARI E RIPARATORI AUTORIZZATI SUZUKI 
-Il Suo Concessionario SUZUKI e/o il Riparatore Autorizzato SUZUKI saranno ben lieti di fornirLe delucidazioni particola 
-reggiate, nel caso Lei avesse un qualsiasi dubbio sulla funzionalità, sull’utilizzo d’accessori e su quant’altro Lei necessiti in 
-relazione al veicolo. 
-La regolare manutenzione del Suo veicolo, come prescritta dal Costruttore, se effettuata presso la rete di Riparatori Autoriz 
-zati Suzuki, assicurerà costanza di prestazioni e sicurezza per tutta la vita del veicolo stesso. 
-In caso di manutenzioni periodiche effettuate fuori dalla rete Suzuki, quale certificazione delle operazioni eseguite, farà fede 
-la fattura o la Ricevuta fiscale con il dettaglio (dati proprietario e veicolo, chilometraggio, tipo di intervento, codici e descri 
-zione ricambi utilizzati, specifiche tecniche dei lubrificanti), che dovrà essere custodita a cura del cliente - trasferita in copia 
-ai nuovi proprietari in caso di rivendita del veicolo - ed esibita a richiesta del personale Suzuki Italia. 
-In ogni caso sarà Sua cura fornire il presente libretto come prova del diritto alla garanzia, poiché, nello stesso, sono inseriti i 
-dati identificativi del ... delle manutenzioni ... rete Suzuki. 
+’elevato ... qualitativo del Suo veicolo ... eseguire la manutenzione programmata (vedi oltre)
+avvalendosi della rete dei Riparatori Autorizzati SUZUKI, il cui elenco è disponibile sul sito: www.suzuki.it .
+MANUTENZIONE PERIODICA
+Nel Manuale di Uso e Manutenzione consegnatoLe assieme al veicolo troverà tutte le raccomandazioni che Suzuki prescrive
+relativamente ai controlli periodici e alla manutenzione periodica.
+Le consigliamo pertanto di attenersi scrupolosamente a queste raccomandazioni al fine di assicurare le migliori prestazioni
+del Suo veicolo.
+Troverà, nello stesso manuale, le istruzioni per il corretto uso del veicolo, tutti i dettagli sul suo funzionamento generale, le
+regolazioni stagionali, l’utilizzo in condizioni severe, i controlli e le procedure per l’eventuale guida in fuori strada.
+Qualora venisse per qualche motivo sostituita la batteria litio, La invitiamo a rivolgersi alla Rete dei Concessionari e Riparatori
+Autorizzati Suzuki, per espletare le pratiche relative al corretto smaltimento.
+GARANZIA E LA RETE DI CONCESSIONARI E RIPARATORI AUTORIZZATI SUZUKI
+Il Suo Concessionario SUZUKI e/o il Riparatore Autorizzato SUZUKI saranno ben lieti di fornirLe delucidazioni particola
+reggiate, nel caso Lei avesse un qualsiasi dubbio sulla funzionalità, sull’utilizzo d’accessori e su quant’altro Lei necessiti in
+relazione al veicolo.
+La regolare manutenzione del Suo veicolo, come prescritta dal Costruttore, se effettuata presso la rete di Riparatori Autoriz
+zati Suzuki, assicurerà costanza di prestazioni e sicurezza per tutta la vita del veicolo stesso.
+In caso di manutenzioni periodiche effettuate fuori dalla rete Suzuki, quale certificazione delle operazioni eseguite, farà fede
+la fattura o la Ricevuta fiscale con il dettaglio (dati proprietario e veicolo, chilometraggio, tipo di intervento, codici e descri
+zione ricambi utilizzati, specifiche tecniche dei lubrificanti), che dovrà essere custodita a cura del cliente - trasferita in copia
+ai nuovi proprietari in caso di rivendita del veicolo - ed esibita a richiesta del personale Suzuki Italia.
+In ogni caso sarà Sua cura fornire il presente libretto come prova del diritto alla garanzia, poiché, nello stesso, sono inseriti i
+dati identificativi del ... delle manutenzioni ... rete Suzuki.
 VIAGGI ALL’ESTERO
 ...
 REGISTRO DELLA MANUTENZIONE PERIODICA
 
-Per conoscere le scadenze previste per una corretta manutenzione periodica del Suo veicolo, La invitiamo a prendere 
-visione della tabella del piano di manutenzione programmata (con intervalli espressi in chilometri e/o mesi) nel Manuale di 
-Manutenzione, sezione “Controlli e Manutenzione” oppure su suzuki.it/manutenzione. 
-Le ricordiamo che i suddetti intervalli dovranno essere ridotti nel caso in cui il veicolo venga impiegato in condizioni gravose 
+Per conoscere le scadenze previste per una corretta manutenzione periodica del Suo veicolo, La invitiamo a prendere
+visione della tabella del piano di manutenzione programmata (con intervalli espressi in chilometri e/o mesi) nel Manuale di
+Manutenzione, sezione “Controlli e Manutenzione” oppure su suzuki.it/manutenzione.
+Le ricordiamo che i suddetti intervalli dovranno essere ridotti nel caso in cui il veicolo venga impiegato in condizioni gravose
 (fare riferimento a “Manutenzione Consigliata in Condizioni di Utilizzo gravoso del Veicolo”)
 ...
 gravoso del
 ...
 REGISTRO DELLA MANUTENZIONE PERIODICA
 ...
-scadenze previste per una corretta manutenzione periodica del Suo veicolo, La invitiamo a prendere 
-visione della tabella del piano di manutenzione programmata (con intervalli espressi in chilometri e/o mesi) nel Manuale di 
-Manutenzione, sezione “Controlli e Manutenzione” oppure su suzuki.it/manutenzione. 
-Le ricordiamo che i suddetti intervalli dovranno essere ridotti nel caso in cui il veicolo venga impiegato in condizioni gravose 
+scadenze previste per una corretta manutenzione periodica del Suo veicolo, La invitiamo a prendere
+visione della tabella del piano di manutenzione programmata (con intervalli espressi in chilometri e/o mesi) nel Manuale di
+Manutenzione, sezione “Controlli e Manutenzione” oppure su suzuki.it/manutenzione.
+Le ricordiamo che i suddetti intervalli dovranno essere ridotti nel caso in cui il veicolo venga impiegato in condizioni gravose
 (fare riferimento a “Manutenzione Consigliata in Condizioni di Utilizzo gravoso del Veicolo”)
 ...
 Stampato in Italia ITA01-GA902-926
@@ -147,13 +147,13 @@ https://www.zurich.ch/it/servizi/sapere/veicoli-e-viaggi/occasione-auto-comprare
 - Vano motore: ci sono segni di perdita di olio, perdite o rumori insoliti?
 - Libretto tagliandi: è completo e documenta tutti gli interventi di riparazione ordinari o significativi?
 ...
-degli esperti e delle ... : come evitare ... sorprese 
+degli esperti e delle ... : come evitare ... sorprese
 
 Le nostre statistiche sui sinistri dimostrano che i veicoli con un libretto tagliandi senza lacune, pochi proprietari precedenti e manutenzioni regolari hanno meno probabilità di incorrere in costi di riparazione elevati. È quindi importante controllare con particolare attenzione il libretto tagliandi, le ricevute di riparazione e gli intervalli di manutenzione. Una storia del veicolo trasparente riduce significativamente il rischio di costi consequenziali imprevisti.
 ...
 Un’occhiata al libretto tagliandi aiuta a stimare gli interventi previsti. Apra inoltre il cofano motore e verifichi se sono visibili tracce d’olio o altri punti non a tenuta. Anche un’occhiata sotto il veicolo può fornire indicazioni su eventuali danni al sottoscocca.
 
-#### 4. Quanto è importante il libretto tagliandi? 
+#### 4. Quanto è importante il libretto tagliandi?
 
 Molto importante. Il libretto tagliandi dovrebbe essere compilato integralmente e senza pagine mancanti. I veicoli più recenti sono spesso dotati di libretti tagliandi elettronici: il concessionario può fornire informazioni in merito. Se necessario, lo storico può essere richiesto anche all’officina che ha effettuato l’ultimo intervento di assistenza.
 ...
@@ -221,7 +221,7 @@ Al momento il podcast con i nostri esperti e le nostre esperte legali viene tras
 
 L’acquisto di un veicolo usato è spesso rischioso. In caso di dubbi è meglio far ispezionare l’auto da un meccanico di fiducia. I difetti vanno notificati subito, se possibile via raccomandata.
 
- Zvonko Nevistic 
+ Zvonko Nevistic
 
 ### Difetti: ecco come tutelarsi
 
@@ -232,7 +232,7 @@ L’acquisto di un veicolo usato è spesso rischioso. In caso di dubbi è meglio
 - Ha senso stipulare un leasing per un’auto d’occasione?
 - A cosa devo prestare attenzione se desidero vendere la mia auto?
 
-## Scarica i modelli di lettera 
+## Scarica i modelli di lettera
 
 | Modello | Type | Dimensione | |
 | --- | --- | --- | --- |

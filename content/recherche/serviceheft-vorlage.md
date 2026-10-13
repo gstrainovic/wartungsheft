@@ -9,11 +9,9 @@ https://upkeeppapers.com/de/sheets/fahrzeuge/serviceheft-fahrzeug/
 
 Kostenloses Serviceheft für Auto und Transporter zum Ausdrucken: Wartungshistorie mit Kilometerstand, Werkstatt und Rechnungsnummer, dazu technische Daten.
 
- 
+ Eine Seite. Wählen Sie das Papierformat: Beide Fassungen haben genau dasselbe Layout, keine wird verkleinert, damit sie passt.
 
- Eine Seite. Wählen Sie das Papierformat: Beide Fassungen haben genau dasselbe Layout, keine wird verkleinert, damit sie passt. 
-
- A4 92 kB US-Letter 92 kB 
+ A4 92 kB US-Letter 92 kB
 
  Die ausfüllbaren Fassungen haben echte Formularfelder: Öffnen Sie sie in einem beliebigen PDF-Programm, schreiben Sie hinein und speichern Sie sie. Hilfe zum Drucken.
 ...
@@ -51,13 +49,13 @@ Fahrzeugspezifische Daten und Kontaktdaten des Fahrzeughalters Dokumentation üb
 ...
 #### Serviceheft
 
-Dieses Serviceheft ist Ihr treuer Begleiter für alle wichtigen Informationen 
-rund um Ihr Fahrzeug. 
-Unser Ziel ist es, Ihnen die Erfassung aller relevanten Informationen zu 
-erleichtern. Notieren Sie sorgfältig die Wartungsarbeiten, durchgeführten 
-Reparaturen und Fristen für Prüfungen wie HU und AU. 
-So sorgen Sie nicht nur für die Sicherheit Ihres Fahrzeugs, sondern erhalten 
-auch langfristig dessen Wert. 
+Dieses Serviceheft ist Ihr treuer Begleiter für alle wichtigen Informationen
+rund um Ihr Fahrzeug.
+Unser Ziel ist es, Ihnen die Erfassung aller relevanten Informationen zu
+erleichtern. Notieren Sie sorgfältig die Wartungsarbeiten, durchgeführten
+Reparaturen und Fristen für Prüfungen wie HU und AU.
+So sorgen Sie nicht nur für die Sicherheit Ihres Fahrzeugs, sondern erhalten
+auch langfristig dessen Wert.
 
 Ihr GPG GmbH Team
 
@@ -73,13 +71,13 @@ Fahrzeughalter GPG-Garantie-Antrags-Nr.: Hersteller, Modell, Typ Amtliches Kennz
 
 Fahrzeughalter # seit Km-Stand:
 
-Firma GPG-Garantie-Antrags-Nr.: 
-Anrede, Vorname, Nachname 
-Straße 
-PLZ, Ort 
-Firma GPG-Garantie-Antrags-Nr.: 
-Anrede, Vorname, Nachname 
-Straße 
+Firma GPG-Garantie-Antrags-Nr.:
+Anrede, Vorname, Nachname
+Straße
+PLZ, Ort
+Firma GPG-Garantie-Antrags-Nr.:
+Anrede, Vorname, Nachname
+Straße
 PLZ, Ort
 ...
 Fahrzeugspezifische Daten und Kontaktdaten der Fahrzeughalter
@@ -120,32 +118,32 @@ Mängel:
 ...
 HU + AU NR.:
 ...
-HAUPTUNTERSUCHUNG (HU) UND ABGASUNTERSUCHUNG (AU) 
-Die Hauptuntersuchung ist in Deutschland gesetzlich vorgeschrieben und muss regelmäßig durchgeführt werden, um die Verkehrssicherheit und 
-Umweltverträglichkeit des Fahrzeugs zu gewährleisten. Die Hauptuntersuchung wird in der Regel alle zwei Jahre durchgeführt. 
-Bewahren Sie die originalen Prüfberichte HU/AU sorgfältig auf. 
+HAUPTUNTERSUCHUNG (HU) UND ABGASUNTERSUCHUNG (AU)
+Die Hauptuntersuchung ist in Deutschland gesetzlich vorgeschrieben und muss regelmäßig durchgeführt werden, um die Verkehrssicherheit und
+Umweltverträglichkeit des Fahrzeugs zu gewährleisten. Die Hauptuntersuchung wird in der Regel alle zwei Jahre durchgeführt.
+Bewahren Sie die originalen Prüfberichte HU/AU sorgfältig auf.
 
 Unterschrift + Stempel der Werkstatt
 ...
 HAUPTUNTERSUCHUNG (HU) UND ABGASUNTERSUCHUNG (AU)
 
-Ersatzteil / Betriebsstoff Ersatzteilnummer / Typ / Art Wechselintervall / Wartungsdetails 
-Motoröl 
-Getriebeöl 
-Olfilter 
-Luftfilter 
-Kraftstoffilter 
-Bremsflüssigkeit 
-Zündkerzen 
-Batterie 
-Kühlmittel 
-Keilriemen 
-Bremsbeläge und -scheiben 
-Schebenwischerblätter 
-Kraftstoffpumpe 
-Lichtmaschine 
-Stoßdämpfer 
-Auspuffanlage 
+Ersatzteil / Betriebsstoff Ersatzteilnummer / Typ / Art Wechselintervall / Wartungsdetails
+Motoröl
+Getriebeöl
+Olfilter
+Luftfilter
+Kraftstoffilter
+Bremsflüssigkeit
+Zündkerzen
+Batterie
+Kühlmittel
+Keilriemen
+Bremsbeläge und -scheiben
+Schebenwischerblätter
+Kraftstoffpumpe
+Lichtmaschine
+Stoßdämpfer
+Auspuffanlage
 
 Ersatzteil ... Betriebsstoff Ersatzteilnummer / Typ / Art Wechselintervall / Wartungsdetails
 
@@ -183,23 +181,21 @@ https://upkeeppapers.com/de/resources/fahrzeuge-und-mobilitaet/servicenachweis-f
 ...
 Kostenloser Servicenachweis fürs Auto: Inspektionen, Prüfungen und Rückrufe mit Werkstatt, Rechnungsnummer, Kilometerstand und Kosten. PDF, Excel, online.
 
- 
-
- 2 Seiten. Die Dateien für A4 und US-Letter haben genau dasselbe Layout, keine wird verkleinert, damit sie passt. 
+ 2 Seiten. Die Dateien für A4 und US-Letter haben genau dasselbe Layout, keine wird verkleinert, damit sie passt.
 
 Ausdrucken und von Hand ausfüllen
 
- A4 58 kB US-Letter 58 kB 
+ A4 58 kB US-Letter 58 kB
 
- A4 233 kB US-Letter 232 kB 
+ A4 233 kB US-Letter 232 kB
 
 Tabelle mit Formeln
 
- Die ausfüllbaren Fassungen haben echte Formularfelder: Öffnen Sie sie in einem beliebigen PDF-Programm, schreiben Sie hinein und speichern Sie sie. Hilfe zum Drucken. 
+ Die ausfüllbaren Fassungen haben echte Formularfelder: Öffnen Sie sie in einem beliebigen PDF-Programm, schreiben Sie hinein und speichern Sie sie. Hilfe zum Drucken.
 
 ## Online ausfüllen
 
- Dasselbe Blatt am Bildschirm. Summen und Werte werden beim Eingeben berechnet, Sie können Zeilen hinzufügen oder entfernen und das Blatt dann ausdrucken oder die vollständige Fassung als PDF herunterladen. Alles bleibt in Ihrem Browser: Was Sie eingeben, wird im Speicher dieses Browsers auf diesem Gerät abgelegt; nichts wird hochgeladen, und Sie brauchen kein Konto. 
+ Dasselbe Blatt am Bildschirm. Summen und Werte werden beim Eingeben berechnet, Sie können Zeilen hinzufügen oder entfernen und das Blatt dann ausdrucken oder die vollständige Fassung als PDF herunterladen. Alles bleibt in Ihrem Browser: Was Sie eingeben, wird im Speicher dieses Browsers auf diesem Gerät abgelegt; nichts wird hochgeladen, und Sie brauchen kein Konto.
 
 Die Online-Version benötigt JavaScript. Die PDF-Downloads oben funktionieren auch ohne.
 ...
@@ -210,7 +206,7 @@ Die Online-Version benötigt JavaScript. Die PDF-Downloads oben funktionieren au
 - Online-Version, gespeichert in Ihrem Browser
 - Excel-Datei / Google Sheets
 
- Die Druckfassung ist in einem Rahmen gesetzt, der auf A4 und auf US-Letter passt. Beide Dateien sind daher identisch, und keine wird skaliert. Das ausfüllbare PDF hat echte Formularfelder. Die Excel-Datei verwendet nur einfache Formeln (SUMME, WENN, ZÄHLENWENN und ähnliche). Sie lässt sich daher in Excel, LibreOffice und Google Sheets fehlerfrei öffnen, und jede berechnete Zelle ist grau, damit Sie sehen, welche Werte sich von selbst ergeben. 
+ Die Druckfassung ist in einem Rahmen gesetzt, der auf A4 und auf US-Letter passt. Beide Dateien sind daher identisch, und keine wird skaliert. Das ausfüllbare PDF hat echte Formularfelder. Die Excel-Datei verwendet nur einfache Formeln (SUMME, WENN, ZÄHLENWENN und ähnliche). Sie lässt sich daher in Excel, LibreOffice und Google Sheets fehlerfrei öffnen, und jede berechnete Zelle ist grau, damit Sie sehen, welche Werte sich von selbst ergeben.
 
 ## So drucken Sie es aus
 
@@ -407,29 +403,29 @@ https://schraub.ch/
 
 > Digitales Serviceheft & QR-Rechnung für Garagen | Schraub
 
-# Serviceheft, QR-Rechnung und WhatsApp – alles in einer App. 
+# Serviceheft, QR-Rechnung und WhatsApp – alles in einer App.
 
- Fahrzeuge verwalten, Servicearbeiten dokumentieren, konforme QR-Rechnungen mit optionaler MWST erstellen, Offerten versenden, Ausgaben tracken und Kunden per WhatsApp benachrichtigen – kostenlos für bis zu 10 Fahrzeuge. 
+ Fahrzeuge verwalten, Servicearbeiten dokumentieren, konforme QR-Rechnungen mit optionaler MWST erstellen, Offerten versenden, Ausgaben tracken und Kunden per WhatsApp benachrichtigen – kostenlos für bis zu 10 Fahrzeuge.
 
- app.schraub.ch/dashboard 
+ app.schraub.ch/dashboard
 
 Serviceheft, QR-Rechnung und WhatsApp – alles in einer App.
 
- Kostenlos bis 10 Fahrzeuge Swiss QR-Bill ISO 20022 WhatsApp-Integration Als App installierbar (PWA) Keine Installation nötig Optionaler 2-Faktor-Schutz 
+ Kostenlos bis 10 Fahrzeuge Swiss QR-Bill ISO 20022 WhatsApp-Integration Als App installierbar (PWA) Keine Installation nötig Optionaler 2-Faktor-Schutz
 
 ## Vom Fahrzeugausweis bis zur bezahlten Rechnung.
 
 Sechs Schritte, eine App. Klicken Sie sich durch – jede Aufnahme zeigt die echte Oberfläche.
 
- 01 Scannen 02 Offerte 03 Board 04 Service 05 Rechnung 06 Kalender 
+ 01 Scannen 02 Offerte 03 Board 04 Service 05 Rechnung 06 Kalender
 
- 01 Fahrzeugausweis scannen Foto von Vorder- und Rückseite – Schraub erkennt Fahrzeug, Halter und Versicherung in einem Schritt. 02 Offerte senden Kostenvoranschlag als PDF per WhatsApp oder E-Mail – mit einem Klick in eine QR-Rechnung umwandeln. 03 Auftrag einplanen Auftragsboard mit Spalten pro Status – sehen, was heute auf der Hebebühne steht. 04 Service erfassen Datum, Kilometerstand, Arbeiten und Material – die lückenlose Wartungshistorie pro Fahrzeug. 05 QR-Rechnung stellen Konforme Swiss QR-Rechnung als PDF, MWST optional pro Rechnung. Per WhatsApp verschickt. 06 Termine im Griff Online-Buchungen, iCal-Sync und Reifenwechsel-Erinnerungen in einem Kalender. 
+ 01 Fahrzeugausweis scannen Foto von Vorder- und Rückseite – Schraub erkennt Fahrzeug, Halter und Versicherung in einem Schritt. 02 Offerte senden Kostenvoranschlag als PDF per WhatsApp oder E-Mail – mit einem Klick in eine QR-Rechnung umwandeln. 03 Auftrag einplanen Auftragsboard mit Spalten pro Status – sehen, was heute auf der Hebebühne steht. 04 Service erfassen Datum, Kilometerstand, Arbeiten und Material – die lückenlose Wartungshistorie pro Fahrzeug. 05 QR-Rechnung stellen Konforme Swiss QR-Rechnung als PDF, MWST optional pro Rechnung. Per WhatsApp verschickt. 06 Termine im Griff Online-Buchungen, iCal-Sync und Reifenwechsel-Erinnerungen in einem Kalender.
 
  app.schraub.ch/scan
 ...
 Datum, Kilometerstand, Arbeiten und Material – die lückenlose Wartungshistorie pro Fahrzeug.
 
- Schritt 04 / 06 Nächster Schritt → 
+ Schritt 04 / 06 Nächster Schritt →
 
  app.schraub.ch/rechnungen
 ...
@@ -437,7 +433,7 @@ Datum, Kilometerstand, Arbeiten und Material – die lückenlose Wartungshistori
 
 Konforme Swiss QR-Rechnung als PDF, MWST optional pro Rechnung. Per WhatsApp verschickt.
 
- app.schraub.ch/kalender 
+ app.schraub.ch/kalender
 
 Termine im Griff
 ...
@@ -639,7 +635,7 @@ Nein. Der Einlagerungsschein auf Papier reicht. In der App haben Sie ihn zusätz
 ...
 Nein, sie läuft im Browser. Mit «Zum Startbildschirm» sieht sie aus wie eine normale App.
 ...
-Garage SPEED Dällikerstrasse 39 8107 Buchs ZH info@garage-speed.ch 043 411 86 46 
+Garage SPEED Dällikerstrasse 39 8107 Buchs ZH info@garage-speed.ch 043 411 86 46
 
  Öffnungszeiten Mo–Do 7.30–12.00 · 13.15–18.00 Fr 7.30–12.00 · 13.15–17.00 Sa nach Vereinbarung
 

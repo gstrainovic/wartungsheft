@@ -12,16 +12,17 @@ Dein **Serviceheft** ist verloren gegangen? Oder möchtest du einfach eine **sch
 
 Ein **sauberes, vollständiges Servicebuch** im A4-Format zum Downloaden und Ausdrucken mit einem Klick — **ohne Registrierung, ohne E-Mail, ohne Wasserzeichen**.
 
+**[Servicebuch-Vorlage als PDF herunterladen (A4, Deutsch)](/servicebuch-vorlage.pdf)**
+
 ### ✅ Warum ein Servicebuch in Papierform im Jahr 2026?
 
 | Vorteile | Für wen? |
 |----------|----------|
-| **Handfeste Beweis** für Verkauf oder Garantie | Alle Fahrzeughalter |
-| **Unabhängig** von Systemausfällen oder Werkstattwechsel | Mehrmarken-Besitzer |
-| **Vollständige Historie** auch ohne Internetzugang | Sammler, Oldtimer-Besitzer |
-| **Von Schweizer Versicherungen akzeptiert** als Wartungsnachweis | Alle |
+| **Eigene Aufzeichnungen** zu Wartungen an einem Ort | Alle Fahrzeughalter |
+| **Ergänzung** zu digitalen Serviceheften | Mehrmarken-Besitzer |
+| **Ohne Internetzugang** nutzbar | Alle, die Papier bevorzugen |
 
-**💡 TCS-Tipp:** Ein gut geführtes Servicebuch kann den **Wiederverkaufswert um 5–10 % steigern** ([TCS Schweiz](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Der TCS beschreibt das Serviceheft als wichtigen Nachweis für Garantieansprüche und als Trumpf beim Eintausch oder Wiederverkauf. Ein eigenes Papierheft kann ein digitales Serviceheft ergänzen; es ersetzt keine Hersteller- oder Werkstattnachweise ([TCS Schweiz](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 
 ---
 
@@ -31,40 +32,25 @@ Unsere PDF-Vorlage enthält alle Abschnitte, die du für eine vollständige Doku
 
 ### 📄 Seite 1: Fahrzeugidentifikation
 
-| Feld | Beispiel | Pflicht |
-|------|----------|--------|
-| **Marke** | Toyota | ✅ |
-| **Modell** | Corolla | ✅ |
-| **Kontrollschild** | SG 123456 | ✅ |
-| **Fahrgestellnummer (VIN)** | JHMCV1234567890 | ✅ |
-| **Erstzulassung** | 2020 | ✅ |
-| **Anfangs-Kilometerstand** | 0 km | ✅ |
-| **Halter** | Name, Adresse | ✅ |
+Die Vorlage bietet Felder für Marke und Modell, Kontrollschild, Fahrgestellnummer (VIN), Erstzulassung und Halter oder Halterin. Trage nur Angaben ein, die du kennst; ein unbekannter Kilometerstand wird nicht als 0 km eingetragen.
 
 ### 📅 Seiten 2–4: Wartungshistorie-Tabelle
 
-Jede Zeile ermöglicht die Eintragung von:
-
-| Datum | Kilometerstand | Durchgeführte Arbeit | Werkstatt | Rechnungsnr. | Kosten (CHF) | Nächster Termin |
-|-------|---------------|----------------------|-----------|-------------|---------------|-----------------|
-| 15.10.2026 | 45'000 km | Ölwechsel + Filter | Garage Muster, St. Gallen | RE-2026-12345 | 350.- | 15'000 km / 1 Jahr |
-| 10.09.2026 | 42'000 km | MFK-Prüfung | Strassenverkehrsamt SG | – | – | 2 Jahre |
+Die Seiten 2 bis 4 enthalten je 13 leere Zeilen mit Feldern für Datum, Kilometerstand, Arbeit, Werkstatt, Rechnungsnummer, Kosten und nächsten Termin. So kannst du die Angaben aus der jeweiligen Rechnung übernehmen.
 
 **📌 Tipp:** Verwende **eine Zeile pro Service**, auch für kleine Arbeiten. Die **durchgehende Kilometerstand-Reihe** ist der überzeugendste Beweis für einen Käufer.
 
-### 📅 Seite 5: Übersicht typischer Serviceintervalle
+### 📅 Seite 5: Wartungsplan für dein Fahrzeug
 
-Eine Zusammenfassung der **Standard-Intervalle** für Fahrzeuge in der Schweiz:
+Wartungsintervalle unterscheiden sich je nach Fahrzeug und Motorisierung. Die letzte Seite bietet Platz, um die Angaben aus der Betriebsanleitung oder vom Hersteller zu notieren. Für die MFK gelten je nach Fahrzeugtyp die Fristen in [VTS Art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33); massgeblich ist das Aufgebot des kantonalen Strassenverkehrsamts.
 
-| Komponente | Intervall | Hinweise |
-|-----------|-----------|----------|
-| **Motorölwechsel** | 15'000–30'000 km oder 1–2 Jahre | Gemäss Hersteller |
-| **Luftfilter** | 15'000–30'000 km | Mit Ölwechsel tauschen |
-| **Pollenfilter** | Alle 12 Monate | Auch beim Reifenwechsel |
-| **Bremsflüssigkeit** | **Alle 2 Jahre** | **Zwingend** – auch ohne Kilometer |
-| **Zahnriemen** | 60'000–240'000 km oder 5–10 Jahre | **Kritisch**: Riss risikiert Motorschaden |
-| **Reifen** | Mindestprofiltiefe 1,6 mm (gesetzlich) | TCS empfiehlt ≥ 3 mm |
-| **MFK** | 5 Jahre, dann 3 Jahre, dann **alle 2 Jahre** | [VTS Art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Arbeit | Intervall gemäss Hersteller | Letzter Eintrag | Nächster Termin |
+|--------|-----------------------------|-----------------|-----------------|
+| Öl und Filter | | | |
+| Bremsen | | | |
+| Reifen | | | |
+| Weitere Arbeiten | | | |
+| MFK | Gemäss Fahrzeugtyp und Aufgebot | | |
 
 ---
 
@@ -101,19 +87,16 @@ Falls du dein **Serviceheft verloren** hast, kannst du die Historie wie folgt re
 
 ### 📋 Vorgehensweise
 
-| Schritt | Massnahme | Wo? | Kosten |
-|---------|-----------|-----|--------|
-| 1 | **Digitales Serviceheft prüfen** | Hersteller-Portal, App | Kostenlos | – |
-| 2 | **Duplikat bestellen** | Markenwerkstatt | ~CHF 30 | [SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich) |
-| 3 | **Rechnungen sammeln** | Werkstätten, Vorbesitzer | Variabel | – |
-| 4 | **MFK-Prüfberichte besorgen** | Kantonales Strassenverkehrsamt | Kostenlos/Gebührenpflichtig | – |
-| 5 | **TCS-Occasionstest** | TCS-Prüfzentrum | CHF 150–200 | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php) |
+| Schritt | Massnahme | Wo? |
+|---------|-----------|-----|
+| 1 | **Digitales Serviceheft prüfen** | Hersteller oder Markenwerkstatt; der TCS empfiehlt, einen Beleg über den digitalen Eintrag aufzubewahren ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)) |
+| 2 | **Duplikat oder Auszug anfragen** | Werkstatt, die das Fahrzeug gewartet hat; mögliche Gebühren vorher erfragen |
+| 3 | **Rechnungen sammeln** | Werkstätten, Vorbesitzer und eigene Unterlagen |
+| 4 | **MFK-Unterlagen ergänzen** | Beim zuständigen kantonalen Strassenverkehrsamt nachfragen |
 
 ### 📌 Schweiz-spezifische Tipps
 
-- **TecRMI Service Book:** Schweizer Werkstätten können digitale Servicehefte von **23 Marken** über dieses System abfragen. Kosten: **CHF 5.50 exkl. MWST** pro Abfrage ([Autotechnik](https://www.autotechnik.ch/de/dienstleistungen/digitales-serviceheft/)).
-- **MFK-Berichte:** Die Prüfberichte der **Schweizer Motorfahrzeugkontrolle (MFK)** sind **gültiger Nachweis** des Kilometerstands.
-- **Versicherungen:** Die meisten Schweizer Versicherungen akzeptieren **Rechnungen + rekonstruierte Servicebücher** als Wartungsnachweis.
+- **MFK-Berichte:** Sie können die bei der Prüfung erfassten Angaben ergänzen, ersetzen aber keine Wartungsrechnung oder Herstellerdokumentation.
 
 ---
 
@@ -125,8 +108,8 @@ Falls du dein **Serviceheft verloren** hast, kannst du die Historie wie folgt re
 ### Kann ich diese Vorlage für mehrere Fahrzeuge verwenden?
 **Ja** – drucke eine Kopie pro Fahrzeug aus. Die erste Seite identifiziert jedes Fahrzeug einzeln.
 
-### Akzeptieren Schweizer Werkstätten dieses Servicebuch?
-**Ja** – solange die Informationen **vollständig und korrekt** sind. Viele Schweizer Werkstätten verwenden bereits Papier-Servicebücher als Ergänzung zum digitalen.
+### Ersetzt dieses Papierheft das digitale Serviceheft des Herstellers?
+Nein. Es dient deinen eigenen Aufzeichnungen. Für Einträge in einem digitalen Serviceheft des Herstellers frage die Werkstatt nach einem Nachweis des Eintrags ([TCS Schweiz](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 
 ### Was tun, wenn ich die Werkstatt wechsle?
 Einfach den Werkstattnamen in der Tabelle aktualisieren. **Kein Problem** – wichtig ist die **Kontinuität der Einträge**.
@@ -145,4 +128,4 @@ Einfach den Werkstattnamen in der Tabelle aktualisieren. **Kein Problem** – wi
 
 ---
 
-*Vorlage angepasst für die Schweiz – Oktober 2026*
+*Vorlage für Fahrzeuge in der Schweiz.*

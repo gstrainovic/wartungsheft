@@ -9,7 +9,7 @@ Wenn Sie immer volles Vertrauen in die Sicherheit und Zuverlässigkeit Ihres Fah
 ...
 Die Einhaltung der vom Hersteller vorgeschriebenen Service Intervalle und Wartungsintervalle ist dabei entscheidend. Alle durchgeführten Arbeiten werden im Serviceheft Auto dokumentiert, was besonders wichtig für den Werterhalt und eventuelle Garantieansprüche ist.
 ...
-### Wie oft sollte ich einen Service am Auto durchführen lassen? 
+### Wie oft sollte ich einen Service am Auto durchführen lassen?
 
 Wie oft eine Inspektion Auto oder ein Auto Service notwendig ist, hängt vom Fahrzeugmodell, der Laufleistung und den Service Intervallen des Herstellers ab. Grundsätzlich sollten Sie Ihr Auto etwa alle 15.000 bis 30.000 Kilometer oder mindestens einmal pro Jahr zur Fahrzeugwartung bringen.
 
@@ -99,7 +99,7 @@ https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektio
 ...
 Die Antwort darauf steht ebenfalls in der Betriebsanleitung des Fahrzeugs. Manche Hersteller geben generell starre Wartungsintervalle vor, bei Opel zum Beispiel alle 30.000 Kilometer oder ein Jahr, je nachdem, welcher Faktor zuerst eintritt. Audi hingegen unterscheidet zwischen flexiblen Intervallen innerhalb von zwei Jahren bis maximal 30.000 Kilometer sowie festen Intervallen: jährlich alle 15.000 Kilometer (Ölservice) oder alle 30.000 Kilometer bzw. alle zwei Jahre.
 ...
-des Motoröls ... informieren, wenn der Ölwechsel f ... aufleuchtet. 
+des Motoröls ... informieren, wenn der Ölwechsel f ... aufleuchtet.
 
 Haben Sie einen Neuwagen gekauft, steht im Bedienungshandbuch, ob schon nach den ersten gefahrenen 1000 Kilometern ein Ölwechsel fällig wird.
 ...
@@ -193,7 +193,7 @@ http://www.kfztech.de/kfztechnik/service/wartungsintervall-verlaengerung.htm
 
  Der VW long Life Service hat keine festen Intervalle mehr - Bild: VW
 ...
-Seit dem Modelljahr 2000 setzen Audi und Volkswagen die Wartungsintervall-Verlängerung (WIV) ein, was im Prinzip einem Long Life Service entspricht. Die möglichen längeren Service-Intervalle ergeben sich aus den individuellen Einsatzbedingungen des Fahrzeuges sowie aus dem persönlichen Fahrstil. Je nach Modell- und Motorvariante sind hier Serviceintervalle von bis zu 2 Jahren oder maximal 30.000 km bei Benzinmotoren und 50.000 km bei bestimmten Dieselmotoren möglich (s. Tabelle 1). 
+Seit dem Modelljahr 2000 setzen Audi und Volkswagen die Wartungsintervall-Verlängerung (WIV) ein, was im Prinzip einem Long Life Service entspricht. Die möglichen längeren Service-Intervalle ergeben sich aus den individuellen Einsatzbedingungen des Fahrzeuges sowie aus dem persönlichen Fahrstil. Je nach Modell- und Motorvariante sind hier Serviceintervalle von bis zu 2 Jahren oder maximal 30.000 km bei Benzinmotoren und 50.000 km bei bestimmten Dieselmotoren möglich (s. Tabelle 1).
 
 Tabelle 1 Früheste und späteste Fahrstrecke und Zeit, die man bei flexiblen Service Intervallen bei Audi und VW zurücklegen kann.
 
@@ -202,11 +202,9 @@ Tabelle 1 Früheste und späteste Fahrstrecke und Zeit, die man bei flexiblen Se
 | Benziner | 15.000 | 12 | 30.000 | 24 |
 | Diesel | 15.000 | 12 | 50.000 | 24 |
 ...
-Falls der Kunde den flexiblen Ölwechsel-Service nicht wünscht oder die technischen Voraussetzungen nicht erfüllt werden, kommt der feste Service zur Anwendung. Nach jeweils zwölf Monaten beziehungsweise 15.000 Kilometern erinnert Sie dann die Service-Intervall-Anzeige an den Termin. 
+Falls der Kunde den flexiblen Ölwechsel-Service nicht wünscht oder die technischen Voraussetzungen nicht erfüllt werden, kommt der feste Service zur Anwendung. Nach jeweils zwölf Monaten beziehungsweise 15.000 Kilometern erinnert Sie dann die Service-Intervall-Anzeige an den Termin.
 
-Beim flexiblen Ölwechsel-Service (WIV) hingegen wird der persönlichen Fahrstil und die individuellen Einsatzbedingungen des Autos berücksichtigt. Es wird im Grunde genommen ein Fahrprofil ermittelt und der nächste Ölwechsel errechnet. Der Kunde wird dann rechtzeitig über die Service-Intervall-Anzeige im Fahrzeug erinnert und zum Ölwechsel aufgefordert, spätestens jedoch nach 24 Monaten. 
-
- 
+Beim flexiblen Ölwechsel-Service (WIV) hingegen wird der persönlichen Fahrstil und die individuellen Einsatzbedingungen des Autos berücksichtigt. Es wird im Grunde genommen ein Fahrprofil ermittelt und der nächste Ölwechsel errechnet. Der Kunde wird dann rechtzeitig über die Service-Intervall-Anzeige im Fahrzeug erinnert und zum Ölwechsel aufgefordert, spätestens jedoch nach 24 Monaten.
 
 Die Service Intervallanzeige verrät wann der nächste Ölwechsel ällig ist - Bild Audi
 ...
@@ -218,7 +216,7 @@ Die WIV ist nur mit Motorölen nach bestimmten VW-Normen möglich. Wünscht der 
 ...
 50600 Dieselmotoren ohne
 ...
-50601 für PDE, V6 TDI 110 kW, 4.0 TDI 
+50601 für PDE, V6 TDI 110 kW, 4.0 TDI
 
 Beim Rücksetzen der SIA kann auch ein festes Intervall von 1Jahr/ 15.000 km eingestellt/codiert werden. Dies ist notwendig, wenn nicht Motoröl nach der LongLife-Spezifikation (LL) eingesetzt wird.
 
@@ -266,7 +264,7 @@ https://www.vwfs.de/auto-mobilitaet-services/wartung-inspektion/wartungsinterval
 
 > Ihr Fahrzeug fährt einwandfrei, aber der nächste Inspektionstermin steht an? Auch wenn es unnötig erscheinen mag, sollten Sie die empfohlenen Wartungsintervalle einhalten. Denn bei der Inspektion werden in der Werkstatt auch kleinere Defekte an den Bauteilen festgestellt, die teure und unter Umständen gefährliche Folgeschäden nach sich ziehen können. Welche Inspektions- und Wartungsintervalle Sie einhalten sollten, erfahren Sie hier.
 ...
-Bei älteren Fahrzeugmodellen empfehlen die Hersteller in der Regel feste Intervalle zur Durchführung gewisser Wartungsarbeiten. Dann muss das Auto nach einer bestimmten zurückgelegten Laufleistung oder nach einem vorgegebenen Zeitraum in die Werkstatt – je nachdem, was früher eintritt. 
+Bei älteren Fahrzeugmodellen empfehlen die Hersteller in der Regel feste Intervalle zur Durchführung gewisser Wartungsarbeiten. Dann muss das Auto nach einer bestimmten zurückgelegten Laufleistung oder nach einem vorgegebenen Zeitraum in die Werkstatt – je nachdem, was früher eintritt.
 
 Die empfohlenen Wartungsintervalle variieren nach Hersteller, Modell und Motor des Fahrzeugs. Sie finden die Angaben zu den empfohlenen Wartungs- und Inspektionsintervallen für Ihr Auto im analogen oder digitalen Scheckheft beziehungsweise Serviceheft in der Übersicht.
 ...
@@ -302,13 +300,13 @@ https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektio
 ...
 Ganz gleich ob man es Service, Wartung, Inspektion oder Kundendienst nennt – gemeint ist immer das Gleiche. Nämlich dass das Auto vom Profi auf Betriebs- und Verkehrssicherheit gecheckt wird, Flüssigkeiten getauscht und dabei die Wartungsvorschriften des Herstellers umgesetzt werden. Ein Fahrzeug, das keine Wartung braucht, gibt es nicht. Auch Elektroautos müssen regelmäßig in die Werkstatt.
 ...
-Für viele Baugruppen und Betriebsstoffe von Autos ist eine regelmäßige Kontrolle und Erneuerung unverzichtbar, um die Betriebs- und Verkehrssicherheit des Fahrzeugs sicherzustellen. Ihre Abnutzung hängt primär von den Betriebsbedingungen ab. Fahrzeughersteller stimmen die Wartungsvorgaben als Kompromiss auf normale, durchschnittliche Bedingungen ab. 
+Für viele Baugruppen und Betriebsstoffe von Autos ist eine regelmäßige Kontrolle und Erneuerung unverzichtbar, um die Betriebs- und Verkehrssicherheit des Fahrzeugs sicherzustellen. Ihre Abnutzung hängt primär von den Betriebsbedingungen ab. Fahrzeughersteller stimmen die Wartungsvorgaben als Kompromiss auf normale, durchschnittliche Bedingungen ab.
 
 Feste Wartungsintervalle können daher für Fahrzeuge mit geringen Jahresfahrleistungen und/oder schonender Fahrweise vorteilhaft sein. Im Umkehrschluss kann ein flexibles Intervall bei überdurchschnittlich hohen Fahrleistungen oder extremen Einsatzbedingungen besser sein.
 ...
 Viele fragen sich, wenn das Auto "Service" anzeigt: Wie lange kann ich noch fahren? Grundsätzlich sollte man die Vorgaben des Herstellers ernst nehmen und zeitnah einen Termin in der Werkstatt vereinbaren, wenn die Serviceleuchte zu sehen ist oder ein entsprechender Hinweis im Display erscheint. Schließlich ist eine lückenlose und korrekte Wartung nicht nur sicherheits-, sondern auch garantierelevant. Außerdem hängt von gewissenhaft durchgeführten Inspektionen ab, wie kulant ein Hersteller bei einem Defekt nach Ablauf der Garantiezeit ist. Wer hier schludert, kann oft nicht auf ein Entgegenkommen hoffen. Ein scheckheftgepflegtes Auto zahlt sich auch beim Wiederverkauf aus.
 ...
-Je nach Hersteller, Fahrzeugmodell und Inspektionsintervall kommen reine Inspektionskosten zwischen 100 und 600 Euro zusammen. Dabei sind die Kosten für Frostschutzmittel, Motoröl, Getriebeöl, Hydrauliköl und Bremsflüssigkeit allerdings noch nicht enthalten. 
+Je nach Hersteller, Fahrzeugmodell und Inspektionsintervall kommen reine Inspektionskosten zwischen 100 und 600 Euro zusammen. Dabei sind die Kosten für Frostschutzmittel, Motoröl, Getriebeöl, Hydrauliköl und Bremsflüssigkeit allerdings noch nicht enthalten.
 
 Einige Autohersteller bieten Servicepakete für Wartungen und ... Bei diesen Angebot ... zahlen Sie einen konstanten, monatlichen Beitrag ... ionsleistungen deck ... Inspektion werden
 ...
@@ -325,19 +323,19 @@ https://inspektion.kfz-dietrich.com/faq/
 
 > Antworten zu Garantie, Herstellervorgaben, digitalem Serviceheft, Ölwechsel, ... -Vorbereitung und Inspektions ... .
 
- Verliere ich meine Garantie, wenn die Inspektion nicht in der Vertragswerkstatt erfolgt? 
+ Verliere ich meine Garantie, wenn die Inspektion nicht in der Vertragswerkstatt erfolgt?
 
- Nein. Die EU-Gruppenfreistellungsverordnung (GVO Nr. 461/2010) sichert Ihr Recht auf freie Werkstattwahl. Solange die Inspektion nach Herstellervorgaben durchgeführt und dokumentiert wird, bleibt Ihre Garantie erhalten. Wir verwenden Originalteile oder qualitativ gleichwertige Teile und dokumentieren alle Arbeiten im Serviceheft. 
+ Nein. Die EU-Gruppenfreistellungsverordnung (GVO Nr. 461/2010) sichert Ihr Recht auf freie Werkstattwahl. Solange die Inspektion nach Herstellervorgaben durchgeführt und dokumentiert wird, bleibt Ihre Garantie erhalten. Wir verwenden Originalteile oder qualitativ gleichwertige Teile und dokumentieren alle Arbeiten im Serviceheft.
 
- Was kostet eine Inspektion bei KFZ Dietrich? 
+ Was kostet eine Inspektion bei KFZ Dietrich?
 
- Die Kosten hängen vom Fahrzeugtyp, Inspektionsumfang (kleine oder große Inspektion) und der Ölspezifikation ab. Wir erstellen Ihnen ein individuelles Festpreisangebot, bevor wir beginnen. Stellen wir bei der Inspektion zusätzlichen Handlungsbedarf fest, informieren wir Sie vorab mit separater Kostenaufstellung. 
+ Die Kosten hängen vom Fahrzeugtyp, Inspektionsumfang (kleine oder große Inspektion) und der Ölspezifikation ab. Wir erstellen Ihnen ein individuelles Festpreisangebot, bevor wir beginnen. Stellen wir bei der Inspektion zusätzlichen Handlungsbedarf fest, informieren wir Sie vorab mit separater Kostenaufstellung.
 
  Was ist der Unterschied
 ...
-Die kleine Inspektion (Service A / Ölservice) umfasst Motoröl- und Filterwechsel, Sichtprüfung und Fehlerspeicher-Auswertung. Die große Inspektion (Service B) ergänzt dies um Luftfilter, Innenraumfilter, Bremsflüssigkeit, detaillierte Fahrwerksprüfung und weitere Prüfpunkte nach Herstellervorgabe. 
+Die kleine Inspektion (Service A / Ölservice) umfasst Motoröl- und Filterwechsel, Sichtprüfung und Fehlerspeicher-Auswertung. Die große Inspektion (Service B) ergänzt dies um Luftfilter, Innenraumfilter, Bremsflüssigkeit, detaillierte Fahrwerksprüfung und weitere Prüfpunkte nach Herstellervorgabe.
 
- Wird der Service-Intervall im Bordcomputer zurückgesetzt? 
+ Wird der Service-Intervall im Bordcomputer zurückgesetzt?
 
  Ja. Wir setzen den Serviceintervall mit der Original-Herstellersoftware korrekt zurück. Das ist kein bloßes Reset einer Warnlampe, sondern die korrekte Neuberechnung des nächsten Intervalls auf Basis der durchgeführten Arbeiten.
 ...
@@ -347,15 +345,15 @@ Das hängt vom Hersteller und Modell ab. Feste Intervalle liegen typischerweise 
 ...
 Umfang richtet sich nach dem ... plan: Motoröl und Filter, Bremsbeläge und Bremss ... iben, Bremsflüssigkeit, Kühlmittel, ... Innenraumfilter, ... werk und Lenkung, Beleuchtung, Reifen, Batterie. Zusätzlich lesen wir den Fehlerspeicher mit Herstellersoftware aus, um versteckte Probleme zu erkennen.
 ...
-Dokumentieren Sie die Inspektion im Serviceheft? 
+Dokumentieren Sie die Inspektion im Serviceheft?
 
  Ja. Wir dokumentieren jede Inspektion in einem schriftlichen Inspektionsprotokoll mit allen Prüfpunkten, verwendeten Teilen und Ölspezifikationen. Den Serviceintervall setzen wir im Steuergerät mit Herstellersoftware zurück. Zusätzlich stempeln wir Ihr vorhandenes Scheckheft, sofern vorhanden.
 ...
 nach Kilometerstand und Zeit ... , was zuerst eintritt ... Maßgeblich ist immer die ... Modell und die Motorvariante ... Wir prüfen das ... anhand der Fahrzeugdaten und weisen Sie rechtzeitig darauf hin. Bei Fahrzeugen mit Steuerkette statt Zahnriemen ... Kettenzustand auf ... zeichen von Läng ... Zahnriemen führt in der Regel zu einem schweren Motorschaden – deshalb behandeln wir dieses Intervall mit besonderer Sorgfalt.
 ...
-langen Strecken ... viel Kurzstrecke, Anhängerbetrieb oder hoher Belastung ist das feste Inter ... nach Kilometern oder Zeit oft die werterhaltende Wahl. Voraussetzung für Longlife ist zudem ein Motoröl mit der passenden Herstellerfreigabe. Wir beraten Sie, welche Strategie zu Ihrer Nutzung passt, und stellen den Modus bei Bedarf um. 
+langen Strecken ... viel Kurzstrecke, Anhängerbetrieb oder hoher Belastung ist das feste Inter ... nach Kilometern oder Zeit oft die werterhaltende Wahl. Voraussetzung für Longlife ist zudem ein Motoröl mit der passenden Herstellerfreigabe. Wir beraten Sie, welche Strategie zu Ihrer Nutzung passt, und stellen den Modus bei Bedarf um.
 
- Bleibt der Hersteller-Garantieanspruch erhalten, wenn ich die Inspektion in einer freien Werkstatt durchführen lasse? 
+ Bleibt der Hersteller-Garantieanspruch erhalten, wenn ich die Inspektion in einer freien Werkstatt durchführen lasse?
 
  Ja. Die EU-Gruppenfreistellungsverordnung (GVO) gibt Ihnen das Recht, die Wartung auch in einer freien Werkstatt durchführen zu lassen, ohne die Herstellergarantie zu verlieren. Entscheidend ist, dass die Inspektion nach den Herstellervorgaben erfolgt, freigegebene oder gleichwertige Teile verwendet und alle Arbeiten lückenlos dokumentiert werden. Als Meisterbetrieb erfüllen wir genau diese Anforderungen und halten jeden Schritt im Inspektionsprotokoll fest.
 

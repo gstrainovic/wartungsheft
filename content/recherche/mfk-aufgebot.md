@@ -5,21 +5,21 @@ https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.ht
 
 > Fahrzeugprüfung | Kanton Zürich
 
- Hier finden Sie Informationen zur Fahrzeugprüfung. Sie können Ihren Termin für die periodische Fahrzeugprüfung verschieben. Sie können auch einen freiwilligen Termin abmachen. 
+ Hier finden Sie Informationen zur Fahrzeugprüfung. Sie können Ihren Termin für die periodische Fahrzeugprüfung verschieben. Sie können auch einen freiwilligen Termin abmachen.
 
  Auf dieser Seite
 ...
 Ihr Fahrzeug muss in einem vom Bund festgeregelten Abstand obligatorisch geprüft werden. Bei dieser Prüfung wird beurteilt, ob ein Fahrzeug die gesetzlichen Vorschriften der Betriebssicherheit erfüllt. Den Termin für die Fahrzeugprüfung, auch MFK genannt, bekommen Sie rechtzeitig per Brief zugeschickt. Sie können Ihr Fahrzeug selbst vorführen, eine andere Person damit beauftragen oder es von einer Garage vorführen lassen.
 ...
-ben Sie Ihren Prüfungstermin online 
+ben Sie Ihren Prüfungstermin online
 
- Starten 
+ Starten
 
 ### Fahrzeugprüfung bei der TCS Sektion Zürich
 
-Die MFK oder eine freiwillige Fahrzeugprüfung können Sie auch bei der TCS Sektion Zürich machen. Sie können online einen Termin buchen. 
+Die MFK oder eine freiwillige Fahrzeugprüfung können Sie auch bei der TCS Sektion Zürich machen. Sie können online einen Termin buchen.
 
-- Prüfungstermin bei der TCS Sektion Zürich buchen 
+- Prüfungstermin bei der TCS Sektion Zürich buchen
 
 - Mehr Informationen zur periodischen Prüfungspflicht
 ...
@@ -37,11 +37,11 @@ Eine freiwillige und/oder technische Fahrzeugprüfung (von Fahrzeugen mit ZH-Kon
 
 Hier können Sie eine freiwillige Fahrzeugprüfung bei einem Standort des Strassenverkehrsamts des Kantons Zürich buchen.
 
-- Freiwillige Fahrzeugprüfung buchen 
+- Freiwillige Fahrzeugprüfung buchen
 
 #### Freiwillige Fahrzeugprüfung bei der TCS Sektion Zürich
 
-Die freiwillige Fahrzeugprüfung können Sie auch bei der TCS Sektion Zürich machen. Sie können online einen Termin buchen. 
+Die freiwillige Fahrzeugprüfung können Sie auch bei der TCS Sektion Zürich machen. Sie können online einen Termin buchen.
 
 - Prüfungstermin bei der TCS Sektion Zürich buchen
 ...
@@ -51,7 +51,7 @@ technische Änderungen online
 ...
 Falls Sie Ihr Fahrzeug ausserhalb der periodischen Prüfpflicht als Veteranenfahrzeug prüfen lassen möchten, müssen Sie Ihr Fahrzeug zu einer freiwilligen Prüfung anmelden. Einen Termin können Sie bei jedem Strassenverkehrsamt im Kanton Zürich oder beim Touring Club Schweiz (TCS) vereinbaren.
 ...
-3. ### Kommen Sie pünktlich vorbei 
+3. ### Kommen Sie pünktlich vorbei
 
 In Ihrem Brief steht, in welchem Strassenverkehrsamt wir Sie erwarten. Wir erwarten Sie mindestens fünf Minuten vor dem Termin an der Eingangskontrolle. Beachten Sie die Wegweiser.
 
@@ -76,7 +76,7 @@ Sie können an einem unserer Standorte einen Termin für eine freiwillige und/od
 ...
 #### Verkehrsamt Schwyz
 
-Fahrzeugkontrolle Schlagstrasse 82 Postfach 3214 6431 Schwyz Google Maps 
+Fahrzeugkontrolle Schlagstrasse 82 Postfach 3214 6431 Schwyz Google Maps
 
  Tel.: +41 41 819 21 46 (+41418192146) E-Mail: adminfz.vasz NULL@sz.ch E-Mail
 
@@ -117,29 +117,29 @@ https://www.agvsbsbl.ch/de/dienstleistungen/mfk-agvs-beider-basel/
 
 > MFK/MFP AGVS beider Basel, Informationen
 
-# Informationen zur MFK und MFP 
+# Informationen zur MFK und MFP
 
 Die Motorfahrzeugkontrolle (MFK) und die Motorfahrzeugprüfung (MFP) sind zentrale Elemente im Autogewerbe. Sie gewährleisten die Verkehrssicherheit und Umweltverträglichkeit der Fahrzeuge. Hier finden Sie aktuelle Informationen und wichtige Hinweise zu Prüfungsabläufen, Vorschriften und Änderungen, die Ihr Gewerbe betreffen.
 ...
 Prüfstelle
 ...
-MFK Basel-Stadt: Erweiterte Öffnungszeiten an der Clarastrasse 
+MFK Basel-Stadt: Erweiterte Öffnungszeiten an der Clarastrasse
 
 Seit dem 1. Juni 2026 gelten bei der MFK Basel-Stadt an der Clarastrasse neue und kundenfreundlichere Öffnungszeiten. Ziel dieser Anpassung ist es, die Schalterfrequenzen besser zu verteilen und die Wartezeiten für die Kundschaft zu reduzieren. Die erweiterten Öffnungszeiten sollen insbesondere zu einer Entlastung der stark frequentierten Zeiten beitragen.
 
 https://www.bs.ch/medienmitteilungen/jsd/2026-neue-oeffnungszeiten-bei-der-motorfahrzeugkontrolle-basel-stadt
 
- MFK Basel-Landschaft: Live-Anzeige der aktuellen Wartezeiten 
+ MFK Basel-Landschaft: Live-Anzeige der aktuellen Wartezeiten
 
-Für die Standorte Füllinsdorf sowie den Schalter der MFK BL bei der Motorfahrzeug-Prüfstation in Münchenstein stehen die aktuellen Wartezeiten neu online zur Verfügung. Dadurch können Garagenbetriebe ihren Besuch besser planen und unnötige Wartezeiten vermeiden. 
+Für die Standorte Füllinsdorf sowie den Schalter der MFK BL bei der Motorfahrzeug-Prüfstation in Münchenstein stehen die aktuellen Wartezeiten neu online zur Verfügung. Dadurch können Garagenbetriebe ihren Besuch besser planen und unnötige Wartezeiten vermeiden.
 
 Die Live-Anzeige der Wartezeiten finden Sie hier:
 
 https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/motorfahrzeugkontrolle
 
- Online-Terminreservation in Füllinsdorf 
+ Online-Terminreservation in Füllinsdorf
 
-Für administrative Geschäfte bietet die MFK BL am Standort Füllinsdorf zudem eine Online-Terminreservation an. Mit einer vorgängigen Terminbuchung können Wartezeiten am Schalter weitgehend vermieden werden. Bitte beachten Sie, dass dieses Angebot aktuell nur für den Standort Füllinsdorf verfügbar ist und nicht für den Schalter in Münchenstein. 
+Für administrative Geschäfte bietet die MFK BL am Standort Füllinsdorf zudem eine Online-Terminreservation an. Mit einer vorgängigen Terminbuchung können Wartezeiten am Schalter weitgehend vermieden werden. Bitte beachten Sie, dass dieses Angebot aktuell nur für den Standort Füllinsdorf verfügbar ist und nicht für den Schalter in Münchenstein.
 
 Zur Terminbuchung:
 
@@ -149,7 +149,7 @@ MFK und MFP – Wichtige Informationen für unsere Mitglieder
 
 Die Motorfahrzeugkontrolle (MFK) und die Motorfahrzeugprüfung (MFP) sind zentrale Elemente im Autogewerbe. Sie gewährleisten die Verkehrssicherheit und Umweltverträglichkeit der Fahrzeuge. Hier finden Sie aktuelle Informationen und wichtige Hinweise zu Prüfungsabläufen, Vorschriften und Änderungen, die Ihr Gewerbe betreffen.
 
-# Neue Prüfstelle der MFP in Itingen ab 1. Juli 2026 (Sägeweg 15) 
+# Neue Prüfstelle der MFP in Itingen ab 1. Juli 2026 (Sägeweg 15)
 
 Neue Prüfstelle der MFP in Itingen ab 1. Juli 2026
 
@@ -162,7 +162,7 @@ https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/m
 
 > Motorfahrzeugkontrolle - Kanton Basel-Landschaft
 ...
-Achtung hierbei handelt es sich nicht um Vorführtermine für Fahrzeuge! Terminbuchungen für administrative Geschäftsfälle bei der MFK BL 
+Achtung hierbei handelt es sich nicht um Vorführtermine für Fahrzeuge! Terminbuchungen für administrative Geschäftsfälle bei der MFK BL
 
 Die Motorfahrzeugkontrolle Basel-Landschaft (MFK BL) ist eine Dienststelle der Sicherheitsdirektion (SID).
 ...
@@ -182,7 +182,7 @@ https://www.garage-vergleich.ch/ratgeber/mfk-termin-verschieben-falls-die-dispos
 
 > MFK Termin verschieben – falls die Disposition nicht zum eigenen Zeitplan passt
 
-# MFK Termin verschieben – falls die Disposition nicht zum eigenen Zeitplan passt 
+# MFK Termin verschieben – falls die Disposition nicht zum eigenen Zeitplan passt
 
  Die turnusmässige Fahrzeugprüfung soll sicherstellen, dass dein Auto im Strassenverkehr sicher unterwegs ist. Damit du den Prüftermin nicht vergisst, erhältst du eine Einladung vom Strassenverkehrsamt. Falls dir der Termin nicht passt, sind Änderungen möglich. Online oder telefonisch kannst du den veranschlagten MFK Termin verschieben. Dabei sind jedoch die gesetzlichen Fristen einzuhalten. Mit einem Blick auf die aktuellen Hinweise bist du auf der sicheren Seite, allerdings solltest du nicht zu lange warten, damit du im Rahmen der Frist bleibst.
 ...
@@ -212,13 +212,11 @@ https://primenews.ch/news/2026/01/mfk-aufgebot-jetzt-online-verschiebbar
 
 > Prime News | MFK-Aufgebot jetzt online verschiebbar
 
- 30.01.2026 News aus der Region 
+ 30.01.2026 News aus der Region
 
 # MFK-Aufgebot jetzt online verschiebbar
 
-Solothurner und Basel­bieter können den Prüf­ort Laufen oder München­stein neu per Maus­klick wählen. 
-
- 
+Solothurner und Basel­bieter können den Prüf­ort Laufen oder München­stein neu per Maus­klick wählen.
 
 Auf der MFK beider Basel in Münchenstein sind auch Fahrzeughalter aus dem Kanton Solothurn willkommen. Bild: Anja Sciarra
 
@@ -233,33 +231,33 @@ Die Änderung, so heisst es im Communiqué, soll «Vereinfachung und Flexibilit�
 ## MFK Termin verschieben & Bussen bei Verzug Schweiz 2026 | StVA Leitfaden | 57apickerl.eu
 https://57apickerl.eu/ch/rechner/mfk-termin-verschieben-strafen/
 
-> # MFK Termin verschieben & Bussen bei Verzug 
+> # MFK Termin verschieben & Bussen bei Verzug
 
- Was passiert bei verpasstem MFK-Aufgebot? Alles über Online-Terminverschiebungen beim Strassenverkehrsamt, Versäumnisgebühren und Bussen nach Schweizer Strassenverkehrsgesetz (SVG). 
+ Was passiert bei verpasstem MFK-Aufgebot? Alles über Online-Terminverschiebungen beim Strassenverkehrsamt, Versäumnisgebühren und Bussen nach Schweizer Strassenverkehrsgesetz (SVG).
 
-## Kantonale Stufen & Strafen bei versäumter MFK 
+## Kantonale Stufen & Strafen bei versäumter MFK
 
 ### Fristgerechtes Erscheinen oder Verschiebung rechtzeitig gemeldet
 
- 0 CHF Busse 
+ 0 CHF Busse
 
 Keine Gebühren oder Bussen. Das Strassenverkehrsamt akzeptiert eine einmalige Verschiebung bei frühzeitiger Online-Mitteilung (mindestens 3-5 Arbeitstage im Voraus).
 
- Rechtsgrundlage: Kantonale Verordnungen zum Strassenverkehr 
+ Rechtsgrundlage: Kantonale Verordnungen zum Strassenverkehr
 
- 2 
+ 2
 
 ### Unentschuldigtes Nichterscheinen zum ersten Aufgebot
 
- 0 CHF Busse + ca. 40 CHF Gebühr 
+ 0 CHF Busse + ca. 40 CHF Gebühr
 
 Versäumnisgebühr der kantonalen Behörde (ca. 30 - 50 CHF je nach Kanton). Ein zweites, verbindliches Aufgebot wird zugestellt.
 
- Rechtsgrundlage: Kantonale Gebührentarife StVA 
+ Rechtsgrundlage: Kantonale Gebührentarife StVA
 
  3
 ...
-## Schritt-für-Schritt: MFK-Termin online verschieben 
+## Schritt-für-Schritt: MFK-Termin online verschieben
 
 1
 
@@ -315,7 +313,7 @@ Als problematisch sehe ich die Kandidaten an, die ihr Fahrzeug nicht regelmässi
 ...
 Art. 33 VTS, Absatz 2c :
 
- Fedlex 
+ Fedlex
 
 Periodische Prüfungspflicht:
 
@@ -329,23 +327,23 @@ Selbst wenn du ein Aufgebot bekommst, wartest du anschliessend teilweise mehrere
 ...
 Du kannst auch auf der Seite des Strassenverkehrsamtes mit Hilfe deines FA den Termin für deine MFK einsehen - zumindest den vorgeschriebenen. Mein Alter Transporter war 2.5 Jahre
 ...
-> 
-> 
-> Zitat von FranzG 
-> 
+>
+>
+> Zitat von FranzG
+>
 > Bist du TCS Mitglied? Beim TCS kostet die Prüfung bloss Fr. 30.- (statt 50.- beim Kanton).
-> 
+>
 > Du kannst warten bis du das Aufgebot erhältst und kannst dich danach beim TCS anmelden. Die werden den Termin beim Kanton für dich annullieren. Früher war das nach dem Aufgebot nicht mehr möglich.
 ...
-> 
-> 
+>
+>
 > Zitat von Lü
 ...
-> 
+>
 > Die einen ( ... ) melden sich bei Ablauf der Frist für die MFK selbst an und halten so die gesetzlich vorgesehenen ... anderen (so wie ich) warten auf das Aufgebot. Mit dem Zuwarten und damit etwas längeren Intervallen hatte ich jetzt noch nie ein Problem. Wichtig ist einfach, dass das Fahrzeug regelmässig durch einen Fachmann im Rahmen des Services angeschaut wird. Damit wird ja die Verkehrssicherheit auch gewährleistet.
 ...
 > Als problematisch sehe ich die Kandidaten an, die ihr Fahrzeug nicht regel ... warten lassen und auf das Aufgebot warten.
-> 
+>
 > jo ... wenn Dein Töff regelmässig beim Mech ist, dann warte einfach, bis Du das Aufgebot erhälst.
 ...
 Die MFK ist ja nicht wie der deutsche TüV, der abläuft. Du bekommst ein Aufgebot, wenn du dran bist. Selber melden würde ich mich nur, ev. für einen Verkauf.
@@ -416,21 +414,21 @@ Die Gebühren sind bar zu bezahlen. Personen ohne Wohnsitz im Kanton Basel-Stadt
 ## MFK Kosten Schweiz 2026 nach Kantonen | Was kostet die Motorfahrzeugkontrolle? | 57apickerl.eu
 https://57apickerl.eu/ch/ratgeber/mfk-kosten-kantone/
 
-> # MFK Kosten nach Kantonen (CHF) 
+> # MFK Kosten nach Kantonen (CHF)
 
- Was kostet die Motorfahrzeugkontrolle in Ihrem Kanton? Alle amtlichen Gebühren für Personenwagen, Motorräder und Nachprüfungen in Schweizer Franken. 
+ Was kostet die Motorfahrzeugkontrolle in Ihrem Kanton? Alle amtlichen Gebühren für Personenwagen, Motorräder und Nachprüfungen in Schweizer Franken.
 
-## Überblick: Kantonale Preisspanne in der Schweiz 
+## Überblick: Kantonale Preisspanne in der Schweiz
 
- In der Schweiz gibt es keine bundeseinheitliche MFK-Gebühr. Jeder Kanton verfügt über eine eigene Gebührenverordnung für das Strassenverkehrsamt (StVA). Für einen Standard-Personenwagen liegen die Grundkosten zwischen 55 CHF und 95 CHF. 
+ In der Schweiz gibt es keine bundeseinheitliche MFK-Gebühr. Jeder Kanton verfügt über eine eigene Gebührenverordnung für das Strassenverkehrsamt (StVA). Für einen Standard-Personenwagen liegen die Grundkosten zwischen 55 CHF und 95 CHF.
 
- Günstigste Kantone ab 55 - 60 CHF z.B. Bern, Basel 
+ Günstigste Kantone ab 55 - 60 CHF z.B. Bern, Basel
 
- Schweizer Durchschnitt ca. 70 CHF z.B. Zürich, Luzern, Aargau 
+ Schweizer Durchschnitt ca. 70 CHF z.B. Zürich, Luzern, Aargau
 
- TCS MFK-Vortest ca. 120 CHF Freiwilliger Vorab-Check 
+ TCS MFK-Vortest ca. 120 CHF Freiwilliger Vorab-Check
 
-## Gebührentabelle aller 26 Kantone (Stand 2026) 
+## Gebührentabelle aller 26 Kantone (Stand 2026)
 
 | Kanton | Pkw Gebühr | Motorrad | Nachkontrolle | Strassenverkehrsamt |
 | --- | --- | --- | --- | --- |
@@ -471,19 +469,19 @@ https://kanton.ai.ch/politik/standeskommission/berichte-und-weitere-publikatione
 
 > Die Standeskommission beschloss am 2. Dezember 2025 eine Änderung des Gebührentarifs (GebT, GS 172.513) und eine Anpassung der Standeskommissionsbeschlüsse über die Höhe der Strassenverkehrsabgaben (GS 741.011) sowie über den Fähigkeitsaufweis über den Wirteberuf (GS 935.301). Die Änderungen treten per 1. Januar 2026 in Kraft. Die Änderungen in den Gebührenvorschriften lösen eine Erhöhung von Gebühren aus. Ziel ist, dass die Gebühren so weit als möglich den tatsächlichen Aufwand abgelten. Zudem zei gen Vergleiche mit Ostschweizer Kantonen, dass die Höhe der neuen Gebühren angemes sen ist. Die geänderten Gebühren werden in diesem Bericht dargelegt und begründet.
 ...
-Art. 2 Abs. 1 
-Die Gebühr nach Aufwand in der Höhe von Fr. 120.-- pro Stunde wird vom Volkswirtschafts 
-departement sowie vom Bau- und Umweltdepartement in einzelnen Sachgebieten angewen 
-det. Nach Überprüfung des Aufwandes in den verschiedenen Departementen wird der An 
-satz auf Fr. 180.-- pro Stunde festgelegt. 
-Art. 6 Abs. 1 
-Ein Vergleich unter den Kantonen der Ostschweizer Regierungskonferenz hat ergeben, dass 
-diese rund Fr. 40.-- für eine Apostille erheben (ZH: ... . 20.-- bis ... . 250.--; SG: ... . 5 ... .--; 
+Art. 2 Abs. 1
+Die Gebühr nach Aufwand in der Höhe von Fr. 120.-- pro Stunde wird vom Volkswirtschafts
+departement sowie vom Bau- und Umweltdepartement in einzelnen Sachgebieten angewen
+det. Nach Überprüfung des Aufwandes in den verschiedenen Departementen wird der An
+satz auf Fr. 180.-- pro Stunde festgelegt.
+Art. 6 Abs. 1
+Ein Vergleich unter den Kantonen der Ostschweizer Regierungskonferenz hat ergeben, dass
+diese rund Fr. 40.-- für eine Apostille erheben (ZH: ... . 20.-- bis ... . 250.--; SG: ... . 5 ... .--;
 GR: Fr. 50.--; SH: Fr. 40.--; TG: 40.--; AR: Fr. 25.--; GL: Fr. 25 ... ). Daher sind die Geb
 ...
 gemäss Gebührentarif für
 ...
-Art. 10 des Gebührentarifs soll mit einer Aufwandsgebühr ergänzt werden (neuer Abs. 3). Als Stundenansatz soll Fr. 180.-- gelten. Begründet wird der Ansatz damit, dass bei der Bemes sung der Gebühren nach Zeitaufwand derzeit die Informatikkosten, die im Zuge der Digitali sierung die Kantonsfinanzen belasten, nicht berücksichtigt werden. Ein angemessener Anteil der übrigen Kosten soll den Verursachenden überbunden werden. Zudem ist zu beachten, dass die Komplexität der einzelnen Geschäfte in den vergangenen Jahren zugenommen hat. Der Kanton übernimmt darüber hinaus Aufgaben, die in Konkurrenz zur Privatwirtschaft ste hen (z. B. Notariatsaufgaben) und deren Stundenansätze deutlich unterschreiten. Eine Ge bühr darf nicht in einem offensichtlichen Missverhältnis zum objektiven Wert einer Leistung stehen und muss sich in vernünftigen Grenzen halten. Weiter ist das Kostendeckungsprinzip einzuhalten. Beide Prinzipien werden eingehalten.
+Art. 10 des Gebührentarifs soll mit einer Aufwandsgebühr ergänzt werden (neuer Abs. 3). Als Stundenansatz soll Fr. 180.-- gelten. Begründet wird der Ansatz damit, dass bei der Bemes sung der Gebühren nach Zeitaufwand derzeit die Informatikkosten, die im Zuge der Digitali sierung die Kantonsfinanzen belasten, nicht berücksichtigt werden. Ein angemessener Anteil der übrigen Kosten soll den Verursachenden überbunden werden. Zudem ist zu beachten, dass die Komplexität der einzelnen Geschäfte in den vergangenen Jahren zugenommen hat. Der Kanton übernimmt darüber hinaus Aufgaben, die in Konkurrenz zur Privatwirtschaft ste hen (z. B. Notariatsaufgaben) und deren Stundenansätze deutlich unterschreiten. Eine Ge bühr darf nicht in einem offensichtlichen Missverhältnis zum objektiven Wert einer Leistung stehen und muss sich in vernünftigen Grenzen halten. Weiter ist das Kostendeckungsprinzip einzuhalten. Beide Prinzipien werden eingehalten.
 ...
 , dass die
 ...
@@ -493,24 +491,24 @@ Kantons St ... 550
 ...
 . 1
 ...
-Abs. 1 
-Anstelle des heute vorhandenen Pauschalab ... den Direktzahlungen für sämtliche 
-Dienstleistungen soll eine reduzierte Pausch ... ergänzt mit einem Stundenansatz von 
-Fr. 70.-- berechnet werden können (Art. ... 9 Abs. 1 Ziff. 1.2 ... Damit können die effektiv vorlie 
-genden Aufwände verursachergerecht verrechnet werden. Der Aufwand soll dabei nicht mi 
-nutengenau, sondern ab einem Mindestaufwand von einer halben Stunde in Rechnung ge 
-stellt werden können. Im Bereich des Vollzugs der Gesetzgebung über die Direktzahlungen 
-ist der Bedarf an einer zusätzlichen Fest ... eines Gebührenrahmens gegeben. Zum ei 
-nen entsteht im Landwirtschaftsamt regelmässig ein Mehraufwand, da sich die Kunden be 
-treffend die Rücksendung von Unterlagen und die Rückmeldung von Daten oftmals nicht an 
-die vorgegeben Fristen halten. Um diesen Mehraufwand zu reduzieren, sollen die Kunden 
+Abs. 1
+Anstelle des heute vorhandenen Pauschalab ... den Direktzahlungen für sämtliche
+Dienstleistungen soll eine reduzierte Pausch ... ergänzt mit einem Stundenansatz von
+Fr. 70.-- berechnet werden können (Art. ... 9 Abs. 1 Ziff. 1.2 ... Damit können die effektiv vorlie
+genden Aufwände verursachergerecht verrechnet werden. Der Aufwand soll dabei nicht mi
+nutengenau, sondern ab einem Mindestaufwand von einer halben Stunde in Rechnung ge
+stellt werden können. Im Bereich des Vollzugs der Gesetzgebung über die Direktzahlungen
+ist der Bedarf an einer zusätzlichen Fest ... eines Gebührenrahmens gegeben. Zum ei
+nen entsteht im Landwirtschaftsamt regelmässig ein Mehraufwand, da sich die Kunden be
+treffend die Rücksendung von Unterlagen und die Rückmeldung von Daten oftmals nicht an
+die vorgegeben Fristen halten. Um diesen Mehraufwand zu reduzieren, sollen die Kunden
 durch die Erhebung von Gebühren zur Einhaltung der Fristen verpflichtet werden (Art. 2
 ...
 Abs. 1 Ziff. 1.3).
 ...
-Die in Art. 2 Abs. 1 Ziff. ... .1.1 (Periodische Fahrzeugprüfung Personenwagen) und Ziff. 6.2.2 
-(Periodische Fahrzeugprüfung Lieferwagen, Kleinbus leichte Motorwagen) enthaltenen Tarife 
-werden von Fr. 50.-- auf Fr. 60.-- erhöht. Dies entspricht dem Gebührenniveau der Kantone 
+Die in Art. 2 Abs. 1 Ziff. ... .1.1 (Periodische Fahrzeugprüfung Personenwagen) und Ziff. 6.2.2
+(Periodische Fahrzeugprüfung Lieferwagen, Kleinbus leichte Motorwagen) enthaltenen Tarife
+werden von Fr. 50.-- auf Fr. 60.-- erhöht. Dies entspricht dem Gebührenniveau der Kantone
 St.Gallen und Appenzell A.Rh.
 ...
 Art. 3 Abs. 2 Der Gebührenrahmen für die kantonale Zusatzprüfung ist von Fr. 40.-- bis Fr. 120.-- auf Fr. 50.-- bis Fr. 250.-- auszudehnen und damit näher an die effektiven Kosten anzunähern.
@@ -582,14 +580,14 @@ https://www.reifen.com/de-ch/infos-tipps/auto/pflege/mfk-checkliste
 ### Räder und Reifen
 
 - Falsche Reifengröße: Prüfen Sie, ob die montierten Reifen mit den Angaben im Fahrzeugausweis übereinstimmen.
-- Mindestprofiltiefe: Alle Reifen müssen eine ausreichende Profiltiefe von mindestens 1,6 mm aufweisen und in gutem Zustand sein. 
+- Mindestprofiltiefe: Alle Reifen müssen eine ausreichende Profiltiefe von mindestens 1,6 mm aufweisen und in gutem Zustand sein.
 - Beschädigungen: Risse, Beulen, eingefahrene Nägel oder Schnitte in der Reifenflanke sind ernsthafte Mängel.
 - Felgen: Dürfen keine Risse oder Verformungen haben.
 - Radmuttern / Radbolzen: Müssen fest angezogen sein.
 ...
 ### Sicherheitsausstattung
 ...
-reieck muss im Auto vorhanden und leicht zugänglich sein. 
+reieck muss im Auto vorhanden und leicht zugänglich sein.
 - Sicherheitsgurte ... keine Risse oder Beschädigungen aufweisen und müssen sich einwandfrei aufrollen sowie verriegeln lassen. Ziehen ... ruckartig an ... der Gurte, um die Blockier
 ...
 alle vorhanden und korrekt
@@ -709,16 +707,16 @@ Sie müssen alles dabei haben, was zur vollständigen Identifi kation Ihres Auto
 
 Fahrzeugausweis Im Fahrzeugausweis sind Marke und Farbe des Autos vermerkt, sowie Grösse, Gewicht und andere spezifi sche Daten. Auch Ihr Name und Ihre Adresse sind darin vermerkt – Änderungen müssen dem Strassenverkehrsamt jeweils umgehend mitgeteilt werden.
 
-Abgasdokumente 
-Wenn Ihr Auto nicht über ein anerkanntes OBD-System (On Board 
-Diagnose-System) verfügt, müssen Sie grundsätzlich eine aktuelle 
-Abgasuntersuchungsbescheinigung mitführen. 
+Abgasdokumente
+Wenn Ihr Auto nicht über ein anerkanntes OBD-System (On Board
+Diagnose-System) verfügt, müssen Sie grundsätzlich eine aktuelle
+Abgasuntersuchungsbescheinigung mitführen.
 
 Gutachten für Tuning Wenn Sie Ihr Auto getunt haben – mit neuen Felgen oder einem Sportauspuff zum Beispiel – müssen Sie es unaufgefordert vom Strassenverkehrsamt prüfen lassen. Die Änderungen werden anschliessend in Ihrem Fahrzeugausweis vermerkt. Dies geht manchmal vergessen, ist aber sehr wichtig – wer ohne Gutachten von der Polizei erwischt wird, riskiert eine Busse oder im schlimmsten Fall den Entzug des Führerausweises.
 
-Reinigung vor der MFK 
-Reinigung des Innenraumes 
-Reinigung der Radkästen, des Unterbodens und Motors 
+Reinigung vor der MFK
+Reinigung des Innenraumes
+Reinigung der Radkästen, des Unterbodens und Motors
 
 ## MFK-Checkliste zur
 
@@ -728,26 +726,26 @@ Reinigung der Radkästen, des Unterbodens und Motors
 
 Damit Motor, Getriebe und Achsen optimal geprüft werden können, ist es wichtig, dass Sie vor der Prüfung einige Kilometer gefahren sind, sodass das Auto bereits warmgelaufen ist. Dank der regelmässigen MFK können Sie davon ausgehen, dass Sie und alle anderen Fahrer*innen in betriebssi cheren Fahrzeugen auf den Strassen unterwegs sind. Deshalb werden alle Funktionen des Autos auf der Prüfbahn und durch eine kurze Probefahrt eingehend geprüft.
 
-Fahrgestell und Aufbau 
-Lenkung: Ist sie voll funktionsfähig? Lässt sich das Lenkrad problemlos 
-einschlagen? 
-Räder und Aufhängung 
-Pneus: Sind die Reifen in gutem Zustand, entspricht die Rillentiefe den 
-Vorschriften? 
-Stossdämpfer 
-Auspuff 
-Motor: In welchem Zustand ist der Motor? Gibt es undichte Stellen? 
-Kupplung: Ist die Verbindung zwischen Motor und Getriebe gut? 
-Kraftübertragung 
-Bremsen: In welchem Zustand sind die Bremsbeläge? 
-Achsen: Sind sie voll funktionsfähig? 
-Getriebe 
-Signal- und Beleuchtungsanlage 
-Sichtverhältnisse: Sind die Scheiben ganz? Funktionieren die 
-Scheibenwischer? 
-Gesamte elektrische Anlage 
-Überprüfung Sicherheitssysteme 
-Rost: Ist zum Beispiel an der Fahrzeugunterseite Rost zu sehen? 
+Fahrgestell und Aufbau
+Lenkung: Ist sie voll funktionsfähig? Lässt sich das Lenkrad problemlos
+einschlagen?
+Räder und Aufhängung
+Pneus: Sind die Reifen in gutem Zustand, entspricht die Rillentiefe den
+Vorschriften?
+Stossdämpfer
+Auspuff
+Motor: In welchem Zustand ist der Motor? Gibt es undichte Stellen?
+Kupplung: Ist die Verbindung zwischen Motor und Getriebe gut?
+Kraftübertragung
+Bremsen: In welchem Zustand sind die Bremsbeläge?
+Achsen: Sind sie voll funktionsfähig?
+Getriebe
+Signal- und Beleuchtungsanlage
+Sichtverhältnisse: Sind die Scheiben ganz? Funktionieren die
+Scheibenwischer?
+Gesamte elektrische Anlage
+Überprüfung Sicherheitssysteme
+Rost: Ist zum Beispiel an der Fahrzeugunterseite Rost zu sehen?
 Öl: Verliert das Auto Öl?
 
 ## MFK Vorbereitung Checkliste: So bestehen Sie beim ersten Mal | Monillo
@@ -972,7 +970,7 @@ Im Gegensatz zum alten Trübungstest (Schwarzrauch) misst die Partikelanzahlmess
 ...
 Das Fahrzeug muss ... vorgeführt werden, einschliesslich Unter ... und Motorraum. Ein ... mutztes Fahrzeug kann abgewiesen werden und ein neuer Termin wird erforderlich.
 ...
-### Werden Aftermarket-Felgen/Reifen kontrolliert? 
+### Werden Aftermarket-Felgen/Reifen kontrolliert?
 
  Ja. Dimensionen und Eigenschaften der Reifen und Felgen werden überprüft. Sie müssen dem Typenschein Ihres Fahrzeugs entsprechen oder über ein Genehmigungszertifikat (DTC- oder FAKT-Bericht) verfügen. Prüfen Sie Ihr Datenblatt auf SwissCarInfo.
 

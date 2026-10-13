@@ -1,5 +1,5 @@
 ---
-title: "Servicebuch-Vorlage: Kostenloses PDF für die Schweiz (Service Book Template)"
+title: "Service book template: free printable PDF for Switzerland"
 description: "Free printable service book template PDF for Switzerland with MFK, service intervals, mileage tracking. Download, print, and reconstruct your vehicle history."
 date: 2026-10-13
 ---
@@ -12,16 +12,17 @@ Your **service book** is lost? Or do you simply want to keep a paper record of y
 
 A **clean, complete service book** in A4 format to download and print with one click — **no registration, no email, no watermarks**.
 
+**[Download the service book template as PDF (A4, English)](/en/servicebuch-vorlage.pdf)**
+
 ### ✅ Why a Paper Service Book in 2026?
 
 | Advantages | For Whom? |
 |------------|-----------|
-| **Tangible proof** for resale or warranty | All owners |
-| **Independent** of computer failures or garage changes | Multi-brand owners |
-| **Complete history** even without internet access | Collectors, vintage vehicles |
-| **Accepted by Swiss insurers** as proof of maintenance | All |
+| **Personal records** of maintenance in one place | All vehicle owners |
+| **A supplement** to a manufacturer's digital service book | Multi-brand owners |
+| **Usable without internet access** | Anyone who prefers paper |
 
-**💡 TCS Tip:** A well-maintained service book can **increase resale value by 5-10%** ([TCS Switzerland](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)).
+The TCS describes a service book as useful evidence for warranty claims and an advantage when trading in or reselling a vehicle. A personal paper record can supplement a digital service book; it does not replace records from the manufacturer or garage ([TCS Switzerland](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)).
 
 ---
 
@@ -31,40 +32,25 @@ Our PDF template includes all sections necessary for complete tracking in Switze
 
 ### 📄 Page 1: Vehicle Identification
 
-| Field | Example | Required |
-|-------|---------|----------|
-| **Brand** | Toyota | ✅ |
-| **Model** | Corolla | ✅ |
-| **License Plate** | VS 123456 | ✅ |
-| **Chassis Number (VIN)** | JHMCV1234567890 | ✅ |
-| **Year of Registration** | 2020 | ✅ |
-| **Initial Mileage** | 0 km | ✅ |
-| **Owner** | Name, address | ✅ |
+The template has fields for make and model, number plate, chassis number (VIN), first registration and owner. Fill in only information you know; do not enter 0 km when the mileage is unknown.
 
 ### 📅 Pages 2-4: Service History Table
 
-Each row allows you to record:
+Pages 2 to 4 each have 13 blank rows with fields for the date, mileage, work, garage, invoice number, cost and next due date. You can copy the details from each invoice.
 
-| Date | Mileage | Service Performed | Garage | Invoice No. | Cost (CHF) | Next Due |
-|------|---------|-------------------|--------|------------|------------|-----------|
-| 15.10.2026 | 45,000 km | Oil change + filters | SwissCar Garage, Geneva | INV-2026-12345 | 350.- | 15,000 km / 1 year |
-| 10.09.2026 | 42,000 km | Technical inspection (MFK) | Road Traffic Office VS | - | - | 2 years |
+**📌 Tip:** Use one line per service, even for small jobs. Together with invoices, mileage entries help reconstruct the vehicle's history.
 
-**📌 Tip:** Use one line per service, even for small ones. The **continuous series of mileage entries** is the most convincing proof for a buyer.
+### 📅 Page 5: Maintenance Plan for Your Vehicle
 
-### 📅 Page 5: Reminder of Typical Intervals
+Maintenance intervals vary by vehicle and engine. The last page lets you note the schedule in your owner's manual or from the manufacturer. MFK inspection deadlines under [VTS Article 33](https://justement.ch/en/doc/act/ch/741_41/part_2/chap_2/art_33) depend on vehicle type; follow the notice from the cantonal road traffic office.
 
-A summary table of **standard intervals** for vehicles in Switzerland:
-
-| Item | Frequency | Notes |
-|------|-----------|-------|
-| **Oil Change** | 15,000–30,000 km or 1–2 years | According to manufacturer |
-| **Air Filter** | 15,000–30,000 km | Change with oil change |
-| **Pollen Filter** | Every 12 months | Also when changing tires |
-| **Brake Fluid** | Every 2 years | **Mandatory** even without mileage |
-| **Timing Belt** | 60,000–240,000 km or 5–10 years | **Critical**: risk of engine damage |
-| **Tires** | Tread depth ≥ 1.6 mm (legal) | TCS recommends ≥ 3 mm |
-| **MFK (Technical Inspection)** | 5 years, then 3 years, then **every 2 years** | [VTS Art. 33](https://justement.ch/en/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Work | Interval per manufacturer | Last completed | Next due |
+|------|---------------------------|---------------|----------|
+| Oil and filter | | | |
+| Brakes | | | |
+| Tires | | | |
+| Other work | | | |
+| MFK | According to vehicle type and notice | | |
 
 ---
 
@@ -101,19 +87,16 @@ If you have **lost your service book**, here's how to reconstruct the history:
 
 ### 📋 Steps to Follow
 
-| Step | Action | Where? | Cost |
-|------|--------|-------|------|
-| 1 | **Check digital service book** | Manufacturer portal, app | Free | — |
-| 2 | **Request duplicate** | Dealership | ~CHF 30 | [SRF](https://www.srf.ch/en/programs/kassensturz-espresso/environment-and-traffic/lost-car-service-book) |
-| 3 | **Retrieve invoices** | Garages, previous owner | Variable | — |
-| 4 | **Obtain MFK reports** | Cantonal office | Free/paid | — |
-| 5 | **Get TCS used car inspection** | TCS center | 150–200 CHF | [TCS](https://www.tcs.ch/en/advice-tests/garage-maintenance/used-car-inspection.php) |
+| Step | Action | Where? |
+|------|--------|--------|
+| 1 | **Check the digital service book** | Manufacturer or brand garage; the TCS recommends keeping proof of the digital entry ([TCS](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)) |
+| 2 | **Request a duplicate or extract** | Garage that serviced the vehicle; ask about any fees first |
+| 3 | **Collect invoices** | Garages, previous owner and personal records |
+| 4 | **Add MFK documents** | Ask the responsible cantonal road traffic office |
 
 ### 📌 Switzerland-Specific Tips
 
-- **TecRMI Service Book**: Swiss garages can access digital service books of **23 brands** via this system. Cost: **CHF 5.50 excl. VAT** per query ([Autotechnik](https://www.autotechnik.ch/en/services/digital-service-book/)).
-- **MFK**: Swiss technical inspection reports (MFK) are **valid as proof** of mileage.
-- **Insurance companies**: Most accept **invoices + reconstructed service books** as proof of maintenance.
+- **MFK reports**: They can supplement information recorded during the inspection, but do not replace maintenance invoices or manufacturer records.
 
 ---
 
@@ -125,8 +108,8 @@ If you have **lost your service book**, here's how to reconstruct the history:
 ### Can I use this service book for multiple vehicles?
 **Yes** – print one copy per vehicle. The first page identifies each vehicle separately.
 
-### Do Swiss garages accept this service book?
-**Yes** – as long as the information is **complete and accurate**. Many Swiss garages already use paper service books in addition to digital ones.
+### Does this paper book replace the manufacturer's digital service book?
+No. It is for your own records. For an entry in the manufacturer's digital service book, ask the garage for confirmation ([TCS Switzerland](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)).
 
 ### What if I change garages?
 Simply update the garage name in the table. **No problem** – the important thing is the **continuity of entries**.
@@ -141,8 +124,7 @@ Simply update the garage name in the table. **No problem** – the important thi
 - [TCS Switzerland: Electronic Service Book](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)
 - [VTS Art. 33 (MFK intervals)](https://justement.ch/en/doc/act/ch/741_41/part_2/chap_2/art_33)
 - [VS Road Traffic Office](https://www.vs.ch/en/themes/mobility/vehicles/registration/)
-- [SwissCar Garage Geneva](https://www.swisscar.ch/)
 
 ---
 
-*Template adapted for Switzerland – October 2026*
+*Template for vehicles in Switzerland.*

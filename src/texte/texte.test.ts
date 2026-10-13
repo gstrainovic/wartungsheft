@@ -97,13 +97,19 @@ describe('übersetzte Seiten (src/texte/<seite>/<sprache>.vue)', () => {
 describe('ratgeber-übersetzungen', () => {
   const PREFIX = '../../content/ratgeber/'
   const artikel = Object.keys(RATGEBER).map(p => p.slice(PREFIX.length)).filter(p => !p.includes('/'))
+  const RELATIVE = Object.keys(RATGEBER).map(p => p.slice(PREFIX.length))
+  /** Fassungen verbindet `key` im Artikelkopf, sonst der Dateiname (Skill texte-und-sprachen, Ratgeber) */
+  const key = (datei: string) => /^key: (.+)$/m.exec(RATGEBER[PREFIX + datei]!)?.[1]?.trim() ?? datei.split('/').pop()!.replace(/\.md$/, '')
+  const fassungen = (sprache: string) => Object.fromEntries(
+    RELATIVE.filter(p => p.startsWith(`${sprache}/`)).map(p => [key(p), RATGEBER[PREFIX + p]!]),
+  )
 
   it('gibt es für jeden Artikel in jeder Sprache, mit gleicher Gliederung', () => {
     expect(artikel.length).toBeGreaterThan(0)
     for (const datei of artikel) {
       const de = RATGEBER[PREFIX + datei]!
       for (const sprache of PRAEFIXE) {
-        const text = RATGEBER[`${PREFIX}${sprache}/${datei}`]
+        const text = fassungen(sprache)[key(datei)]
         expect(text, `${sprache}/${datei}`).toBeDefined()
         expect(text!.match(/^## /gm)?.length, `${sprache}/${datei}`).toBe(de.match(/^## /gm)?.length)
         for (const [, link] of text!.matchAll(/\]\((\/[^)]*)\)/g))

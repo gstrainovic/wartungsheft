@@ -4,7 +4,7 @@ description: Duplikat bei Markengarage, digitales Serviceheft des Herstellers, R
 date: 2026-10-13
 ---
 
-Das **Serviceheft** (auch **Servicebuch** genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Ohne Serviceheft verlierst du beim Verkauf **5–15 % vom Fahrzeugwert** ([Schraub Ratgeber](https://schraub.ch/ratgeber/serviceheft-verloren-was-tun/)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
+Das **Serviceheft** (auch **Servicebuch** genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Ein lückenloses Serviceheft kann den Verkaufspreis um **5–10 % erhöhen** – ohne Nachweis fehlt dir dieses Argument ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
 
 ---
 
@@ -85,13 +85,7 @@ Die **Prüfberichte der MFK** (Motorfahrzeugkontrolle) halten den **Tachostand**
 
 ## 🚗 Schritt 5: Wenn nichts mehr auffindbar ist
 
-Lässt sich die Historie **nicht rekonstruieren**, bleibt ein **unabhängiger Nachweis des Zustands**.
-
-### 📋 3-Schritte-Rettungsplan (nach Schraub Ratgeber)
-
-1. **Alte Rechnungen sichten und ordnen:** Suche alle **Werkstattbelege** der letzten Jahre zusammen. Rechnungen sind der **Primärbeweis** für jede erbrachte Leistung (Ölwechsel, Bremsenservice, Zahnriemenwechsel).
-2. **Werkstätten kontaktieren:** Ruf die Betriebe an, die dein Fahrzeug in der Vergangenheit betreut haben. Moderne Werkstattsysteme speichern Auftragsdaten meist **5–10 Jahre rückwirkend**. Mit deiner **Stammnummer (Fahrzeugausweis)** oder **VIN** kann die Werkstatt die Daten verifizieren.
-3. **Neues Heft anlegen:** Nutze ein **universelles Serviceheft** als neuen Rahmen für deine rekonstruierte Historie.
+Lässt sich die Historie **nicht rekonstruieren**, bleibt ein **unabhängiger Nachweis des Zustands**. Die drei Schritte oben (Unterlagen ordnen, Werkstätten anfragen, Heft neu anlegen) hast du damit bereits gegangen; jetzt geht es um einen belastbaren Ersatznachweis.
 
 ### 📌 Schweizer Besonderheiten
 
@@ -153,18 +147,18 @@ Auch ohne vollständiges Serviceheft kannst du den Wert deines Autos steigern:
 
 ---
 
-## 📱 Digitale Serviceheft-Apps für die Zukunft
+## 📱 Ab jetzt digital weiterführen: Wartungsheft
 
-Ab dem Tag, an dem du das verlorene Heft bemerkst, beginnst du **parallel ein digitales Serviceheft**. Vorteile:
+Ab dem Tag, an dem du das verlorene Heft bemerkst, beginnst du **parallel ein digitales Serviceheft** – in der App **Wartungsheft** (wartungsheft.ch). So gehst du vor:
 
-| Vorteil | Nutzen | Quelle |
-|---------|--------|--------|
-| **Daten gehen nie verloren** | Cloud-basiert, jederzeit zugänglich | [Schraub Ratgeber](https://schraub.ch/ratgeber/serviceheft-verloren-was-tun/) |
-| **PDF-Export auf Knopfdruck** | Professionelle Wartungshistorie für Verkauf | [Schraub Ratgeber](https://schraub.ch/ratgeber/serviceheft-verloren-was-tun/) |
-| **Stammnummer/VIN-basiert** | Bleibt dem Fahrzeug zugeordnet | [Schraub Ratgeber](https://schraub.ch/ratgeber/serviceheft-verloren-was-tun/) |
-| **Reifenwechsel-Erinnerungen** | Kein saisonaler Termin fällt durchs Raster | [Schraub Ratgeber](https://schraub.ch/ratgeber/serviceheft-verloren-was-tun/) |
+| Schritt | Was die App kann |
+|---------|------------------|
+| **1. Rekonstruierte Einträge erfassen** | Datum, Kilometerstand und Arbeiten von Hand eintragen – die Schritte 1–4 oben werden so zum sauberen Heft |
+| **2. Ab dem nächsten Service per Foto** | Werkstattrechnung fotografieren, die App liest Werkstatt, Datum, Betrag und Arbeiten heraus und trägt sie ins Serviceheft ein |
+| **3. Fälligkeiten im Blick** | Wartungsplan mit Erinnerung per E-Mail vor Service und MFK |
+| **4. Beim Verkauf exportieren** | Serviceheft als PDF exportieren und dem Käufer beilegen |
 
-**💡 Empfehlung:** Trage zuerst die **rekonstruierten Einträge** aus Schritt 1–4 ein, dann ab dem nächsten Service jede Wartung **direkt in der App**.
+**💡 Tipp:** Trage zuerst die **rekonstruierten Einträge** ein, dann ab dem nächsten Service jede Wartung **direkt per Foto**. Du kannst Wartungsheft 30 Tage gratis testen – der Knopf unter diesem Artikel führt dich zum Login.
 
 **⚠️ Wichtig:** **TÜV-/MFK-Berichte** belegen zwar den Kilometerstand und die Verkehrssicherheit, sagen aber **nichts über den technischen Zustand** des Motors (Ölwechsel, Zahnriemen) aus. Ein Serviceheft ist daher als **Ergänzung unverzichtbar**.
 

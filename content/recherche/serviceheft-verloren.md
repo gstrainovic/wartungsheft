@@ -394,7 +394,7 @@ https://www.oeservice.eu/
 
 > OE Service: Digitale Serviceeinträge für alle Marken
 
- Wir erneuern unserer Website Hinweis: In Kürze geht unsere neue Website online. Für Sie bleibt alles wie gewohnt: Das Kundenportal und alle Abläufe ändern sich nicht – nur unsere Website erscheint in einem neuen Design. × 
+ Wir erneuern unserer Website Hinweis: In Kürze geht unsere neue Website online. Für Sie bleibt alles wie gewohnt: Das Kundenportal und alle Abläufe ändern sich nicht – nur unsere Website erscheint in einem neuen Design. ×
 
 #
 ...
@@ -436,7 +436,7 @@ Alle Serviceeinträge auf oe service werden von uns direkt beim Hersteller hinte
 ...
 oe service ist eine zentrale Plattform zum Abrufen von Servicehistorien, Erfassen von digitalen Serviceeinträgen sowie Speichern von Daten und Dokumenten. Außerdem stellen wir Ihnen Inspektionspläne zur Verfügung, übernehmen die Kommunikation mit den Herstellern und ermöglichen Ihnen, auch Serviceeinträge von Fahrzeugen ohne digitales Serviceheft online einzutragen.
 ...
-oe service bietet individuelle Tarife an, die den Anforderungen von freien Kleinwerkstätten, aber auch großen Werkstattketten gerecht werden. In unserer Tarifübersicht sehen Sie eine detaillierte Auflistung aller Standard- und Zusatzfunktionen der jeweiligen Tarife, sodass Sie den perfekten Tarif für Ihre Bedürfnisse finden können. Sollten Sie sich unsicher sein, welcher Tarif der Richtige für Sie ist, helfen wir Ihnen gerne weiter! 
+oe service bietet individuelle Tarife an, die den Anforderungen von freien Kleinwerkstätten, aber auch großen Werkstattketten gerecht werden. In unserer Tarifübersicht sehen Sie eine detaillierte Auflistung aller Standard- und Zusatzfunktionen der jeweiligen Tarife, sodass Sie den perfekten Tarif für Ihre Bedürfnisse finden können. Sollten Sie sich unsicher sein, welcher Tarif der Richtige für Sie ist, helfen wir Ihnen gerne weiter!
 
  Welche Hersteller haben ein digitales Service Buch (DSB)?
 

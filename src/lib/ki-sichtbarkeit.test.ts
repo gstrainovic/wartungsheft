@@ -7,10 +7,13 @@ import { describe, expect, it } from 'vitest'
 import indexHtml from '../../index.html?raw'
 import llms from '../../public/llms.txt?raw'
 import robots from '../../public/robots.txt?raw'
+import { parseArticle } from './ratgeber'
 
 const KI_CRAWLER = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'PerplexityBot', 'Google-Extended', 'Applebot-Extended', 'CCBot']
 const OEFFENTLICH = ['/', '/privathalter', '/betrieb', '/hilfe', '/ratgeber', '/fr', '/it/betrieb', '/en/hilfe']
-const RATGEBER = Object.keys(import.meta.glob('../../content/ratgeber/*.md')).map(pfad => pfad.split('/').pop()!.replace('.md', ''))
+const RATGEBER_QUELLEN = import.meta.glob('../../content/ratgeber/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+// Adresse je Artikel: `slug` im Kopf, sonst der Dateiname (src/lib/ratgeber.ts)
+const RATGEBER = Object.entries(RATGEBER_QUELLEN).map(([pfad, quelle]) => parseArticle(pfad.split('/').pop()!.replace('.md', ''), quelle, 'de'))
 
 /** Darf der Crawler den Pfad lesen? RFC 9309: eigene Gruppe, sonst «*»; längste passende Regel, bei Gleichstand Allow */
 function darfLesen(text: string, crawler: string, pfad: string): boolean {
@@ -72,8 +75,8 @@ describe('llms.txt', () => {
 
   it('verlinkt jeden Ratgeber-Artikel', () => {
     expect(RATGEBER.length).toBeGreaterThan(0)
-    for (const slug of RATGEBER)
-      expect(llms, slug).toContain(`(https://wartungsheft.ch/ratgeber/${slug})`)
+    for (const artikel of RATGEBER)
+      expect(llms, artikel.slug).toContain(`(https://wartungsheft.ch/ratgeber/${artikel.slug})`)
   })
 
   it('sagt, dass auch die App vier Sprachen spricht', () => {
