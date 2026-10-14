@@ -64,11 +64,10 @@ Text, Metadaten, `robots.txt`, `sitemap.xml` und `llms.txt` stehen (Skill `app-h
 Google über die Search Console, Bing über die Bing Webmaster Tools (Import aus der Search Console, Sitemap
 eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegsseiten und Ratgeber sind fertiges HTML.
 
-- [ ] Einträge in Schweizer Verzeichnissen (`business-plan/verzeichnisse.md`): Nutzer meldet sich je
-      Plattform an, Claude füllt das Formular aus den fertigen Texten und sendet nach Freigabe ab
-- [ ] **Deutsche Ratgeber indexieren:** Nach dem Deploy in der Search Console (URL-Prüfung) für
-      `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und `/ratgeber/serviceheft-verloren` erneut
-      «Indexierung beantragen» und `gsc coverage` beobachten
+- [ ] **Deutsche Ratgeber indexieren:** `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und
+      `/ratgeber/serviceheft-verloren` sind am 14.10.2026 zur Indexierung beantragt (vorher «gecrawlt, nicht indexiert»
+      bzw. «Google nicht bekannt»). Ende Oktober mit `gsc --site wartungsheft.ch inspect <url>` prüfen; bleibt es bei
+      «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
       «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
