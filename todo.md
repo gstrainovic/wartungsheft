@@ -67,7 +67,11 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 - [ ] **Deutsche Ratgeber indexieren:** `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und
       `/ratgeber/serviceheft-verloren` sind am 14.10.2026 zur Indexierung beantragt (vorher «gecrawlt, nicht indexiert»
       bzw. «Google nicht bekannt»). Ende Oktober mit `gsc --site wartungsheft.ch inspect <url>` prüfen; bleibt es bei
-      «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag
+      «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag. Gesamtbild `gsc coverage` 15.10.: 36 von 52
+      Sitemap-Seiten indexiert; nicht indexiert sind fast nur Ratgeber (de: `was-kostet-ein-auto`,
+      `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`; fr/it/en mehrere), dazu `/fr/anlagen`.
+      «Gecrawlt, nicht indexiert» bei sieben Seiten heisst: Google hält sie für zu dünn oder doppelt; vor neuen
+      Ratgebern die vorhandenen stärken oder zusammenlegen (Entscheid Goran, Frage 29 vom 15.10.)
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
       «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
