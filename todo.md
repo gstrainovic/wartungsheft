@@ -70,8 +70,12 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag. Gesamtbild `gsc coverage` 15.10.: 36 von 52
       Sitemap-Seiten indexiert; nicht indexiert sind fast nur Ratgeber (de: `was-kostet-ein-auto`,
       `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`; fr/it/en mehrere), dazu `/fr/anlagen`.
-      «Gecrawlt, nicht indexiert» bei sieben Seiten heisst: Google hält sie für zu dünn oder doppelt; vor neuen
-      Ratgebern die vorhandenen stärken oder zusammenlegen (Entscheid Goran, Frage 29 vom 15.10.)
+      «Gecrawlt, nicht indexiert» bei sieben Seiten heisst: Google hält sie für zu dünn oder doppelt.
+- [ ] **Ratgeber stärken oder zusammenlegen, bevor neue entstehen (Entscheid Goran 29a):** Die sieben Seiten mit
+      «gecrawlt, nicht indexiert» (`gsc --site wartungsheft.ch coverage`) je Sprache gegen die indexierten Ratgeber
+      halten: Überschneidungen zusammenlegen (alte Adresse per 301 auf die neue), dünne Seiten mit eigenem Inhalt
+      ausbauen (Beispiele, Fristen, Kosten aus belegten Quellen); danach Indexierung beantragen und vier Wochen
+      später prüfen. Bis dahin keine neuen Ratgeber.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
       «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
