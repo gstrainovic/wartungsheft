@@ -41,8 +41,6 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       buchen (Abruf der Datei und Platz im Tagescheck festlegen)
 - [ ] Fahrzeuggrenze wirklich sperren, sobald ein Zahlungsweg existiert: `vehicleLimit` meldet heute nur, solange
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
-- [ ] Fällt der Health-Workflow durch, ohne dass etwas kaputt ist (Wartungsfenster, kurzer Netzaussetzer), die
-      Schwelle anheben: erst nach zwei Fehlläufen hintereinander mailen
 
 ### Ab 25.09.2026
 - [ ] Kleininserat: Bestätigung des Verlags abwarten, ab Erscheinen `/tcs` auswerten: `business-plan/05-go-to-market.md` «Versuch: Kleininserat im TCS-Magazin»
@@ -51,8 +49,6 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
 
 ### Marketing-Video
-- [x] **Alle Filme auf YouTube**, nach Gorans Freigabe der deutschen Fassungen: 13.10.2026 alle Fassungen der Seiten
-      abgeglichen, zwei fehlende Tutorialfassungen (IT und EN) hochgeladen; alle Videos laut Abgleich aktuell.
 - [ ] Sprechertexte FR, IT, EN von Muttersprachlern prüfen lassen (`video-scripts/sprechertexte.md`, letzter
       Abschnitt); geänderte Sätze kosten neue Credits, das ElevenLabs-Abo läuft bis 04.11.2026
 - [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-<name>.mp4` (je rund 20 Sekunden, 1080×1920) beim
@@ -77,9 +73,9 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       ausbauen (Beispiele, Fristen, Kosten aus belegten Quellen); danach Indexierung beantragen und vier Wochen
       später prüfen. Bis dahin keine neuen Ratgeber.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
-      90 Tagen. Steht im Titel der Startseite; «Serviceheft verloren» und «Occasion verkaufen» verlinken mit Ankertext
-      «Servicebuch» auf die Startseite (geht mit dem nächsten Deploy live). Platzierung vier Wochen nach dem Deploy mit
-      `gsc queries --days 28` prüfen
+      90 Tagen. Steht im Titel der Startseite; «Occasion verkaufen» verlinkt live mit Ankertext
+      «Servicebuch» auf die Startseite. Offen: «Serviceheft verloren» hat den Link beim Neuschreiben verloren, wieder
+      einsetzen und deployen. Platzierung vier Wochen nach dem Deploy mit `gsc queries --days 28` prüfen
 
 ### Messen, nebenbei
 - [ ] Wöchentlich Zahlen ziehen (Caddy-Log, `events`, Anmeldungen, Bestellungen, Postfach, README Abschnitt 6) und in
