@@ -82,7 +82,7 @@ export function parseArticle(slug: string, source: string, sprache: Sprache = 'd
   for (const line of (match?.[1] ?? '').split('\n')) {
     const i = line.indexOf(':')
     if (i > 0)
-      head[line.slice(0, i).trim()] = line.slice(i + 1).trim()
+      head[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^(["'])(.*)\1$/, '$2')
   }
   for (const key of ['title', 'description', 'date']) {
     if (!head[key])

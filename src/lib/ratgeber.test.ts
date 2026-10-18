@@ -33,6 +33,13 @@ describe('parseArticle', () => {
     expect(article.body).toContain('## Erster Schritt')
   })
 
+  it('zeigt einen Titel in Anführungszeichen ohne die Anführungszeichen (wie YAML)', () => {
+    const article = parseArticle('x', '---\ntitle: "Vorlage (PDF): gratis"\ndescription: \'Kurz: so\'\ndate: 2026-10-18\n---\nText')
+    expect(article.title).toBe('Vorlage (PDF): gratis')
+    expect(article.description).toBe('Kurz: so')
+    expect(renderArticlePage(article)).toContain('<title>Vorlage (PDF): gratis | Wartungsheft</title>')
+  })
+
   it('verlangt Titel, Beschreibung und Datum', () => {
     expect(() => parseArticle('x', '---\ntitle: T\n---\nText')).toThrow(/description/)
   })
