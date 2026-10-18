@@ -77,9 +77,12 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       fr und it je `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`, `serviceheft-verloren`,
       `wartungsintervalle`, `servicebuch-vorlage`, dazu en `occasion-verkaufen-serviceheft`. Vier Wochen danach mit
       `gsc --site wartungsheft.ch coverage` prüfen. Bis dahin keine neuen Ratgeber. Offen aus der Analyse:
-      - fr- und it-Fassungen verlinken fast nur deutschsprachige Quellen (etwa 10 von 12 Links bei Occasion);
-        möglicher Grund der schlechteren Indexierung, auf tcs.ch/fr bzw. /it, ch.ch und Kantonsseiten der Sprache
-        umstellen.
+      - fr- und it-Fassungen verlinken überwiegend deutschsprachige Quellen, möglicher Grund der schlechteren
+        Indexierung. 42 Links sind auf die Sprachfassung derselben Seite umgestellt (TCS, AGVS, Autoscout24,
+        Hersteller); je Sprache bleiben rund 95 von 144 deutsch: ADAC, Kantone Zürich, Basel, St. Gallen, Aargau,
+        SRF, Blick, Nau, mediacar, justement.ch und ch.ch (deren fr/it-Inhalt per curl nicht prüfbar, Seiten
+        entstehen per JavaScript). Ersatz braucht je Aussage eine Quelle in der Sprache (TCS fr/it, Kantone VD, GE,
+        TI, RTS, RSI) und Text von Fable (Frage 145).
       - `wartungsintervalle` stützt die Servicekosten in allen Sprachen fünfmal auf einen Anbieter-Blog (mediacar.ch);
         bessere Quelle suchen.
       - `mfk-aufgebot` (de): Titel über 80 Zeichen; mit «MFK: Kosten und Prüfumfang» beginnen («mfk kosten» Platz 35).
