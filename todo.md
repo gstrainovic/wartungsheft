@@ -65,15 +65,24 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       Sitemap-Seiten indexiert; nicht indexiert sind fast nur Ratgeber (de: `was-kostet-ein-auto`,
       `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`; fr/it/en mehrere), dazu `/fr/anlagen`.
       «Gecrawlt, nicht indexiert» bei sieben Seiten heisst: Google hält sie für zu dünn oder doppelt.
-- [ ] **Ratgeber stärken oder zusammenlegen, bevor neue entstehen (Entscheid Goran 29a):** Die sieben Seiten mit
-      «gecrawlt, nicht indexiert» (`gsc --site wartungsheft.ch coverage`) je Sprache gegen die indexierten Ratgeber
-      halten: Überschneidungen zusammenlegen (alte Adresse per 301 auf die neue), dünne Seiten mit eigenem Inhalt
-      ausbauen (Beispiele, Fristen, Kosten aus belegten Quellen); danach Indexierung beantragen und vier Wochen
-      später prüfen. Bis dahin keine neuen Ratgeber.
+- [ ] **Ratgeber gestärkt (Entscheid 29a), Wirkung prüfen:** Am 18.10. die dünnen Artikel `was-kostet-ein-auto`,
+      `werkstattrechnung-verstehen` und `occasion-verkaufen-serviceheft` mit belegtem Inhalt ausgebaut, doppelte
+      Abschnitte gekürzt und verlinkt, Titel nach Search-Console-Anfragen; nicht zusammengelegt, weil Google bei keiner
+      Seite eine andere als massgeblich wählt. Nach dem Deploy aller Sprachen Indexierung der 15 nicht indexierten
+      Artikel-URLs beantragen (Liste: `gsc --site wartungsheft.ch coverage`) und vier Wochen später prüfen. Bis dahin
+      keine neuen Ratgeber. Offen aus der Analyse:
+      - fr- und it-Fassungen verlinken fast nur deutschsprachige Quellen (etwa 10 von 12 Links bei Occasion);
+        möglicher Grund der schlechteren Indexierung, auf tcs.ch/fr bzw. /it, ch.ch und Kantonsseiten der Sprache
+        umstellen.
+      - `wartungsintervalle` stützt die Servicekosten in allen Sprachen fünfmal auf einen Anbieter-Blog (mediacar.ch);
+        bessere Quelle suchen.
+      - `mfk-aufgebot` (de): Titel über 80 Zeichen; mit «MFK: Kosten und Prüfumfang» beginnen («mfk kosten» Platz 35).
+        Übersicht `/ratgeber` zieht «serviceheft» und konkurriert mit der Startseite: «Serviceheft» aus ihrem Titel.
+      - Laut API sind de `serviceheft-verloren` und `occasion-verkaufen-serviceheft` «Google nicht bekannt», obwohl
+        beantragt bzw. gecrawlt; in der Search Console prüfen, ob der Antrag vom 14.10. registriert ist.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
-      90 Tagen. Steht im Titel der Startseite; «Occasion verkaufen» verlinkt live mit Ankertext
-      «Servicebuch» auf die Startseite. Offen: «Serviceheft verloren» hat den Link beim Neuschreiben verloren, wieder
-      einsetzen und deployen. Platzierung vier Wochen nach dem Deploy mit `gsc queries --days 28` prüfen
+      90 Tagen. Steht im Titel der Startseite; «Occasion verkaufen» und «Serviceheft verloren» verlinken mit Ankertext
+      «Servicebuch» auf die Startseite (live seit 18.10.). Platzierung Mitte November mit `gsc queries --days 28` prüfen
 
 ### Messen, nebenbei
 - [ ] Wöchentlich Zahlen ziehen (Caddy-Log, `events`, Anmeldungen, Bestellungen, Postfach, README Abschnitt 6) und in
