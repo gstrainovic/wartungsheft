@@ -24,6 +24,21 @@ ausdrücklich, ob das Serviceheft vorhanden und korrekt nachgeführt ist
 ([Vertragsvorlage](https://guide.autoscout24.ch/wp-content/uploads/2024/02/Kaufvertrag-AutoScout24.pdf)). Fehlt
 es, muss der Verkäufer «nein» ankreuzen, und der Käufer verhandelt entsprechend.
 
+### Verkauf ohne lückenloses Serviceheft
+
+Auch ohne vollständiges Heft kannst du dem Käufer etwas Belastbares in die Hand geben:
+
+| Massnahme | Wirkung | Kosten |
+|---|---|---|
+| TCS-Occasionstest | Belegt den Zustand, prüft auch die Dokumente ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)) | CHF 150–200 |
+| Frischer Service | «Ab Service» oder «ab MFK» im Inserat | je nach Umfang |
+| Rechnungen vorlegen | Zeigen, was gemacht wurde, und belegen den Kilometerstand | – |
+| MFK-Berichte vorlegen | Belegen den Kilometerstand zum Prüfdatum | – |
+| Garantie anbieten | Eigene Zusage, zum Beispiel «3 Monate Garantie» | – |
+
+Ein Check ersetzt das Serviceheft nicht, beantwortet aber die Frage nach dem Zustand, die der Käufer sonst mit
+einem Abschlag beantwortet.
+
 ## Diese Unterlagen legst du bereit
 
 AutoScout24 empfiehlt für den Verkauf
@@ -40,7 +55,7 @@ Die Service-Historie gehört auch ins Inserat: Laut AutoScout24 sind Angaben zur
 Service-Historie gute Verkaufsargumente. Lass dir die ausgehändigten Dokumente vom Käufer quittieren und übergib
 das Auto erst nach voller Bezahlung.
 
-## Kaufvertrag und Gewährleistung
+## Kaufvertrag, Gewährleistung und Übergabe
 
 Rechtlich reicht beim Occasionsverkauf eine Quittung, der TCS rät trotzdem zu einem schriftlichen Kaufvertrag und
 bietet eine Vorlage an
@@ -50,6 +65,34 @@ offenlegen, der Ausschluss deckt sie nicht
 ([AutoScout24](https://guide.autoscout24.ch/de/autoverkauf/tipps-autoverkauf/)).
 
 Halte den Kilometerstand im Vertrag fest. Das schützt beide Seiten.
+
+### Gewährleistung beim Privatverkauf
+
+Der Ausschluss der Gewährleistung hat Grenzen: Er ist ungültig, wenn du Mängel arglistig verschwiegen hast
+([Art. 199 OR](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_2/art_199)). Schreib
+bekannte Schäden darum in den Vertrag, auch wenn du «ohne Gewähr» verkaufst. Ohne Ausschluss verjähren Klagen des
+Käufers auf Gewährleistung zwei Jahre nach der Ablieferung
+([Art. 210 OR](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_9/art_210)). Ein
+Serviceheft mit Rechnungen hilft auch hier: Es hält fest, welche Arbeiten gemacht wurden, und macht den Zustand bei
+der Übergabe nachvollziehbar.
+
+### Nach dem Verkauf: Fahrzeugausweis, Kontrollschilder, Frist
+
+Nach der Übergabe lautet der Fahrzeugausweis noch auf dich. Als Halter musst du dem Strassenverkehrsamt innert
+14 Tagen jede Tatsache melden, die eine Änderung oder Ersetzung des Ausweises erfordert; lässt du innert 14 Tagen
+kein anderes Fahrzeug in den Verkehr setzen, musst du auch die Kontrollschilder unverzüglich zurückgeben
+([Art. 74 Abs. 5 VZV](https://justement.ch/de/doc/act/ch/741_51/lvl_2/lvl_21/lvl_212/art_74)). Die Schilder bleiben
+also bei dir: Entweder löst du damit innert 14 Tagen ein anderes Auto ein, oder du gibst sie mit dem Fahrzeugausweis
+beim Strassenverkehrsamt ab.
+
+### Abmelden kostet nichts
+
+Das Abmelden selbst ist im Kanton Zürich kostenlos
+([Kanton Zürich](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeug-abmelden.html)). Gebühren
+fallen an, wenn du die Schilder deponierst und für später reservieren lässt: Im Thurgau kostet die Verlängerung der
+Reservation deponierter Schilder 50 Franken, neue Kontrollschilder auf Wunsch 30 Franken
+([Strassenverkehrsamt Thurgau](https://strassenverkehrsamt.tg.ch/fahrzeugzulassung/kontrollschilder/deponierung-und-wiedereinloesung.html/4666)).
+Die Gebühren sind kantonal; frag bei deinem Amt nach, bevor du deponierst.
 
 ## «Frisch ab MFK» ist kein Qualitätssiegel
 
@@ -82,6 +125,7 @@ stimmt. Eine lückenlose Reihe davon beantwortet die wichtigste Frage des Käufe
 2. Die Service-Historie im Inserat erwähnen.
 3. Kilometerstand und Gewährleistungsausschluss im Kaufvertrag festhalten, Unfallschäden offenlegen.
 4. Dokumente gegen Quittung übergeben, das Auto erst nach Zahlung.
+5. Innert 14 Tagen dem Strassenverkehrsamt melden; Kontrollschilder auf ein anderes Auto einlösen oder zurückgeben.
 
 Fehlt dir das Heft, hilft der Ratgeber
 [Serviceheft verloren: So baust du die Historie wieder auf](/ratgeber/serviceheft-verloren).

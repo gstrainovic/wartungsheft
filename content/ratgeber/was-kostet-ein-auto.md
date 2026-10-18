@@ -1,6 +1,6 @@
 ---
-title: Was kostet ein Auto im Jahr in der Schweiz?
-description: Laut TCS-Musterrechnung 2026 rund 11'100 Franken oder 74 Rappen pro Kilometer. Woraus sich die Kosten zusammensetzen und wie du deine eigenen ausrechnest.
+title: Was kostet ein Auto pro Jahr und pro Kilometer in der Schweiz?
+description: Laut TCS-Musterrechnung 2026 rund 11'100 Franken im Jahr, 926 im Monat oder 74 Rappen pro Kilometer. Was sich 2026 geändert hat, Benzin oder Elektro, ein Beispiel für eine alte Occasion und wie du deine eigenen Kosten rechnest.
 date: 2026-09-23
 ---
 
@@ -30,7 +30,37 @@ Der TCS teilt die Kosten so auf (Anteile laut TCS, Frankenbeträge von uns darau
 
 Der grösste Brocken ist also der Wertverlust: Abschreibung und Wertminderung machen zusammen 40 Prozent aus.
 
-## Benzin ist 2026 teurer als in der Rechnung
+### Was sich 2026 geändert hat
+
+Gegenüber 2025 sinken die Kilometerkosten laut TCS um zwei Rappen auf 74 Rappen pro Kilometer, obwohl das Musterauto
+teurer wurde: Der Neupreis stieg von CHF 44'400 auf CHF 45'000. Deutlich teurer wurden die Kaskoprämien, nämlich um
+14 Prozent. Beim Strom rechnet der TCS mit 18 kWh auf 100 Kilometer und einem Strompreis von 28 Rappen pro
+Kilowattstunde
+([Medienmitteilung TCS vom 6. Januar 2026](https://www.presseportal.ch/de/pm/100000091/100937477)); das sind, von
+uns gerechnet, rund 5 Franken Strom auf 100 Kilometer.
+
+Die Musterrechnung gilt für ein neues Auto. Ab zehn Jahren Fahrzeugalter und 150'000 Kilometern Laufleistung sind
+die Standardwerte des TCS-Rechners nicht mehr aussagekräftig
+([TCS Kilometerkosten](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+Für ältere Autos zählen darum die eigenen Rechnungen; ein Beispiel dazu steht weiter unten.
+
+### Kosten pro Monat
+
+Aus der Jahreszahl des TCS ergibt sich pro Monat (von uns gerechnet, auf ganze Franken gerundet):
+
+| | pro Jahr | pro Monat |
+|---|---|---|
+| Fixe Kosten | CHF 6'977 | CHF 581 |
+| Variable Kosten | CHF 4'135 | CHF 345 |
+| Total | CHF 11'112 | CHF 926 |
+
+Rund 580 Franken im Monat fallen also an, bevor du einen Kilometer gefahren bist. Die 74 Rappen pro Kilometer gelten
+bei 15'000 Kilometern im Jahr: Wer weniger fährt, verteilt die fixen Kosten auf weniger Kilometer, und jeder
+Kilometer wird teurer.
+
+## Energie: Benzin, Diesel oder Strom
+
+### Benzin ist 2026 teurer als in der Rechnung
 
 Der TCS rechnete mit CHF 1.71 pro Liter Bleifrei 95
 ([Medienmitteilung TCS](https://www.tcs.ch/assets/docs/presse/2026/250106-medienmitteilung-kilometerkosten.pdf)).
@@ -39,6 +69,15 @@ Mitte September 2026 kostete der Liter im Schnitt aber CHF 2.10, Diesel CHF 2.38
 Als Faustregel des TCS erhöhen 16 Rappen mehr pro Liter die Kosten um einen Rappen pro Kilometer
 ([TCS Kilometerkosten](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
 Beim Musterauto sind das rund 2,4 Rappen pro Kilometer mehr, also etwa 360 Franken im Jahr.
+
+### Benzin oder Elektro
+
+Der TCS hat Benziner und Elektroautos über zehn Jahre Nutzungsdauer verglichen. Sein Fazit: Die tieferen
+Treibstoff- und Servicekosten der Elektroautos gleichen deren höheren Neupreis nach einer gewissen Laufleistung aus
+([TCS-Vergleich Benziner und Elektroauto](https://www.tcs.ch/de/testberichte-ratgeber/tests/vergleich-benziner-elektroauto.php)).
+Ob das bei dir aufgeht, hängt also davon ab, wie viel du fährst: Wer wenig fährt, bleibt auf dem Unterschied beim
+Neupreis sitzen; wer viel fährt, holt ihn über Strom und Service wieder herein. Für beide Antriebe gilt: Was dein
+Auto wirklich kostet, zeigen die eigenen Rechnungen für Service, Reifen und Reparaturen.
 
 ## Die fixen Posten im Detail
 
@@ -55,13 +94,11 @@ Beim Musterauto sind das rund 2,4 Rappen pro Kilometer mehr, also etwa 360 Frank
 
 ## Service und Reparaturen: 10 Prozent, aber nicht gleichmässig
 
-Beim Musterauto machen Reparaturen und Service rund 1'100 Franken im Jahr aus. Der TCS weist darauf hin, dass
-dieser Wert in den ersten zwei bis vier Jahren zu hoch ist, weil dann meist noch Garantie besteht: Das Geld solle
-man für die Jahre acht bis zehn auf die Seite legen. Einzelne Reparaturen wie ein neuer Dieselpartikelfilter können
-bis zu 7'000 Franken kosten (TCS Kilometerkosten).
-
-Bei einem Auto, das älter als zehn Jahre ist, fällt die Abschreibung weg, dafür steigen Unterhalt und Reparaturen.
-Genau dann lohnt es sich zu wissen, was man in den letzten Jahren wirklich ausgegeben hat.
+Beim Musterauto machen Reparaturen und Service rund 1'100 Franken im Jahr aus. Laut TCS ist dieser Wert in den
+ersten zwei bis vier Jahren zu hoch, weil dann meist noch Garantie besteht; das Geld solle man für die Jahre acht
+bis zehn auf die Seite legen. Einzelne Reparaturen wie ein neuer Dieselpartikelfilter können bis zu 7'000 Franken
+kosten (TCS Kilometerkosten). Welche Arbeiten wann fällig sind und was ein Service kostet, steht im Ratgeber
+[Auto-Wartungsplan: Welche Intervalle sind wirklich nötig?](/ratgeber/wartungsintervalle).
 
 ## So rechnest du deine eigenen Kosten
 
@@ -72,6 +109,27 @@ Genau dann lohnt es sich zu wissen, was man in den letzten Jahren wirklich ausge
 - **Eigene Zahlen:** Am genauesten sind deine tatsächlichen Ausgaben. Sammle ein Jahr lang alle Rechnungen für
   Service, Reparaturen und Reifen und zähle Steuer, Versicherung und Vignette dazu. Wer seine Werkstattrechnungen
   ohnehin fotografiert, hat die Summe pro Fahrzeug und Jahr ohne Mehraufwand.
+
+### Beispiel: Eine Occasion über zehn Jahre
+
+Ein Rechenbeispiel, keine Messung: Wir nehmen ein Auto, das älter als zehn Jahre ist, und setzen nur Posten ein,
+die oben belegt sind. Die Abschreibung fällt weg, der Kaufpreis bleibt aussen vor.
+
+| Posten (Annahme) | pro Jahr |
+|---|---|
+| Energie: TCS-Anteil plus 360 Franken Benzinaufschlag 2026 | CHF 1'690 |
+| Service und Reparaturen: TCS-Anteil | CHF 1'110 |
+| Reifen: TCS-Anteil | CHF 445 |
+| Versicherung: unteres Ende der Comparis-Gruppe 800 bis 1'199 Franken | CHF 800 |
+| Motorfahrzeugsteuer: Mittelwert Škoda Octavia laut TCS | CHF 453 |
+| Vignette | CHF 40 |
+| **Total ohne Parkplatz** | **CHF 4'538** |
+
+Über zehn Jahre sind das rund 45'000 Franken, ohne Parkplatz und ohne Kaufpreis. Mit dem Parkplatz des Musterautos
+(CHF 1'780 im Jahr) kämen noch einmal rund 18'000 Franken dazu. Der Posten Service und Reparaturen ist für ein altes
+Auto dabei eher zu tief: Der TCS selbst sagt, dass sein Rechner ab zehn Jahren und 150'000 Kilometern nicht mehr
+aussagekräftig ist (TCS Kilometerkosten). Genau dann lohnt es sich zu wissen, was man in den letzten Jahren wirklich
+ausgegeben hat.
 
 Wie du eine Werkstattrechnung liest, steht im Ratgeber
 [Werkstattrechnung verstehen](/ratgeber/werkstattrechnung-verstehen).

@@ -45,9 +45,9 @@ Server in der Schweiz. Das Auslesen der Rechnungen läuft über Mistral in Frank
 - [Occasion verkaufen: So hilft ein lückenloses Serviceheft beim Preis](https://wartungsheft.ch/ratgeber/occasion-verkaufen-serviceheft): Welche Unterlagen Käufer in der Schweiz sehen wollen, was «ab MFK» wirklich heisst und wie Rechnungen und Serviceheft den Kilometerstand belegen.
 - [Serviceheft oder Servicebuch verloren: So baust du die Historie wieder auf](https://wartungsheft.ch/ratgeber/serviceheft-verloren): Duplikat bei der Markengarage, digitales Serviceheft des Herstellers, Rechnungen und MFK-Berichte: So holst du die Wartungshistorie deines Autos in der Schweiz zurück.
 - [Auto-Wartungsplan: Welche Intervalle sind wirklich nötig?](https://wartungsheft.ch/ratgeber/wartungsintervalle): Service nach Zeit oder Kilometern, Bremsflüssigkeit, Zahnriemen, Reifen, Batterie: welche Intervalle gelten, was der Hersteller vorgibt und ob du in die freie Garage darfst.
-- [Was kostet ein Auto im Jahr in der Schweiz?](https://wartungsheft.ch/ratgeber/was-kostet-ein-auto): Laut TCS-Musterrechnung 2026 rund 11'100 Franken oder 74 Rappen pro Kilometer. Woraus sich die Kosten zusammensetzen und wie du deine eigenen ausrechnest.
+- [Was kostet ein Auto pro Jahr und pro Kilometer in der Schweiz?](https://wartungsheft.ch/ratgeber/was-kostet-ein-auto): Laut TCS-Musterrechnung 2026 rund 11'100 Franken oder 74 Rappen pro Kilometer. Woraus sich die Kosten zusammensetzen und wie du deine eigenen ausrechnest.
 - [Werkstattrechnung verstehen: Was bedeuten die Positionen?](https://wartungsheft.ch/ratgeber/werkstattrechnung-verstehen): Arbeitswerte, Stundensatz, Material, Öl und MWST auf der Garagenrechnung erklärt, dazu deine Rechte bei Kostenvoranschlag, nicht bestellten Arbeiten und Mängeln.
-- [Servicebuch-Vorlage: Kostenloses PDF für die Schweiz](https://wartungsheft.ch/ratgeber/servicebuch-vorlage): Ausdruckbare Servicebuch-Vorlage im A4-Format mit Schweizer Begriffen (MFK, Serviceintervallen, Kilometerstand), dazu Schritt für Schritt rekonstruierte Wartungshistorie.
+- [Serviceheft-Vorlage (PDF) zum Ausdrucken: Kostenloses Servicebuch für die Schweiz](https://wartungsheft.ch/ratgeber/servicebuch-vorlage): Ausdruckbare Servicebuch-Vorlage im A4-Format mit Schweizer Begriffen (MFK, Serviceintervallen, Kilometerstand).
 
 ## Andere Sprachen
 

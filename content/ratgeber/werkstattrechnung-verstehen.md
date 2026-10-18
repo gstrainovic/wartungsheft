@@ -16,9 +16,11 @@ Garage ergeben sie den Preis. Laut TCS können sich sowohl die Stundensätze als
 Garage unterscheiden
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
 
-**Stundensatz.** Laut Figas Autogewerbe-Treuhand liegt der Durchschnitt in der Schweiz bei rund 160 Franken pro
-Stunde, 2007 waren es noch etwa 132 Franken; rund um Zürich, Genf und Bern sind die Tarife höher
-([Nau, 2024](https://automobile.nau.ch/stories/werkstattpreise-in-der-schweiz-so-ist-der-stand-66795705)).
+**Stundensatz.** Der Autogewerbeverband AGVS beziffert den Verrechnungslohn seiner Betriebe für 2023 laut
+Branchenspiegel auf 167.30 Franken pro Stunde (Mischsatz über alle Arbeiten) und rechnete damit, dass der Satz
+gegenüber Kunden 2024 die 180 Franken überschreitet
+([AGVS](https://www.agvs-upsa.ch/de/news-medien/news-detail/news/seien-sie-mutig-mit-erhoehungen/)). Der Satz
+deiner Garage steht im Aushang oder auf der Rechnung; frag danach, bevor du den Auftrag erteilst.
 
 **Material und Ersatzteile.** Jedes Teil mit Teilenummer, Menge und Preis. Beim Öl steht der Literpreis: Blick
 berichtete 2021 von einer Garage, die 5,5 Liter à CHF 32.77 verrechnete, während derselbe Liter online rund
@@ -33,6 +35,32 @@ stehen, wenn sie dir hoch vorkommen.
 ([ESTV](https://www.estv.admin.ch/de/mwst-steuersaetze-schweiz)). Achte darauf, ob die Positionen netto oder
 brutto aufgeführt sind; das Total inklusive MWST ist der Betrag, den du bezahlst.
 
+### Beispiel: So sieht eine Rechnung für einen Ölservice aus
+
+Ein erfundenes Beispiel, damit du die Positionen einordnen kannst. Die Preise sind Annahmen, keine Richtwerte; der
+Stundensatz entspricht den 180 Franken, die der AGVS für 2024 erwartete.
+
+| Position | Menge | Einzelpreis | Betrag |
+|---|---|---|---|
+| Ölservice nach Arbeitswerten (entspricht 0.5 Std.) | 0.5 Std. | CHF 180.00 | CHF 90.00 |
+| Motorenöl 5W-30 | 4 l | CHF 25.00 | CHF 100.00 |
+| Ölfilter | 1 | CHF 22.00 | CHF 22.00 |
+| Kleinmaterial und Entsorgung, Pauschale | 1 | CHF 10.00 | CHF 10.00 |
+| **Total netto** | | | **CHF 222.00** |
+| MWST 8,1 % | | | CHF 17.98 |
+| **Total inkl. MWST** | | | **CHF 239.98** |
+
+Was du hier prüfst: Stimmt der Stundensatz mit dem Aushang überein, passt die Ölmenge zu deinem Motor (die
+Betriebsanleitung nennt die Füllmenge), und was steckt in der Pauschale? Den Literpreis vergleichst du mit dem, was
+derselbe Liter im Handel kostet.
+
+### Was ein Ölwechsel kosten darf
+
+Eine gesetzliche Obergrenze gibt es nicht. Als Richtwert nennt Nau für die Schweiz in der Regel 100 bis 250 Franken
+([Nau](https://automobile.nau.ch/stories/olwechsel-kosten-in-der-schweiz-66775084)); das Beispiel oben liegt mit
+rund 240 Franken am oberen Rand. Teurer wird es vor allem durch den Literpreis des Öls und die verrechnete Zeit.
+Liegt deine Rechnung deutlich darüber, lass dir diese beiden Positionen erklären.
+
 ## Was auf der Rechnung stehen muss
 
 Eine MWST-pflichtige Garage muss auf der Rechnung ihren Namen, Ort und ihre MWST-Nummer, deinen Namen und Ort, das
@@ -40,6 +68,13 @@ Datum, Art und Umfang der Leistung sowie Entgelt, Steuersatz und Steuerbetrag an
 ([Art. 26 MWSTG](https://www.mwstnetzwerk.com/alle-artikel/2-titel-4-kap-rechnungsstellung-und-steuerausweis/art-26-mwstg)).
 Der Kilometerstand ist keine Pflicht, steht aber meistens drauf. Achte darauf, dass er stimmt: Er ist später der
 Beleg, dass dein Tacho nicht manipuliert ist.
+
+### Preise müssen aushängen
+
+Für Serviceleistungen im Garagengewerbe gilt die Preisbekanntgabepflicht: Die Garage muss die Preise ihrer
+Dienstleistungen bekannt geben (Art. 10 Abs. 1 Preisbekanntgabeverordnung,
+[SECO](https://www.seco.admin.ch/de/faq-pbv)). Du darfst also vor dem Auftrag nach dem Stundensatz und den Preisen
+der Arbeiten fragen und die Rechnung danach damit vergleichen.
 
 ## Kostenvoranschlag: wie viel darf es mehr sein?
 
@@ -75,8 +110,16 @@ Bezahlst du nicht, darf die Garage das Auto grundsätzlich zurückbehalten, bis 
 ([Saldo](https://www.saldo.ch/artikel/artikeldetail/darf-die-garage-den-wagen-zurueckbehalten)). Bei Streit über
 die Rechnung lohnt sich darum rechtliche Beratung, bevor die Situation eskaliert.
 
+### Fristen auf einen Blick
+
+| Wann | Was |
+|---|---|
+| Bei der Auftragserteilung | Höchstbetrag vereinbaren; überschreitet ihn die Garage, muss sie dich vorher kontaktieren (TCS) |
+| Sofort nach der Abholung | Auto prüfen und Mängel melden, sonst gilt die Arbeit als genehmigt (ACS) |
+| Zwei Jahre nach der Abnahme | Ansprüche wegen Mängeln verjähren (Art. 371 OR) |
+
 ## Rechnung aufbewahren
 
 Jede Werkstattrechnung ist ein Stück Fahrzeughistorie. Sie belegt Wartungen im Garantiefall, Kilometerstände beim
 Verkauf und zeigt dir am Jahresende, was das Auto gekostet hat. Wie viel das insgesamt ist, zeigt der Ratgeber
-[Was kostet ein Auto im Jahr in der Schweiz?](/ratgeber/was-kostet-ein-auto)
+[Was kostet ein Auto pro Jahr und pro Kilometer in der Schweiz?](/ratgeber/was-kostet-ein-auto)

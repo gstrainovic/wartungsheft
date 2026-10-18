@@ -4,7 +4,7 @@ description: Duplikat bei Markengarage, digitales Serviceheft des Herstellers, R
 date: 2026-10-13
 ---
 
-Das **Serviceheft** (auch [Servicebuch](/) genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Ein lückenloses Serviceheft kann den Verkaufspreis um **5–10 % erhöhen** – ohne Nachweis fehlt dir dieses Argument ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
+Das **Serviceheft** (auch [Servicebuch](/) genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Der TCS nennt das lückenlose Serviceheft einen **wichtigen Trumpf bei Eintausch oder Wiederverkauf** – ohne Nachweis fehlt dir dieses Argument ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
 
 ---
 
@@ -110,7 +110,7 @@ Lässt sich die Historie **nicht rekonstruieren**, bleibt ein **unabhängiger Na
 
 ## ✅ Checkliste: So rekonstruierst du die Historie
 
-### 📌 Phase 1: Sofortmaßnahmen
+### 📌 Phase 1: Sofortmassnahmen
 - [ ] **Digitale Hefte prüfen** (Marken-App, Online-Portal, TecRMI über Garage)
 - [ ] **Alle eigenen Unterlagen durchsuchen** (Ordner, E-Mails, Cloud)
 - [ ] **Markengarage für Duplikat kontaktieren** (Kosten: ~CHF 30)
@@ -133,17 +133,7 @@ Lässt sich die Historie **nicht rekonstruieren**, bleibt ein **unabhängiger Na
 
 ## 💡 Tipps für den Verkauf ohne Serviceheft
 
-Auch ohne vollständiges Serviceheft kannst du den Wert deines Autos steigern:
-
-| Massnahme | Wirkung | Kosten |
-|-----------|---------|--------|
-| **TCS-Occasionstest** | Belegt verkehrssicheren Zustand | CHF 150–200 |
-| **Frischer Service** | «Ab Service» / «Ab MFK» erhöht den Preis | CHF 50–200 |
-| **Rechnungen präsentieren** | Zeigt Wartungswillen | — |
-| **MFK-Berichte vorlegen** | Belegt Kilometerstand | — |
-| **Garantie anbieten** | Selbstzusage (z. B. «3 Monate Garantie») | — |
-
-**💡 TCS-Tipp:** Ein **lückenloses Serviceheft** kann den Verkaufspreis um **5–10 % erhöhen** ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Auch ohne vollständiges Serviceheft kannst du dem Käufer etwas Belastbares vorlegen: einen **TCS-Occasionstest**, einen frischen Service, deine Rechnungen und die MFK-Berichte. Welche Massnahme was bringt und was sie kostet, steht im Ratgeber [Occasion verkaufen: So hilft ein lückenloses Serviceheft beim Preis](/ratgeber/occasion-verkaufen-serviceheft).
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Servicebuch-Vorlage: Kostenloses PDF für die Schweiz"
+title: "Serviceheft-Vorlage (PDF) zum Ausdrucken: Kostenloses Servicebuch für die Schweiz"
 description: "Kostenlose Servicebuch-Vorlage PDF für die Schweiz mit MFK, Serviceintervallen, Kilometerstand. Lade herunter, drucke aus und rekonstruiere die Wartungshistorie."
 date: 2026-10-13
 ---
@@ -83,20 +83,7 @@ Wartungsintervalle unterscheiden sich je nach Fahrzeug und Motorisierung. Die le
 
 ## 🔄 Wartungshistorie ohne originales Serviceheft rekonstruieren
 
-Falls du dein **Serviceheft verloren** hast, kannst du die Historie wie folgt rekonstruieren:
-
-### 📋 Vorgehensweise
-
-| Schritt | Massnahme | Wo? |
-|---------|-----------|-----|
-| 1 | **Digitales Serviceheft prüfen** | Hersteller oder Markenwerkstatt; der TCS empfiehlt, einen Beleg über den digitalen Eintrag aufzubewahren ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)) |
-| 2 | **Duplikat oder Auszug anfragen** | Werkstatt, die das Fahrzeug gewartet hat; mögliche Gebühren vorher erfragen |
-| 3 | **Rechnungen sammeln** | Werkstätten, Vorbesitzer und eigene Unterlagen |
-| 4 | **MFK-Unterlagen ergänzen** | Beim zuständigen kantonalen Strassenverkehrsamt nachfragen |
-
-### 📌 Schweiz-spezifische Tipps
-
-- **MFK-Berichte:** Sie können die bei der Prüfung erfassten Angaben ergänzen, ersetzen aber keine Wartungsrechnung oder Herstellerdokumentation.
+Ist dein **Serviceheft verloren**, holst du die Historie aus dem digitalen Serviceheft des Herstellers, aus den Rechnungen der Garagen und aus den MFK-Berichten zurück und überträgst sie Zeile für Zeile in diese Vorlage. Wie du dabei Schritt für Schritt vorgehst, steht im Ratgeber [Serviceheft verloren: So baust du die Historie wieder auf](/ratgeber/serviceheft-verloren).
 
 ---
 
