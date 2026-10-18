@@ -1,5 +1,5 @@
 ---
-title: "Modèle de carnet d’entretien : PDF gratuit pour la Suisse"
+title: "Modèle de carnet d’entretien (PDF) à imprimer : carnet de service gratuit pour la Suisse"
 description: "Modèle de carnet d’entretien voiture en PDF pour la Suisse, avec MFK, intervalles d’entretien et kilométrage. Téléchargez gratuitement, imprimez et reconstituez l’historique de votre véhicule."
 date: 2026-10-13
 ---
@@ -83,22 +83,7 @@ Les intervalles d’entretien varient selon le véhicule et sa motorisation. La 
 
 ## 🔄 Reconstituer l’historique sans carnet original
 
-Si vous avez **perdu votre carnet**, voici comment reconstituer l’historique :
-
-### 📋 Étapes à suivre
-
-| Étape | Action | Où ? |
-|-------|--------|------|
-| 1 | **Vérifier le carnet numérique** | Constructeur ou garage de la marque ; le TCS recommande de conserver un justificatif de l’inscription numérique ([TCS](https://www.tcs.ch/fr/conseils-tests/garage-entretien/carnet-entretien-electronique.php)) |
-| 2 | **Demander un duplicata ou un extrait** | Garage ayant entretenu le véhicule ; demander les frais éventuels au préalable |
-| 3 | **Rassembler les factures** | Garages, ancien propriétaire et documents personnels |
-| 4 | **Ajouter les documents MFK** | Se renseigner auprès de l’office cantonal compétent |
-
-### 📌 Conseils spécifiques à la Suisse
-
-- **Rapports MFK :** ils peuvent compléter les informations relevées lors de l’expertise, mais ne remplacent pas les factures d’entretien ou les documents du constructeur.
-
-Le guide [Carnet d’entretien perdu : reconstituer l’historique](/fr/ratgeber/serviceheft-verloren) décrit la démarche complète.
+Si vous avez **perdu votre carnet d’entretien**, vous récupérez l’historique dans le carnet d’entretien numérique du constructeur, dans les factures des garages et dans les rapports d’expertise, et vous le reportez ligne par ligne dans ce modèle. La marche à suivre pas à pas figure dans le guide [Carnet d’entretien perdu : reconstituer l’historique](/fr/ratgeber/serviceheft-verloren).
 
 ---
 

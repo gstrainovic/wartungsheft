@@ -7,8 +7,8 @@ date: 2026-10-13
 Le carnet d’entretien, souvent aussi appelé carnet de service, a disparu : perdu lors d’un déménagement, jamais remis
 par l’ancien propriétaire ou oublié dans la boîte à gants d’une voiture vendue. C’est fâcheux, car lors de la vente et
 en cas de recours à la garantie, c’est la preuve de l’entretien qui compte. La bonne nouvelle : une grande partie de
-l’historique peut généralement être reconstituée. **⚠️ Important :** un carnet d’entretien sans lacunes peut
-augmenter le prix de vente de **5 à 10 %** – sans preuve, cet argument vous manque
+l’historique peut généralement être reconstituée. **⚠️ Important :** le TCS qualifie le carnet d’entretien sans lacunes
+d’**atout important lors de la reprise ou de la revente** – sans preuve, cet argument vous manque
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 Voici la marche à suivre, pas à pas.
 
@@ -157,18 +157,10 @@ solide**.
 
 ## 💡 Astuces pour vendre sans carnet d’entretien
 
-Même sans carnet complet, vous pouvez augmenter la valeur de votre voiture :
-
-| Mesure | Effet | Coût |
-|--------|-------|------|
-| **Test d’occasion TCS** | Prouve un état conforme à la sécurité routière | CHF 150 à 200 |
-| **Service récent** | « Après service » / « après expertise » augmente le prix | CHF 50 à 200 |
-| **Présenter les factures** | Montre votre souci de l’entretien | — |
-| **Fournir les rapports d’expertise** | Prouve le kilométrage | — |
-| **Offrir une garantie** | Engagement personnel (p. ex. « garantie 3 mois ») | — |
-
-**💡 Astuce du TCS :** un **carnet d’entretien sans lacunes** peut augmenter le prix de vente de **5 à 10 %**
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Même sans carnet d’entretien complet, vous pouvez présenter à l’acheteur quelque chose de solide : un **test
+d’occasion TCS**, un service récent, vos factures et les rapports d’expertise. Quelle mesure apporte quoi et ce
+qu’elle coûte, le guide [Vendre son occasion : le carnet d’entretien fait le prix](/fr/ratgeber/occasion-verkaufen-serviceheft)
+l’explique.
 
 ---
 

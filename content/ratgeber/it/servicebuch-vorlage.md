@@ -1,5 +1,5 @@
 ---
-title: "Modello libretto di manutenzione: PDF gratuito per la Svizzera"
+title: "Modello di libretto di manutenzione (PDF) da stampare: libretto gratuito per la Svizzera"
 description: "Modello di libretto manutenzione auto PDF per la Svizzera con MFK, tagliandi, chilometraggio. Scarica gratis, stampa e ricostruisci la storia del tuo veicolo."
 date: 2026-10-13
 ---
@@ -83,20 +83,7 @@ Gli intervalli di manutenzione variano secondo il veicolo e la motorizzazione. L
 
 ## 🔄 Ricostruire la storia senza libretto originale
 
-Se hai **perso il libretto**, ecco come ricostruire la storia:
-
-### 📋 Passaggi da seguire
-
-| Passaggio | Azione | Dove? |
-|-----------|--------|-------|
-| 1 | **Verificare il libretto digitale** | Costruttore o officina della marca; il TCS consiglia di conservare una prova dell’iscrizione digitale ([TCS](https://www.tcs.ch/it/consigli-test/officina-manutenzione/libretto-manutenzione-elettronico.php)) |
-| 2 | **Richiedere un duplicato o un estratto** | Officina che ha seguito il veicolo; chiedi prima se sono previsti costi |
-| 3 | **Raccogliere le fatture** | Officine, precedente proprietario e documenti personali |
-| 4 | **Aggiungere i documenti MFK** | Informati presso l’ufficio cantonale competente |
-
-### 📌 Consigli specifici per la Svizzera
-
-- **Rapporti MFK**: possono integrare i dati rilevati durante il collaudo, ma non sostituiscono le fatture di manutenzione o i documenti del costruttore.
+Se hai **perso il libretto**, recuperi la storia dal libretto digitale del costruttore, dalle fatture dei garage e dai rapporti di collaudo e la riporti riga per riga in questo modello. Come procedere passo passo lo trovi nella guida [Libretto di manutenzione perso: ricostruire lo storico](/it/ratgeber/serviceheft-verloren).
 
 ---
 

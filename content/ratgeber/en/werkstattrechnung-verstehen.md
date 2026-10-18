@@ -16,9 +16,11 @@ rate, they give the price. According to the TCS, both the hourly rates and the l
 to garage
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
 
-**Hourly rate.** According to Figas, the motor trade's fiduciary company, the Swiss average is around 160 francs
-per hour, compared with about 132 francs in 2007; around Zurich, Geneva and Bern the rates are higher
-([Nau, 2024](https://automobile.nau.ch/stories/werkstattpreise-in-der-schweiz-so-ist-der-stand-66795705)).
+**Hourly rate.** The Swiss motor trade association AGVS puts the charge-out rate of its member garages for 2023,
+according to its industry report, at 167.30 francs per hour (a blended rate across all jobs) and expected the rate
+charged to customers to exceed 180 francs in 2024
+([AGVS](https://www.agvs-upsa.ch/de/news-medien/news-detail/news/seien-sie-mutig-mit-erhoehungen/)). Your garage's
+rate is shown on its price display or on the invoice; ask for it before you place the order.
 
 **Materials and spare parts.** Each part with part number, quantity and price. For oil, the price per litre is
 shown: in 2021 Blick reported on a garage that charged 5.5 litres at CHF 32.77 each, while the same litre cost
@@ -33,6 +35,32 @@ they are for if they seem high to you.
 ([ESTV](https://www.estv.admin.ch/de/mwst-steuersaetze-schweiz)). Check whether the items are listed net or
 gross; the total including VAT is the amount you pay.
 
+### Example: what an invoice for an oil service looks like
+
+A made-up example so that you can place the items. The prices are assumptions, not reference values; the hourly rate
+corresponds to the 180 francs the AGVS expected for 2024.
+
+| Item | Quantity | Unit price | Amount |
+|---|---|---|---|
+| Oil service by labour units (equivalent to 0.5 h) | 0.5 h | CHF 180.00 | CHF 90.00 |
+| Engine oil 5W-30 | 4 l | CHF 25.00 | CHF 100.00 |
+| Oil filter | 1 | CHF 22.00 | CHF 22.00 |
+| Small materials and disposal, flat rate | 1 | CHF 10.00 | CHF 10.00 |
+| **Total net** | | | **CHF 222.00** |
+| VAT 8.1 % | | | CHF 17.98 |
+| **Total incl. VAT** | | | **CHF 239.98** |
+
+What you check here: does the hourly rate match the price display, does the amount of oil fit your engine (the
+owner's manual gives the fill quantity), and what is in the flat rate? Compare the price per litre with what the
+same litre costs in the shops.
+
+### What an oil change may cost
+
+There is no legal upper limit. As a guide, Nau gives 100 to 250 francs as the usual range for Switzerland
+([Nau](https://automobile.nau.ch/stories/olwechsel-kosten-in-der-schweiz-66775084)); the example above, at around
+240 francs, is at the upper end. What pushes the price up is mainly the price per litre of the oil and the time
+charged. If your invoice is well above that, ask the garage to explain these two items.
+
 ## What must be on the invoice
 
 A garage registered for VAT must state on the invoice its name, location and VAT number, your name and location,
@@ -40,6 +68,13 @@ the date, the type and scope of the service, as well as the price, tax rate and 
 ([Art. 26 MWSTG](https://www.mwstnetzwerk.com/alle-artikel/2-titel-4-kap-rechnungsstellung-und-steuerausweis/art-26-mwstg)).
 The mileage is not mandatory, but it is usually included. Make sure it is correct: later on, it is the proof that
 your odometer has not been tampered with.
+
+### Prices must be displayed
+
+Services in the garage trade are subject to the duty to display prices: the garage must make the prices of its
+services known (Art. 10 para. 1 of the Ordinance on Price Disclosure,
+[SECO](https://www.seco.admin.ch/de/faq-pbv)). So before placing the order you may ask for the hourly rate and the
+prices of the jobs, and compare the invoice with them afterwards.
 
 ## Estimate: how much more is acceptable?
 
@@ -75,8 +110,16 @@ If you do not pay, the garage may in principle keep the car until the invoice ha
 ([Saldo](https://www.saldo.ch/artikel/artikeldetail/darf-die-garage-den-wagen-zurueckbehalten)). In a dispute
 over the invoice, it is therefore worth getting legal advice before the situation escalates.
 
+### Deadlines at a glance
+
+| When | What |
+|---|---|
+| When placing the order | Agree a maximum amount; if the garage exceeds it, it must contact you first (TCS) |
+| Immediately after collection | Check the car and report defects, otherwise the work is deemed accepted (ACS) |
+| Two years after acceptance | Claims for defects become time-barred (Art. 371 CO) |
+
 ## Keep the invoice
 
 Every garage invoice is a piece of vehicle history. It proves servicing in a warranty case and mileage when you
 sell, and at the end of the year it shows you what the car has cost. How much that comes to in total is shown in
-the guide [How much does a car cost per year in Switzerland?](/en/ratgeber/was-kostet-ein-auto)
+the guide [Cost of ownership: what a car costs per year and per kilometre in Switzerland](/en/ratgeber/was-kostet-ein-auto)

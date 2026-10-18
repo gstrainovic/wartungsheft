@@ -1,6 +1,6 @@
 ---
-title: Quanto costa un'auto all'anno in Svizzera?
-description: Secondo il calcolo modello TCS 2026 circa 11'100 franchi o 74 centesimi al chilometro. Di cosa sono fatti i costi e come calcolare i tuoi.
+title: Quanto costa un'auto all'anno e al chilometro in Svizzera?
+description: Secondo il calcolo modello TCS 2026 circa 11'100 franchi all'anno, 926 al mese o 74 centesimi al chilometro. Cosa è cambiato nel 2026, benzina o elettrico, un esempio per una vecchia auto d'occasione e come calcolare i tuoi costi.
 date: 2026-09-23
 ---
 
@@ -30,7 +30,37 @@ Il TCS ripartisce i costi così (quote secondo il TCS, importi in franchi arroto
 
 La voce più grossa è quindi la perdita di valore: ammortamento e perdita di valore insieme fanno il 40 per cento.
 
-## Nel 2026 la benzina costa più che nel calcolo
+### Cosa è cambiato nel 2026
+
+Rispetto al 2025 i costi chilometrici scendono secondo il TCS di due centesimi a 74 centesimi al chilometro, anche
+se l'auto modello è diventata più cara: il prezzo da nuova è salito da CHF 44'400 a CHF 45'000. Sono rincarati
+nettamente i premi casco, del 14 per cento. Per la corrente il TCS calcola con 18 kWh ogni 100 chilometri e un
+prezzo di 28 centesimi al chilowattora
+([Comunicato stampa TCS del 6 gennaio 2026](https://www.presseportal.ch/de/pm/100000091/100937477)); fanno, calcolati
+da noi, circa 5 franchi di corrente ogni 100 chilometri.
+
+Il calcolo modello vale per un'auto nuova. Da dieci anni di età e 150'000 chilometri percorsi i valori standard del
+calcolatore TCS non sono più significativi
+([TCS costi chilometrici](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+Per le auto più vecchie contano quindi le proprie fatture; un esempio lo trovi più sotto.
+
+### Costi al mese
+
+Dalla cifra annua del TCS risulta al mese (calcolato da noi, arrotondato al franco intero):
+
+| | all'anno | al mese |
+|---|---|---|
+| Costi fissi | CHF 6'977 | CHF 581 |
+| Costi variabili | CHF 4'135 | CHF 345 |
+| Totale | CHF 11'112 | CHF 926 |
+
+Circa 580 franchi al mese se ne vanno quindi prima di aver percorso un solo chilometro. I 74 centesimi al chilometro
+valgono per 15'000 chilometri all'anno: chi percorre meno chilometri ripartisce i costi fissi su meno chilometri, e
+ogni chilometro diventa più caro.
+
+## Energia: benzina, diesel o corrente
+
+### Nel 2026 la benzina costa più che nel calcolo
 
 Il TCS ha calcolato con CHF 1.71 al litro di senza piombo 95
 ([Comunicato stampa TCS](https://www.tcs.ch/assets/docs/presse/2026/250106-medienmitteilung-kilometerkosten.pdf)).
@@ -39,6 +69,16 @@ A metà settembre 2026 però il litro costava in media CHF 2.10, il diesel CHF 2
 Secondo la regola pratica del TCS, 16 centesimi in più al litro aumentano i costi di un centesimo al chilometro
 ([TCS costi chilometrici](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
 Per l'auto modello sono circa 2,4 centesimi in più al chilometro, cioè circa 360 franchi all'anno.
+
+### Benzina o elettrico
+
+Il TCS ha confrontato auto a benzina ed elettriche su dieci anni di utilizzo. La sua conclusione: i costi più bassi
+di carburante e servizio delle auto elettriche compensano il loro prezzo da nuove più alto dopo un certo
+chilometraggio
+([Confronto TCS benzina ed elettrico](https://www.tcs.ch/de/testberichte-ratgeber/tests/vergleich-benziner-elektroauto.php)).
+Se il conto torna anche per te dipende quindi da quanto guidi: chi guida poco resta con la differenza sul prezzo da
+nuova; chi guida molto la recupera con corrente e servizio. Per entrambe le motorizzazioni vale: quanto costa davvero
+la tua auto lo mostrano le tue fatture di servizio, pneumatici e riparazioni.
 
 ## Le voci fisse nel dettaglio
 
@@ -58,10 +98,9 @@ Per l'auto modello sono circa 2,4 centesimi in più al chilometro, cioè circa 3
 Per l'auto modello riparazioni e servizio ammontano a circa 1'100 franchi all'anno. Il TCS fa notare che questo
 valore è troppo alto nei primi due-quattro anni, perché di solito c'è ancora la garanzia: quei soldi andrebbero
 messi da parte per gli anni dall'ottavo al decimo. Singole riparazioni come un nuovo filtro antiparticolato diesel
-possono costare fino a 7'000 franchi (TCS costi chilometrici).
-
-Per un'auto con più di dieci anni l'ammortamento viene meno, in compenso aumentano manutenzione e riparazioni.
-Proprio allora conviene sapere quanto si è davvero speso negli ultimi anni.
+possono costare fino a 7'000 franchi (TCS costi chilometrici). Quali lavori sono dovuti quando e quanto costa un
+servizio lo trovi nella guida
+[Piano di manutenzione auto: quali intervalli sono davvero necessari?](/it/ratgeber/wartungsintervalle).
 
 ## Come calcolare i tuoi costi
 
@@ -72,6 +111,27 @@ Proprio allora conviene sapere quanto si è davvero speso negli ultimi anni.
 - **Cifre proprie:** le più precise sono le tue spese reali. Raccogli per un anno tutte le fatture di servizio,
   riparazioni e pneumatici e aggiungi imposta, assicurazione e vignetta. Chi fotografa comunque le fatture
   dell'officina ha il totale per veicolo e anno senza lavoro in più.
+
+### Esempio: un'auto d'occasione con più di dieci anni
+
+Un esempio di calcolo, non una misurazione: prendiamo un'auto con più di dieci anni e inseriamo solo le voci
+documentate qui sopra. L'ammortamento viene meno, il prezzo d'acquisto resta fuori.
+
+| Voce (ipotesi) | all'anno |
+|---|---|
+| Energia: quota TCS più 360 franchi di rincaro della benzina nel 2026 | CHF 1'690 |
+| Servizio e riparazioni: quota TCS | CHF 1'110 |
+| Pneumatici: quota TCS | CHF 445 |
+| Assicurazione: limite inferiore della fascia Comparis da 800 a 1'199 franchi | CHF 800 |
+| Imposta di circolazione: valore medio Škoda Octavia secondo il TCS | CHF 453 |
+| Vignetta | CHF 40 |
+| **Totale senza posteggio** | **CHF 4'538** |
+
+Su dieci anni sono circa 45'000 franchi, senza posteggio e senza prezzo d'acquisto. Con il posteggio dell'auto
+modello (CHF 1'780 all'anno) si aggiungerebbero altri 18'000 franchi circa. La voce servizio e riparazioni è
+piuttosto bassa per un'auto vecchia: il TCS stesso dice che il suo calcolatore da dieci anni e 150'000 chilometri
+non è più significativo (TCS costi chilometrici). Proprio allora conviene sapere quanto si è davvero speso negli
+ultimi anni.
 
 Come si legge una fattura dell'officina lo trovi nella guida
 [Capire la fattura dell'officina](/it/ratgeber/werkstattrechnung-verstehen).

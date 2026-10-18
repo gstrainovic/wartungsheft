@@ -1,6 +1,6 @@
 ---
-title: How much does a car cost per year in Switzerland?
-description: According to the TCS model calculation 2026, around 11'100 francs or 74 centimes per kilometre. What the costs are made of and how to work out your own.
+title: Cost of ownership: what a car costs per year and per kilometre in Switzerland
+description: According to the TCS model calculation 2026, around 11'100 francs a year, 926 a month or 74 centimes per kilometre. What changed in 2026, petrol or electric, an example for an old used car and how to work out your own costs.
 date: 2026-09-23
 ---
 
@@ -31,7 +31,37 @@ The TCS breaks down the costs as follows (shares according to the TCS, franc amo
 So the biggest chunk is the loss of value: depreciation and mileage-related loss of value together make up
 40 per cent.
 
-## Petrol is more expensive in 2026 than in the calculation
+### What changed in 2026
+
+Compared with 2025, the TCS puts the kilometre costs two centimes lower at 74 centimes per kilometre, even though
+the model car became more expensive: the new price rose from CHF 44'400 to CHF 45'000. Comprehensive insurance
+premiums rose markedly, by 14 per cent. For electricity, the TCS calculates with 18 kWh per 100 kilometres and an
+electricity price of 28 centimes per kilowatt hour
+([TCS press release of 6 January 2026](https://www.presseportal.ch/de/pm/100000091/100937477)); by our calculation
+that is around 5 francs of electricity per 100 kilometres.
+
+The model calculation applies to a new car. From ten years of age and 150'000 kilometres, the standard values of the
+TCS calculator are no longer meaningful
+([TCS kilometre costs](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+For older cars, your own invoices are what count; an example follows further down.
+
+### Costs per month
+
+From the TCS annual figure, the costs per month work out as follows (calculated by us, rounded to whole francs):
+
+| | per year | per month |
+|---|---|---|
+| Fixed costs | CHF 6'977 | CHF 581 |
+| Variable costs | CHF 4'135 | CHF 345 |
+| Total | CHF 11'112 | CHF 926 |
+
+So around 580 francs a month are due before you have driven a single kilometre. The 74 centimes per kilometre apply
+at 15'000 kilometres a year: if you drive less, the fixed costs are spread over fewer kilometres, and every
+kilometre becomes more expensive.
+
+## Energy: petrol, diesel or electricity
+
+### Petrol is more expensive in 2026 than in the calculation
 
 The TCS calculated with CHF 1.71 per litre of unleaded 95
 ([TCS press release](https://www.tcs.ch/assets/docs/presse/2026/250106-medienmitteilung-kilometerkosten.pdf)).
@@ -40,6 +70,15 @@ In mid-September 2026, however, a litre cost CHF 2.10 on average, diesel CHF 2.3
 As a TCS rule of thumb, 16 centimes more per litre raises the costs by one centime per kilometre
 ([TCS kilometre costs](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
 For the model car that is around 2.4 centimes more per kilometre, or about 360 francs a year.
+
+### Petrol or electric
+
+The TCS compared petrol and electric cars over a ten-year period of use. Its conclusion: the lower fuel and
+servicing costs of electric cars make up for their higher new price after a certain mileage
+([TCS comparison of petrol and electric cars](https://www.tcs.ch/de/testberichte-ratgeber/tests/vergleich-benziner-elektroauto.php)).
+Whether that works out for you therefore depends on how much you drive: if you drive little, you are left with the
+difference in the new price; if you drive a lot, you recover it through electricity and servicing. For both types of
+drive the same applies: what your car really costs is shown by your own invoices for servicing, tyres and repairs.
 
 ## The fixed items in detail
 
@@ -56,13 +95,11 @@ For the model car that is around 2.4 centimes more per kilometre, or about 360 f
 
 ## Servicing and repairs: 10 per cent, but not evenly spread
 
-For the model car, repairs and servicing come to around 1'100 francs a year. The TCS points out that this figure is
-too high in the first two to four years, because the car is then usually still under warranty: the money should be
+For the model car, repairs and servicing come to around 1'100 francs a year. According to the TCS, this figure is
+too high in the first two to four years, because the car is then usually still under warranty; the money should be
 put aside for years eight to ten. Individual repairs such as a new diesel particulate filter can cost up to
-7'000 francs (TCS kilometre costs).
-
-For a car older than ten years, depreciation no longer applies, but maintenance and repairs increase. That is
-exactly when it pays to know what you have really spent in recent years.
+7'000 francs (TCS kilometre costs). Which jobs are due when and what a service costs is explained in the guide
+[Car maintenance plan: which intervals are really needed?](/en/ratgeber/wartungsintervalle).
 
 ## How to work out your own costs
 
@@ -73,6 +110,27 @@ exactly when it pays to know what you have really spent in recent years.
 - **Your own figures:** Your actual spending is the most accurate. Collect all invoices for servicing, repairs and
   tyres for a year and add tax, insurance and vignette. If you photograph your garage invoices anyway, you have the
   total per vehicle and year with no extra effort.
+
+### Example: a used car over ten years
+
+A worked example, not a measurement: we take a car that is older than ten years and use only items that are
+documented above. Depreciation no longer applies, and the purchase price is left out.
+
+| Item (assumption) | per year |
+|---|---|
+| Energy: TCS share plus 360 francs petrol surcharge 2026 | CHF 1'690 |
+| Servicing and repairs: TCS share | CHF 1'110 |
+| Tyres: TCS share | CHF 445 |
+| Insurance: lower end of the Comparis group 800 to 1'199 francs | CHF 800 |
+| Motor vehicle tax: average for a Škoda Octavia according to the TCS | CHF 453 |
+| Vignette | CHF 40 |
+| **Total without parking space** | **CHF 4'538** |
+
+Over ten years that is around 45'000 francs, without a parking space and without the purchase price. With the model
+car's parking space (CHF 1'780 a year), a further 18'000 francs or so would be added. The item servicing and repairs
+is rather on the low side for an old car: the TCS itself says that its calculator is no longer meaningful from ten
+years and 150'000 kilometres (TCS kilometre costs). That is exactly when it pays to know what you have really spent
+in recent years.
 
 How to read a garage invoice is explained in the guide
 [Understanding your garage invoice](/en/ratgeber/werkstattrechnung-verstehen).

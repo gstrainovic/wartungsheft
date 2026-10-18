@@ -7,8 +7,8 @@ date: 2026-10-13
 The **service book** (also called the service record) is gone – lost in a move, never handed over by the previous
 owner, or left in the glovebox of a car you sold. That is annoying, because when you **sell** and when you claim a
 **warranty** the proof of maintenance is what counts. The **good news**: most of the history can usually be
-**rebuilt**. **⚠️ Important:** a complete service book can raise the selling price by **5–10 %** – without proof
-you are missing that argument
+**rebuilt**. **⚠️ Important:** the TCS calls a complete service book an **important trump card for trade-ins and
+resale** – without proof you are missing that argument
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 Here is how to proceed, step by step.
 
@@ -155,18 +155,9 @@ on to.
 
 ## 💡 Tips for selling without a service book
 
-Even without a complete service book you can raise your car’s value:
-
-| Measure | Effect | Cost |
-|---------|--------|------|
-| **TCS used-car test** | Proves roadworthy condition | CHF 150–200 |
-| **Fresh service** | “Fully serviced” / “inspected” raises the price | CHF 50–200 |
-| **Present the invoices** | Shows you cared for the car | — |
-| **Show inspection reports** | Proves the mileage | — |
-| **Offer a warranty** | Personal commitment (e.g. “3 months warranty”) | — |
-
-**💡 TCS tip:** a **complete service book** can raise the selling price by **5–10 %**
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Even without a complete service book you can give the buyer something solid: a **TCS used-car test**, a fresh
+service, your invoices and the MFK reports. Which measure achieves what and what it costs is explained in the guide
+[Selling a used car: how a full service book helps](/en/ratgeber/occasion-verkaufen-serviceheft).
 
 ---
 
@@ -207,4 +198,4 @@ So that you **never lose** your service book again:
 - [TCS: the service book when selling](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
 - [SRF Espresso: lost service book](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
 
-More in the guide [Selling a used car: how a complete service book pushes the price](/en/ratgeber/occasion-verkaufen-serviceheft).
+More in the guide **[Selling a used car: how a full service book helps](/en/ratgeber/occasion-verkaufen-serviceheft)**.

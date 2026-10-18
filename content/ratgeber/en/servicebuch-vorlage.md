@@ -1,5 +1,5 @@
 ---
-title: "Service book template: free printable PDF for Switzerland"
+title: "Service book template (PDF) to print: free service record for Switzerland"
 description: "Free printable service book template PDF for Switzerland with MFK, service intervals, mileage tracking. Download, print, and reconstruct your vehicle history."
 date: 2026-10-13
 ---
@@ -83,20 +83,7 @@ Maintenance intervals vary by vehicle and engine. The last page lets you note th
 
 ## 🔄 Reconstructing History Without Original Book
 
-If you have **lost your service book**, here's how to reconstruct the history:
-
-### 📋 Steps to Follow
-
-| Step | Action | Where? |
-|------|--------|--------|
-| 1 | **Check the digital service book** | Manufacturer or brand garage; the TCS recommends keeping proof of the digital entry ([TCS](https://www.tcs.ch/en/advice-tests/garage-maintenance/electronic-service-book.php)) |
-| 2 | **Request a duplicate or extract** | Garage that serviced the vehicle; ask about any fees first |
-| 3 | **Collect invoices** | Garages, previous owner and personal records |
-| 4 | **Add MFK documents** | Ask the responsible cantonal road traffic office |
-
-### 📌 Switzerland-Specific Tips
-
-- **MFK reports**: They can supplement information recorded during the inspection, but do not replace maintenance invoices or manufacturer records.
+If you have **lost your service book**, you recover the history from the manufacturer's digital service book, from the garages' invoices and from the MFK reports and transfer it line by line into this template. How to proceed step by step is explained in the guide [Lost service book or service record: how to rebuild the history](/en/ratgeber/serviceheft-verloren).
 
 ---
 

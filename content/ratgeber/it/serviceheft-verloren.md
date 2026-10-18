@@ -4,7 +4,7 @@ description: Duplicato dall'officina del marchio, libretto digitale del costrutt
 date: 2026-10-13
 ---
 
-Il **libretto di manutenzione** (detto anche libretto service) è sparito: perso durante un trasloco, mai consegnato dal precedente proprietario o dimenticato nel cruscotto di un'auto venduta. È fastidioso, perché **alla vendita** e in caso di **reclami di garanzia** conta la prova della manutenzione. **La buona notizia:** gran parte della storia si può generalmente **ricostruire**. **⚠️ Importante:** un libretto senza lacune può aumentare il prezzo di vendita del **5–10 %** – senza prova ti manca questo argomento
+Il **libretto di manutenzione** (detto anche libretto service) è sparito: perso durante un trasloco, mai consegnato dal precedente proprietario o dimenticato nel cruscotto di un'auto venduta. È fastidioso, perché **alla vendita** e in caso di **reclami di garanzia** conta la prova della manutenzione. **La buona notizia:** gran parte della storia si può generalmente **ricostruire**. **⚠️ Importante:** il TCS definisce il libretto senza lacune un **asso importante nella permuta o nella rivendita** – senza prova ti manca questo argomento
 ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
 Qui trovi come procedere, passo passo.
 
@@ -137,18 +137,7 @@ Se la storia **non può essere ricostruita**, resta una **prova indipendente del
 
 ## 💡 Suggerimenti per vendere senza libretto
 
-Anche senza libretto completo puoi aumentare il valore della tua auto:
-
-| Misura | Effetto | Costo |
-|--------|---------|-------|
-| **Test d'occasione TCS** | Prova uno stato conforme alla sicurezza stradale | CHF 150–200 |
-| **Servizio recente** | « Dopo il servizio » / « dopo il collaudo » aumenta il prezzo | CHF 50–200 |
-| **Presentare le fatture** | Mostra la tua attenzione alla manutenzione | — |
-| **Fornire i rapporti di collaudo** | Prova il chilometraggio | — |
-| **Offrire una garanzia** | Impegno personale (p. ex. « garanzia 3 mesi ») | — |
-
-**💡 Suggerimento del TCS:** un **libretto di manutenzione senza lacune** può aumentare il prezzo di vendita del **5–10 %**
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+Anche senza libretto completo puoi presentare all'acquirente qualcosa di solido: un **test d'occasione TCS**, un servizio recente, le tue fatture e i rapporti di collaudo. Quale misura porta cosa e quanto costa lo trovi nella guida [Vendere un'auto d'occasione: così un libretto di manutenzione completo aiuta il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft).
 
 ---
 
@@ -186,4 +175,4 @@ Per **non perdere mai più** il tuo libretto di manutenzione:
 - [TCS: il libretto alla vendita](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
 - [SRF Espresso: libretto di manutenzione perduto](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
 
-Maggiori dettagli nella guida [Vendere un'auto d'occasione: come un libretto senza lacune migliora il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft).
+Maggiori dettagli nella guida **[Vendere un'auto d'occasione: così un libretto di manutenzione completo aiuta il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft)**.
