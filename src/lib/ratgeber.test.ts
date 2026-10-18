@@ -135,6 +135,16 @@ describe('übersetzte Artikel', () => {
   })
 })
 
+describe('suchwort «Servicebuch»', () => {
+  const quellen = import.meta.glob('../../content/ratgeber/{occasion-verkaufen-serviceheft,serviceheft-verloren}.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+
+  it('verlinken die deutschen Serviceheft-Ratgeber mit diesem Ankertext auf die Startseite', () => {
+    expect(Object.keys(quellen)).toHaveLength(2)
+    for (const [pfad, quelle] of Object.entries(quellen))
+      expect(renderArticlePage(parseArticle(pfad.split('/').pop()!.replace('.md', ''), quelle)), pfad).toMatch(/<a href="\/">Servicebuch<\/a>/)
+  })
+})
+
 describe('eigene Adresse je Sprache (key und slug im Artikelkopf)', () => {
   const de = parseArticle('serviceheft-verloren', SOURCE)
   const fr = parseArticle('carnet-entretien', SOURCE_FR.replace('date: 2026-09-23', 'date: 2026-09-23\nkey: serviceheft-verloren\nslug: carnet-entretien'), 'fr')

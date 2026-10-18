@@ -4,7 +4,7 @@ description: Duplikat bei Markengarage, digitales Serviceheft des Herstellers, R
 date: 2026-10-13
 ---
 
-Das **Serviceheft** (auch **Servicebuch** genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Ein lückenloses Serviceheft kann den Verkaufspreis um **5–10 % erhöhen** – ohne Nachweis fehlt dir dieses Argument ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
+Das **Serviceheft** (auch [Servicebuch](/) genannt) ist weg – verloren beim Umzug, nie vom Vorbesitzer übergeben oder im Handschuhfach eines verkauften Autos vergessen. Das ist ärgerlich, denn beim **Verkauf** und bei **Garantieansprüchen** zählt der Nachweis der Wartung. Die **gute Nachricht**: Ein grosser Teil der Historie lässt sich meistens **wiederherstellen**. **⚠️ Wichtig:** Ein lückenloses Serviceheft kann den Verkaufspreis um **5–10 % erhöhen** – ohne Nachweis fehlt dir dieses Argument ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)). Hier erfährst du, wie du vorgehst – Schritt für Schritt.
 
 ---
 
