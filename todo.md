@@ -41,7 +41,10 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
       `VITE_BILLING_ENABLED=true` gesetzt ist; ohne Kaufweg wäre eine Sperre bloss ein Ärgernis
 
 ### Ab 25.09.2026
-- [ ] Kleininserat: Bestätigung des Verlags abwarten, ab Erscheinen `/tcs` auswerten: `business-plan/05-go-to-market.md` «Versuch: Kleininserat im TCS-Magazin»
+- [ ] Kleininserat: Bestellung an vanessa.ukoh@tcs.ch liegt ungesendet als Gmail-Entwurf (Betreff «Inseratbestellung
+      Rubrik «Marktplatz», Touring Nr. 11 (29.10.2026)»); deren Anzeigenschluss 07.10. ist vorbei. Frage an Goran:
+      Entwurf auf die Ausgabe vom 26.11. (Anzeigenschluss 04.11.) umstellen und senden, oder Versuch lassen. Nach
+      Erscheinen `/tcs` auswerten: `business-plan/05-go-to-market.md` «Versuch: Kleininserat im TCS-Magazin»
 
 ### Google Play
 - [ ] App in Google Play: `business-plan/05-go-to-market.md` «Kanal: Google Play»
