@@ -76,8 +76,8 @@ passent toujours en premier !**
 
 | Critère | Intervall | Recommandation | Source |
 |---------|-----------|----------------|--------|
-| **Profondeur minimale** | — | **1,6 mm** (légal), le TCS recommande **été : ≥ 3 mm, hiver : ≥ 4 mm** | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/reifen/faq-reifen.php) |
-| **Âge des pneus** | — | **Maximum 8 ans** – même avec assez de profil ! | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/reifen/faq-reifen.php) |
+| **Profondeur minimale** | — | **1,6 mm** (légal), le TCS recommande **été : ≥ 3 mm, hiver : ≥ 4 mm** | [TCS](https://www.tcs.ch/fr/tests-conseils/conseils/pneus/questions-pneus.php) |
+| **Âge des pneus** | — | **Maximum 8 ans** – même avec assez de profil ! | [TCS](https://www.tcs.ch/fr/tests-conseils/conseils/pneus/questions-pneus.php) |
 | **Changement de pneus** | Selon la saison | **D’O à O** (octobre à Pâques) avec les pneus d’hiver | — |
 
 **💡 Astuce :** **vérifier la pression chaque mois** – pneus **froids** !
@@ -105,7 +105,7 @@ passent toujours en premier !**
 ## 🔧 Puis-je aller dans un garage indépendant sans perdre la garantie ?
 
 **✅ Oui !** Depuis le 1ᵉʳ janvier 2024 s’applique en Suisse l’**ordonnance du Conseil fédéral sur les véhicules
-automobiles** ([UPSA](https://www.agvs-upsa.ch/de/recht-politik/aktuelle-themen/kfz-verordnung/)).
+automobiles** ([UPSA](https://www.agvs-upsa.ch/fr/droit-et-politique/politique/themes-actuels/ordonnance-sur-les-vehicules-a-moteur/)).
 
 ### 📜 Règles importantes
 
@@ -113,7 +113,7 @@ automobiles** ([UPSA](https://www.agvs-upsa.ch/de/recht-politik/aktuelle-themen/
 |----------|---------|--------|
 | **Puis-je aller dans un garage indépendant ?** | **Oui !** La garantie du constructeur ne peut pas être liée aux ateliers de la marque | [Ordonnance, art. 4](https://www.agvs-upsa.ch/fileadmin/user_upload/AGVS_ROOT/AGVS-UPSA/Recht_und_Politik/Politik/Aktuelle_Themen/KFZ-Verordnung/AS-2023-772-DE.pdf) |
 | **Exception ?** | Seulement si les travaux ont été **exécutés de manière fautive** | [explications COMCO](https://www.newsd.admin.ch/newsd/message/attachments/85113.pdf) |
-| **Que faut-il respecter ?** | **Respecter les intervalles et le prouver !** (factures, tampons) | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php) |
+| **Que faut-il respecter ?** | **Respecter les intervalles et le prouver !** (factures, tampons) | [TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/couts-des-services.php) |
 
 ### ⚠️ Attention aux droits à la garantie
 
@@ -126,7 +126,7 @@ Même avec le choix libre du garage, ces conditions s’appliquent :
 
 **💡 Recommandation du TCS :** faire entretenir la voiture **chez le représentant de la marque** durant les
 **premières années**, surtout si vous voulez utiliser des **prestations supplémentaires** comme la garantie de
-mobilité ([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+mobilité ([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/couts-des-services.php)).
 
 ---
 
@@ -217,6 +217,6 @@ Quelques constructeurs ont leur **propre philosophie d’entretien** :
 ## 🔗 Pour en savoir plus
 - [TCS : entretien et maintenance](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/pannenpraevention.php)
 - [ADAC : intervalles d’entretien](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/wartungsintervalle/)
-- [UPSA : ordonnance sur les véhicules automobiles](https://www.agvs-upsa.ch/de/recht-politik/aktuelle-themen/kfz-verordnung/)
+- [UPSA : ordonnance sur les véhicules automobiles](https://www.agvs-upsa.ch/fr/droit-et-politique/politique/themes-actuels/ordonnance-sur-les-vehicules-a-moteur/)
 
 En savoir plus dans le guide [Comprendre la facture du garage](/fr/ratgeber/werkstattrechnung-verstehen).

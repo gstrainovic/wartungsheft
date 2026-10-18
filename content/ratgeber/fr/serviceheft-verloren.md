@@ -9,7 +9,7 @@ par l’ancien propriétaire ou oublié dans la boîte à gants d’une voiture 
 en cas de recours à la garantie, c’est la preuve de l’entretien qui compte. La bonne nouvelle : une grande partie de
 l’historique peut généralement être reconstituée. **⚠️ Important :** le TCS qualifie le carnet d’entretien sans lacunes
 d’**atout important lors de la reprise ou de la revente** – sans preuve, cet argument vous manque
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php)).
 Voici la marche à suivre, pas à pas.
 
 ---
@@ -18,7 +18,7 @@ Voici la marche à suivre, pas à pas.
 
 Plus d’une douzaine de marques ont remplacé le carnet imprimé par un **carnet d’entretien numérique**. Les
 inscriptions sont alors enregistrées chez le constructeur, et vous pouvez en demander un extrait à tout moment
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php)).
 
 ### 📱 Carnets numériques par marque
 
@@ -26,8 +26,8 @@ inscriptions sont alors enregistrées chez le constructeur, et vous pouvez en de
 |--------|------------------|------------------------|------|--------|
 | **Mercedes-Benz** | Deuxième moitié 2008 | Demander au garage de la marque | En général gratuit | [Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb) |
 | **Groupe VW (AMAG)** | Années 2010 | Garage de la marque ou portail en ligne | En général gratuit | [AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf) |
-| **Toyota** | 2015 et plus | App MyToyota (avec les Connected Services) | Gratuit | [Toyota Suisse](https://de.toyota.ch/owners/faq-connected-services) |
-| **Mazda** | 2005 | App gratuite | Gratuit | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php) |
+| **Toyota** | 2015 et plus | App MyToyota (avec les Connected Services) | Gratuit | [Toyota Suisse](https://fr.toyota.ch/service-accessoires/faq-services-connect%C3%A9s) |
+| **Mazda** | 2005 | App gratuite | Gratuit | [TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php) |
 | **BMW** | 2018 et plus | ConnectedDrive, app BMW | Gratuit | [BMW Suisse](https://www.bmw.ch/de/owners/connecteddrive/connecteddrive-services.html) |
 | **Audi** | 2017 et plus | Portail myAudi | Gratuit | [Audi Suisse](https://www.audi.ch/ch/de/owners/connected-services/audi-connect.html) |
 | **Opel** | 2019 et plus | Opel Connect, app myOpel | Gratuit | [Opel Suisse](https://www.opel.ch/owners/myopel/myopel-app.html) |
@@ -35,7 +35,7 @@ inscriptions sont alors enregistrées chez le constructeur, et vous pouvez en de
 **💡 Astuce pour les garages indépendants :** en Suisse, les **garages indépendants** peuvent consulter les carnets
 numériques de nombreuses marques via le **TecRMI Service Book** de Hostettler Autotechnik. Le système couvre
 **23 marques** ; une consultation coûte au garage **CHF 5,50 hors TVA**
-([Autotechnik](https://www.autotechnik.ch/de/dienstleistungen/digitales-serviceheft/)).
+([Autotechnik](https://www.autotechnik.ch/fr/prestations/digitales-serviceheft/)).
 
 ---
 
@@ -94,7 +94,7 @@ Les **rapports d’expertise (MFK)** consignentle **kilométrage au compteur**. 
 |--------|-------------|------|-------|--------|
 | **Vos documents** | Chercher dans vos papiers | Gratuit | Immédiat | — |
 | **Office de la circulation** | Demande écrite | **Payant** | 1 à 2 semaines | [Canton de Lucerne](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre) |
-| **TCS (si contrôle chez le TCS)** | Demander à la section du TCS | En général gratuit pour les membres | 1 à 2 jours | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
+| **TCS (si contrôle chez le TCS)** | Demander à la section du TCS | En général gratuit pour les membres | 1 à 2 jours | [TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/expertise.php) |
 
 **💡 Important :** les renseignements **au-delà du permis de circulation** doivent en règle générale être demandés
 **par écrit** auprès de l’office et sont payants.
@@ -123,7 +123,7 @@ numérique VW, etc.), cela va souvent **immédiatement** à l’impression ; ch
 
 | Méthode | Que faire ? | Coût | Délai | Utilité pour la vente | Source |
 |---------|-------------|------|-------|-----------------------|--------|
-| **Test d’occasion TCS** | Contrôle d’environ 90 minutes, rapport complet | **CHF 150 à 200** | 1 à 2 jours | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php) |
+| **Test d’occasion TCS** | Contrôle d’environ 90 minutes, rapport complet | **CHF 150 à 200** | 1 à 2 jours | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/test-occasion.php) |
 | **DEKRA/GTÜ (véhicules importés)** | Contrôle complet avec rapport | **CHF 200 à 300** | 1 jour | ⭐⭐⭐⭐ | — |
 | **Contrôle de garage** | Contrôle de base avec rapport court | **CHF 80 à 150** | 1 jour | ⭐⭐⭐ | — |
 
@@ -199,8 +199,8 @@ Pour ne **plus jamais perdre** votre carnet d’entretien :
 ---
 
 ## 📚 Pour en savoir plus
-- [TCS : carnet d’entretien électronique](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
-- [TCS : le carnet d’entretien lors de la vente](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [TCS : carnet d’entretien électronique](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php)
+- [TCS : le carnet d’entretien lors de la vente](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php)
 - [SRF Espresso : carnet d’entretien perdu](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
 
 En savoir plus dans le guide [Vendre son occasion : le carnet d’entretien fait le prix](/fr/ratgeber/occasion-verkaufen-serviceheft).

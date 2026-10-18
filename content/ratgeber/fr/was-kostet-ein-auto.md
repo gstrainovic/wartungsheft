@@ -11,7 +11,7 @@ valeur. Chaque année, le TCS fait le calcul pour une voiture type ; les chiffr
 
 La voiture type a un prix neuf de CHF 45 000 et parcourt 15 000 kilomètres par an. Elle coûte CHF 11 112 par an,
 soit environ 74 centimes par kilomètre
-([TCS voiture type 2026](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten-musterauto-2026.php)).
+([TCS voiture type 2026](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/frais-kilometriques-vehicule-type-2026.php)).
 Sur ce montant, CHF 6 977 sont des coûts fixes, qui s’appliquent aussi quand la voiture est à l’arrêt, et CHF 4 135
 des coûts variables, qui augmentent à chaque kilomètre.
 
@@ -41,7 +41,7 @@ selon notre calcul, environ 5 francs d’électricité aux 100 kilomètres.
 
 Le calcul type vaut pour une voiture neuve. À partir de dix ans d’âge et de 150 000 kilomètres, les valeurs standard
 du calculateur du TCS ne sont plus parlantes
-([TCS coûts kilométriques](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+([TCS coûts kilométriques](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/frais-kilometriques.php)).
 Pour les voitures plus anciennes, ce sont donc vos propres factures qui comptent ; un exemple figure plus bas.
 
 ### Coûts par mois
@@ -67,7 +67,7 @@ Le TCS a calculé avec CHF 1,71 par litre de sans plomb 95
 À la mi-septembre 2026, le litre coûtait toutefois en moyenne CHF 2,10, le diesel CHF 2,38
 ([Tages-Anzeiger](https://www.tagesanzeiger.ch/benzinpreise-bleifrei-95-kostet-in-der-schweiz-2-10-franken-345621034583)).
 Selon une règle empirique du TCS, 16 centimes de plus par litre augmentent les coûts d’un centime par kilomètre
-([TCS coûts kilométriques](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+([TCS coûts kilométriques](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/frais-kilometriques.php)).
 Pour la voiture type, cela fait environ 2,4 centimes de plus par kilomètre, soit environ 360 francs par an.
 
 ### Essence ou électrique
@@ -75,7 +75,7 @@ Pour la voiture type, cela fait environ 2,4 centimes de plus par kilomètre, soi
 Le TCS a comparé voitures à essence et voitures électriques sur dix ans d’utilisation. Sa conclusion : les coûts de
 carburant et de service plus bas des voitures électriques compensent leur prix neuf plus élevé après un certain
 kilométrage
-([comparaison TCS essence et électrique](https://www.tcs.ch/de/testberichte-ratgeber/tests/vergleich-benziner-elektroauto.php)).
+([comparaison TCS essence et électrique](https://www.tcs.ch/fr/tests-conseils/tests/comparaison-electrique-essence.php)).
 Que le calcul soit bon pour vous dépend donc de combien vous roulez : qui roule peu garde la différence de prix neuf
 sur les bras ; qui roule beaucoup la récupère sur l’électricité et le service. Pour les deux motorisations, une chose
 vaut : ce que votre voiture coûte vraiment, ce sont vos propres factures de service, de pneus et de réparations qui
@@ -88,7 +88,7 @@ le montrent.
   ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/autobahnvignette/)).
 - **Impôt sur les véhicules à moteur :** dépend fortement du canton. Pour une Škoda Octavia 2.0 TSI, il se situe selon
   le TCS entre CHF 264 et 669 par an, en moyenne CHF 453 ; à Zurich il est de CHF 338, à Saint-Gall de CHF 636
-  ([comparaison fiscale TCS, état février 2026](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/umwelt-mobilitaet/motorfahrzeugsteuer.php)).
+  ([comparaison fiscale TCS, état février 2026](https://www.tcs.ch/fr/tests-conseils/conseils/environnement-mobilite/taxe-automobile-cantons.php)).
 - **Assurance :** dans une enquête Comparis de janvier 2026, 27 pour cent payaient entre 500 et 799 francs par an,
   26 pour cent entre 800 et 1 199 francs ; 45 pour cent ont signalé une hausse de prime
   ([Comparis](https://www.comparis.ch/publikationen/mitteilungen/2026/03/praemienschock-bei-der-autoversicherung-2026-jeder-zweite-zahlt-mehr-doch-nur-6-prozent-wechseln)).

@@ -5,7 +5,7 @@ date: 2026-09-23
 ---
 
 In Svizzera ogni anno circa 750'000 auto d'occasione cambiano proprietario
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/fahrzeug-kaufen-verkaufen/tipps-occasion-autos.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/comprare-vendere-auto/miti-auto-occasione.php)).
 Chi vende la propria auto è in concorrenza con molti annunci simili. Un libretto di manutenzione (o libretto di
 servizio) tenuto con cura è uno dei pochi argomenti che un acquirente può verificare.
 
@@ -16,7 +16,7 @@ ottengono prezzi più alti alla vendita
 ([SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)).
 Il TCS definisce il libretto un asso importante nella permuta e nella rivendita e la prova in caso di pretese di
 garanzia
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php)).
 
 Per la Svizzera non esiste una percentuale affidabile di quanto renda in più un'auto con il libretto. Le cifre che
 circolano in rete provengono per lo più da fornitori senza fonte. Una cosa è certa: il contratto di compravendita di
@@ -30,7 +30,7 @@ Anche senza libretto completo puoi dare all'acquirente qualcosa di solido in man
 
 | Misura | Effetto | Costo |
 |---|---|---|
-| Test d'occasione TCS | Prova lo stato, controlla anche i documenti ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)) | CHF 150–200 |
+| Test d'occasione TCS | Prova lo stato, controlla anche i documenti ([TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/test-auto-occasione.php)) | CHF 150–200 |
 | Servizio recente | «Appena tagliandata» o «appena collaudata» nell'annuncio | secondo l'entità |
 | Presentare le fatture | Mostrano cosa è stato fatto e provano il chilometraggio | – |
 | Presentare i rapporti di collaudo | Provano il chilometraggio alla data del controllo | – |
@@ -42,7 +42,7 @@ l'acquirente altrimenti risponde con uno sconto.
 ## Questi documenti li prepari
 
 Per la vendita AutoScout24 consiglia
-([Guida](https://guide.autoscout24.ch/de/autoverkauf/tipps-autoverkauf/)):
+([Guida](https://guide.autoscout24.ch/it/vendita-di-un-auto/consigli-vendita-dell-auto/)):
 
 - licenza di circolazione
 - libretto di manutenzione (stampato o estratto del libretto digitale del costruttore)
@@ -59,10 +59,10 @@ consegnati e consegna l'auto solo dopo il pagamento completo.
 
 Giuridicamente, nella vendita di un'auto d'occasione basta una ricevuta; il TCS consiglia comunque un contratto di
 compravendita scritto e ne offre un modello
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/fahrzeug-kaufen-verkaufen/tipps-occasion-autos.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/comprare-vendere-auto/miti-auto-occasione.php)).
 Come privato di solito escludi la garanzia. I danni da incidente noti devi comunque dichiararli, l'esclusione non
 li copre
-([AutoScout24](https://guide.autoscout24.ch/de/autoverkauf/tipps-autoverkauf/)).
+([AutoScout24](https://guide.autoscout24.ch/it/vendita-di-un-auto/consigli-vendita-dell-auto/)).
 
 Registra il chilometraggio nel contratto. Protegge entrambe le parti.
 
@@ -99,13 +99,13 @@ Le tasse sono cantonali; chiedi al tuo ufficio prima di depositare.
 Un collaudo recente aiuta a vendere, AutoScout24 lo consiglia espressamente. Il TCS però chiarisce: «collaudata»
 conferma solo che il giorno del collaudo l'auto soddisfaceva i requisiti minimi di legge, e non dice nulla sullo
 stato di motore o cambio
-([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/auto-verkaufen.php)).
+([TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/vendita-auto.php)).
 Le automobili vanno al primo collaudo dopo 5 anni, poi dopo 3 anni e in seguito ogni 2 anni
 ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
 
 Chi vuole offrire di più all'acquirente fa fare un test d'occasione. In quell'occasione il TCS controlla anche i
 documenti, cioè libretto di manutenzione, licenza di circolazione e documento antinquinamento
-([Test d'occasione TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)).
+([Test d'occasione TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/test-auto-occasione.php)).
 
 ## Le fatture provano il chilometraggio
 

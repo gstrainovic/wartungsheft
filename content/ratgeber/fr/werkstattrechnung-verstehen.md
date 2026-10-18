@@ -15,12 +15,12 @@ travaux d’entretien et de réparation
 ([Wikipedia](https://de.wikipedia.org/wiki/Arbeitszeitwerte_(Kfz-Gewerbe))). Multipliées par le taux horaire du
 garage, elles donnent le prix. Selon le TCS, tant les taux horaires que les unités de travail peuvent varier d’un
 garage à l’autre
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/couts-des-services.php)).
 
 **Taux horaire.** L’Union professionnelle suisse de l’automobile (UPSA) chiffre, selon son rapport sur la branche,
 le tarif facturé par ses entreprises en 2023 à 167,30 francs de l’heure (taux mixte sur tous les travaux) et
 s’attendait à ce que le taux appliqué aux clients dépasse les 180 francs en 2024
-([UPSA](https://www.agvs-upsa.ch/de/news-medien/news-detail/news/seien-sie-mutig-mit-erhoehungen/)). Le taux de
+([UPSA](https://www.agvs-upsa.ch/fr/nouvelles-medias/news-detail/news/soyez-audacieux-avec-les-augmentations/)). Le taux de
 votre garage figure à l’affichage ou sur la facture ; demandez-le avant de passer la commande. ; autour de Zurich, Genève et Berne, les tarifs sont plus élevés
 ([Nau, 2024](https://automobile.nau.ch/stories/werkstattpreise-in-der-schweiz-so-ist-der-stand-66795705)).
 
@@ -89,7 +89,7 @@ le TCS indique lui aussi dix pour cent pour les garages dans des cas justifiés
 
 Le plus sûr est un montant maximal : le TCS conseille de le convenir au moment de passer la commande. S’il est
 dépassé, le garage doit vous contacter au préalable
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/couts-des-services.php)).
 
 ## Travaux non commandés
 
@@ -98,7 +98,7 @@ avait été commandé
 ([SRF Espresso](https://www.srf.ch/sendungen/kassensturz-espresso/rechtsfragen/sonstiges-recht/muss-man-unbestellte-arbeiten-bezahlen)).
 C’est pourquoi une commande écrite en vaut la peine. Le TCS propose à cet effet, avec l’Union professionnelle suisse
 de l’automobile, le formulaire « Auftrag an den Garagisten » (ordre au garagiste)
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/reparatur.php)). Comparez ensuite
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/reparation-voiture.php)). Comparez ensuite
 la facture avec les prix que le garage doit afficher.
 
 ## Si la réparation est défectueuse

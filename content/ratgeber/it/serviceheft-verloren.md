@@ -5,7 +5,7 @@ date: 2026-10-13
 ---
 
 Il **libretto di manutenzione** (detto anche libretto service) è sparito: perso durante un trasloco, mai consegnato dal precedente proprietario o dimenticato nel cruscotto di un'auto venduta. È fastidioso, perché **alla vendita** e in caso di **reclami di garanzia** conta la prova della manutenzione. **La buona notizia:** gran parte della storia si può generalmente **ricostruire**. **⚠️ Importante:** il TCS definisce il libretto senza lacune un **asso importante nella permuta o nella rivendita** – senza prova ti manca questo argomento
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php)).
 Qui trovi come procedere, passo passo.
 
 ---
@@ -13,7 +13,7 @@ Qui trovi come procedere, passo passo.
 ## 🔍 Passo 1: il libretto è già digitale?
 
 Più di una dozzina di marchi hanno sostituito il libretto stampato con un **libretto digitale**. Le registrazioni sono allora presso il costruttore e puoi chiederne un estratto in qualsiasi momento
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php)).
 
 ### 📱 Libretti digitali per marchio
 
@@ -22,7 +22,7 @@ Più di una dozzina di marchi hanno sostituito il libretto stampato con un **lib
 | **Mercedes-Benz** | Seconda metà del 2008 | Chiedere all'officina del marchio | Di solito gratuito | [Mercedes-Benz](https://b2bconnect.mercedes-benz.com/de/help/faq/software/dsb) |
 | **Gruppo VW (AMAG)** | Anni 2010 | Officina del marchio o portale online | Di solito gratuito | [AMAG](https://www.amag-import.ch/content/dam/amag-import/technische-informationen/20210101_Allgemeine_Geschaeftsbedingungen_GARANTIE_amag.pdf.coredownload.pdf) |
 | **Toyota** | 2015 e oltre | App MyToyota (con Connected Services) | Gratuito | [Toyota Svizzera](https://de.toyota.ch/owners/faq-connected-services) |
-| **Mazda** | 2005 | App gratuita | Gratuito | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php) |
+| **Mazda** | 2005 | App gratuita | Gratuito | [TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php) |
 | **BMW** | 2018 e oltre | ConnectedDrive, app BMW | Gratuito | [BMW Svizzera](https://www.bmw.ch/de/owners/connecteddrive/connecteddrive-services.html) |
 | **Audi** | 2017 e oltre | Portale myAudi | Gratuito | [Audi Svizzera](https://www.audi.ch/ch/de/owners/connected-services/audi-connect.html) |
 | **Opel** | 2019 e oltre | Opel Connect, app myOpel | Gratuito | [Opel Svizzera](https://www.opel.ch/owners/myopel/myopel-app.html) |
@@ -81,7 +81,7 @@ I **rapporti di collaudo (MFK)** riportano il **chilometraggio del contachilomet
 |-------|------------|-------|--------|-------|
 | **I tuoi documenti** | Cercare tra le carte | Gratuito | Immediato | — |
 | **Sezione della circolazione** | Richiesta scritta | **A pagamento** | 1–2 settimane | [Cantone Lucerna](https://strassenverkehrsamt.lu.ch/strassenverkehr/halterauskunft_sperre) |
-| **TCS (se controllato dal TCS)** | Chiedere alla sezione del TCS | Di solito gratuito per i soci | 1–2 giorni | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
+| **TCS (se controllato dal TCS)** | Chiedere alla sezione del TCS | Di solito gratuito per i soci | 1–2 giorni | [TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/esame-ufficiale-collaudo.php) |
 
 **💡 Importante:** le informazioni **oltre il libretto di circolazione** vanno di norma richieste **per iscritto** all'ufficio e sono a pagamento.
 
@@ -104,7 +104,7 @@ Se la storia **non può essere ricostruita**, resta una **prova indipendente del
 
 | Metodo | Cosa viene controllato? | Costo | Durata | Utilità per la vendita | Fonte |
 |--------|-------------------------|-------|--------|------------------------|-------|
-| **Test d'occasione TCS** | Controllo di circa 90 minuti, rapporto completo | **CHF 150–200** | 1–2 giorni | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php) |
+| **Test d'occasione TCS** | Controllo di circa 90 minuti, rapporto completo | **CHF 150–200** | 1–2 giorni | ⭐⭐⭐⭐⭐ | [TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/test-auto-occasione.php) |
 | **DEKRA/GTÜ (veicoli importati)** | Controllo completo con rapporto | **CHF 200–300** | 1 giorno | ⭐⭐⭐⭐ | — |
 | **Controllo dell'officina** | Controllo di base con rapporto breve | **CHF 80–150** | 1 giorno | ⭐⭐⭐ | — |
 
@@ -171,8 +171,8 @@ Per **non perdere mai più** il tuo libretto di manutenzione:
 ---
 
 ## 📚 Per saperne di più
-- [TCS: libretto di manutenzione elettronico](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
-- [TCS: il libretto alla vendita](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)
+- [TCS: libretto di manutenzione elettronico](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php)
+- [TCS: il libretto alla vendita](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/libretto-manutenzione-elettronico.php)
 - [SRF Espresso: libretto di manutenzione perduto](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)
 
 Maggiori dettagli nella guida **[Vendere un'auto d'occasione: così un libretto di manutenzione completo aiuta il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft)**.

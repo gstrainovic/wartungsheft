@@ -5,7 +5,7 @@ date: 2026-09-23
 ---
 
 En Suisse, environ 750 000 véhicules d’occasion changent de propriétaire chaque année
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/fahrzeug-kaufen-verkaufen/tipps-occasion-autos.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/achat-vente-vehicule/idees-fausses-voiture-occasion.php)).
 Qui vend sa voiture est en concurrence avec de nombreuses annonces semblables. Un carnet d’entretien (ou carnet de
 service) bien tenu est l’un des rares arguments qu’un acheteur peut vérifier.
 
@@ -16,7 +16,7 @@ obtiennent de meilleurs prix à la vente
 ([SRF](https://www.srf.ch/sendungen/kassensturz-espresso/umwelt-und-verkehr-verlorenes-auto-serviceheft-aufwand-fuer-duplikat-lohnt-sich)).
 Le TCS qualifie le carnet d’atout important lors de la reprise et de la revente et de preuve en cas de recours à la
 garantie
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/elektronisches-serviceheft.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretien/carnet-entretien-numerique.php)).
 
 Il n’existe pas pour la Suisse de pourcentage fiable indiquant combien une voiture avec carnet rapporte de plus. Les
 chiffres qui circulent sur Internet proviennent le plus souvent de prestataires sans source. Ce qui est sûr : le
@@ -30,7 +30,7 @@ Même sans carnet complet, vous pouvez donner à l’acheteur quelque chose de s
 
 | Mesure | Effet | Coût |
 |---|---|---|
-| Test d’occasion TCS | Atteste l’état, contrôle aussi les documents ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)) | CHF 150 à 200 |
+| Test d’occasion TCS | Atteste l’état, contrôle aussi les documents ([TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/test-occasion.php)) | CHF 150 à 200 |
 | Service récent | « Après service » ou « après expertise » dans l’annonce | selon l’étendue |
 | Présenter les factures | Montrent ce qui a été fait et prouvent le kilométrage | – |
 | Présenter les rapports d’expertise | Prouvent le kilométrage à la date du contrôle | – |
@@ -42,7 +42,7 @@ répond sinon par une décote.
 ## Les documents à préparer
 
 AutoScout24 recommande pour la vente
-([guide](https://guide.autoscout24.ch/de/autoverkauf/tipps-autoverkauf/)) :
+([guide](https://guide.autoscout24.ch/fr/vente-d-une-voiture/guide-de-vente-d-un-vehicule/)) :
 
 - permis de circulation
 - carnet d’entretien (imprimé ou extrait du carnet d’entretien numérique du constructeur)
@@ -59,10 +59,10 @@ remis et ne remettez la voiture qu’après paiement complet.
 
 Juridiquement, une quittance suffit pour la vente d’une occasion ; le TCS recommande néanmoins un contrat de vente
 écrit et en propose un modèle
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/fahrzeug-kaufen-verkaufen/tipps-occasion-autos.php)).
+([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/achat-vente-vehicule/idees-fausses-voiture-occasion.php)).
 En tant que particulier, vous excluez habituellement la garantie. Vous devez tout de même signaler les dommages
 d’accident connus, l’exclusion ne les couvre pas
-([AutoScout24](https://guide.autoscout24.ch/de/autoverkauf/tipps-autoverkauf/)).
+([AutoScout24](https://guide.autoscout24.ch/fr/vente-d-une-voiture/guide-de-vente-d-un-vehicule/)).
 
 Inscrivez le kilométrage dans le contrat. Cela protège les deux parties.
 
@@ -100,13 +100,13 @@ Les émoluments sont cantonaux ; renseignez-vous auprès de votre office avant 
 Une expertise récente aide à la vente, AutoScout24 la recommande expressément. Le TCS précise toutefois :
 « expertisée » confirme seulement que la voiture remplissait les exigences légales minimales le jour du contrôle, et ne
 dit rien de l’état du moteur ou de la boîte de vitesses
-([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/auto-verkaufen.php)).
+([TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/vente-vehicules.php)).
 Les voitures de tourisme doivent passer le premier contrôle après 5 ans, puis après 3 ans et ensuite tous les 2 ans
 ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
 
 Qui veut offrir davantage à son acheteur fait réaliser un test d’occasion. Le TCS y contrôle aussi les documents,
 c’est-à-dire le carnet d’entretien, le permis de circulation et le document antipollution
-([test d’occasion TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/occasion-auto-testen.php)).
+([test d’occasion TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/test-occasion.php)).
 
 ## Les factures prouvent le kilométrage
 

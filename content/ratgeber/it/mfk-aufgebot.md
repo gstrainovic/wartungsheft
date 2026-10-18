@@ -16,7 +16,7 @@ Gli intervalli sono fissati all'art. 33 dell'Ordinanza concernente le esigenze t
 |-----------------|-----------------|------------|-------|
 | Automobili, motoveicoli, rimorchi oltre 0,75 tonnellate | 5–6 anni dopo la prima messa in circolazione | Dopo 3 anni, poi **ogni 2 anni** | [OETV art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
 | Furgoni, camper | 4 anni dopo la prima messa in circolazione | Poi ogni 2 anni | [OETV art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
-| Veicoli più vecchi (oltre 10 anni) | — | **Nuovo controllo** in caso di cambio di detentore | [TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php) |
+| Veicoli più vecchi (oltre 10 anni) | — | **Nuovo controllo** in caso di cambio di detentore | [TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/esame-ufficiale-collaudo.php) |
 
 **Importante:**
 - La **convocazione** te la manda **per iscritto** la Sezione della circolazione del tuo cantone
@@ -30,7 +30,7 @@ Gli intervalli sono fissati all'art. 33 dell'Ordinanza concernente le esigenze t
 - Il controllo si svolge presso la **Sezione della circolazione** del tuo cantone, in una **stazione di controllo
   privata autorizzata** oppure, nei cantoni Argovia, Berna, Neuchâtel, Soletta, San Gallo, Ticino e Zurigo, anche
   nei **Centri tecnici del TCS**
-  ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)).
+  ([TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/esame-ufficiale-collaudo.php)).
 
 ---
 
@@ -147,7 +147,7 @@ presso l'ufficio, come detentore resti responsabile dello stato del tuo veicolo
   idealmente insieme al prossimo intervento
   ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
 - [ ] **Pre-test:** il pre-test del collaudo del TCS costa da CHF 60 per i soci e copre i difetti tipici
-  ([TCS](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/mfk-vortest.php)).
+  ([TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/test-pre-collaudo.php)).
 - [ ] **Preparare i documenti:** libretto di circolazione, polizza assicurativa, se del caso il documento di
   manutenzione antinquinamento (auto più vecchie senza OBD), ultimi rapporti di controllo.
 
@@ -227,7 +227,7 @@ successivi e gli esami pratici
 
 ## 📚 Per saperne di più
 - [Il collaudo in breve (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
-- [TCS: Motorfahrzeugkontrolle](https://www.tcs.ch/de/kurse-fahrzeugchecks/fahrzeugkontrollen/motorfahrzeugkontrolle-mfk.php)
+- [TCS: Motorfahrzeugkontrolle](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/esame-ufficiale-collaudo.php)
 - [OETV art. 33 (testo della legge)](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33)
 
 Maggiori dettagli nella guida [Vendere un'auto d'occasione: come un libretto di manutenzione senza lacune migliora il prezzo](/it/ratgeber/occasion-verkaufen-serviceheft).

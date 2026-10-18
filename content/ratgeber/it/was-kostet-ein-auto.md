@@ -11,7 +11,7 @@ perdita di valore no. Ogni anno il TCS fa i conti su un'auto modello; le cifre d
 
 L'auto modello ha un prezzo da nuova di CHF 45'000 e percorre 15'000 chilometri all'anno. Costa ogni anno
 CHF 11'112, cioè circa 74 centesimi al chilometro
-([TCS auto modello 2026](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten-musterauto-2026.php)).
+([TCS auto modello 2026](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-chilometrici-vettura-campione-2026.php)).
 Di questi, CHF 6'977 sono costi fissi, che ci sono anche quando l'auto è ferma, e CHF 4'135 costi variabili, che
 crescono con ogni chilometro.
 
@@ -41,7 +41,7 @@ da noi, circa 5 franchi di corrente ogni 100 chilometri.
 
 Il calcolo modello vale per un'auto nuova. Da dieci anni di età e 150'000 chilometri percorsi i valori standard del
 calcolatore TCS non sono più significativi
-([TCS costi chilometrici](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+([TCS costi chilometrici](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-chilometrici.php)).
 Per le auto più vecchie contano quindi le proprie fatture; un esempio lo trovi più sotto.
 
 ### Costi al mese
@@ -67,7 +67,7 @@ Il TCS ha calcolato con CHF 1.71 al litro di senza piombo 95
 A metà settembre 2026 però il litro costava in media CHF 2.10, il diesel CHF 2.38
 ([Tages-Anzeiger](https://www.tagesanzeiger.ch/benzinpreise-bleifrei-95-kostet-in-der-schweiz-2-10-franken-345621034583)).
 Secondo la regola pratica del TCS, 16 centesimi in più al litro aumentano i costi di un centesimo al chilometro
-([TCS costi chilometrici](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/kilometerkosten.php)).
+([TCS costi chilometrici](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-chilometrici.php)).
 Per l'auto modello sono circa 2,4 centesimi in più al chilometro, cioè circa 360 franchi all'anno.
 
 ### Benzina o elettrico
@@ -75,7 +75,7 @@ Per l'auto modello sono circa 2,4 centesimi in più al chilometro, cioè circa 3
 Il TCS ha confrontato auto a benzina ed elettriche su dieci anni di utilizzo. La sua conclusione: i costi più bassi
 di carburante e servizio delle auto elettriche compensano il loro prezzo da nuove più alto dopo un certo
 chilometraggio
-([Confronto TCS benzina ed elettrico](https://www.tcs.ch/de/testberichte-ratgeber/tests/vergleich-benziner-elektroauto.php)).
+([Confronto TCS benzina ed elettrico](https://www.tcs.ch/it/test-consigli/test/confronto-elettrico-benzina.php)).
 Se il conto torna anche per te dipende quindi da quanto guidi: chi guida poco resta con la differenza sul prezzo da
 nuova; chi guida molto la recupera con corrente e servizio. Per entrambe le motorizzazioni vale: quanto costa davvero
 la tua auto lo mostrano le tue fatture di servizio, pneumatici e riparazioni.
@@ -87,7 +87,7 @@ la tua auto lo mostrano le tue fatture di servizio, pneumatici e riparazioni.
   ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/autobahnvignette/)).
 - **Imposta di circolazione:** dipende molto dal cantone. Per una Škoda Octavia 2.0 TSI secondo il TCS è tra
   CHF 264 e 669 all'anno, in media CHF 453; a Zurigo sono CHF 338, a San Gallo CHF 636
-  ([Confronto delle imposte TCS, stato febbraio 2026](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/umwelt-mobilitaet/motorfahrzeugsteuer.php)).
+  ([Confronto delle imposte TCS, stato febbraio 2026](https://www.tcs.ch/it/test-consigli/consigli/ambiente-mobilita/tassa-circolazione.php)).
 - **Assicurazione:** in un sondaggio di Comparis del gennaio 2026 il 27 per cento pagava tra 500 e 799 franchi
   all'anno, il 26 per cento tra 800 e 1'199 franchi; il 45 per cento ha riferito di un aumento del premio
   ([Comparis](https://www.comparis.ch/publikationen/mitteilungen/2026/03/praemienschock-bei-der-autoversicherung-2026-jeder-zweite-zahlt-mehr-doch-nur-6-prozent-wechseln)).

@@ -14,12 +14,12 @@ confronta i garage e ha poi una prova pulita per il libretto di manutenzione.
 ([Wikipedia](https://de.wikipedia.org/wiki/Arbeitszeitwerte_(Kfz-Gewerbe))). Moltiplicati per la tariffa oraria del
 garage danno il prezzo. Secondo il TCS sia le tariffe orarie sia i tempari possono variare da garage a
 garage
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-servizio-auto.php)).
 
 **Tariffa oraria.** L'Unione professionale svizzera dell'automobile (UPSA) quantifica la tariffa fatturata dalle sue
 aziende per il 2023, secondo il Branchenspiegel, in 167.30 franchi all'ora (tariffa mista su tutti i lavori) e
 prevedeva che la tariffa verso i clienti superasse i 180 franchi nel 2024
-([UPSA](https://www.agvs-upsa.ch/de/news-medien/news-detail/news/seien-sie-mutig-mit-erhoehungen/)). La tariffa del
+([UPSA](https://www.agvs-upsa.ch/it/notizie-media/news-detail/news/siate-coraggiosi-con-gli-aumenti/)). La tariffa del
 tuo garage è esposta in officina o indicata sulla fattura; chiedila prima di dare l'incarico.
 
 **Materiale e pezzi di ricambio.** Ogni pezzo con numero di pezzo, quantità e prezzo. Per l'olio c'è il prezzo al
@@ -88,7 +88,7 @@ anche il TCS indica per i garage il dieci per cento in casi motivati
 
 La cosa più sicura è un importo massimo: il TCS consiglia di concordarlo al momento dell'ordine. Se viene
 superato, il garage deve contattarti prima
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-servizio-auto.php)).
 
 ## Lavori non ordinati
 
@@ -97,7 +97,7 @@ stato ordinato
 ([SRF Espresso](https://www.srf.ch/sendungen/kassensturz-espresso/rechtsfragen/sonstiges-recht/muss-man-unbestellte-arbeiten-bezahlen)).
 Per questo conviene un incarico scritto. Il TCS offre a questo scopo, insieme all'associazione del ramo
 dell'automobile, il modulo «Auftrag an den Garagisten» (incarico al garagista)
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/reparatur.php)). Confronta poi
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/riparazioni.php)). Confronta poi
 la fattura con i prezzi che devono essere esposti nel garage.
 
 ## Se la riparazione è difettosa

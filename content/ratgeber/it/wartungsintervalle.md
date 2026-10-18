@@ -70,8 +70,8 @@ Ecco gli interventi **consigliati** per lavori di manutenzione tipici – **le i
 
 | Criterio | Intervallo | Raccomandazione | Fonte |
 |----------|-----------|----------------|-------|
-| **Profondità minima** | — | **1,6 mm** (legale), il TCS consiglia **estate: ≥ 3 mm, inverno: ≥ 4 mm** | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/reifen/faq-reifen.php) |
-| **Età degli pneumatici** | — | **Max 8 anni** – anche con battistrada sufficiente! | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/reifen/faq-reifen.php) |
+| **Profondità minima** | — | **1,6 mm** (legale), il TCS consiglia **estate: ≥ 3 mm, inverno: ≥ 4 mm** | [TCS](https://www.tcs.ch/it/test-consigli/consigli/pneumatici/domande-frequenti-pneumatici.php) |
+| **Età degli pneumatici** | — | **Max 8 anni** – anche con battistrada sufficiente! | [TCS](https://www.tcs.ch/it/test-consigli/consigli/pneumatici/domande-frequenti-pneumatici.php) |
 | **Cambio degli pneumatici** | Stagionale | **Da O a O** (ottobre a Pasqua) con pneumatici invernali | — |
 
 **💡 Suggerimento:** **controlla la pressione ogni mese** – su pneumatici **freddi**!
@@ -99,7 +99,7 @@ Ecco gli interventi **consigliati** per lavori di manutenzione tipici – **le i
 ## 🔧 Posso andare in un'officina indipendente senza perdere la garanzia?
 
 **✅ Sì!** Dal 1º gennaio 2024 vale in Svizzera l'**ordinanza del Consiglio federale sui veicoli a motore**
-([UPSA/AGVS](https://www.agvs-upsa.ch/de/recht-politik/aktuelle-themen/kfz-verordnung/)).
+([UPSA/AGVS](https://www.agvs-upsa.ch/it/legge-e-politica/politica/argomenti-attuali/regolamento-sui-veicoli-a-motore/)).
 
 ### 📜 Regole importanti
 
@@ -107,7 +107,7 @@ Ecco gli interventi **consigliati** per lavori di manutenzione tipici – **le i
 |---------|----------|-------|
 | **Posso andare in un'officina indipendente?** | **Sì!** La garanzia del costruttore non può essere legata alle officine del marchio | [Ordinanza, art. 4](https://www.agvs-upsa.ch/fileadmin/user_upload/AGVS_ROOT/AGVS-UPSA/Recht_und_Politik/Politik/Aktuelle_Themen/KFZ-Verordnung/AS-2023-772-DE.pdf) |
 | **Eccezione?** | Solo se i lavori sono stati eseguiti **in modo difettoso** | [Spiegazioni COMCO](https://www.newsd.admin.ch/newsd/message/attachments/85113.pdf) |
-| **Cosa devo rispettare?** | **Rispettare gli intervalli e provarlo!** (fatture, timbri) | [TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php) |
+| **Cosa devo rispettare?** | **Rispettare gli intervalli e provarlo!** (fatture, timbri) | [TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-servizio-auto.php) |
 
 ### ⚠️ Attenzione ai diritti di garanzia
 
@@ -119,7 +119,7 @@ Anche con la scelta libera dell'officina valgono queste condizioni:
 | **Altri marchi** | Regole simili – **in caso di dubbio rispettare le indicazioni del costruttore** | — |
 
 **💡 Raccomandazione del TCS:** nei **primi anni** far mantenere l'auto **dal rivenditore del marchio**, soprattutto se vuoi usare **prestazioni supplementari** come la garanzia di mobilità
-([TCS](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/servicekosten.php)).
+([TCS](https://www.tcs.ch/it/test-consigli/consigli/controlli-e-manutenzione/costi-servizio-auto.php)).
 
 ---
 
@@ -209,6 +209,6 @@ Alcuni costruttori hanno una **propria filosofia di manutenzione**:
 ## 🔗 Per saperne di più
 - [TCS: manutenzione e cura](https://www.tcs.ch/de/testberichte-ratgeber/ratgeber/kontrollen-unterhalt/pannenpraevention.php)
 - [ADAC: intervalli di manutenzione](https://www.adac.de/rund-ums-fahrzeug/reparatur-pflege-wartung/wartung-inspektion/wartungsintervalle/)
-- [UPSA/AGVS: ordinanza sui veicoli a motore](https://www.agvs-upsa.ch/de/recht-politik/aktuelle-themen/kfz-verordnung/)
+- [UPSA/AGVS: ordinanza sui veicoli a motore](https://www.agvs-upsa.ch/it/legge-e-politica/politica/argomenti-attuali/regolamento-sui-veicoli-a-motore/)
 
 Maggiori dettagli nella guida [Capire la fattura dell'officina](/it/ratgeber/werkstattrechnung-verstehen).
