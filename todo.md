@@ -71,9 +71,12 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 - [ ] **Ratgeber gestärkt (Entscheid 29a), Wirkung prüfen:** Am 18.10. die dünnen Artikel `was-kostet-ein-auto`,
       `werkstattrechnung-verstehen` und `occasion-verkaufen-serviceheft` mit belegtem Inhalt ausgebaut, doppelte
       Abschnitte gekürzt und verlinkt, Titel nach Search-Console-Anfragen; nicht zusammengelegt, weil Google bei keiner
-      Seite eine andere als massgeblich wählt. Nach dem Deploy aller Sprachen Indexierung der 15 nicht indexierten
-      Artikel-URLs beantragen (Liste: `gsc --site wartungsheft.ch coverage`) und vier Wochen später prüfen. Bis dahin
-      keine neuen Ratgeber. Offen aus der Analyse:
+      Seite eine andere als massgeblich wählt. Alle Sprachen sind seit 18.10. live. Indexierung am 18.10. beantragt für
+      die vier deutschen Artikel (`was-kostet-ein-auto`, `werkstattrechnung-verstehen`,
+      `occasion-verkaufen-serviceheft`, `serviceheft-verloren`); noch zu beantragen (Search Console, URL-Prüfung):
+      fr und it je `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`, `serviceheft-verloren`,
+      `wartungsintervalle`, `servicebuch-vorlage`, dazu en `occasion-verkaufen-serviceheft`. Vier Wochen danach mit
+      `gsc --site wartungsheft.ch coverage` prüfen. Bis dahin keine neuen Ratgeber. Offen aus der Analyse:
       - fr- und it-Fassungen verlinken fast nur deutschsprachige Quellen (etwa 10 von 12 Links bei Occasion);
         möglicher Grund der schlechteren Indexierung, auf tcs.ch/fr bzw. /it, ch.ch und Kantonsseiten der Sprache
         umstellen.
