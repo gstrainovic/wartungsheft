@@ -69,10 +69,10 @@ Registra il chilometraggio nel contratto. Protegge entrambe le parti.
 ### Garanzia nella vendita tra privati
 
 L'esclusione della garanzia ha dei limiti: non vale se hai taciuto dolosamente dei difetti
-([Art. 199 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_2/art_199)). Scrivi
+([Art. 199 CO](https://justement.ch/it/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_2/art_199)). Scrivi
 quindi i danni noti nel contratto, anche se vendi «senza garanzia». Senza esclusione, le azioni dell'acquirente per
 garanzia si prescrivono in due anni dalla consegna
-([Art. 210 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_9/art_210)). Un
+([Art. 210 CO](https://justement.ch/it/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_9/art_210)). Un
 libretto di manutenzione con le fatture aiuta anche qui: registra quali lavori sono stati fatti e rende
 comprensibile lo stato alla consegna.
 
@@ -81,7 +81,7 @@ comprensibile lo stato alla consegna.
 Dopo la consegna la licenza di circolazione è ancora intestata a te. Come detentore devi comunicare all'ufficio
 della circolazione entro 14 giorni ogni fatto che richiede una modifica o la sostituzione della licenza; se entro
 14 giorni non metti in circolazione un altro veicolo, devi anche restituire subito le targhe di controllo
-([Art. 74 cpv. 5 OAC](https://justement.ch/de/doc/act/ch/741_51/lvl_2/lvl_21/lvl_212/art_74)). Le targhe restano
+([Art. 74 cpv. 5 OAC](https://justement.ch/it/doc/act/ch/741_51/lvl_2/lvl_21/lvl_212/art_74)). Le targhe restano
 quindi a te: o le usi entro 14 giorni per immatricolare un'altra auto, oppure le consegni con la licenza di
 circolazione all'ufficio della circolazione.
 
@@ -101,7 +101,7 @@ conferma solo che il giorno del collaudo l'auto soddisfaceva i requisiti minimi 
 stato di motore o cambio
 ([TCS](https://www.tcs.ch/it/corsi-controlli-tecnici/controlli-veicoli/vendita-auto.php)).
 Le automobili vanno al primo collaudo dopo 5 anni, poi dopo 3 anni e in seguito ogni 2 anni
-([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
+([ch.ch](https://www.ch.ch/it/esame-dei-veicoli-a-motore--collaudo-/)).
 
 Chi vuole offrire di più all'acquirente fa fare un test d'occasione. In quell'occasione il TCS controlla anche i
 documenti, cioè libretto di manutenzione, licenza di circolazione e documento antinquinamento

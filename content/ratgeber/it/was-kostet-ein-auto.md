@@ -84,7 +84,7 @@ la tua auto lo mostrano le tue fatture di servizio, pneumatici e riparazioni.
 
 - **Vignetta:** CHF 40, valida dal 1° dicembre dell'anno precedente al 31 gennaio dell'anno successivo. Senza
   vignetta si paga una multa di 200 franchi più la vignetta
-  ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/autobahnvignette/)).
+  ([ch.ch](https://www.ch.ch/it/veicoli-e-traffico/automobili-e-altri-veicoli/vignetta-autostradale/)).
 - **Imposta di circolazione:** dipende molto dal cantone. Per una Škoda Octavia 2.0 TSI secondo il TCS è tra
   CHF 264 e 669 all'anno, in media CHF 453; a Zurigo sono CHF 338, a San Gallo CHF 636
   ([Confronto delle imposte TCS, stato febbraio 2026](https://www.tcs.ch/it/test-consigli/consigli/ambiente-mobilita/tassa-circolazione.php)).

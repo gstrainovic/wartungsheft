@@ -107,7 +107,7 @@ Contrôlez la voiture dès que possible après l’avoir récupérée et signale
 est réputé accepté
 ([ACS](https://www.acs.ch/de/interessantes/werkstattfehler_wer-zahlt.php)). Les droits pour défauts se prescrivent
 par deux ans à compter de la réception de l’ouvrage
-([art. 371 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_11/lvl_b/lvl_i/lvl_4/lvl_e/art_371)).
+([art. 371 CO](https://justement.ch/fr/doc/act/ch/220/part_2/tit_11/lvl_b/lvl_i/lvl_4/lvl_e/art_371)).
 
 Si vous ne payez pas, le garage peut en principe retenir la voiture jusqu’au règlement de la facture
 ([Saldo](https://www.saldo.ch/artikel/artikeldetail/darf-die-garage-den-wagen-zurueckbehalten)). En cas de litige sur

@@ -17,13 +17,13 @@ véhicules routiers (OETV). Pour la plupart des détenteurs privés, ces délais
 
 | Type de véhicule | Premier contrôle | Ensuite | Source |
 |------------------|------------------|---------|--------|
-| Voitures de tourisme, motos, remorques de plus de 0,75 tonne | 5 à 6 ans après la première mise en circulation | Puis après 3 ans, ensuite **tous les 2 ans** | [OETV art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
-| Voitures de livraison, camping-cars | 4 ans après la première mise en circulation | Puis tous les 2 ans | [OETV art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Voitures de tourisme, motos, remorques de plus de 0,75 tonne | 5 à 6 ans après la première mise en circulation | Puis après 3 ans, ensuite **tous les 2 ans** | [OETV art. 33](https://justement.ch/fr/doc/act/ch/741_41/part_2/chap_2/art_33) |
+| Voitures de livraison, camping-cars | 4 ans après la première mise en circulation | Puis tous les 2 ans | [OETV art. 33](https://justement.ch/fr/doc/act/ch/741_41/part_2/chap_2/art_33) |
 | Véhicules plus âgés (plus de 10 ans) | — | **Nouveau contrôle** en cas de changement de détenteur | [TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/expertise.php) |
 
 **Important :**
 - La **convocation** vous est envoyée **par écrit** par l’office de la circulation routière de votre canton
-  ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)). Dans
+  ([ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)). Dans
   certains cantons, vous pouvez en outre réserver le rendez-vous **en ligne**, par exemple à
   [Zurich](https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder/fahrzeugpruefungen.html) et à
   [Bâle-Ville](https://www.bs.ch/themen/mobilitaet/fahrzeuge/periodische-fahrzeugpruefung).
@@ -149,7 +149,7 @@ vous restez, en tant que détenteur, responsable de l’état de votre véhicule
 
 ### 🔧 Deux semaines avant le contrôle
 - [ ] **Faire le service :** faites vérifier freins, éclairage et pneus – idéalement en même temps que le prochain
-  service ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
+  service ([ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)).
 - [ ] **Pré-test :** le pré-test d’expertise du TCS coûte dès CHF 60 pour les membres et couvre les défauts
   typiques ([TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/test-pre-expertise.php)).
 - [ ] **Documents à préparer :** permis de circulation, police d’assurance, le cas échéant le document
@@ -230,8 +230,8 @@ ultérieurs et les examens pratiques ([baselland.ch](https://www.baselland.ch/po
 ---
 
 ## 📚 Pour en savoir plus
-- [L’expertise en bref (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
+- [L’expertise en bref (ch.ch)](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)
 - [TCS : Motorfahrzeugkontrolle](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/expertise.php)
-- [OETV art. 33 (texte de la loi)](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33)
+- [OETV art. 33 (texte de la loi)](https://justement.ch/fr/doc/act/ch/741_41/part_2/chap_2/art_33)
 
 En savoir plus dans le guide [Vendre son occasion : comment un carnet d’entretien sans lacunes améliore le prix](/fr/ratgeber/occasion-verkaufen-serviceheft).

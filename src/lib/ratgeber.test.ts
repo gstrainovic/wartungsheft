@@ -152,6 +152,16 @@ describe('suchwort «Servicebuch»', () => {
   })
 })
 
+describe('rechtsquellen in der Sprache des Artikels', () => {
+  const quellen = import.meta.glob('../../content/ratgeber/{fr,it}/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+
+  it('verlinken justement.ch und ch.ch in fr und it nicht auf die deutsche Fassung', () => {
+    expect(Object.keys(quellen).length).toBeGreaterThan(0)
+    for (const [pfad, quelle] of Object.entries(quellen))
+      expect(quelle, pfad).not.toMatch(/https:\/\/(justement\.ch|www\.ch\.ch)\/de\//)
+  })
+})
+
 describe('eigene Adresse je Sprache (key und slug im Artikelkopf)', () => {
   const de = parseArticle('serviceheft-verloren', SOURCE)
   const fr = parseArticle('carnet-entretien', SOURCE_FR.replace('date: 2026-09-23', 'date: 2026-09-23\nkey: serviceheft-verloren\nslug: carnet-entretien'), 'fr')

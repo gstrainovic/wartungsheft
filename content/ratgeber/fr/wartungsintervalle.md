@@ -140,7 +140,7 @@ Les coûts varient selon le type de véhicule, le garage et l’étendue. Voici 
 |-----------------|------------|-----------|--------|
 | **Petit service** (contrôle de base + vidange) | 130 à 350 | Tous les 15 000 à 30 000 km ou chaque année | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
 | **Grand service** (entretien complet + inspection) | 400 à 800 | Selon les prescriptions du constructeur | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Expertise (MFK)** | env. 60 | Première fois après 5 à 6 ans, puis après 3 ans et **tous les 2 ans** | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+| **Expertise (MFK)** | env. 60 | Première fois après 5 à 6 ans, puis après 3 ans et **tous les 2 ans** | [ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/) |
 
 **📌 Important :** l’expertise ne contrôle que la **sécurité minimale**, tandis qu’un service avec inspection
 **préserve la valeur du véhicule** et **recherche les défauts de manière proactive**.

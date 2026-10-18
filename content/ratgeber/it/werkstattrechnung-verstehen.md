@@ -106,7 +106,7 @@ Controlla l'auto dopo il ritiro appena possibile e segnala subito i difetti, alt
 accettato
 ([ACS](https://www.acs.ch/de/interessantes/werkstattfehler_wer-zahlt.php)). Le pretese per difetti si prescrivono
 in due anni dalla consegna
-([Art. 371 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_11/lvl_b/lvl_i/lvl_4/lvl_e/art_371)).
+([Art. 371 CO](https://justement.ch/it/doc/act/ch/220/part_2/tit_11/lvl_b/lvl_i/lvl_4/lvl_e/art_371)).
 
 Se non paghi, il garage può di principio trattenere l'auto finché la fattura non è saldata
 ([Saldo](https://www.saldo.ch/artikel/artikeldetail/darf-die-garage-den-wagen-zurueckbehalten)). In caso di

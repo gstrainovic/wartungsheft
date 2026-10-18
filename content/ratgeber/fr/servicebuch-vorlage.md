@@ -42,7 +42,7 @@ Les pages 2 à 4 contiennent chacune 13 lignes vides avec des champs pour la dat
 
 ### 📅 Page 5 : Plan d’entretien de votre véhicule
 
-Les intervalles d’entretien varient selon le véhicule et sa motorisation. La dernière page permet de noter les indications du manuel ou du constructeur. Pour l’expertise, les délais de l’[OETV art. 33](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33) dépendent du type de véhicule ; la convocation de l’office cantonal fait foi.
+Les intervalles d’entretien varient selon le véhicule et sa motorisation. La dernière page permet de noter les indications du manuel ou du constructeur. Pour l’expertise, les délais de l’[OETV art. 33](https://justement.ch/fr/doc/act/ch/741_41/part_2/chap_2/art_33) dépendent du type de véhicule ; la convocation de l’office cantonal fait foi.
 
 | Intervention | Intervalle selon le constructeur | Dernière intervention | Prochaine échéance |
 |--------------|-----------------------------------|-----------------------|--------------------|
@@ -109,8 +109,8 @@ Mettez simplement à jour le nom du garage dans le tableau. **Aucun problème** 
 ## 📚 Liens utiles
 
 - [TCS Suisse : carnet d’entretien électronique](https://www.tcs.ch/fr/conseils-tests/garage-entretien/carnet-entretien-electronique.php)
-- [OETV art. 33 (fréquences MFK)](https://justement.ch/de/doc/act/ch/741_41/part_2/chap_2/art_33)
-- [L’expertise en bref (ch.ch)](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)
+- [OETV art. 33 (fréquences MFK)](https://justement.ch/fr/doc/act/ch/741_41/part_2/chap_2/art_33)
+- [L’expertise en bref (ch.ch)](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)
 
 ---
 

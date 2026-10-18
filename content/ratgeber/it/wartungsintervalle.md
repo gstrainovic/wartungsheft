@@ -133,7 +133,7 @@ I costi variano secondo il tipo di veicolo, l'officina e l'ampiezza. Ecco una **
 |--------------------|-------------|-----------|-------|
 | **Piccolo servizio** (controllo di base + cambio olio) | 130–350 | Ogni 15'000–30'000 km o ogni anno | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
 | **Grande servizio** (manutenzione completa + ispezione) | 400–800 | Secondo le indicazioni del costruttore | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Collaudo (MFK)** | circa 60 | Prima volta dopo 5–6 anni, poi dopo 3 anni e **ogni 2 anni** | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+| **Collaudo (MFK)** | circa 60 | Prima volta dopo 5–6 anni, poi dopo 3 anni e **ogni 2 anni** | [ch.ch](https://www.ch.ch/it/esame-dei-veicoli-a-motore--collaudo-/) |
 
 **📌 Importante:** il collaudo controlla solo la **sicurezza minima**, mentre un intervento con ispezione
 **preserva il valore del veicolo** e **cerca i difetti in modo proattivo**.

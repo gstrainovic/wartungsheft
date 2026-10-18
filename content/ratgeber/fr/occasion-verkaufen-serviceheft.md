@@ -69,10 +69,10 @@ Inscrivez le kilométrage dans le contrat. Cela protège les deux parties.
 ### Garantie lors d’une vente entre particuliers
 
 L’exclusion de garantie a des limites : elle est nulle si vous avez dissimulé frauduleusement des défauts
-([art. 199 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_2/art_199)). Inscrivez
+([art. 199 CO](https://justement.ch/fr/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_2/art_199)). Inscrivez
 donc les dommages connus dans le contrat, même si vous vendez « sans garantie ». Sans exclusion, les actions en
 garantie de l’acheteur se prescrivent par deux ans à compter de la livraison
-([art. 210 CO](https://justement.ch/de/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_9/art_210)). Un carnet
+([art. 210 CO](https://justement.ch/fr/doc/act/ch/220/part_2/tit_6/chap_2/lvl_b/lvl_iii/lvl_9/art_210)). Un carnet
 d’entretien avec les factures aide ici aussi : il consigne les travaux effectués et rend l’état au moment de la remise
 compréhensible.
 
@@ -82,7 +82,7 @@ Après la remise, le permis de circulation est encore à votre nom. En tant que 
 l’office de la circulation dans les 14 jours tout fait qui exige une modification ou un remplacement du permis ; si
 vous ne mettez pas un autre véhicule en circulation dans les 14 jours, vous devez aussi restituer sans délai les
 plaques de contrôle
-([art. 74 al. 5 OAC](https://justement.ch/de/doc/act/ch/741_51/lvl_2/lvl_21/lvl_212/art_74)). Les plaques restent
+([art. 74 al. 5 OAC](https://justement.ch/fr/doc/act/ch/741_51/lvl_2/lvl_21/lvl_212/art_74)). Les plaques restent
 donc chez vous : soit vous les utilisez dans les 14 jours pour mettre une autre voiture en circulation, soit vous les
 remettez avec le permis de circulation à l’office de la circulation.
 
@@ -102,7 +102,7 @@ Une expertise récente aide à la vente, AutoScout24 la recommande expressément
 dit rien de l’état du moteur ou de la boîte de vitesses
 ([TCS](https://www.tcs.ch/fr/cours-controles-techniques/controles-vehicules/vente-vehicules.php)).
 Les voitures de tourisme doivent passer le premier contrôle après 5 ans, puis après 3 ans et ensuite tous les 2 ans
-([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
+([ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)).
 
 Qui veut offrir davantage à son acheteur fait réaliser un test d’occasion. Le TCS y contrôle aussi les documents,
 c’est-à-dire le carnet d’entretien, le permis de circulation et le document antipollution

@@ -85,7 +85,7 @@ le montrent.
 
 - **Vignette :** CHF 40, valable du 1er décembre de l’année précédente au 31 janvier de l’année suivante. Sans
   vignette, il en coûte une amende de 200 francs plus la vignette
-  ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/autobahnvignette/)).
+  ([ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/comportement-dans-la-circulation-routiere/vignette-autoroutiere/)).
 - **Impôt sur les véhicules à moteur :** dépend fortement du canton. Pour une Škoda Octavia 2.0 TSI, il se situe selon
   le TCS entre CHF 264 et 669 par an, en moyenne CHF 453 ; à Zurich il est de CHF 338, à Saint-Gall de CHF 636
   ([comparaison fiscale TCS, état février 2026](https://www.tcs.ch/fr/tests-conseils/conseils/environnement-mobilite/taxe-automobile-cantons.php)).
