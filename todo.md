@@ -73,9 +73,10 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       Abschnitte gekürzt und verlinkt, Titel nach Search-Console-Anfragen; nicht zusammengelegt, weil Google bei keiner
       Seite eine andere als massgeblich wählt. Alle Sprachen sind seit 18.10. live. Indexierung am 18.10. beantragt für
       die vier deutschen Artikel (`was-kostet-ein-auto`, `werkstattrechnung-verstehen`,
-      `occasion-verkaufen-serviceheft`, `serviceheft-verloren`); noch zu beantragen (Search Console, URL-Prüfung):
-      fr und it je `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`, `serviceheft-verloren`,
-      `wartungsintervalle`, `servicebuch-vorlage`, dazu en `occasion-verkaufen-serviceheft`. Vier Wochen danach mit
+      `occasion-verkaufen-serviceheft`, `serviceheft-verloren`), am 19.10. für fr und it je
+      `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`, `serviceheft-verloren`, `wartungsintervalle`,
+      `servicebuch-vorlage` und en `occasion-verkaufen-serviceheft` (davor alle «nicht auf Google» ausser fr
+      `werkstattrechnung-verstehen`). Vier Wochen danach mit
       `gsc --site wartungsheft.ch coverage` prüfen. Bis dahin keine neuen Ratgeber. Offen aus der Analyse:
       - fr- und it-Fassungen verlinken überwiegend deutschsprachige Quellen, möglicher Grund der schlechteren
         Indexierung. Links auf TCS, AGVS, Autoscout24, Hersteller, justement.ch und ch.ch zeigen auf die
