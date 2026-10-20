@@ -21,7 +21,7 @@ globale Konfiguration keinen Einfluss mehr hat.
 | claude-security | aus | Multi-Agent-Scanner mit hohem Token-Verbrauch. Nur gezielt vor einem Release einschalten. |
 | claude-code-setup | aus | Einmaliger Automations-Empfehler, kein Dauerbedarf. |
 | rust-analyzer-lsp | aus | Kein Rust in diesem Projekt. |
-| context7 | ein | Aktuelle Doku für Vue, Quasar, PrimeVue, InstantDB, AI SDK per MCP. Passt zur Regel "erst Docs lesen, dann handeln". Läuft anonym, `CONTEXT7_API_KEY` optional für höhere Limits. Scope: project. |
+| context7 | aus | Stand der aufbereiteten Doku ist nicht erkennbar; Doku direkt aus dem Repo der Bibliothek per `gh` (passend zum Tag) oder von der Website per Jina. |
 | modern-web-guidance | ein | Skill von Google Chrome mit 104 Guides zu modernen Web-APIs (View Transitions, Popover, Container Queries, INP). Relevant für die PWA. Lädt bei Bedarf per npx. Scope: project. |
 | typescript-lsp | ein | Language Server für die 49 `.ts`-Dateien (services, stores, lib, composables, e2e): Go-to-Definition, Referenzen, Typfehler. `.vue`-Dateien deckt er nicht ab. Voraussetzung: `npm install -g typescript-language-server typescript` (installiert, v6.0.0). Scope: project. |
 
@@ -60,7 +60,6 @@ Kandidaten, die zum Stack passen, aber bewusst nicht installiert wurden:
 | Server | Quelle | Status hier | Wo gesteuert |
 |--------|--------|-------------|--------------|
 | playwright | Plugin | ein | `enabledPlugins` in dieser settings.json |
-| context7 | Plugin (HTTP, mcp.context7.com) | ein | `enabledPlugins` in dieser settings.json |
 | jina-reader | global (`~/.claude.json`) | ein | Globale Regel: alle URLs über Jina Reader fetchen |
 | tmux-mcp | global | aus | `/mcp` im Projekt, gespeichert in `~/.claude.json` unter `projects[...].disabledMcpServers` |
 | tui-driver | global | aus | wie tmux-mcp. Nur für TUI-Apps, hier nicht nötig. |

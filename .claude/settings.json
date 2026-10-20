@@ -36,7 +36,7 @@
     "claude-security@claude-plugins-official": false,
     "claude-code-setup@claude-plugins-official": false,
     "rust-analyzer-lsp@claude-plugins-official": false,
-    "context7@claude-plugins-official": true,
+    "context7@claude-plugins-official": false,
     "modern-web-guidance@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
   }
