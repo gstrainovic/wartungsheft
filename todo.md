@@ -1,5 +1,9 @@
 # todo.md
 
+- [ ] **Vercel-Verbindung klären:** Das GitHub-Repo meldet seit dem 13.09.2026 nur fehlgeschlagene
+      Vercel-Deployments (Environment «Production», letzte am 14.09.2026), danach keine mehr. Läuft die App nicht
+      mehr über Vercel, das Vercel-Projekt vom Repo trennen; sonst den Fehler beheben.
+
 - [ ] **Beim nächsten Deploy Service-Worker-Update prüfen:** Der Fix (registerSW lädt neu, Update-Prüfung beim
       Zurückkehren) ist seit 11.10. live. In einem Browser mit installiertem Stand prüfen, dass schon die erste
       Navigation nach dem Deploy den neuen Stand zeigt.
