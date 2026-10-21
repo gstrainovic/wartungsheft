@@ -326,8 +326,8 @@ untertitel = "../public/film-{name}{suffix}"
 
 [film.freigaben]
 text = 2026-10-09
-stumm = 2026-10-09 # Commit b984bb5
-# deutsche Fassung Handy und Desktop, Commits 4de7d1d und b047c9e, Länge 102 s (Entscheid 59a); fr, it, en nach den
+stumm = 2026-10-09 # Commit f7a2702
+# deutsche Fassung Handy und Desktop, Commits ae88eaa und 2be8c5e, Länge 102 s (Entscheid 59a); fr, it, en nach den
 # Prüfungen ohne erneute Vorlage veröffentlicht am 2026-10-09 auf /hilfe (Skill produktvideos)
 vertont = 2026-10-09
 
