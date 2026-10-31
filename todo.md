@@ -61,9 +61,12 @@ Text, Metadaten, `robots.txt`, `sitemap.xml` und `llms.txt` stehen (Skill `app-h
 Google über die Search Console, Bing über die Bing Webmaster Tools (Import aus der Search Console, Sitemap
 eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegsseiten und Ratgeber sind fertiges HTML.
 
-- [ ] **Deutsche Ratgeber indexieren:** `/ratgeber/mfk-aufgebot`, `/ratgeber/wartungsintervalle` und
-      `/ratgeber/serviceheft-verloren` sind am 14.10.2026 zur Indexierung beantragt (vorher «gecrawlt, nicht indexiert»
-      bzw. «Google nicht bekannt»). Ende Oktober mit `gsc --site wartungsheft.ch inspect <url>` prüfen; bleibt es bei
+- [ ] **Deutsche Ratgeber indexieren:** `/ratgeber/mfk-aufgebot` und `/ratgeber/wartungsintervalle` sind seit dem
+      Antrag vom 14.10.2026 indexiert (`gsc inspect` 31.10.: «Gesendet und indexiert»); `/ratgeber/serviceheft-verloren`
+      steht am 31.10. auf «Gefunden – zurzeit nicht indexiert» (noch nicht gecrawlt). Den Antrag in der Search Console
+      wiederholen (am 31.10. öffnete sich die URL-Prüfung per playwright-cli nicht, Enter im Suchfeld griff nicht; von
+      Hand in Chrome oder Weg im Skill `browser-wahl` nachbessern); Mitte November `gsc --site wartungsheft.ch inspect
+      <url>`; bleibt es bei
       «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag. Gesamtbild `gsc coverage` 15.10.: 36 von 52
       Sitemap-Seiten indexiert; nicht indexiert sind fast nur Ratgeber (de: `was-kostet-ein-auto`,
       `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`; fr/it/en mehrere), dazu `/fr/anlagen`.
