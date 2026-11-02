@@ -118,29 +118,29 @@ Auch wenn du in eine **freie Garage** darfst, gelten folgende Bedingungen:
 
 ---
 
-## 💰 Servicekosten in der Schweiz (Stand 2026)
+## 💰 Servicekosten in der Schweiz
 
-Die Kosten variieren je nach Fahrzeugtyp, Werkstatt und Umfang. Hier eine **Übersicht der Durchschnittspreise** in der Schweiz:
+Was ein Service kostet, hängt vom Fahrzeug, von der Werkstatt und vom Umfang ab. Der TCS wertet zusammen mit den Importeuren die Servicekosten der 34 meistverkauften Modelle über 9,1 Jahre und 135'500 km aus und nennt **Durchschnittswerte pro Jahr bei 15'000 km**:
 
-### 📊 Kosten nach Service-Art
+### 📊 Servicekosten nach Preisklasse
 
-| Service-Art | Kosten (CHF) | Intervall | Quelle |
-|-------------|---------------|-----------|--------|
-| **Kleiner Service** (Grundüberprüfung + Ölwechsel) | 130–350 | Alle 15'000–30'000 km oder jährlich | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Grosser Service** (umfassende Wartung + Inspektion) | 400–800 | Nach Herstellervorgabe | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **MFK-Prüfung** | ~60 | Erstprüfung nach 5–6 Jahren, dann nach 3 Jahren und **alle 2 Jahre** | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+| Katalogpreis (CHF) | Servicekosten pro Jahr (CHF) | Quelle |
+|--------------------|------------------------------|--------|
+| **11'000–19'500** | 375 | [TCS-Broschüre Betriebskosten](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf), Abschnitt «Service- und Reparaturkosten» |
+| **19'501–29'500** | 420 | ebenda |
+| **29'501–39'500** | 450 | ebenda |
+| **39'501–59'500** | 510 | ebenda |
+| **59'501–80'000** | 560 | ebenda |
+
+Darin stecken alle vom Hersteller vorgeschriebenen oder empfohlenen Arbeiten, auch Abgaswartung, Brems- und Kühlflüssigkeit, Kraftstofffilter und Zahnriemen. Arbeit und Material machen je rund die Hälfte aus; der TCS rechnet mit einem Stundenansatz von **CHF 145** (Bundesamt für Statistik). Wer mehr als 15'000 km im Jahr fährt, braucht mehr als einen Service pro Jahr; wer weniger fährt, kommt mit dem Jahresservice aus.
+
+Dazu kommt die **MFK** mit rund CHF 60: erstmals nach 5–6 Jahren, dann nach 3 Jahren und danach **alle 2 Jahre** ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
 
 **📌 Wichtig:** Die MFK prüft nur die **Mindest-Sicherheit**, während ein Service mit Inspektion den **Fahrzeugwert erhält** und **proaktiv Mängel sucht**.
 
-### 📈 Kosten nach Fahrzeugalter
+### 📈 Reparaturen: schwer planbar
 
-Die Wartungskosten steigen mit dem Fahrzeugalter. Hier eine **Prognose** für die Schweiz:
-
-| Fahrzeugalter | MFK-Intervall | Typische Defekte | Geschätzte Zusatzkosten (CHF/Jahr) | Quelle |
-|---------------|---------------|------------------|-----------------------------------|--------|
-| **0–5 Jahre** | Keine MFK nötig | Batterie, Start-Stopp-System | 200–500 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **5–8 Jahre** | Erste MFK nach 5 Jahren, dann alle 3 Jahre | Erste Verschleissteile (Bremsen, Reifen) | 500–1'000 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **8+ Jahre** | Alle 2 Jahre | Kupplung, Turbo, Rost, Fahrwerk | 1'000–3'000+ | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+Servicekosten lassen sich wegen der festen Intervalle gut voraussagen, Reparaturen nicht: Sie hängen vom Einsatz und von der Zuverlässigkeit des Fahrzeugs ab. In der TCS-Kilometerkostenrechnung machen Service und Reparaturen zusammen **8,3 % der jährlichen Gesamtkosten** aus; beim Musterauto (Katalogpreis CHF 39'000, 15'000 km, Gesamtkosten CHF 11'260 im Jahr) sind das gut CHF 900 ([TCS-Broschüre Betriebskosten](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf)). Wer das Serviceheft lückenlos führt, sieht, welche Verschleissteile schon ersetzt wurden, und kann Reparaturen besser einplanen.
 
 **💡 Tipp:** Systematische Inspektion ist eine **finanzielle Strategie** – sie verhindert teure Folgeschäden durch Früherkennung.
 

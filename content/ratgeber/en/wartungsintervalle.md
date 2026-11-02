@@ -130,30 +130,30 @@ you want extra services such as the mobility warranty
 
 ---
 
-## 💰 Service costs in Switzerland (as of 2026)
+## 💰 Service costs in Switzerland
 
-Costs vary by vehicle type, garage and scope. Here is an **overview of average prices** in Switzerland:
+What a service costs depends on the vehicle, the garage and the scope of work. Together with the importers, the TCS tracks the service costs of the 34 best-selling models over 9.1 years and 135,500 km and publishes **average figures per year at 15,000 km**:
 
-### 📊 Costs by type of service
+### 📊 Service costs by price class
 
-| Type of service | Cost (CHF) | Interval | Source |
-|-----------------|------------|----------|--------|
-| **Minor service** (basic check + oil change) | 130–350 | Every 15,000–30,000 km or yearly | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Major service** (comprehensive maintenance + inspection) | 400–800 | Per the manufacturer’s specification | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **MFK inspection** | about 60 | First inspection after 5–6 years, then after 3 years and **every 2 years** | [ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/) |
+| List price (CHF) | Service cost per year (CHF) | Source |
+|------------------|-----------------------------|--------|
+| **11,000–19,500** | 375 | [TCS brochure “Betriebskosten” (German)](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf), section “Service- und Reparaturkosten” |
+| **19,501–29,500** | 420 | ibid. |
+| **29,501–39,500** | 450 | ibid. |
+| **39,501–59,500** | 510 | ibid. |
+| **59,501–80,000** | 560 | ibid. |
+
+These figures include every job the manufacturer prescribes or recommends, including the emissions service, brake and coolant fluid changes, the fuel filter and the timing belt. Labour and parts each make up about half; the TCS calculates with an hourly rate of **CHF 145** (Federal Statistical Office). If you drive more than 15,000 km a year you need more than one service a year; below that, the annual service is enough.
+
+On top of that comes the **MFK inspection** at about CHF 60: first after 5–6 years, then after 3 years and then **every 2 years** ([ch.ch](https://www.ch.ch/de/fahrzeuge-und-verkehr/autos-und-andere-fahrzeuge/fahrzeugprufung/)).
 
 **📌 Important:** the MFK only checks **minimum safety**, while a service with an inspection **preserves the
 vehicle’s value** and **looks for defects proactively**.
 
-### 📈 Costs by vehicle age
+### 📈 Repairs: hard to plan
 
-Maintenance costs rise with age. Here is an **estimate** for Switzerland:
-
-| Vehicle age | MFK interval | Typical defects | Estimated extra cost (CHF per year) | Source |
-|-------------|--------------|-----------------|-------------------------------------|--------|
-| **0–5 years** | No MFK yet | Battery, start-stop system | 200–500 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **5–8 years** | First MFK after 5 years, then every 3 years | First wear parts (brakes, tyres) | 500–1,000 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **8+ years** | Every 2 years | Clutch, turbo, rust, suspension | 1,000–3,000+ | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+Service costs are easy to predict thanks to fixed intervals; repairs are not, because they depend on how the car is used and how reliable it is. In the TCS cost-per-kilometre calculation, service and repairs together make up **8.3% of the total annual cost**; for the reference car (list price CHF 39,000, 15,000 km, CHF 11,260 total cost per year) that is just over CHF 900 ([TCS brochure “Betriebskosten”](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf)). A complete service book shows which wear parts have already been replaced and helps you plan repairs.
 
 **💡 Tip:** systematic inspection is a **financial strategy** – it prevents expensive consequential damage through
 early detection.

@@ -123,30 +123,29 @@ Anche con la scelta libera dell'officina valgono queste condizioni:
 
 ---
 
-## 💰 Costi di manutenzione in Svizzera (stato 2026)
+## 💰 Costi di manutenzione in Svizzera
 
-I costi variano secondo il tipo di veicolo, l'officina e l'ampiezza. Ecco una **panoramica dei prezzi medi** in Svizzera:
+Quanto costa un servizio dipende dal veicolo, dall'officina e dall'ampiezza dei lavori. Il TCS rileva, insieme agli importatori, i costi di servizio dei 34 modelli più venduti su 9,1 anni e 135'500 km e indica **valori medi all'anno per 15'000 km**:
 
-### 📊 Costi per tipo di intervento
+### 📊 Costi di servizio per categoria di prezzo
 
-| Tipo di intervento | Costo (CHF) | Intervallo | Fonte |
-|--------------------|-------------|-----------|-------|
-| **Piccolo servizio** (controllo di base + cambio olio) | 130–350 | Ogni 15'000–30'000 km o ogni anno | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Grande servizio** (manutenzione completa + ispezione) | 400–800 | Secondo le indicazioni del costruttore | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Collaudo (MFK)** | circa 60 | Prima volta dopo 5–6 anni, poi dopo 3 anni e **ogni 2 anni** | [ch.ch](https://www.ch.ch/it/esame-dei-veicoli-a-motore--collaudo-/) |
+| Prezzo di listino (CHF) | Costo di servizio all'anno (CHF) | Fonte |
+|-------------------------|----------------------------------|-------|
+| **11'000–19'500** | 375 | [Opuscolo TCS «Costi d'esercizio»](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/costi-d-esercizio-2023.pdf), capitolo «Costi medi dei servizi per categorie di prezzo» |
+| **19'501–29'500** | 420 | idem |
+| **29'501–39'500** | 450 | idem |
+| **39'501–59'500** | 510 | idem |
+| **59'501–80'000** | 560 | idem |
 
+Questi importi comprendono tutti gli interventi prescritti o consigliati dal costruttore, inclusi manutenzione antinquinamento, cambio del liquido freni e del refrigerante, filtro del carburante e cinghia dentata. Manodopera e materiale pesano circa la metà ciascuno; il TCS calcola con una tariffa oraria di **CHF 145** (Ufficio federale di statistica). Chi percorre più di 15'000 km all'anno ha bisogno di più di un servizio all'anno; chi percorre meno se la cava con il servizio annuale.
+
+A questo si aggiunge il **collaudo (MFK)**, circa CHF 60: la prima volta dopo 5–6 anni, poi dopo 3 anni e in seguito **ogni 2 anni** ([ch.ch](https://www.ch.ch/it/esame-dei-veicoli-a-motore--collaudo-/)).
 **📌 Importante:** il collaudo controlla solo la **sicurezza minima**, mentre un intervento con ispezione
 **preserva il valore del veicolo** e **cerca i difetti in modo proattivo**.
 
-### 📈 Costi secondo l'età del veicolo
+### 📈 Riparazioni: difficili da pianificare
 
-I costi di manutenzione salgono con l'età. Ecco una **stima** per la Svizzera:
-
-| Età del veicolo | Intervallo MFK | Difetti tipici | Costi supplementari stimati (CHF/anno) | Fonte |
-|-----------------|---------------|----------------|----------------------------------------|-------|
-| **0–5 anni** | Nessun collaudo | Batteria, sistema start-and-stop | 200–500 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **5–8 anni** | Primo collaudo dopo 5 anni, poi ogni 3 anni | Prime parti d'usura (freni, pneumatici) | 500–1'000 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **8 anni e più** | Ogni 2 anni | Frizione, turbo, ruggine, sospensioni | 1'000–3'000 e oltre | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+I costi di servizio si prevedono bene grazie agli intervalli fissi, le riparazioni no: dipendono dall'uso e dall'affidabilità del veicolo. Per il calcolo dei costi chilometrici il TCS si basa su una media ricavata dai test di lunga percorrenza ([opuscolo TCS «Costi d'esercizio»](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/costi-d-esercizio-2023.pdf)). Un libretto di manutenzione completo mostra quali parti d'usura sono già state sostituite e aiuta a pianificare le riparazioni.
 
 **💡 Suggerimento:** un'ispezione sistematica è una **strategia finanziaria** – previene costosi danni a catena grazie alla diagnosi precoce.
 

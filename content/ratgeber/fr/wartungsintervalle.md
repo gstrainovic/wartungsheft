@@ -130,30 +130,30 @@ mobilité ([TCS](https://www.tcs.ch/fr/tests-conseils/conseils/controle-entretie
 
 ---
 
-## 💰 Coûts d’entretien en Suisse (état 2026)
+## 💰 Coûts d’entretien en Suisse
 
-Les coûts varient selon le type de véhicule, le garage et l’étendue. Voici une **vue des prix moyens** en Suisse :
+Le prix d’un service dépend du véhicule, du garage et de l’étendue des travaux. Le TCS relève, avec les importateurs, les coûts de service des 34 modèles les plus vendus sur 9,1 ans et 135 500 km et indique des **moyennes par an pour 15 000 km** :
 
-### 📊 Coûts par type de service
+### 📊 Coûts de service par classe de prix
 
-| Type de service | Coût (CHF) | Intervall | Source |
-|-----------------|------------|-----------|--------|
-| **Petit service** (contrôle de base + vidange) | 130 à 350 | Tous les 15 000 à 30 000 km ou chaque année | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Grand service** (entretien complet + inspection) | 400 à 800 | Selon les prescriptions du constructeur | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **Expertise (MFK)** | env. 60 | Première fois après 5 à 6 ans, puis après 3 ans et **tous les 2 ans** | [ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/) |
+| Prix catalogue (CHF) | Coût de service par an (CHF) | Source |
+|----------------------|------------------------------|--------|
+| **11 000 à 19 500** | 375 | [Brochure TCS « Frais d’utilisation »](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/brochure-frais-d-utilisation-2023.pdf), chapitre « Coût des services et frais de réparation » |
+| **19 501 à 29 500** | 420 | idem |
+| **29 501 à 39 500** | 450 | idem |
+| **39 501 à 59 500** | 510 | idem |
+| **59 501 à 80 000** | 560 | idem |
+
+Ces montants comprennent tous les travaux prescrits ou recommandés par le constructeur, y compris l’entretien antipollution, la vidange des circuits de freinage et de refroidissement, le filtre à carburant et la courroie de distribution. Main-d’œuvre et matériel pèsent chacun environ la moitié ; le TCS calcule avec un tarif horaire de **CHF 145** (Office fédéral de la statistique). Au-delà de 15 000 km par an, il faut plus d’un service par année ; en dessous, le service annuel suffit.
+
+S’y ajoute l’**expertise (MFK)**, env. CHF 60 : la première fois après 5 à 6 ans, puis après 3 ans et ensuite **tous les 2 ans** ([ch.ch](https://www.ch.ch/fr/circulation-et-vehicules/voitures-et-autres-vehicules/controle-d-un-vehicule/)).
 
 **📌 Important :** l’expertise ne contrôle que la **sécurité minimale**, tandis qu’un service avec inspection
 **préserve la valeur du véhicule** et **recherche les défauts de manière proactive**.
 
-### 📈 Coûts selon l’âge du véhicule
+### 📈 Réparations : difficiles à planifier
 
-Les coûts d’entretien augmentent avec l’âge. Voici une **estimation** pour la Suisse :
-
-| Âge du véhicule | Intervall MFK | Défauts typiques | Coûts supplémentaires estimés (CHF par an) | Source |
-|-----------------|---------------|------------------|--------------------------------------------|--------|
-| **0 à 5 ans** | Pas encore d’expertise | Batterie, système start-and-stop | 200 à 500 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **5 à 8 ans** | Première expertise après 5 ans, puis tous les 3 ans | Premières pièces d’usure (freins, pneus) | 500 à 1 000 | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
-| **8 ans et plus** | Tous les 2 ans | Embrayage, turbo, rouille, train roulant | 1 000 à 3 000 et plus | [Mediacar](https://www.mediacar.ch/wie-systematische-inspektionen-versteckte-probleme-aufdecken-bevor-sie-zu-5000-chf-reparaturen-werden/) |
+Les coûts de service se prévoient bien grâce aux intervalles fixes, les réparations non : elles dépendent de l’utilisation et de la fiabilité du véhicule. Dans le calcul des frais kilométriques du TCS, services et réparations représentent ensemble **8,3 % du coût total annuel** ; pour le véhicule de référence (prix catalogue CHF 39 000, 15 000 km, CHF 11 260 de frais par an), cela fait un peu plus de CHF 900 ([brochure TCS « Frais d’utilisation »](https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/brochure-frais-d-utilisation-2023.pdf)). Un carnet d’entretien complet montre quelles pièces d’usure ont déjà été remplacées et aide à planifier les réparations.
 
 **💡 Astuce :** une inspection systématique est une **stratégie financière** – elle évite les dommages en cascade
 grâce à la détection précoce.
