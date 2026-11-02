@@ -162,7 +162,7 @@ describe('titel der Ratgeber', () => {
   })
 
   it('stellen beim MFK-Ratgeber das Suchwort «MFK: Kosten und Prüfumfang» voran', () => {
-    const quelle = quellen['../../content/ratgeber/mfk-aufgebot.md']
+    const quelle = quellen['../../content/ratgeber/mfk-aufgebot.md']!
     expect(parseArticle('mfk-aufgebot', quelle).title).toMatch(/^MFK: Kosten und Prüfumfang/)
   })
 
@@ -186,7 +186,7 @@ describe('servicekosten im Ratgeber Wartungsintervalle', () => {
     expect(Object.keys(quellen)).toHaveLength(4)
     for (const [pfad, quelle] of Object.entries(quellen)) {
       const sprache = /\/(fr|it|en)\//.exec(pfad)?.[1] ?? 'de'
-      expect(quelle, pfad).toContain(broschuere[sprache])
+      expect(quelle, pfad).toContain(broschuere[sprache]!)
       expect(quelle, pfad).not.toMatch(/mediacar/i)
       expect(quelle, pfad).toMatch(/375/)
       expect(quelle, pfad).toMatch(/560/)
