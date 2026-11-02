@@ -73,10 +73,10 @@ describe('llms.txt', () => {
     expect(llms).toContain(`Betrieb: ${BUSINESS_VEHICLE_YEARLY_CHF} CHF pro Fahrzeug und Jahr`)
   })
 
-  it('verlinkt jeden Ratgeber-Artikel', () => {
+  it('verlinkt jeden Ratgeber-Artikel mit seinem aktuellen Titel', () => {
     expect(RATGEBER.length).toBeGreaterThan(0)
     for (const artikel of RATGEBER)
-      expect(llms, artikel.slug).toContain(`(https://wartungsheft.ch/ratgeber/${artikel.slug})`)
+      expect(llms, artikel.slug).toContain(`- [${artikel.title}](https://wartungsheft.ch/ratgeber/${artikel.slug})`)
   })
 
   it('sagt, dass auch die App vier Sprachen spricht', () => {

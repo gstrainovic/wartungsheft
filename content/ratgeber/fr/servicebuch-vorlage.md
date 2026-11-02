@@ -1,5 +1,5 @@
 ---
-title: "Modèle de carnet d’entretien (PDF) à imprimer : carnet de service gratuit pour la Suisse"
+title: "Modèle de carnet d’entretien (PDF) à imprimer : gratuit pour la Suisse"
 description: "Modèle de carnet d’entretien voiture en PDF pour la Suisse, avec MFK, intervalles d’entretien et kilométrage. Téléchargez gratuitement, imprimez et reconstituez l’historique de votre véhicule."
 date: 2026-10-13
 ---

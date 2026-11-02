@@ -152,6 +152,48 @@ describe('suchwort «Servicebuch»', () => {
   })
 })
 
+describe('titel der Ratgeber', () => {
+  const quellen = import.meta.glob('../../content/ratgeber/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+
+  it('bleiben unter 80 Zeichen, damit Google sie nicht abschneidet', () => {
+    expect(Object.keys(quellen).length).toBeGreaterThan(20)
+    for (const [pfad, quelle] of Object.entries(quellen))
+      expect(parseArticle('x', quelle).title.length, pfad).toBeLessThanOrEqual(80)
+  })
+
+  it('stellen beim MFK-Ratgeber das Suchwort «MFK: Kosten und Prüfumfang» voran', () => {
+    const quelle = quellen['../../content/ratgeber/mfk-aufgebot.md']
+    expect(parseArticle('mfk-aufgebot', quelle).title).toMatch(/^MFK: Kosten und Prüfumfang/)
+  })
+
+  it('nennen in der deutschen Übersicht nicht «Serviceheft», das Wort gehört der Startseite', () => {
+    const index = renderIndexPage([], 'de')
+    expect(index).toMatch(/<title>Ratgeber: [^<]*\| Wartungsheft<\/title>/)
+    expect(index).not.toMatch(/<title>[^<]*Serviceheft[^<]*\| Wartungsheft<\/title>/)
+  })
+})
+
+describe('servicekosten im Ratgeber Wartungsintervalle', () => {
+  const quellen = import.meta.glob('../../content/ratgeber/{,fr/,it/,en/}wartungsintervalle.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+  const broschuere: Record<string, string> = {
+    de: 'https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf',
+    fr: 'https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/brochure-frais-d-utilisation-2023.pdf',
+    it: 'https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/costi-d-esercizio-2023.pdf',
+    en: 'https://www.tcs.ch/mam/Digital-Media/PDF/Booklets/betriebskosten-broschuere-2023.pdf',
+  }
+
+  it('stützen sich in jeder Sprache auf die TCS-Broschüre Betriebskosten, nicht auf einen Anbieter-Blog', () => {
+    expect(Object.keys(quellen)).toHaveLength(4)
+    for (const [pfad, quelle] of Object.entries(quellen)) {
+      const sprache = /\/(fr|it|en)\//.exec(pfad)?.[1] ?? 'de'
+      expect(quelle, pfad).toContain(broschuere[sprache])
+      expect(quelle, pfad).not.toMatch(/mediacar/i)
+      expect(quelle, pfad).toMatch(/375/)
+      expect(quelle, pfad).toMatch(/560/)
+    }
+  })
+})
+
 describe('rechtsquellen in der Sprache des Artikels', () => {
   const quellen = import.meta.glob('../../content/ratgeber/{fr,it}/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
 

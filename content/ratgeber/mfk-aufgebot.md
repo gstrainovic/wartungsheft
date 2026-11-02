@@ -1,5 +1,5 @@
 ---
-title: MFK-Aufgebot: Was geprüft wird, was es kostet und was bei verpasstem Termin passiert
+title: "MFK: Kosten und Prüfumfang, Aufgebot verschieben, verpasster Termin"
 description: MFK in der Schweiz: Intervalle nach VTS Art. 33, Kosten pro Kanton, Termin verschieben, Checkliste zur Vorbereitung, häufige Mängel und Folgen bei verpasstem Termin. Schweizer Infos mit Quellen.
 date: 2026-10-13
 ---

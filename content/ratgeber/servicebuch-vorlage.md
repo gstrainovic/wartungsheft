@@ -1,5 +1,5 @@
 ---
-title: "Serviceheft-Vorlage (PDF) zum Ausdrucken: Kostenloses Servicebuch für die Schweiz"
+title: "Serviceheft-Vorlage (PDF) zum Ausdrucken: gratis Servicebuch für die Schweiz"
 description: "Kostenlose Servicebuch-Vorlage PDF für die Schweiz mit MFK, Serviceintervallen, Kilometerstand. Lade herunter, drucke aus und rekonstruiere die Wartungshistorie."
 date: 2026-10-13
 ---

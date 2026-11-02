@@ -1,5 +1,5 @@
 ---
-title: Vendere un'auto d'occasione: così un libretto di manutenzione completo aiuta il prezzo
+title: "Vendere un'auto d'occasione: il libretto di manutenzione completo rende di più"
 description: Quali documenti vogliono vedere gli acquirenti in Svizzera, cosa significa davvero «collaudata» e come fatture e libretto provano il chilometraggio.
 date: 2026-09-23
 ---

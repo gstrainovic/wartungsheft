@@ -44,7 +44,7 @@ const TEXTE: Record<Sprache, {
     impressum: 'Impressum',
     cta: '<strong>Serviceheft auf dem Handy:</strong> Werkstattrechnung fotografieren, Wartungsheft trägt Datum,\n        Kilometerstand und Arbeiten ein und erinnert vor Service und MFK.',
     knopf: '30 Tage gratis testen',
-    indexTitel: 'Ratgeber: Serviceheft, Wartung und Occasion | Wartungsheft',
+    indexTitel: 'Ratgeber: Wartung, MFK und Occasion | Wartungsheft',
     indexBeschreibung: 'Ratgeber für Autohalter in der Schweiz: Serviceheft führen, Wartung planen, Occasion verkaufen.',
   },
   fr: {

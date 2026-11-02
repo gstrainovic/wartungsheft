@@ -87,10 +87,6 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
         rund 80 deutsch: ADAC, Kantone Zürich, Basel, St. Gallen, Aargau, SRF, Blick, Nau, mediacar. Entscheid
         145c: erst mit der `coverage`-Prüfung vier Wochen nach den Anträgen entscheiden, ob diese je Aussage durch
         Quellen in der Sprache (TCS fr/it, Kantone VD, GE, TI, RTS, RSI) mit Text von Fable ersetzt werden.
-      - `wartungsintervalle` stützt die Servicekosten in allen Sprachen fünfmal auf einen Anbieter-Blog (mediacar.ch);
-        bessere Quelle suchen.
-      - `mfk-aufgebot` (de): Titel über 80 Zeichen; mit «MFK: Kosten und Prüfumfang» beginnen («mfk kosten» Platz 35).
-        Übersicht `/ratgeber` zieht «serviceheft» und konkurriert mit der Startseite: «Serviceheft» aus ihrem Titel.
       - Laut API sind de `serviceheft-verloren` und `occasion-verkaufen-serviceheft` «Google nicht bekannt», obwohl
         beantragt bzw. gecrawlt; in der Search Console prüfen, ob der Antrag vom 14.10. registriert ist.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in

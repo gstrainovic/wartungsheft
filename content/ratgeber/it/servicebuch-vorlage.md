@@ -1,5 +1,5 @@
 ---
-title: "Modello di libretto di manutenzione (PDF) da stampare: libretto gratuito per la Svizzera"
+title: "Modello di libretto di manutenzione (PDF) da stampare, gratis per la Svizzera"
 description: "Modello di libretto manutenzione auto PDF per la Svizzera con MFK, tagliandi, chilometraggio. Scarica gratis, stampa e ricostruisci la storia del tuo veicolo."
 date: 2026-10-13
 ---
