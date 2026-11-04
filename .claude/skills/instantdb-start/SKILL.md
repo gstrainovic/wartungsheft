@@ -51,7 +51,9 @@ Playwright, die Offline-Fixture). Darum reicht auf einem PC ohne Docker oder Pod
 am Code ändert sich nichts.
 
 - **Instanz** `wartungsheft-dev` im selben OpenStack-Projekt wie die Produktion (PCP-CTPZLR8, dc3-a, Flavor
-  `a2-ram4-disk50-perf1`, Debian 13, Docker CE), Zugriff `ssh debian@195.15.207.253` mit dem Key `claude-laptop`.
+  `a2-ram4-disk50-perf1`, Debian 13, Docker CE), Zugriff `ssh debian@<ip>` mit dem Key `claude-laptop`. Die IPv4 ändert sich bei
+  jedem Neuanlegen: `~/projects/tools/dev-instanz-wecken.sh wartungsheft-dev` nennt sie in der letzten Zeile, sonst
+  `openstack --os-cloud PCP-CTPZLR8-dc3-a server show wartungsheft-dev -c addresses`.
   Security Group `default`: nur 22, 80 und 443 offen; der Stack bindet 8888 ausschliesslich auf `127.0.0.1`.
 - **Stack** in `/opt/instant`: `docker-compose.dev.yml` (Postgres 17, MinIO, `ghcr.io/instantdb/server:latest` mit 2-GB-Heap,
   gleiche Images wie Produktion, ohne Caddy und Dashboard), Passwörter in `/opt/instant/.env`, AEAD-Schlüssel des
@@ -61,7 +63,7 @@ am Code ändert sich nichts.
 - **Ablauf auf dem anderen PC** (braucht Node, Git, Playwright-Browser, den SSH-Key und `.env` aus der Mail an sich selbst):
 
   ```bash
-  ssh -N -L 8888:localhost:8888 debian@195.15.207.253 &   # Tunnel, läuft im Hintergrund
+  ssh -N -L 8888:localhost:8888 debian@<ip> &   # Tunnel, läuft im Hintergrund; <ip> vom Laptop (dev-instanz-wecken.sh)
   npm run dev          # dev.sh sieht «InstantDB already running», startet nur Vite und AI-Proxy
   npm run test:e2e     # Playwright übernimmt den laufenden Port 8888 (reuseExistingServer)
   ```
@@ -69,10 +71,12 @@ am Code ändert sich nichts.
   Kein Podman, kein `~/instant`-Checkout nötig. Offline-Tests funktionieren, sie blockieren `localhost:8888` im Browser.
 - **Stack bedienen** (auf der Instanz, in `/opt/instant`): `docker compose -f docker-compose.dev.yml --env-file .env ps|logs|restart server`.
   Nach `up -d` dauert es rund eine Minute, bis 8888 antwortet; `curl localhost:8888/health/system` muss `{"wal":"ok"}` liefern.
-- **Kosten**: läuft sie, kostet sie wie die Produktion (rund 13 CHF im Monat mit IPv4). Wird sie länger nicht gebraucht:
-  `openstack --os-cloud PCP-CTPZLR8-dc3-a server shelve wartungsheft-dev` (kein CPU/RAM/Disk mehr, nur Snapshot und IPv4,
-  IP bleibt), zurück mit `server unshelve`, danach `up -d` läuft dank `restart: unless-stopped` von selbst.
-  Der Kostenwächter `~/.local/bin/wartungsheft-cost-watch` rechnet geshelvte Instanzen ohne Compute, Limit 30 CHF.
+- **Kosten**: läuft sie, kostet sie wie die Produktion (rund 13 CHF im Monat mit IPv4). Nach 2 h ohne SSH-Verbindung
+  schaltet sie sich ab, der Kostenwächter `~/.local/bin/wartungsheft-cost-watch` legt sie danach still
+  (`~/projects/tools/dev-instanz-stilllegen.sh wartungsheft-dev`: geschütztes Image `wartungsheft-dev-sicherung-<JJJJMMTT>`,
+  Instanz gelöscht, es bleibt nur das Image). Nie ablegen (`shelve`): abgelegte Instanzen zahlen die IPv4 weiter.
+  Zurück mit `dev-instanz-wecken.sh wartungsheft-dev` (legt sie aus der neuesten Sicherung neu an, neue IPv4), danach
+  läuft der Stack dank `restart: unless-stopped` von selbst.
 - **Neu aufsetzen**: Dump der lokalen Dev-DB (`podman exec server_postgres_1 pg_dump -U instant -Fc instant > dev.dump`)
   nach `/opt/instant`, dann `pg_restore -U instant -d instant --no-owner < dev.dump` in den laufenden Postgres,
   `truncate attr_sketches, wal_aggregator_status, wal_logs` (abgeleitete Daten, sonst stirbt der Serverstart an

@@ -58,9 +58,11 @@ npm run test:unit    # Vitest: src/**/*.test.ts (die AI-Proxy-Tests liegen im Re
 npm run test:sw      # Service-Worker-Update über zwei Produktions-Builds (e2e-sw/); nach Änderungen an PWA-Konfiguration oder registerSW
 npm run dev:proxy    # AI-Proxy lokal aus node_modules/@strainovic/ai-proxy (liest .env, Port 8787)
 
-Dev-Instanz `wartungsheft-dev` (InstantDB per SSH-Tunnel, `ssh debian@195.15.207.253`) schaltet sich nach 2 h
-ohne SSH-Verbindung ab und wird beim nächsten Akquise-Lauf zurückgestellt. Vor dem Tunnel wecken:
-`~/projects/tools/dev-instanz-wecken.sh wartungsheft-dev` (braucht `openstack` und `~/.config/openstack/clouds.yaml`).
+Dev-Instanz `wartungsheft-dev` (InstantDB per SSH-Tunnel) schaltet sich nach 2 h ohne SSH-Verbindung ab und wird beim
+nächsten Akquise-Lauf stillgelegt (geschütztes Image `wartungsheft-dev-sicherung-<JJJJMMTT>`, Instanz gelöscht). Vor dem
+Tunnel wecken: `~/projects/tools/dev-instanz-wecken.sh wartungsheft-dev` (braucht `openstack` und
+`~/.config/openstack/clouds.yaml`); es legt sie bei Bedarf aus der Sicherung neu an und nennt in der letzten Zeile die
+IPv4, die sich dabei jedes Mal ändert.
 
 ## Architecture
 Vue 3 + PrimeVue + Pinia + **InstantDB** (self-hosted) + Vercel AI SDK v6 + PWA + **AI-Proxy** (eigenes Repo `~/projects/ai-proxy`, Paket `@strainovic/ai-proxy` via `file:../ai-proxy`)
