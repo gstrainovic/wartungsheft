@@ -51,7 +51,7 @@ Stolperstellen behoben sind; sonst kosten Klicks Geld, die an der App scheitern.
 
 ### Marketing-Video
 - [ ] Sprechertexte FR, IT, EN von Muttersprachlern prüfen lassen (`video-scripts/sprechertexte.md`, letzter
-      Abschnitt); geänderte Sätze kosten neue Credits, das ElevenLabs-Abo läuft bis 04.11.2026
+      Abschnitt); geänderte Sätze kosten neue Credits, das ElevenLabs-Abo (Creator) läuft weiter, weil ki-tel es für die Sprachausgabe braucht
 - [ ] Kurzfassungen für Social veröffentlichen: `video-out/social-<name>.mp4` (je rund 20 Sekunden, 1080×1920) beim
       ersten Beitrag oder der ersten Anzeige einsetzen
 
