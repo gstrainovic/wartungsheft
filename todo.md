@@ -63,10 +63,8 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
 
 - [ ] **Deutsche Ratgeber indexieren:** `/ratgeber/mfk-aufgebot` und `/ratgeber/wartungsintervalle` sind seit dem
       Antrag vom 14.10.2026 indexiert (`gsc inspect` 31.10.: «Gesendet und indexiert»); `/ratgeber/serviceheft-verloren`
-      steht am 31.10. auf «Gefunden – zurzeit nicht indexiert» (noch nicht gecrawlt). Den Antrag in der Search Console
-      wiederholen (am 31.10. öffnete sich die URL-Prüfung per playwright-cli nicht, Enter im Suchfeld griff nicht; von
-      Hand in Chrome oder Weg im Skill `browser-wahl` nachbessern); Mitte November `gsc --site wartungsheft.ch inspect
-      <url>`; bleibt es bei
+      steht am 06.11. auf «Gefunden – zurzeit nicht indexiert» (noch nicht gecrawlt), Indexierung am 06.11. erneut
+      beantragt («Indexierung wurde beantragt»). Mitte November `gsc --site wartungsheft.ch inspect <url>`; bleibt es bei
       «gecrawlt, nicht indexiert», liegt es am Inhalt, nicht am Antrag. Gesamtbild `gsc coverage` 15.10.: 36 von 52
       Sitemap-Seiten indexiert; nicht indexiert sind fast nur Ratgeber (de: `was-kostet-ein-auto`,
       `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`; fr/it/en mehrere), dazu `/fr/anlagen`.
