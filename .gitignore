@@ -37,6 +37,7 @@ test-results/
 
 tmp/
 .playwright-mcp/
+.playwright-cli/
 
 # Tesseract.js cached language data
 *.traineddata
