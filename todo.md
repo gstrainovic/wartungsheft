@@ -78,7 +78,12 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
       `werkstattrechnung-verstehen`, `occasion-verkaufen-serviceheft`, `serviceheft-verloren`, `wartungsintervalle`,
       `servicebuch-vorlage` und en `occasion-verkaufen-serviceheft` (davor alle «nicht auf Google» ausser fr
       `werkstattrechnung-verstehen`). Vier Wochen danach mit
-      `gsc --site wartungsheft.ch coverage` prüfen. Bis dahin keine neuen Ratgeber. Offen aus der Analyse:
+      `gsc --site wartungsheft.ch coverage` prüfen. Bis dahin keine neuen Ratgeber. Prüfung 18.11.: 42 von 52
+      Sitemap-Seiten indexiert (15.10.: 36). Nicht indexiert: de `was-kostet-ein-auto` (gecrawlt 10.11., nicht
+      indexiert), de `serviceheft-verloren` und `occasion-verkaufen-serviceheft` (Google nicht bekannt), fr und it
+      `servicebuch-vorlage`, fr `serviceheft-verloren` (gecrawlt, nicht indexiert), fr/it/en
+      `occasion-verkaufen-serviceheft`, `/fr/anlagen`. Ob die deutschen Quellen in fr/it ersetzt werden: Frage 1131.
+      Offen aus der Analyse:
       - fr- und it-Fassungen verlinken überwiegend deutschsprachige Quellen, möglicher Grund der schlechteren
         Indexierung. Links auf TCS, AGVS, Autoscout24, Hersteller, justement.ch und ch.ch zeigen auf die
         Sprachfassung derselben Seite (Test in `ratgeber.test.ts` für justement.ch und ch.ch). Je Sprache bleiben
@@ -89,7 +94,8 @@ eingereicht) und IndexNow (`npm run indexnow`), search.ch per Add-URL. Einstiegs
         beantragt bzw. gecrawlt; in der Search Console prüfen, ob der Antrag vom 14.10. registriert ist.
 - [ ] **«servicebuch auto» nach oben bringen:** 2400 Suchen/Monat, Wettbewerb tief, Platz 9,7 bei nur 9 Impressionen in
       90 Tagen. Steht im Titel der Startseite; «Occasion verkaufen» und «Serviceheft verloren» verlinken mit Ankertext
-      «Servicebuch» auf die Startseite (live seit 18.10.). Platzierung Mitte November mit `gsc queries --days 28` prüfen
+      «Servicebuch» auf die Startseite (live seit 18.10.). Stand 18.11. (`gsc queries --days 28`): «servicebuch» Platz
+      5,7 bei 3 Impressionen, «servicebuch auto» Platz 6,0 bei 1 Impression, noch kein Klick; Ende Dezember erneut prüfen
 
 ### Messen, nebenbei
 - [ ] Wöchentlich Zahlen ziehen (Caddy-Log, `events`, Anmeldungen, Bestellungen, Postfach, README Abschnitt 6) und in
