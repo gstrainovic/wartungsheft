@@ -140,7 +140,9 @@ und bekommt `deploy/dist` als `/srv/app` gemountet; der AI-Proxy hängt im Docke
 ### 1. InstantDB nach offiziellem Guide aufsetzen
 
 Dem VPS-Guide folgen (`docker-compose.with-caddy.yml`, `.env` mit `BACKEND_DOMAIN`, `DASHBOARD_DOMAIN`,
-`STORAGE_DOMAIN`, generierte Passwörter). Dazu `docker-compose.override.yml` mit `JAVA_OPTS=-Xmx2g -Xms2g`,
+`STORAGE_DOMAIN`, generierte Passwörter). Dazu `docker-compose.override.yml` mit
+`JAVA_OPTS=-Xmx2g -Xms2g -XX:-UseBASE64Intrinsics` (das Flag schliesst Java4Shell unabhängig vom Prozessor, solange
+das Image ein JDK ohne Fix mitbringt; Gorans Entscheid 1174a),
 `restart: unless-stopped`, MinIO-Images von `quay.io/minio/*` (auf Docker Hub gibt es `minio/minio` und `minio/mc`
 nicht mehr) und den Caddy-Mounts für `deploy/Caddyfile` und `deploy/dist`. Start und alle weiteren Befehle immer mit
 beiden Compose-Dateien:
