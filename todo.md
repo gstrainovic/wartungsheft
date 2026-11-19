@@ -134,6 +134,11 @@ automatischer Abbuchung (`~/projects/find-jobs/akquise/abo-regeln.md`; Abwägung
 - [ ] Settings: nach Rückkehr vom Checkout Nutzung neu laden und Toast zeigen
 - [ ] Limit-Meldung im Chat mit Link zu den Einstellungen statt nur Text
 
+- [ ] InstantDB-Server in Produktion läuft auf Corretto 26.0.2.1 (Image vom 13.09.2026); JDK 26 bekommt keine Updates
+      mehr, die CVEs des OpenJDK-Advisories vom 17.11.2026 bleiben offen. Java4Shell selbst ist auf der Instanz nicht
+      ausnutzbar (EPYC-Rome ohne AVX-512). Prüfen, ob ein neueres `ghcr.io/instantdb/server` mit JDK 25.0.5.0.3+ oder
+      27.0.1.0.3+ läuft, und neu ziehen. Beleg: `../find-jobs/sicherheit/java4shell-2026-11.md`.
+
 ## Geparkt
 
 - [ ] InstantDB-Client auf 1.x heben (`@instantdb/core` + `@instantdb/admin` auf 0.22.121 gepinnt, lokaler Server-Checkout `~/instant` vom 02.02.2026; Produktion läuft schon mit Server-Image `latest`). Erst lokalen Server aktualisieren, dann beide Pakete gemeinsam, dann E2E + `npm run test:unit`. Nicht während eines laufenden Pilots.
