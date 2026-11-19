@@ -138,6 +138,10 @@ automatischer Abbuchung (`~/projects/find-jobs/akquise/abo-regeln.md`; Abwägung
       mehr, die CVEs des OpenJDK-Advisories vom 17.11.2026 bleiben offen. Java4Shell selbst ist auf der Instanz nicht
       ausnutzbar (EPYC-Rome ohne AVX-512). Prüfen, ob ein neueres `ghcr.io/instantdb/server` mit JDK 25.0.5.0.3+ oder
       27.0.1.0.3+ läuft, und neu ziehen. Beleg: `../find-jobs/sicherheit/java4shell-2026-11.md`.
+      Der Code ist in JDK 26 fehlerhaft; ausnutzbar würde er, sobald Infomaniak die Instanz auf einen Prozessor mit
+      AVX-512 VBMI legt. Vorbeugend `-XX:-UseBASE64Intrinsics` an `JAVA_OPTS` (heute `-Xmx2g -Xms2g`) in
+      `/opt/instant/docker-compose.override.yml` hängen und `instant-server` neu erstellen (kurzer Ausfall);
+      vorläufig bis Frage 1174 nicht umgesetzt.
 
 ## Geparkt
 
